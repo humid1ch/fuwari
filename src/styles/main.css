@@ -1,8 +1,59 @@
 @tailwind components;
 
+@font-face {
+    font-family: 'FiraCode Nerd Nono';
+    src: url('/public/font/FiraCodeNerdMono.woff2') format('woff2');
+    font-weight: 400; 
+    font-style: normal;
+    /* font-display: swap;  可选，控制字体加载时的显示行为 */
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Mono Thin';
+    src: url('/public/font/FiraCodeNerdMono.woff2') format('woff2');
+    font-weight: 400; 
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HarmonyOS Sans SC Medium';
+    src: url('/public/font/HarmonyOS_Sans_SC_Medium.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HarmonyOS Sans SC Regular';
+    src: url('/public/font/HarmonyOS_Sans_SC_Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Maple Mono Normal Medium';
+    src: url('/public/font/MapleMonoNormal-Medium.ttf.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Maple Mono Normal Regular';
+    src: url('/public/font/MapleMonoNormal-Regular.ttf.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
 @layer components {
+    * {
+        font-family: 'Maple Mono Normal Medium', 'HarmonyOS Sans SC Medium';
+    }
     .card-base {
         @apply rounded-[var(--radius-large)] overflow-hidden bg-[var(--card-bg)] transition;
+        opacity: 0.88 !important;
+
+        .text-3xl {
+            font-size: 1.6rem
+        }
     }
     h1, h2, h3, h4, h5, h6, p, a, span, li, ul, ol, blockquote, code, pre, table, th, td, strong {
         @apply transition;

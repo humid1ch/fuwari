@@ -37,7 +37,8 @@
     code {
         @apply bg-[var(--inline-code-bg)] text-[var(--inline-code-color)] px-1 py-0.5 rounded-md overflow-hidden;
 
-        font-family: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+        font-family: 'Maple Mono Normal Medium', 'HarmonyOS Sans SC Medium';
+        font-weight: 400;
         &:before {
             content:none;
         }
@@ -57,6 +58,28 @@
                 display: none;
             }
         }
+
+        cursor: pointer;
+
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+
+    .expressive-code .ec-line.active {
+      background-color: #2f3347; /* 高亮背景 */
+      /* left: -1rem;   把背景往左扩展 */
+    }
+
+    td code {
+        font-size: 14px;
+    }
+
+    pre code {
+      cursor: text;
+    }
+
+    strong code {
+        font-weight: 600;
     }
 
     .copy-btn {
@@ -100,16 +123,18 @@
     blockquote {
         @apply not-italic border-transparent relative;
         font-weight: inherit;
+        font-size: 0.95rem;
+        border-radius: .5rem;
+        /* background-color: ; */
 
         &:before {
-            @apply content-[''] absolute -left-1 block transition bg-[var(--btn-regular-bg)] h-full w-1 rounded-full;
+            @apply content-[''] absolute -left-1 block transition bg-[var(--btn-regular-bg-hover)] h-full w-1 rounded-full;
         }
 
         /* Remove the double quotes from default styles */
         p:before, p:after {
             @apply content-none;
         }
-
     }
 
     .katex-display-container {
@@ -118,4 +143,8 @@
         margin: 1em 0;
     }
     
+    p > img {
+        display: block;
+        margin: auto;
+    }
 }
