@@ -5,16 +5,16 @@ export type SiteConfig = {
 	subtitle: string;
 
 	lang:
-		| "en"
-		| "zh_CN"
-		| "zh_TW"
-		| "ja"
-		| "ko"
-		| "es"
-		| "th"
-		| "vi"
-		| "tr"
-		| "id";
+	| "en"
+	| "zh_CN"
+	| "zh_TW"
+	| "ja"
+	| "ko"
+	| "es"
+	| "th"
+	| "vi"
+	| "tr"
+	| "id";
 
 	themeColor: {
 		hue: number;
@@ -89,6 +89,7 @@ export type BlogPostData = {
 	description: string;
 	tags: string[];
 	draft?: boolean;
+	comments?: boolean;
 	image?: string;
 	category?: string;
 	prevTitle?: string;
@@ -100,3 +101,20 @@ export type BlogPostData = {
 export type ExpressiveCodeConfig = {
 	theme: string;
 };
+
+export type CommentConfig = {
+	waline?: WalineConfig
+}
+
+type WalineConfig = {
+	serverURL: string
+	lang?: string
+	dark?: string | boolean
+	emoji?: string[]
+	meta?: ('nick' | 'mail' | 'link')[]
+	requiredMeta?: ('nick' | 'mail' | 'link')[]
+	login?: boolean,
+	reaction?: boolean
+	pageview?: boolean
+	wordLimit?: [number, number]
+}

@@ -1,0 +1,48 @@
+---
+import { commentConfig } from "@/config";
+
+interface Props {
+    path: string;
+}
+
+const config = {
+    ...commentConfig.waline,
+    el: "#waline",
+    path: Astro.props.path,
+};
+---
+
+<!-- Waline --><!-- <div class="relative w-full">
+    <div id="waline"></div>
+    <link rel="stylesheet" href="/waline_css/waline.css" />
+    <script type="module" is:inline define:vars={{ config }}>
+        import { init } from "/waline_js/waline.js";
+        init(config);
+    </script>
+</div> -->
+<div class="relative w-full mb-8 mt-8">
+    <div id="waline"></div>
+    <link rel="stylesheet" href="/waline_css/waline.css" />
+    <script
+        type="module"
+        is:inline
+        define:vars={{ baseConfig: commentConfig.waline }}
+    >
+        import { init } from "/waline_js/waline.js";
+
+        let walineInstance;
+
+        const mountWaline = () => {
+            if (walineInstance) walineInstance.destroy();
+            walineInstance = init({
+                ...baseConfig,
+                el: "#waline",
+                path: location.pathname, // ✅ 动态路径
+            });
+        };
+
+        mountWaline();
+
+        document.addEventListener("astro:after-swap", mountWaline);
+    </script>
+</div>

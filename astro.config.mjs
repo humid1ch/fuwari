@@ -24,6 +24,26 @@ import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-copy-button.js";
 
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// 读取并确保格式正确
+const rawGrammar = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'src/syntaxes/Cangjie.tmLanguage.json'), 'utf-8')
+);
+
+// Shiki 需要的格式
+const cangjieGrammar = {
+  ...rawGrammar,
+  // 确保这些字段存在
+  name: rawGrammar.name || 'Cangjie',
+  scopeName: rawGrammar.scopeName || 'source.cj',
+};
+
 // https://astro.build/config
 export default defineConfig({
 	site: "https://fuwari.vercel.app/",
@@ -75,9 +95,9 @@ export default defineConfig({
 				codeBackground: "var(--codeblock-bg)",
 				borderRadius: "0.75rem",
 				borderColor: "none",
-				codeFontSize: "0.875rem",
-				codeFontFamily: "'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-				codeLineHeight: "1.5rem",
+				codeFontSize: "0.925rem",
+				codeFontFamily: "'Maple Mono Normal Medium', 'HarmonyOS Sans SC Medium'",
+				codeLineHeight: "1.41414rem",
 				frames: {
 					editorBackground: "var(--codeblock-bg)",
 					terminalBackground: "var(--codeblock-bg)",
@@ -97,7 +117,14 @@ export default defineConfig({
 			},
 			frames: {
 				showCopyToClipboardButton: false,
-			}
+			},
+			shiki: {
+		        // You can pass additional plugin options here,
+		        // e.g. to load custom language grammars:
+		        langs: [
+          			cangjieGrammar,  // 直接传入语法对象，不需要包装
+		        ],
+		    },
 		}),
         svelte(),
 		sitemap(),
