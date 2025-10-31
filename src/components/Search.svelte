@@ -226,34 +226,3 @@ top-20 left-4 md:left-[unset] right-4 shadow-2xl rounded-2xl p-2">
     overflow-y: auto;
   }
 </style>
-
-<!-- 在同一个 Astro 组件或 layout 中添加 script -->
-<script>
-  // 监听所有带有 search-result 类的链接点击
-  document.addEventListener('click', (e) => {
-    const link = e.target.closest('a.search-result');
-    if (link && link.href) {
-      // 标记：这次导航来自 search-result，不要清空搜索框
-      sessionStorage.setItem('skipSearchClear', 'true');
-    }
-  });
-</script>
-
-<script>
-  window.addEventListener('astro:page-load', () => {
-    // 检查是否应跳过清空
-    const skipClear = sessionStorage.getItem('skipSearchClear') === 'true';
-
-    if (skipClear) {
-      // 不清空，并清除标记
-      sessionStorage.removeItem('skipSearchClear');
-      return;
-    }
-
-    // 👇 正常情况：清空搜索框
-    const searchInput = document.querySelector('#search-bar input');
-    if (searchInput) {
-      searchInput.value = '';
-    }
-  });
-</script>
