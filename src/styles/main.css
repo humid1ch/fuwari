@@ -7,18 +7,45 @@
   font-style: normal;
 }
 
+html {
+  background-color: var(--page-bg);
+}
+
+body {
+  margin: 0;
+}
+
+.deco-shape {
+  position: fixed; /* 相对于 html */
+  background-color: var(--primary);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: -1;
+}
+
 @layer components {
   * {
     font-family: "Maple Mono Normal Medium";
   }
   .card-base {
     @apply rounded-[var(--radius-large)] overflow-hidden bg-[var(--card-bg)] transition;
-    opacity: 0.88 !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
 
     .text-3xl {
       font-size: 1.6rem;
     }
   }
+  #navbar .card-base {
+    @apply bg-[var(card-bg-trans60)];
+  }
+
+  .back-to-top-btn,
+  .float-panel {
+    backdrop-filter: blur(11px) !important;
+    -webkit-backdrop-filter: blur(11px) !important;
+  }
+
   h1,
   h2,
   h3,
