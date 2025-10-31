@@ -5,44 +5,97 @@ interface Props {
     path: string;
 }
 
-const config = {
-    ...commentConfig.waline,
-    el: "#waline",
-    path: Astro.props.path,
-};
+// 将配置序列化为 JSON,避免 define:vars 问题
+const walineConfigJson = JSON.stringify(commentConfig.waline);
 ---
 
-<!-- Waline --><!-- <div class="relative w-full">
-    <div id="waline"></div>
-    <link rel="stylesheet" href="/waline_css/waline.css" />
-    <script type="module" is:inline define:vars={{ config }}>
-        import { init } from "/waline_js/waline.js";
-        init(config);
-    </script>
-</div> -->
 <div class="relative w-full mb-8 mt-8">
-    <div id="waline"></div>
-    <link rel="stylesheet" href="/waline_css/waline.css" />
-    <script
-        type="module"
-        is:inline
-        define:vars={{ baseConfig: commentConfig.waline }}
-    >
-        import { init } from "/waline_js/waline.js";
-
-        let walineInstance;
-
-        const mountWaline = () => {
-            if (walineInstance) walineInstance.destroy();
-            walineInstance = init({
-                ...baseConfig,
-                el: "#waline",
-                path: location.pathname, // ✅ 动态路径
-            });
-        };
-
-        mountWaline();
-
-        document.addEventListener("astro:after-swap", mountWaline);
-    </script>
+    <div id="waline" data-waline-config={walineConfigJson}></div>
 </div>
+
+<link rel="stylesheet" href="/waline_css/waline.css" />
+
+<!-- 全局初始化脚本,只在第一次加载时执行 -->
+<script>
+    import { init } from "/public/waline_js/waline.js";
+
+    // 全局初始化标志
+    if (typeof window.walineHandlerSetup === 'undefined') {
+        window.walineHandlerSetup = false;
+    }
+
+    const mountWaline = () => {
+        const el = document.querySelector('#waline');
+        if (!el) {
+            console.warn('[Waline] Container not found');
+            return;
+        }
+
+        const configStr = el.getAttribute('data-waline-config');
+        if (!configStr) {
+            console.error('[Waline] No config found');
+            return;
+        }
+
+        let config;
+        try {
+            config = JSON.parse(configStr);
+        } catch (e) {
+            console.error('[Waline] Failed to parse config:', e);
+            return;
+        }
+
+        try {
+            // 关键修改:页面切换时销毁旧实例并重新创建
+            if (window.walineInstance) {
+                console.log('[Waline] Destroying old instance');
+                try {
+                    // 尝试调用 destroy 方法
+                    if (typeof window.walineInstance.destroy === 'function') {
+                        window.walineInstance.destroy();
+                    }
+                } catch (e) {
+                    console.warn('[Waline] Destroy failed:', e);
+                }
+                window.walineInstance = null;
+            }
+
+            // 清空容器内容
+            el.innerHTML = '';
+
+            // 重新初始化
+            console.log('[Waline] Initializing for:', location.pathname);
+            window.walineInstance = init({
+                ...config,
+                el: '#waline',
+                path: location.pathname,
+            });
+
+        } catch (error) {
+            console.error('[Waline] Initialization error:', error);
+        }
+    };
+
+    // 只设置一次事件监听器
+    if (!window.walineHandlerSetup) {
+        console.log('[Waline] Setting up handlers (once)');
+        window.walineHandlerSetup = true;
+
+        // 首次加载
+        if (document.readyState === 'loading') {
+            document.addEventListener("DOMContentLoaded", mountWaline);
+        } else {
+            setTimeout(mountWaline, 0);
+        }
+
+        // 页面切换
+        document.addEventListener("astro:page-load", () => {
+            // 使用 setTimeout 确保 DOM 已更新
+            setTimeout(mountWaline, 100);
+        });
+
+    } else {
+        // 如果监听器已设置,直接执行挂载
+        setTimeout(mountWaline, 100);
+    }
+</script>

@@ -13,158 +13,154 @@ let isSearching = false;
 let pagefindLoaded = false;
 let initialized = false;
 
+// 添加一个标志来跟踪是否是通过搜索结果跳转的
+let isFromSearchResult = false;
+
+// 页面加载时检查是否是搜索结果跳转
+onMount(() => {
+    // 检查是否是从搜索结果页面跳转过来的
+    const searchResultJump = sessionStorage.getItem('searchResultJump');
+    if (searchResultJump) {
+        isFromSearchResult = true;
+        sessionStorage.removeItem('searchResultJump');
+    } else {
+        // 非搜索结果跳转，清空搜索框
+        keywordDesktop = "";
+        keywordMobile = "";
+        result = [];
+    }
+
+    const initializeSearch = () => {
+        initialized = true;
+        pagefindLoaded =
+            typeof window !== "undefined" &&
+            !!window.pagefind &&
+            typeof window.pagefind.search === "function";
+        console.log("Pagefind status on init:", pagefindLoaded);
+        if (keywordDesktop) search(keywordDesktop, true);
+        if (keywordMobile) search(keywordMobile, false);
+    };
+
+    if (import.meta.env.DEV) {
+        console.log(
+            "Pagefind is not available in development mode. Using mock data.",
+        );
+        initializeSearch();
+    } else {
+        document.addEventListener("pagefindready", () => {
+            console.log("Pagefind ready event received.");
+            initializeSearch();
+        });
+        document.addEventListener("pagefindloaderror", () => {
+            console.warn(
+                "Pagefind load error event received. Search functionality will be limited.",
+            );
+            initializeSearch(); // Initialize with pagefindLoaded as false
+        });
+
+        // Fallback in case events are not caught or pagefind is already loaded by the time this script runs
+        setTimeout(() => {
+            if (!initialized) {
+                console.log("Fallback: Initializing search after timeout.");
+                initializeSearch();
+            }
+        }, 2000); // Adjust timeout as needed
+    }
+});
+
 const fakeResult: SearchResult[] = [
-	{
-		url: url("/"),
-		meta: {
-			title: "This Is a Fake Search Result",
-		},
-		excerpt:
-			"Because the search cannot work in the <mark>dev</mark> environment.",
-	},
-	{
-		url: url("/"),
-		meta: {
-			title: "If You Want to Test the Search",
-		},
-		excerpt: "Try running <mark>npm build && npm preview</mark> instead.",
-	},
+    {
+        url: url("/"),
+        meta: {
+            title: "This Is a Fake Search Result",
+        },
+        excerpt:
+            "Because the search cannot work in the <mark>dev</mark> environment.",
+    },
+    {
+        url: url("/"),
+        meta: {
+            title: "If You Want to Test the Search",
+        },
+        excerpt: "Try running <mark>npm build && npm preview</mark> instead.",
+    },
 ];
 
 const togglePanel = () => {
-	const panel = document.getElementById("search-panel");
-	panel?.classList.toggle("float-panel-closed");
+    const panel = document.getElementById("search-panel");
+    panel?.classList.toggle("float-panel-closed");
 };
 
 const setPanelVisibility = (show: boolean, isDesktop: boolean): void => {
-	const panel = document.getElementById("search-panel");
-	if (!panel || !isDesktop) return;
+    const panel = document.getElementById("search-panel");
+    if (!panel || !isDesktop) return;
 
-	if (show) {
-		panel.classList.remove("float-panel-closed");
-	} else {
-		panel.classList.add("float-panel-closed");
-	}
+    if (show) {
+        panel.classList.remove("float-panel-closed");
+    } else {
+        panel.classList.add("float-panel-closed");
+    }
 };
 
 const search = async (keyword: string, isDesktop: boolean): Promise<void> => {
-	if (!keyword) {
-		setPanelVisibility(false, isDesktop);
-		result = [];
-		return;
-	}
+    if (!keyword) {
+        setPanelVisibility(false, isDesktop);
+        result = [];
+        return;
+    }
 
-	if (!initialized) {
-		return;
-	}
+    if (!initialized) {
+        return;
+    }
 
-	isSearching = true;
+    isSearching = true;
 
-	try {
-		let searchResults: SearchResult[] = [];
+    try {
+        let searchResults: SearchResult[] = [];
 
-		if (import.meta.env.PROD && pagefindLoaded && window.pagefind) {
-			const response = await window.pagefind.search(keyword);
-			searchResults = await Promise.all(
-				response.results.map((item) => item.data()),
-			);
-		} else if (import.meta.env.DEV) {
-			searchResults = fakeResult;
-		} else {
-			searchResults = [];
-			console.error("Pagefind is not available in production environment.");
-		}
+        if (import.meta.env.PROD && pagefindLoaded && window.pagefind) {
+            const response = await window.pagefind.search(keyword);
+            searchResults = await Promise.all(
+                response.results.map((item) => item.data()),
+            );
+        } else if (import.meta.env.DEV) {
+            searchResults = fakeResult;
+        } else {
+            searchResults = [];
+            console.error("Pagefind is not available in production environment.");
+        }
 
-		result = searchResults;
-		setPanelVisibility(result.length > 0, isDesktop);
-	} catch (error) {
-		console.error("Search error:", error);
-		result = [];
-		setPanelVisibility(false, isDesktop);
-	} finally {
-		isSearching = false;
-	}
+        result = searchResults;
+        setPanelVisibility(result.length > 0, isDesktop);
+    } catch (error) {
+        console.error("Search error:", error);
+        result = [];
+        setPanelVisibility(false, isDesktop);
+    } finally {
+        isSearching = false;
+    }
 };
 
-onMount(() => {
-	const initializeSearch = () => {
-		initialized = true;
-		pagefindLoaded =
-			typeof window !== "undefined" &&
-			!!window.pagefind &&
-			typeof window.pagefind.search === "function";
-		console.log("Pagefind status on init:", pagefindLoaded);
-		if (keywordDesktop) search(keywordDesktop, true);
-		if (keywordMobile) search(keywordMobile, false);
-	};
-
-	if (import.meta.env.DEV) {
-		console.log(
-			"Pagefind is not available in development mode. Using mock data.",
-		);
-		initializeSearch();
-	} else {
-		document.addEventListener("pagefindready", () => {
-			console.log("Pagefind ready event received.");
-			initializeSearch();
-		});
-		document.addEventListener("pagefindloaderror", () => {
-			console.warn(
-				"Pagefind load error event received. Search functionality will be limited.",
-			);
-			initializeSearch(); // Initialize with pagefindLoaded as false
-		});
-
-		// Fallback in case events are not caught or pagefind is already loaded by the time this script runs
-		setTimeout(() => {
-			if (!initialized) {
-				console.log("Fallback: Initializing search after timeout.");
-				initializeSearch();
-			}
-		}, 2000); // Adjust timeout as needed
-	}
-
-	// 👇 新增：处理 astro:page-load 和 search-result 标记
-	const handleSearchResultClick = (e: MouseEvent) => {
-		const target = e.target as HTMLElement;
-		if (target.closest?.('a.search-result')) {
-			sessionStorage.setItem('skipSearchClear', 'true');
-		}
-	};
-
-	document.addEventListener('click', handleSearchResultClick);
-
-	const handlePageLoad = () => {
-		const skipClear = sessionStorage.getItem('skipSearchClear') === 'true';
-		if (skipClear) {
-			sessionStorage.removeItem('skipSearchClear');
-			return;
-		}
-		keywordDesktop = '';
-		keywordMobile = '';
-		result = [];
-		setPanelVisibility(false, true);
-		setPanelVisibility(false, false);
-	};
-
-	window.addEventListener('astro:page-load', handlePageLoad);
-
-	return () => {
-		document.removeEventListener('click', handleSearchResultClick);
-		window.removeEventListener('astro:page-load', handlePageLoad);
-	};
-});
+// 修改搜索结果的点击处理
+const handleSearchResultClick = (itemUrl: string) => {
+    // 标记这是从搜索结果跳转的
+    sessionStorage.setItem('searchResultJump', 'true');
+    // 延迟一小段时间再跳转，确保sessionStorage设置生效
+    setTimeout(() => {
+        window.location.href = itemUrl;
+    }, 10);
+};
 
 $: if (initialized && keywordDesktop) {
-	(async () => {
-		await search(keywordDesktop, true);
-	})();
+    (async () => {
+        await search(keywordDesktop, true);
+    })();
 }
 
 $: if (initialized && keywordMobile) {
-	(async () => {
-		await search(keywordMobile, false);
-	})();
+    (async () => {
+        await search(keywordMobile, false);
+    })();
 }
 </script>
 
@@ -174,8 +170,11 @@ $: if (initialized && keywordMobile) {
       dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10
 ">
     <Icon icon="material-symbols:search" class="absolute text-[1.25rem] pointer-events-none ml-3 transition my-auto text-black/30 dark:text-white/30"></Icon>
-    <input placeholder="{i18n(I18nKey.search)}" bind:value={keywordDesktop} on:focus={() => search(keywordDesktop, true)}
-           class="transition-all pl-10 text-sm bg-transparent outline-0
+    <input
+        placeholder="{i18n(I18nKey.search)}"
+        bind:value={keywordDesktop}
+        on:focus={() => search(keywordDesktop, true)}
+        class="transition-all pl-10 text-sm bg-transparent outline-0
          h-full w-40 active:w-60 focus:w-60 text-black/50 dark:text-white/50"
     >
 </div>
@@ -196,15 +195,19 @@ top-20 left-4 md:left-[unset] right-4 shadow-2xl rounded-2xl p-2">
       dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10
   ">
         <Icon icon="material-symbols:search" class="absolute text-[1.25rem] pointer-events-none ml-3 transition my-auto text-black/30 dark:text-white/30"></Icon>
-        <input placeholder="Search" bind:value={keywordMobile}
-               class="pl-10 absolute inset-0 text-sm bg-transparent outline-0
+        <input
+            placeholder="Search"
+            bind:value={keywordMobile}
+            class="pl-10 absolute inset-0 text-sm bg-transparent outline-0
                focus:w-60 text-black/50 dark:text-white/50"
         >
     </div>
 
     <!-- search results -->
     {#each result as item}
-        <a href={item.url}
+        <a
+           href="#"
+           on:click|preventDefault={() => handleSearchResultClick(item.url)}
            class="transition search-result first-of-type:mt-2 lg:first-of-type:mt-0 group block
        rounded-xl text-lg px-3 py-2 hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)]">
             <div class="transition text-90 inline-flex font-bold group-hover:text-[var(--primary)]">
