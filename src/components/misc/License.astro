@@ -25,10 +25,13 @@ const postUrl = decodeURIComponent(Astro.url.toString());
     <a href={postUrl} class="link text-[var(--primary)]">
         {postUrl}
     </a> -->
-    <a href={postUrl} class="transition font-bold link text-[var(--primary)]">
-        {title}
-        <span>↗</span>
-    </a>
+    <div>
+        <div class="transition text-black/30 dark:text-white/30 text-sm">{i18n(I18nKey.article)}</div>
+        <a href={postUrl} class="transition font-bold link text-[var(--primary)]">
+            {title}
+            <span>↗</span>
+        </a>
+    </div>
     <div class="flex gap-6 mt-2">
         <div>
             <div class="transition text-black/30 dark:text-white/30 text-sm">{i18n(I18nKey.author)}</div>

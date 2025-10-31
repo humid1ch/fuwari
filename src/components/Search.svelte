@@ -123,6 +123,36 @@ onMount(() => {
 			}
 		}, 2000); // Adjust timeout as needed
 	}
+
+	// 👇 新增：处理 astro:page-load 和 search-result 标记
+	const handleSearchResultClick = (e: MouseEvent) => {
+		const target = e.target as HTMLElement;
+		if (target.closest?.('a.search-result')) {
+			sessionStorage.setItem('skipSearchClear', 'true');
+		}
+	};
+
+	document.addEventListener('click', handleSearchResultClick);
+
+	const handlePageLoad = () => {
+		const skipClear = sessionStorage.getItem('skipSearchClear') === 'true';
+		if (skipClear) {
+			sessionStorage.removeItem('skipSearchClear');
+			return;
+		}
+		keywordDesktop = '';
+		keywordMobile = '';
+		result = [];
+		setPanelVisibility(false, true);
+		setPanelVisibility(false, false);
+	};
+
+	window.addEventListener('astro:page-load', handlePageLoad);
+
+	return () => {
+		document.removeEventListener('click', handleSearchResultClick);
+		window.removeEventListener('astro:page-load', handlePageLoad);
+	};
 });
 
 $: if (initialized && keywordDesktop) {
@@ -175,7 +205,7 @@ top-20 left-4 md:left-[unset] right-4 shadow-2xl rounded-2xl p-2">
     <!-- search results -->
     {#each result as item}
         <a href={item.url}
-           class="transition first-of-type:mt-2 lg:first-of-type:mt-0 group block
+           class="transition search-result first-of-type:mt-2 lg:first-of-type:mt-0 group block
        rounded-xl text-lg px-3 py-2 hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)]">
             <div class="transition text-90 inline-flex font-bold group-hover:text-[var(--primary)]">
                 {item.meta.title}<Icon icon="fa6-solid:chevron-right" class="transition text-[0.75rem] translate-x-1 my-auto text-[var(--primary)]"></Icon>
