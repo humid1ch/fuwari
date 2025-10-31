@@ -19,11 +19,15 @@ const licenseConf = licenseConfig;
 const postUrl = decodeURIComponent(Astro.url.toString());
 ---
 <div class={`relative transition overflow-hidden bg-[var(--license-block-bg)] py-5 px-6 ${className}`}>
-    <div class="transition font-bold text-black/75 dark:text-white/75">
+    <!-- <div class="transition font-bold text-black/75 dark:text-white/75">
         {title}
     </div>
     <a href={postUrl} class="link text-[var(--primary)]">
         {postUrl}
+    </a> -->
+    <a href={postUrl} class="transition font-bold link text-[var(--primary)]">
+        {title}
+        <span>↗</span>
     </a>
     <div class="flex gap-6 mt-2">
         <div>
