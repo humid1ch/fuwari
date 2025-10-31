@@ -125,13 +125,7 @@ onMount(() => {
 	}
 
     document.addEventListener('astro:page-load', () => {
-        // 获取 search-bar 内的 input 元素
-        const input = document.querySelector('#search-bar input');
-
-        // 清空内容
-        if (input) {
-            input.value = '';
-        }
+		initializeSearch();
     });
 });
 
