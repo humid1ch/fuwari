@@ -90,10 +90,10 @@ export default defineConfig({
         pluginCustomCopyButton(),
       ],
       defaultProps: {
-        wrap: true,
+        wrap: false,
         overridesByLang: {
           shellsession: {
-            showLineNumbers: false,
+            showLineNumbers: true,
           },
         },
       },
@@ -102,8 +102,7 @@ export default defineConfig({
         borderRadius: "0.75rem",
         borderColor: "none",
         codeFontSize: "0.925rem",
-        codeFontFamily:
-          "'Maple Mono Normal Medium', 'HarmonyOS Sans SC Medium'",
+        codeFontFamily: "'Maple Mono Normal Medium'",
         codeLineHeight: "1.41414rem",
         frames: {
           editorBackground: "var(--codeblock-bg)",
