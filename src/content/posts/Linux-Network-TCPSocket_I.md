@@ -2,8 +2,7 @@
 draft: true
 title: "[Linux] 网络编程 - 初见TCP套接字编程: 实现简单的单进程、多进程、多线程、线程池tcp服务器..."
 published: 2023-07-03
-description: 'UDP和TCP的部分特点. 最主要的区别就是: 1. UDP非连接, 面向数据包 2. TCP连接, 面向字节流
-所以, TCP多了三个用于连接的接口: connect()、listen()和accept() 这三个接口具体怎么使用, 下面实现简单的TCP网络通信时 介绍一下.'
+description: 'UDP和TCP的部分特点. 最主要的区别就是: 1. UDP非连接, 面向数据包 2. TCP连接, 面向字节流. 所以, TCP多了三个用于连接的接口: connect()、listen()和accept() 这三个接口具体怎么使用, 下面实现简单的TCP网络通信时 介绍一下'
 image: https://dxyt-july-image.oss-cn-beijing.aliyuncs.com/202307061551105.webp
 category: Blogs
 tags:

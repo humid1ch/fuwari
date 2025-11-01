@@ -3,8 +3,7 @@ title: "仓颉文档阅读-语言规约VI: 类和接口(IV)"
 published: 2025-10-11 09:33:26
 description: "一直对仓颉挺感兴趣的, 但是一直没有去读一下文档, 慢慢看一看, 了解一下"
 image: 'https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp'
-categories:
-    - Blogs
+category: Blogs
 tags:
     - 开发语言
     - 仓颉

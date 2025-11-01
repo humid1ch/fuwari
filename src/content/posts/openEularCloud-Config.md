@@ -1,7 +1,7 @@
 ---
 draft: true
 title: "[Linux] 从零开始配置openEuler/EulerOS下的 C/C++开发环境: zsh安装、nvim的LSP-C/C++补全、MySQL57安装配置"
-published: 2024-8-8
+published: 2024-08-08
 description: "一切, 都源于一场意外"
 image: https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722182527864.webp
 category: Blogs

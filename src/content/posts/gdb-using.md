@@ -1,7 +1,7 @@
 ---
 draft: true
 title: "[Linux] GDB使用记录"
-published: 2024-7-1
+published: 2024-07-01
 description: ""
 # image:
 category: Blogs

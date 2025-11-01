@@ -1,7 +1,7 @@
 ---
 draft: true
 title: "[QT5] 遇见QT5, 初识对象树"
-published: 2024-8-19
+published: 2024-08-19
 description: "简单介绍一下QT5中的一些基本的特性, Form是什么? QWidget有什么用?"
 image: https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722182633399.webp
 category: Blogs

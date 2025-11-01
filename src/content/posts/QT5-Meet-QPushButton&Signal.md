@@ -1,7 +1,7 @@
 ---
 draft: true
 title: "[QT5] 通过使用按钮, 初见信号与槽, 简单了解坐标位置"
-published: 2024-8-27
+published: 2024-08-27
 description: "简单使用QPushButton, 以及 首次使用信号与槽, 介绍一下坐标"
 image: https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722182616835.webp
 category: Blogs
