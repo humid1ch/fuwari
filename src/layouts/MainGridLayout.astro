@@ -124,7 +124,7 @@ const mainPanelTop = siteConfig.banner.enable
 </div>
 </Layout>
 
-<script>
+<script is:inline>
 function rand(min, max) {
    return Math.floor(Math.random() * (max - min + 1)) + min;
  }
@@ -155,6 +155,7 @@ function rand(min, max) {
 
  function updateShapes() {
    if (!isInitialized) return;
+
    const { innerWidth, innerHeight } = window;
 
    // 1. 重置所有元素到统一初始状态（确保可动画起点）
