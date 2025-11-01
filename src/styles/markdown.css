@@ -22,6 +22,10 @@
         @apply opacity-100 !important;
       }
     }
+
+    a:after {
+        content: '' !important;
+    }
   }
 
   a:not(.no-styling) {
@@ -37,6 +41,10 @@
       background: var(--btn-plain-bg-hover);
       border-bottom: 1px dashed var(--link-hover);
       text-decoration: none;
+    }
+
+    &:after {
+      content: '↗'
     }
   }
 
@@ -144,7 +152,11 @@
     background-color: var(--blockquote-bg);
 
     &:before {
-      @apply content-[''] absolute -left-1 block transition bg-[var(--btn-regular-bg-hover)] h-full w-1 rounded-full;
+      @apply content-[''] absolute block transition bg-[var(--btn-regular-bg-hover)] h-full w-1 rounded-full;
+      height: unset !important;
+      left: -0.22rem;
+      top: 0.7rem;
+      bottom: 0.7rem;
     }
 
     /* Remove the double quotes from default styles */

@@ -74,6 +74,7 @@ body {
   strong {
     @apply transition;
   }
+
   .card-shadow {
     @apply drop-shadow-[0_2px_4px_rgba(0,0,0,0.005)];
   }
@@ -223,4 +224,19 @@ body {
       color: var(--codeblock-bg);
     }
   }
+}
+
+.prose th[align="center"],
+.prose td[align="center"] {
+  text-align: center !important;
+}
+
+.prose th[align="left"],
+.prose td[align="left"] {
+  text-align:start !important;
+}
+
+.prose th[align="right"],
+.prose td[align="right"] {
+  text-align: end !important;
 }
