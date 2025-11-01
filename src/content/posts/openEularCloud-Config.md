@@ -377,7 +377,7 @@ yum install mariadb-devel
 
 安装`MySQL`之后, 还要配置一下`/etc/my.cnf`
 
-```cnf
+``` title="/etc/my.cnf"
 # For advice on how to change settings please see
 # http://dev.mysql.com/doc/refman/5.7/en/server-configuration-defaults.html
 
@@ -434,7 +434,7 @@ mysql -uroot -p
 
 登录之后, 需要修改密码, 才能执行命令:
 
-```mysql
+```sql
 SET PASSWORD = PASSWORD("new password");
 # new password 改成 想要设置的密码就好了
 ```

@@ -33,13 +33,13 @@ tags:
 
 ## 仓颉语法
 
-本文的内容, 都是仓颉语法的 ANTLR 词法规则, 与语言特性无关
+本文的内容, 都是仓颉语法的  词法规则, 与语言特性无关
 
 ### 词法
 
 #### 注释
 
-```ANTLR
+```
 DelimitedComment
     : '/*' ( DelimitedComment | . )*? '*/'
     ;
@@ -57,7 +57,7 @@ LineComment
 
 #### 空白和换行
 
-```ANTLR
+```
 WS
     : [\u0020\u0009\u000C]
     ;
@@ -82,7 +82,7 @@ NL: '\u000A' | '\u000D' '\u000A' ;
 
 #### 符号
 
-```ANTLR
+```
 DOT: '.' ;
 COMMA: ',' ;
 LPAREN: '(' ;
@@ -155,7 +155,7 @@ MultiLineStrExprStart: '${' ;
 
 #### 关键字
 
-```ANTLR
+```
 INT8: 'Int8' ;
 INT16: 'Int16' ;
 INT32: 'Int32' ;
@@ -235,7 +235,7 @@ SET: 'set';
 
 #### 字面量
 
-```ANTLR
+```
 IntegerLiteralSuffix
    : 'i8' |'i16' |'i32' |'i64' |'u8' |'u16' |'u32' | 'u64'
    ;
@@ -484,7 +484,7 @@ This is a \raw string
 
 #### 标识符
 
-```ANTLR
+```
 identifier
     : Identifier
     | PUBLIC
@@ -528,7 +528,7 @@ $temp, $_
 
 #### 编译单元
 
-```ANTLR
+```
 translationUnit
     : NL* preamble end* topLevelObject* (end+ mainDefinition)? NL* (topLevelObject (end+ topLevelObject?)*)? EOF
     ;
@@ -559,7 +559,7 @@ func helper() {}
 
 #### 包定义和包导入
 
-```ANTLR
+```
 preamble
     : packageHeader? importList*
     ;
@@ -617,7 +617,7 @@ import std.collections.{
 
 #### `top-level` 定义
 
-```ANTLR
+```
 topLevelObject
     : classDefinition
     | interfaceDefinition
@@ -664,7 +664,7 @@ public macro foo(x: Tokens): Tokens { x }
 
 #### `class` 定义
 
-```ANTLR
+```
 classDefinition
     : (classModifierList NL*)? CLASS NL* identifier
     (NL* typeParameters NL*)?
@@ -828,7 +828,7 @@ public class SimpleClass <: BaseClass & IInterface {
 
 #### `interface` 定义
 
-```ANTLR
+```
 interfaceDefinition
     : (interfaceModifierList NL*)? INTERFACE NL* identifier
     (NL* typeParameters NL*)?
@@ -878,7 +878,7 @@ internal interface SimpleInterface {
 
 #### `function` 定义
 
-```ANTLR
+```
 functionDefinition
     :(functionModifierList NL*)? FUNC
     NL* identifier
@@ -964,7 +964,7 @@ let f1: (Int64, Int64)->Int64 = {a: Int64, b: Int64 => a + b}
 
 #### 变量定义
 
-```ANTLR
+```
 variableDeclaration
     : variableModifier* NL* (LET | VAR | CONST) NL* patternsMaybeIrrefutable ( (NL* COLON NL* type)? (NL* ASSIGN NL* expression)
                                                                      | (NL* COLON NL* type)
@@ -990,7 +990,7 @@ static const sConstVal = 20  // static 不能在 top-level、main()
 
 #### `enum` 定义
 
-```ANTLR
+```
 enumDefinition
     : (enumModifier NL*)? ENUM NL* identifier (NL* typeParameters NL*)?
     (NL* UPPERBOUND NL* superInterfaces)?
@@ -1038,7 +1038,7 @@ internal enum StatusCode {
 
 #### `struct` 定义
 
-```ANTLR
+```
 structDefinition
     : (structModifier NL*)? STRUCT NL* identifier (NL* typeParameters NL*)?
     (NL* UPPERBOUND NL* superInterfaces)?
@@ -1156,7 +1156,7 @@ internal struct Point {
 
 #### 类型别名定义
 
-```ANTLR
+```
 typeAlias
     : (typeModifier NL*)? TYPE_ALIAS NL* identifier (NL* typeParameters)? NL* ASSIGN NL* type end*
     ;
@@ -1175,7 +1175,7 @@ internal type UserID = String
 
 #### 扩展定义
 
-```ANTLR
+```
 extendDefinition
     : EXTEND NL* extendType
     (NL* UPPERBOUND NL* superInterfaces)? (NL* genericConstraints)?
@@ -1243,7 +1243,7 @@ extend Foo <: I1 & I2 {
 
 #### `foreign` 声明
 
-```ANTLR
+```
 foreignDeclaration
     : FOREIGN NL* (foreignBody | foreignMemberDeclaration)
     ;
@@ -1274,7 +1274,7 @@ foreign {
 
 #### `Annotation`
 
-```ANTLR
+```
 annotationList: annotation+;
 
 annotation
@@ -1307,7 +1307,7 @@ class Document {}
 
 #### 宏声明
 
-```ANTLR
+```
 macroDefinition
     : PUBLIC NL* MACRO NL* identifier NL*
     (macroWithoutAttrParam | macroWithAttrParam) NL*
@@ -1346,7 +1346,7 @@ public macro Validate(attr: Tokens, input: Tokens): Tokens {
 
 #### 属性定义
 
-```ANTLR
+```
 propertyDefinition
     : propertyModifier* NL* PROP NL* identifier NL* COLON NL* type NL* propertyBody?
     ;
@@ -1384,7 +1384,7 @@ class User {
 
 #### 程序入口定义
 
-```ANTLR
+```
 mainDefinition
     : MAIN
       NL* functionParameters
@@ -1407,7 +1407,7 @@ main(args: Array<String>): Int32 {
 
 ### 类型
 
-```ANTLR
+```
 type
     : arrowType
     | tupleType
@@ -1477,7 +1477,7 @@ parenthesizedType
 
 ### 表达式语法
 
-```ANTLR
+```
 expression
     : assignmentExpression
     ;

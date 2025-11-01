@@ -55,7 +55,7 @@ tags:
 >
 > 自增(自减)表达式的语法定义为:
 >
-> ```ANTLR
+> ```
 > incAndDecExpression
 >     : postfixExpression ('++' | '--' )
 >     ;
