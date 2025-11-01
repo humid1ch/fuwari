@@ -1,0 +1,538 @@
+---
+title: '接触C语言之前的准备: 环境搭建'
+description: '如果要学习C语言, 至少需要一个能够使用C语言的环境'
+published: 2025-03-17
+image: 'https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710215734241.webp'
+category: Blogs
+tags:
+    - C
+    - WSL
+    - Linux
+    - Neovim
+    - 从零开始接触C语言
+badge: Pin
+---
+
+<Info>
+
+本篇文章的目的是 C语言基本环境的搭建, 不做任何**概念**、**原理**、**工具**的介绍
+
+博主会尽量给出一个 即使是从未接触过编程的小白 也能完成的方案
+
+但你至少需要了解Windows中一些工具的使用, 比如: 解压工具、文本编辑工具等
+
+最好能够使用更"科学"的方式连接网络
+
+</Info>
+
+
+
+<Info>
+
+搭建过程中所需要用到的工具, 已打包好放在此处, 请下载使用
+
+[👉点这里](https://humid1ch.lanzoul.com/iFsck2sk56uh)
+
+</Info>
+
+
+
+<Warning>
+
+博主今后使用的一些工具, 也就是本篇文章搭建的环境, 在今后的使用上可能具有一定的学习门槛, 但我个人认为这是有必要的
+
+如有建议, 敬请在评论提出👌
+
+</Warning>
+
+## 开启Hyper-V
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213141714.webp)
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213132213.webp)
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213224764.webp)
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213221488.webp)
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213228324.webp)
+
+点击重新启动之前, 最好保存你的所有其他任务
+
+等待重新启动之后, 完成`Hyper-V`的开启
+
+> 如果你的列表中没有`Hyper-V`的相关选项, 请参照下面的步骤执行
+>
+> 如果上面的步骤已经完成, 可以直接跳到[👉下一部分](https://www.humid1ch.cn/blog/getting-started-with-c-language-before#heading-2)
+
+---
+
+如果`Windows`功能列表中, 没有`Hyper-V`相关选项, 可以这样操作:
+
+1. 打开文件扩展名:
+
+    ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213235890.webp)
+
+    ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213237855.webp)
+
+2. 新建文本文档:
+
+    ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213239750.webp)
+
+3. 文本文档输入以下内容:
+
+    ```
+    pushd "%~dp0"
+    dir /b %SystemRoot%\servicing\Packages\*Hyper-V*.mum >hyper-v.txt
+    for /f %%i in ('findstr /i . hyper-v.txt 2^>nul') do dism /online /norestart /add-package:"%SystemRoot%\servicing\Packages\%%i"
+    del hyper-v.txt
+    Dism /online /enable-feature /featurename:Microsoft-Hyper-V-All /LimitAccess /ALL
+    ```
+
+    ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213241990.webp)
+
+4. 文本文档重命名为`hyperv.bat`, 并右键->管理员身份启动:
+
+    ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213243808.webp)
+
+5. 等待运行结束, 并根据提示输入`'Y'`重启系统
+
+6. 系统重启完成之后, 回到文章开头执行开启`Hyper-V`的相关操作: [👉指路](https://www.humid1ch.cn/blog/getting-started-with-c-language-before#heading-0)
+
+## 配置
+
+### WSL安装
+
+打开`Microsoft Store`, 搜索`openEuler 22.03`:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213245859.webp)
+
+点击安装, 下载完成后点击打开, 大概率会弹出这两个窗口:
+
+<Diff r="https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213304918.webp" l="https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213256420.webp" />
+
+可以在提示有 **"按下任意键安装适用于 Linux 的 Windows 子系统"** 的窗口中, 按下任意按键, 等待下载完成:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213249190.webp)
+
+!!!重新启动!!!
+
+然后再重新打开`Microsoft Store`, 搜索`openEuler 22.03`, 点击打开, 等待安装成功:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213316552.webp)
+
+然后依次输入`username`和对应的密码:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213318558.webp)
+
+> 注意:
+>
+> 输入密码期间, 密码是不显示的, 实际已经输入成功了
+>
+> 密码一共需要输入两次
+
+一个在`Windows`中运行的`Linux`虚拟环境就安装好了
+
+之后要运行这个环境, 只需要打开终端:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213321116.webp)
+
+
+然后输入`wsl`就可以启动:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213323254.webp)
+
+<Info>
+
+选择`openEuler 22.03`是因为环境配置相对比较简单
+
+如果你熟悉任何其他的`Linux`系统, 都可以选择
+
+</Info>
+
+### 环境配置
+
+首先, 在`WSL`环境下, 执行命令安装必要的软件:
+
+```bash
+sudo dnf -y install g++ gdb git man-pages man-pages-help zsh wget unzip jsoncpp-devel tree
+```
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213326563.webp)
+
+执行之后, 输入密码
+
+可能会提示 **"Waiting for process with pid xxx to finish."**
+
+实际表示正在执行, 等待执行完毕就好:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213328537.webp)
+
+#### `most`
+
+```bash
+wget https://rpmfind.net/linux/epel/8/Everything/x86_64/Packages/m/most-5.1.0-6.el8.x86_64.rpm
+sudo rpm -ivh most-5.1.0-6.el8.x86_64.rpm
+```
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213330973.webp)
+
+#### `nvim`
+
+从博主在文章开头提供的压缩包中, 获取`nvim-linux64.tar.gz`文件
+
+将其放入`wsl`的当前用户目录下:
+
+```bash
+$ pwd
+/home/humid1ch
+# pwd 用于查看当前所在路径
+```
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213333166.webp)
+
+或者, 网络环境良好的情况下, 也可以直接通过命令把文件下载下来:
+
+```shell
+wget https://github.com/neovim/neovim/releases/download/v0.10.1/nvim-linux64.tar.gz
+```
+
+然后
+
+```bash
+# 解压
+tar -xvf nvim-linux64.tar.gz
+# 解压完成之后
+sudo mv nvim-linux64 /usr/local/nvim
+# 给nvim建立软连接
+sudo ln -s /usr/local/nvim/bin/nvim /usr/local/bin/nvim
+```
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213335698.webp)
+
+执行完成之后, 输入`nvim`就能打开软件:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213338053.webp)
+
+输入`:q`, 退出应用
+
+<Info>
+
+软件使用小贴士:
+
+`vim`处于普通模式时, 按下`:`可以进入`vim`的命令模式
+
+`:q`可以不保存退出, `q`表示`quit`
+
+</Info>
+
+##### `python`支持
+
+```bash
+# 先安装python3
+sudo dnf install python3
+# 再安装pip3
+sudo dnf install python3-pip
+# 再进行nvim的python支持
+sudo pip3 install pynvim
+```
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213340866.webp)
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213342701.webp)
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213344660.webp)
+
+##### `nvim`配置
+
+从博主在文章开头提供的压缩包中, 获取`nvim`文件夹
+
+将其放入用户文件夹的`.config`路径下:
+
+```bash
+$ pwd
+/home/humid1ch/.config
+```
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213346758.webp)
+
+然后输入`nvim`运行`nvim`等待配置完成:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213348402.webp)
+
+> 如果因为网络问题出现错误, 可以尝试多次重新打开
+>
+> 当然, 如果有能力已更"科学"的方式连接网络, 建议使用更"科学"的方式配置
+
+配置还没有完全完成
+
+重新打开`nvim`, 并<mark>手动输入</mark>`:MasonInstall clangd clang-format lua-language-server`:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213350683.webp)
+
+---
+
+从博主在文章开头提供的压缩包中, 获取`win32yank.exe`文件, 放入`Windows`系统的`C:\Windows\System32\`路径下
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213353012.webp)
+
+至此, `neovim`安装、配置完成
+
+> `win32yank.exe`, 提供 `nvim`与`Windows`互通剪切板 的功能
+>
+> 博主提供的是`x64`版本的, 如果需要`32`位的, 可以自行去[win32yank - Github](https://github.com/equalsraf/win32yank/releases/tag/v0.1.1)下载
+
+#### `zsh`
+
+`zsh`是一种`shell`软件, 简单理解就是`Linux`输入命令所依靠的软件
+
+`zsh`比较新人推荐使用, 如果你更习惯其他`shell`当然也可以根据自己的喜好来
+
+`zsh`在最开始已经完成了安装, 只需要切换默认`shell`为`zsh`就可以了:
+
+```bash
+chsh -s /bin/zsh
+```
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213355020.webp)
+
+重新进入`wsl`就可以看到生效了:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213357152.webp)
+
+按`0`, 完成`.zshrc`文件的创建
+
+##### `oh-my-zsh`
+
+安装`oh-my-zsh`, 你可以将它理解为`zsh`的一个增强插件
+
+```bash
+# 直接在命令行执行
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213400344.webp)
+
+此时, 使用`nvim`打开`.zshrc`, 可以看到`.zshrc`的内容
+
+```bash
+nvim ~/.zshrc
+```
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213402264.webp)
+
+<Info>
+
+软件使用小贴士:
+
+`shell`中执行命令`nvim 文件`, 就可以用`nvim`打开文件
+
+</Info>
+
+---
+
+下面这三个小插件可以不用安装, 但建议安装, 一般情况下它可以让你的`zsh`使用起来更加舒服
+
+###### `小插件`
+
+首先, `powerlevel10k`是`zsh`的一个主题
+
+执行这个命令, 可以下载`powerlevel10k`:
+
+```bash
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213405103.webp)
+
+使用`nvim`编辑`.zshrc`文件
+
+将`ZSH_THEME="robbyrussell"`修改为`ZSH_THEME="powerlevel10k/powerlevel10k"`
+
+![zsh_theme](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213407174.gif)
+
+<Info>
+
+软件使用小贴士:
+
+`vim`处于<mark>**普通模式**</mark>时:
+
+按`i`, 进入插入模式, 可以正常输入文本, 在光标之前. 同时 退出普通模式
+
+按`a`, 进入插入模式, 可以正常输入文本, 在光标之后. 同时 退出普通模式
+
+按`h`, 为左移
+
+按`l`, 为右移
+
+按`k`, 为上移
+
+按`j`, 为下移
+
+按`yy`, 为复制本行
+
+按`p`, 为粘贴
+
+按`e`, 为跳过一个单词
+
+按`v`, 进入视图模式, 可以选择文本
+
+按`x`, 删除当前选择文本
+
+`vim`处于插入模式时, 按`ESC`可以退出插入模式, 回到普通模式
+
+</Info>
+
+`autosuggestions`是`zsh`的命令联想建议插件
+
+执行这个命令:
+
+```bash
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+```
+
+`syntax-highlighting`是`zsh`的命令高亮插件
+
+执行这个命令
+
+```bash
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+```
+
+使用`nvim`编辑`.zshrc`文件
+
+在`plugins=(git)`处, 添加这两个插件, 为`plugins=(git zsh-autosuggestions zsh-syntax-highlighting)`
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213410106.webp)
+
+然后退出到`shell`, 执行`source ~/.zshrc`, 并根据提示和喜好配置`powerlevel10k`主题:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213411932.gif)
+
+###### `.zshrc`个人配置
+
+下面是博主个人习惯在`~/.zshrc`中添加的配置:
+
+```shell
+# 防止 rm 直接将文件删掉, 所以将 rm定义成一个函数, 起到 mv -t 的作用
+rm() {
+    if [[ $1 == "-rf" ]]; then
+        shift
+        mv -t ~/.delete/. "$@"
+    else
+        mv -t ~/.delete/. "$@"
+    fi
+
+    echo "成功将文件移动到 ~/.delete, 请注意清理"
+}
+# 方便打开多个文件, 一起加载到nvim的bufferline插件里
+alias nvim="nvim -p"
+alias vim="nvim -p"
+
+# cat, t 太远了, 而且shell cat查看文件内容默认的Tab长度是8, 这里改成cas,并以4为Tab长度查看
+alias cas="cat | expand -t 4"
+alias unsetproxy="unset https_proxy http_proxy && git config --global --unset https.proxy && git config --global --unset http.proxy"
+
+# most分页
+export PAGER=most
+```
+
+配置完, 需要执行`source ~/.zshrc`生效
+
+在`shell`中执行`mkdir ~/.delete`创建回收目录
+
+然后, 因为在`.zshrc`中, 把`rm`定义成了一个函数
+
+所以, 原本的`rm`命令就没有办法正常执行了
+
+所以, 要给原本的`rm`建立一个软连接
+
+在`shell`中执行这个命令:
+
+```bash
+sudo ln -s /usr/bin/rm /usr/bin/rlrm
+```
+
+之后, 执行`rlrm`就是真正的`rm`移除操作
+
+##### `update`
+
+<Info>
+
+博主现在使用的`shell`已经从`zsh`转到了`fish`, `fish`也是一款非常优秀的`shell`, 在最基本的使用上没什么差别
+
+有兴趣可以尝试一下
+
+</Info>
+
+#### `gdb`
+
+`gdb`已经安装过了, 但是使用上可能需要安装一些内容
+
+<Warning>
+
+你不需要知道下面这些操作都是干什么的, 只需要跟着做一遍, 本篇文章只是为了配置一个简单好用的环境
+
+</Warning>
+
+首先使用`nvim`简单写一个C语言程序:
+
+```c
+int main() {
+    return 0;
+}
+```
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213415469.webp)
+
+然后在`shell`中执行`gcc main.c -g`, 会生成一个可执行程序:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213417188.webp)
+
+再执行`gdb a.out`, 之后输入`r`并回车:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213419047.webp)
+
+记录这条指令后面需要使用
+
+我的是`dnf debuginfo-install glibc-2.34-152.oe2203sp4.x86_64`
+
+在`gdb`中输入`quit`, 并回车退出
+
+然后在`shell`中执行: `gcc main.c -g`, 会生成一个可执行程序并覆盖原来的可执行程序:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213420925.webp)
+
+同样, 执行`gdb a.out`之后, 输入`r`并回车:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213422781.webp)
+
+记录这两条指令
+
+我的是`dnf debuginfo-install glibc-2.34-152.oe2203sp4.x86_64`和`dnf debuginfo-install libgcc-10.3.1-67.oe2203sp4.x86_64 libstdc++-10.3.1-67.oe2203sp4.x86_64`
+
+其中`glibc`的可能与上面的一致
+
+最后在`shell`中, 使用`sudo`执行`dnf debuginfo-install`, 安装这三个缺失的库:
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213424776.webp)
+
+输入`y`并回车, 等待安装
+
+可能需要占用`2.0G+`的硬盘空间
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213426687.webp)
+
+耗时八分半
+
+安装完成后, 再使用`gdb`就没有`Missing`提示了
+
+## 环境演示
+
+这个简单的C语言环境, 使用`nvim`+`clang`+`lsp`实现了最基本的`C/C++`的语法补全功能
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213428545.gif)
+
+至此
+
+一个比较简单、舒适的`C/C++`开发环境就搭建好了
