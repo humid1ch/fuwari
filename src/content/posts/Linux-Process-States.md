@@ -1,7 +1,7 @@
 ---
 draft: true
 title: "[Linux] 进程状态相关概念、Linux实际进程状态、进程优先级"
-published: 2023-03-03"
+published: 2023-03-03
 description: "生成进程之后, 操作系统会给进程分配其所需要的资源. 而为了整个操作系统的稳定和效率, 操作系统会对进程进行调度、管理, 在调度管理的过程中进程会存在不同的状态, 这些不同的状态就被称为进程状态. "
 image: https://dxyt-july-image.oss-cn-beijing.aliyuncs.com/202306251759202.webp
 categories:

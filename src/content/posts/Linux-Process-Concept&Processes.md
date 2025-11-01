@@ -1,7 +1,7 @@
 ---
 draft: true
 title: "[Linux] 系统进程相关概念、系统调用、Linux进程详析、进程查看、fork()初识"
-published: 2023-03-01"
+published: 2023-03-01
 description: "关于什么是进程这个问题, 一般都会用一句简单的话来回答: 运行起来的程序就是进程. 这句话不能说是错的, 但也不全对. 如果运行起来的程序就是进程, 那么进程和程序又有什么区别呢？"
 image: https://dxyt-july-image.oss-cn-beijing.aliyuncs.com/202306251759330.webp
 categories:

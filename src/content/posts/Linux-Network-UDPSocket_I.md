@@ -2,8 +2,7 @@
 draft: true
 title: "[Linux] 网络编程 - 初见UDP套接字编程: 网络编程部分相关概念、TCP、UDP协议基本特点、大小端字节序、网络字节序、socket接口使用、简单的UDP网络及聊天室实现..."
 published: 2023-06-25
-description: '本篇文章正式开始Linux中的网络编程. 本文介绍了, 网络编程的一些概念, 以及简单的UDP套接字编程.
-实现了最简单的UDP公共聊天室'
+description: '本篇文章正式开始Linux中的网络编程. 本文介绍了, 网络编程的一些概念, 以及简单的UDP套接字编程. 实现了最简单的UDP公共聊天室'
 image: https://dxyt-july-image.oss-cn-beijing.aliyuncs.com/202307021623107.webp
 category: Blogs
 tags:

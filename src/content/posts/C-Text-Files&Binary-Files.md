@@ -2,8 +2,7 @@
 draft: true
 title: "[C语言] 什么是文本文件和二进制文件？"
 published: 2022-03-27
-description: '文件按照功能分类, 可以分为 程序文件、数据文件 两类.
-此外, 文件的分类还有其他的分类方法, 比如 按照文件数据的组织形式 来分为 二进制文件 和 文本文件. '
+description: '文件按照功能分类, 可以分为 程序文件、数据文件 两类. 此外, 文件的分类还有其他的分类方法, 比如 按照文件数据的组织形式 来分为 二进制文件 和 文本文件. '
 image: https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722153240596.webp
 category: Blogs
 tags:

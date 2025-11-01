@@ -2,8 +2,7 @@
 draft: true
 title: "[Linux] 线程互斥分析: 多线程的问题、互斥锁、C++封装使用互斥锁、线程安全分析、死锁分析..."
 published: 2023-04-16
-description: '多线程可以提高程序的并发性和运行效率, 充分利用计算机的多核资源.
-但是, 多线程也可能会导致输出混乱、访问共享资源混乱、竞争等问题. 接下来我们就尝试解决这些问题'
+description: '多线程可以提高程序的并发性和运行效率, 充分利用计算机的多核资源. 但是, 多线程也可能会导致输出混乱、访问共享资源混乱、竞争等问题. 接下来我们就尝试解决这些问题'
 image: https://dxyt-july-image.oss-cn-beijing.aliyuncs.com/202306251802036.webp
 category: Blogs
 tags:

@@ -8,8 +8,6 @@ category: Blogs
 tags:
     - 程序员的自我修养
     - 编译原理
-theme: 'light'
-featured: true
 ---
 
 #  程序的编译及链接

@@ -2,8 +2,7 @@
 draft: true
 title: "[数据结构] 红黑树的详析分析与实现"
 published: 2022-10-20
-description: '红黑树 也是一种 二叉平衡搜索树, 但是 其对平衡的控制 并没有像 AVL树 那样严格,
-红黑树 关于平衡的限制是: 最长的路径 不大于 最短路径的两倍'
+description: '红黑树 也是一种 二叉平衡搜索树, 但是 其对平衡的控制 并没有像 AVL树 那样严格, 红黑树 关于平衡的限制是: 最长的路径 不大于 最短路径的两倍'
 image: https://dxyt-july-image.oss-cn-beijing.aliyuncs.com/202306251816728.webp
 category: Blogs
 tags:
