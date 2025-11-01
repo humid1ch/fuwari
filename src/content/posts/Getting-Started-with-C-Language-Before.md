@@ -10,40 +10,30 @@ tags:
     - Linux
     - Neovim
     - 从零开始接触C语言
-badge: Pin
 ---
 
-<Info>
+> [!NOTE]
+> 
+> 本篇文章的目的是 C语言基本环境的搭建, 不做任何**概念**、**原理**、**工具**的介绍
+> 
+> 博主会尽量给出一个 即使是从未接触过编程的小白 也能完成的方案
+> 
+> 但你至少需要了解Windows中一些工具的使用, 比如: 解压工具、文本编辑工具等
+> 
+> 最好能够使用更"科学"的方式连接网络
 
-本篇文章的目的是 C语言基本环境的搭建, 不做任何**概念**、**原理**、**工具**的介绍
-
-博主会尽量给出一个 即使是从未接触过编程的小白 也能完成的方案
-
-但你至少需要了解Windows中一些工具的使用, 比如: 解压工具、文本编辑工具等
-
-最好能够使用更"科学"的方式连接网络
-
-</Info>
-
-
-
-<Info>
-
-搭建过程中所需要用到的工具, 已打包好放在此处, 请下载使用
-
-[👉点这里](https://humid1ch.lanzoul.com/iFsck2sk56uh)
-
-</Info>
+> [!NOTE]
+> 
+> 搭建过程中所需要用到的工具, 已打包好放在此处, 请下载使用
+> 
+> [👉点这里](https://humid1ch.lanzoul.com/iFsck2sk56uh)
 
 
-
-<Warning>
-
-博主今后使用的一些工具, 也就是本篇文章搭建的环境, 在今后的使用上可能具有一定的学习门槛, 但我个人认为这是有必要的
-
-如有建议, 敬请在评论提出👌
-
-</Warning>
+> [!WARNING]
+> 
+> 博主今后使用的一些工具, 也就是本篇文章搭建的环境, 在今后的使用上可能具有一定的学习门槛, 但我个人认为这是有必要的
+> 
+> 如有建议, 敬请在评论提出👌
 
 ## 开启Hyper-V
 
@@ -81,7 +71,7 @@ badge: Pin
 
 3. 文本文档输入以下内容:
 
-    ```
+    ```powershell
     pushd "%~dp0"
     dir /b %SystemRoot%\servicing\Packages\*Hyper-V*.mum >hyper-v.txt
     for /f %%i in ('findstr /i . hyper-v.txt 2^>nul') do dism /online /norestart /add-package:"%SystemRoot%\servicing\Packages\%%i"
@@ -109,7 +99,9 @@ badge: Pin
 
 点击安装, 下载完成后点击打开, 大概率会弹出这两个窗口:
 
-<Diff r="https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213304918.webp" l="https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213256420.webp" />
+| 图1 | 图2 |
+| :---: | :---: |
+| ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213304918.webp) | ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213256420.webp) |
 
 可以在提示有 **"按下任意键安装适用于 Linux 的 Windows 子系统"** 的窗口中, 按下任意按键, 等待下载完成:
 
@@ -142,13 +134,11 @@ badge: Pin
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213323254.webp)
 
-<Info>
-
-选择`openEuler 22.03`是因为环境配置相对比较简单
-
-如果你熟悉任何其他的`Linux`系统, 都可以选择
-
-</Info>
+> [!NOTE]
+> 
+> 选择`openEuler 22.03`是因为环境配置相对比较简单
+> 
+> 如果你熟悉任何其他的`Linux`系统, 都可以选择
 
 ### 环境配置
 
@@ -216,15 +206,13 @@ sudo ln -s /usr/local/nvim/bin/nvim /usr/local/bin/nvim
 
 输入`:q`, 退出应用
 
-<Info>
-
-软件使用小贴士:
-
-`vim`处于普通模式时, 按下`:`可以进入`vim`的命令模式
-
-`:q`可以不保存退出, `q`表示`quit`
-
-</Info>
+> [!TIP]
+> 
+> 软件使用小贴士:
+> 
+> `vim`处于普通模式时, 按下`:`可以进入`vim`的命令模式
+> 
+> `:q`可以不保存退出, `q`表示`quit`
 
 ##### `python`支持
 
@@ -321,13 +309,11 @@ nvim ~/.zshrc
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213402264.webp)
 
-<Info>
-
-软件使用小贴士:
-
-`shell`中执行命令`nvim 文件`, 就可以用`nvim`打开文件
-
-</Info>
+> [!TIP]
+> 
+> 软件使用小贴士:
+> 
+> `shell`中执行命令`nvim 文件`, 就可以用`nvim`打开文件
 
 ---
 
@@ -351,37 +337,35 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 
 ![zsh_theme](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710213407174.gif)
 
-<Info>
-
-软件使用小贴士:
-
-`vim`处于<mark>**普通模式**</mark>时:
-
-按`i`, 进入插入模式, 可以正常输入文本, 在光标之前. 同时 退出普通模式
-
-按`a`, 进入插入模式, 可以正常输入文本, 在光标之后. 同时 退出普通模式
-
-按`h`, 为左移
-
-按`l`, 为右移
-
-按`k`, 为上移
-
-按`j`, 为下移
-
-按`yy`, 为复制本行
-
-按`p`, 为粘贴
-
-按`e`, 为跳过一个单词
-
-按`v`, 进入视图模式, 可以选择文本
-
-按`x`, 删除当前选择文本
-
-`vim`处于插入模式时, 按`ESC`可以退出插入模式, 回到普通模式
-
-</Info>
+> [!TIP]
+> 
+> 软件使用小贴士:
+> 
+> `vim`处于<mark>**普通模式**</mark>时:
+> 
+> 按`i`, 进入插入模式, 可以正常输入文本, 在光标之前. 同时 退出普通模式
+> 
+> 按`a`, 进入插入模式, 可以正常输入文本, 在光标之后. 同时 退出普通模式
+> 
+> 按`h`, 为左移
+> 
+> 按`l`, 为右移
+> 
+> 按`k`, 为上移
+> 
+> 按`j`, 为下移
+> 
+> 按`yy`, 为复制本行
+> 
+> 按`p`, 为粘贴
+> 
+> 按`e`, 为跳过一个单词
+> 
+> 按`v`, 进入视图模式, 可以选择文本
+> 
+> 按`x`, 删除当前选择文本
+> 
+> `vim`处于插入模式时, 按`ESC`可以退出插入模式, 回到普通模式
 
 `autosuggestions`是`zsh`的命令联想建议插件
 
@@ -457,23 +441,19 @@ sudo ln -s /usr/bin/rm /usr/bin/rlrm
 
 ##### `update`
 
-<Info>
-
-博主现在使用的`shell`已经从`zsh`转到了`fish`, `fish`也是一款非常优秀的`shell`, 在最基本的使用上没什么差别
-
-有兴趣可以尝试一下
-
-</Info>
+> [!NOTE]
+> 
+> 博主现在使用的`shell`已经从`zsh`转到了`fish`, `fish`也是一款非常优秀的`shell`, 在最基本的使用上没什么差别
+> 
+> 有兴趣可以尝试一下
 
 #### `gdb`
 
 `gdb`已经安装过了, 但是使用上可能需要安装一些内容
 
-<Warning>
-
-你不需要知道下面这些操作都是干什么的, 只需要跟着做一遍, 本篇文章只是为了配置一个简单好用的环境
-
-</Warning>
+> [!WARNING]
+> 
+> 你不需要知道下面这些操作都是干什么的, 只需要跟着做一遍, 本篇文章只是为了配置一个简单好用的环境
 
 首先使用`nvim`简单写一个C语言程序:
 

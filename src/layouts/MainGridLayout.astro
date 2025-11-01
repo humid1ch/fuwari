@@ -125,97 +125,105 @@ const mainPanelTop = siteConfig.banner.enable
 </Layout>
 
 <script is:inline>
-function rand(min, max) {
-   return Math.floor(Math.random() * (max - min + 1)) + min;
- }
+(function() {
+  // 防止重复初始化整个逻辑
+  if (window._decoShapesInitialized) return;
+  window._decoShapesInitialized = true;
 
- const SHAPE_COUNT = 55;
- const BUFFER = 300;
- let shapePool = [];
- let isInitialized = false;
+  function rand(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
- const directions = [
-   'polygon(50% 0%, 0% 100%, 100% 100%)',
-   'polygon(50% 100%, 0% 0%, 100% 0%)',
-   'polygon(0% 50%, 100% 0%, 100% 100%)',
-   'polygon(100% 50%, 0% 0%, 0% 100%)'
- ];
+  const SHAPE_COUNT = 55;
+  const BUFFER = 300;
 
- function initShapePool() {
-   if (isInitialized) return;
-   for (let i = 0; i < SHAPE_COUNT; i++) {
-     const el = document.createElement('div');
-     el.className = 'deco-shape';
-     // 注意：这里不设置 inline opacity，完全依赖 CSS 的 opacity: 0
-     document.body.appendChild(el);
-     shapePool.push(el);
-   }
-   isInitialized = true;
- }
+  // 初始化全局状态（只做一次）
+  if (!window._shapePool) {
+    window._shapePool = [];
+    window._shapesIsInitialized = false;
+  }
 
- function updateShapes() {
-   if (!isInitialized) return;
+  const directions = [
+    'polygon(50% 0%, 0% 100%, 100% 100%)',
+    'polygon(50% 100%, 0% 0%, 100% 0%)',
+    'polygon(0% 50%, 100% 0%, 100% 100%)',
+    'polygon(100% 50%, 0% 0%, 0% 100%)'
+  ];
 
-   const { innerWidth, innerHeight } = window;
+  function initShapePool() {
+    if (window._shapesIsInitialized) return;
+    for (let i = 0; i < SHAPE_COUNT; i++) {
+      const el = document.createElement('div');
+      el.className = 'deco-shape';
+      document.body.appendChild(el);
+      window._shapePool.push(el);
+    }
+    window._shapesIsInitialized = true;
+  }
 
-   // 1. 重置所有元素到统一初始状态（确保可动画起点）
-   for (let i = 0; i < SHAPE_COUNT; i++) {
-     const el = shapePool[i];
-     el.style.opacity = '0';
-     el.style.transform = 'translate(0, 0)';
-     // 设置一个基础尺寸和形状，避免后续 resize 过渡异常
-     el.style.width = '20px';
-     el.style.height = '20px';
-     el.style.borderRadius = '50%';
-     el.style.clipPath = 'none';
-   }
+  function updateShapes() {
+    if (!window._shapesIsInitialized) return;
 
-   // 2. 双重 rAF：确保初始状态已被渲染
-   requestAnimationFrame(() => {
-     requestAnimationFrame(() => {
-       // 3. 应用最终样式 → 触发动画
-       for (let i = 0; i < SHAPE_COUNT; i++) {
-         const el = shapePool[i];
-         const shapeType = rand(0, 2);
-         const x = rand(-50, innerWidth + 50);
-         const y = rand(-BUFFER, innerHeight + BUFFER);
+    const { innerWidth, innerHeight } = window;
+    const shapePool = window._shapePool;
 
-         if (shapeType === 0) {
-           const size = rand(20, 100);
-           el.style.width = `${size}px`;
-           el.style.height = `${size}px`;
-           el.style.borderRadius = '50%';
-           el.style.clipPath = 'none';
-         } else if (shapeType === 1) {
-           el.style.width = `${rand(20, 100)}px`;
-           el.style.height = `${rand(20, 100)}px`;
-           el.style.borderRadius = '0';
-           el.style.clipPath = 'none';
-         } else {
-           const size = rand(30, 100);
-           el.style.width = `${size}px`;
-           el.style.height = `${size}px`;
-           el.style.borderRadius = '0';
-           el.style.clipPath = directions[rand(0, 3)];
-         }
+    for (let i = 0; i < SHAPE_COUNT; i++) {
+      const el = shapePool[i];
+      el.style.opacity = '0';
+      el.style.transform = 'translate(0, 0)';
+      el.style.width = '20px';
+      el.style.height = '20px';
+      el.style.borderRadius = '50%';
+      el.style.clipPath = 'none';
+    }
 
-         el.style.transform = `translate(${x}px, ${y}px)`;
-         el.style.opacity = '0.5';
-       }
-     });
-   });
- }
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        for (let i = 0; i < SHAPE_COUNT; i++) {
+          const el = shapePool[i];
+          const shapeType = rand(0, 2);
+          const x = rand(-50, innerWidth + 50);
+          const y = rand(-BUFFER, innerHeight + BUFFER);
 
- function generateOrRefresh() {
-   initShapePool();
-   updateShapes();
- }
+          if (shapeType === 0) {
+            const size = rand(20, 100);
+            el.style.width = `${size}px`;
+            el.style.height = `${size}px`;
+            el.style.borderRadius = '50%';
+            el.style.clipPath = 'none';
+          } else if (shapeType === 1) {
+            el.style.width = `${rand(20, 100)}px`;
+            el.style.height = `${rand(20, 100)}px`;
+            el.style.borderRadius = '0';
+            el.style.clipPath = 'none';
+          } else {
+            const size = rand(30, 100);
+            el.style.width = `${size}px`;
+            el.style.height = `${size}px`;
+            el.style.borderRadius = '0';
+            el.style.clipPath = directions[rand(0, 3)];
+          }
 
- if (document.readyState === 'loading') {
-   document.addEventListener('DOMContentLoaded', generateOrRefresh);
- } else {
-   generateOrRefresh();
- }
+          el.style.transform = `translate(${x}px, ${y}px)`;
+          el.style.opacity = '0.5';
+        }
+      });
+    });
+  }
 
- document.addEventListener('astro:page-load', generateOrRefresh);
+  function generateOrRefresh() {
+    initShapePool();
+    updateShapes();
+  }
+
+  // 首次加载
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', generateOrRefresh);
+  } else {
+    generateOrRefresh();
+  }
+
+  // 客户端导航：只更新，不重新创建元素
+  document.addEventListener('astro:page-load', updateShapes);
+})();
 </script>

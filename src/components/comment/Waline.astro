@@ -43,7 +43,7 @@ const walineConfigJson = JSON.stringify(commentConfig.waline);
       el.innerHTML = '';
 
       // 初始化新实例
-      import('/public/waline_js/waline.js').then(({ init }) => {
+      import('public/waline_js/waline.js').then(({ init }) => {
         window.walineInstance = init({
           ...config,
           el: el,
