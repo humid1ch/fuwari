@@ -75,9 +75,9 @@ tags:
 
 > 通过`spawn`关键字、一个可缺省的`ThreadContext`类型入参(关于`ThreadContext`的介绍见下方)和一个不包含形参的`lambda`可以创建并启动一个线程, 同时该表达式返回一个`Future<T>`的实例(关于`Future<T>`的介绍见下方)
 >
-> `spawn`表达式的`BNF`如下:
+> `spawn`表达式的`ANTLR`如下:
 >
-> ```BNF
+> ```
 > spawnExpression
 >     : 'spawn' ( '(' expression ')' )? trailingLambdaExpression
 >     ;
@@ -692,7 +692,7 @@ tags:
 >
 > - 当在`synchronized`修饰的代码块中发生异常并跳出该代码块时, 会自动调用`m.unlock()`方法
 >
-> `synchronized`表达式的`BNF`如下:
+> `synchronized`表达式的`ANTLR`如下:
 >
 > ```
 > synchronizedExpression

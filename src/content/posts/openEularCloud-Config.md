@@ -377,7 +377,7 @@ yum install mariadb-devel
 
 安装`MySQL`之后, 还要配置一下`/etc/my.cnf`
 
-``` title="/etc/my.cnf"
+```ini title="/etc/my.cnf"
 # For advice on how to change settings please see
 # http://dev.mysql.com/doc/refman/5.7/en/server-configuration-defaults.html
 

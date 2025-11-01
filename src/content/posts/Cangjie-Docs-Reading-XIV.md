@@ -164,7 +164,7 @@ C++中不严格存在接口的概念
 >     interface I2 <: I1 {}
 >     ```
 >
-> 接口成员的 BNF 如下:
+> 接口成员的 ANTLR 如下:
 >
 > ```
 > interfaceMemberDeclaration

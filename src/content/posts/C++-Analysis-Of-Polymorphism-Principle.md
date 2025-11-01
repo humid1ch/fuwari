@@ -321,7 +321,7 @@ VS环境下证明的方法有一个, 那就是 **查看反汇编代码** (此汇
 
 ![ ](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175516348.webp)
 
-> **于 `Base1`部分的 `Advanced:: func1` 的调用: **
+> **于 `Base1`部分的 `Advanced:: func1` 的调用**:
 >
 > ![Advanced func1 |wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175518246.gif)
 >
@@ -335,7 +335,7 @@ VS环境下证明的方法有一个, 那就是 **查看反汇编代码** (此汇
 >
 > 所以 虚表中存储的函数指针 `0x00c31401` 并不直接是  `Advanced::func1` 的地址 可以看作是一层壳子
 
-> **于 `Base2`部分的 `Advanced:: func1` 的调用: **
+> **于 `Base2`部分的 `Advanced:: func1` 的调用**:
 >
 > ![Base2 Advanced func1 |wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175520251.gif)
 >
