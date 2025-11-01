@@ -9,10 +9,6 @@ tags:
     - 从零开始接触C语言
 ---
 
-
-
-import Kbd from "../../components/mdx/Kbd.astro"
-
 <Warning>
 
 如果你从未接触过C语言, 那么我建议你先阅读前面的文章:

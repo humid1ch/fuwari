@@ -10,12 +10,6 @@ tags:
     - 仓颉
 ---
 
-import Info from "../../components/mdx/Info.astro";
-
-import Warning from "../../components/mdx/Warning.astro";
-
-import Question from "../../components/mdx/Question.astro";
-
 <Info>
 
 阅读文档版本:

@@ -13,10 +13,6 @@ tags:
 badge: Pin
 ---
 
-
-
-import Diff from "../../components/mdx/Diff.astro";
-
 <Info>
 
 本篇文章的目的是 C语言基本环境的搭建, 不做任何**概念**、**原理**、**工具**的介绍
