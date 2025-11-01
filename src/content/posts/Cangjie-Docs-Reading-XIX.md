@@ -531,7 +531,7 @@ tags:
 >
 >     例如, 假设`opSymbol1`是一元操作符, 那么操作符函数`opSymbol1`定义为:
 >
->     ```cnagjie
+>     ```cangjie
 >     operator func opSymbol1(): returnType1 {
 >         functionBody1
 >     }
