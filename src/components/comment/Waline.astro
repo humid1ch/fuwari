@@ -8,94 +8,58 @@ interface Props {
 // 将配置序列化为 JSON,避免 define:vars 问题
 const walineConfigJson = JSON.stringify(commentConfig.waline);
 ---
-
 <div class="relative w-full mb-8 mt-8">
-    <div id="waline" data-waline-config={walineConfigJson}></div>
+  <div id="waline" data-waline-config={walineConfigJson}></div>
 </div>
 
 <link rel="stylesheet" href="/waline_css/waline.css" />
 
-<!-- 全局初始化脚本,只在第一次加载时执行 -->
 <script>
-    import { init } from "/public/waline_js/waline.js";
+  // 全局只初始化一次事件监听
+  if (typeof window.walineSetup === 'undefined') {
+    window.walineSetup = true;
 
-    // 全局初始化标志
-    if (typeof window.walineHandlerSetup === 'undefined') {
-        window.walineHandlerSetup = false;
-    }
-
+    // 挂载 Waline 的函数
     const mountWaline = () => {
-        const el = document.querySelector('#waline');
-        if (!el) {
-            console.warn('[Waline] Container not found');
-            return;
-        }
+      const el = document.querySelector('#waline');
+      if (!el || !document.body.contains(el)) return;
 
-        const configStr = el.getAttribute('data-waline-config');
-        if (!configStr) {
-            console.error('[Waline] No config found');
-            return;
-        }
+      const configStr = el.getAttribute('data-waline-config');
+      if (!configStr) return;
 
-        let config;
-        try {
-            config = JSON.parse(configStr);
-        } catch (e) {
-            console.error('[Waline] Failed to parse config:', e);
-            return;
-        }
+      let config;
+      try {
+        config = JSON.parse(configStr);
+      } catch {
+        return;
+      }
 
-        try {
-            // 关键修改:页面切换时销毁旧实例并重新创建
-            if (window.walineInstance) {
-                console.log('[Waline] Destroying old instance');
-                try {
-                    // 尝试调用 destroy 方法
-                    if (typeof window.walineInstance.destroy === 'function') {
-                        window.walineInstance.destroy();
-                    }
-                } catch (e) {
-                    console.warn('[Waline] Destroy failed:', e);
-                }
-                window.walineInstance = null;
-            }
+      // 丢弃旧实例（不调用 destroy，避免对已移除 DOM 操作）
+      if (window.walineInstance) {
+        window.walineInstance = null; // 让 GC 回收
+      }
 
-            // 清空容器内容
-            el.innerHTML = '';
+      // 清空当前容器（安全，因为 el 属于当前页面）
+      el.innerHTML = '';
 
-            // 重新初始化
-            console.log('[Waline] Initializing for:', location.pathname);
-            window.walineInstance = init({
-                ...config,
-                el: '#waline',
-                path: location.pathname,
-            });
-
-        } catch (error) {
-            console.error('[Waline] Initialization error:', error);
-        }
+      // 初始化新实例
+      import('/public/waline_js/waline.js').then(({ init }) => {
+        window.walineInstance = init({
+          ...config,
+          el: el,
+          path: location.pathname,
+        });
+      }).catch(err => console.error('[waline] load error:', err));
     };
 
-    // 只设置一次事件监听器
-    if (!window.walineHandlerSetup) {
-        console.log('[Waline] Setting up handlers (once)');
-        window.walineHandlerSetup = true;
-
-        // 首次加载
-        if (document.readyState === 'loading') {
-            document.addEventListener("DOMContentLoaded", mountWaline);
-        } else {
-            setTimeout(mountWaline, 0);
-        }
-
-        // 页面切换
-        document.addEventListener("astro:page-load", () => {
-            // 使用 setTimeout 确保 DOM 已更新
-            setTimeout(mountWaline, 100);
-        });
-
+    // 首次加载
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', mountWaline);
     } else {
-        // 如果监听器已设置,直接执行挂载
-        setTimeout(mountWaline, 100);
+      mountWaline();
     }
+
+    // 页面切换（Astro + Swup）
+    document.addEventListener('astro:page-load', mountWaline);
+  }
 </script>

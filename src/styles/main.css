@@ -16,11 +16,18 @@ body {
 }
 
 .deco-shape {
-  position: fixed; /* 相对于 html */
+  position: fixed;
+  top: 0;
+  left: 0;
   background-color: var(--primary);
-  opacity: 0.5;
+  opacity: 0; /* 初始透明，由 JS 触发动画 */
   pointer-events: none;
   z-index: -1;
+  /* 使用 transform 提升动画性能 */
+  transform: translate(0, 0);
+  /* 过渡动画：位移、尺寸、透明度、圆角 */
+  transition: transform 0.8s ease-out, width 0.6s ease, height 0.6s ease,
+    opacity 0.5s ease, border-radius 0.3s ease;
 }
 
 @layer components {

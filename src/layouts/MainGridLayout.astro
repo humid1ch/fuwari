@@ -125,86 +125,96 @@ const mainPanelTop = siteConfig.banner.enable
 </Layout>
 
 <script>
-  function rand(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+function rand(min, max) {
+   return Math.floor(Math.random() * (max - min + 1)) + min;
+ }
 
-  const SHAPE_COUNT = 55;
-  const BUFFER = 300;
-  let shapePool = [];
-  let isInitialized = false;
-  // 替换原来的 clipPath 行
-  const directions = [
-    'polygon(50% 0%, 0% 100%, 100% 100%)',     // ▲ 朝上
-    'polygon(50% 100%, 0% 0%, 100% 0%)',       // ▼ 朝下
-    'polygon(0% 50%, 100% 0%, 100% 100%)',     // ◀ 朝左
-    'polygon(100% 50%, 0% 0%, 0% 100%)'        // ▶ 朝右
-  ];
+ const SHAPE_COUNT = 55;
+ const BUFFER = 300;
+ let shapePool = [];
+ let isInitialized = false;
 
-  function initShapePool() {
-    if (isInitialized) return;
-    for (let i = 0; i < SHAPE_COUNT; i++) {
-      const el = document.createElement('div');
-      el.className = 'deco-shape';
-      el.style.opacity = '0';
-      document.body.appendChild(el);
-      shapePool.push(el);
-    }
-    isInitialized = true;
-  }
+ const directions = [
+   'polygon(50% 0%, 0% 100%, 100% 100%)',
+   'polygon(50% 100%, 0% 0%, 100% 0%)',
+   'polygon(0% 50%, 100% 0%, 100% 100%)',
+   'polygon(100% 50%, 0% 0%, 0% 100%)'
+ ];
 
-  function updateShapes() {
-    if (!isInitialized) return;
-    const { innerWidth, innerHeight } = window;
+ function initShapePool() {
+   if (isInitialized) return;
+   for (let i = 0; i < SHAPE_COUNT; i++) {
+     const el = document.createElement('div');
+     el.className = 'deco-shape';
+     // 注意：这里不设置 inline opacity，完全依赖 CSS 的 opacity: 0
+     document.body.appendChild(el);
+     shapePool.push(el);
+   }
+   isInitialized = true;
+ }
 
-    for (let i = 0; i < SHAPE_COUNT; i++) {
-      const el = shapePool[i];
+ function updateShapes() {
+   if (!isInitialized) return;
+   const { innerWidth, innerHeight } = window;
 
-      // 随机选择形状：0=圆, 1=矩形, 2=三角形
-      const shapeType = rand(0, 2);
+   // 1. 重置所有元素到统一初始状态（确保可动画起点）
+   for (let i = 0; i < SHAPE_COUNT; i++) {
+     const el = shapePool[i];
+     el.style.opacity = '0';
+     el.style.transform = 'translate(0, 0)';
+     // 设置一个基础尺寸和形状，避免后续 resize 过渡异常
+     el.style.width = '20px';
+     el.style.height = '20px';
+     el.style.borderRadius = '50%';
+     el.style.clipPath = 'none';
+   }
 
-      if (shapeType === 0) {
-        // 圆形
-        const size = rand(20, 100);
-        el.style.width = `${size}px`;
-        el.style.height = `${size}px`;
-        el.style.borderRadius = '50%';
-        el.style.clipPath = 'none';
-      } else if (shapeType === 1) {
-        // 矩形
-        el.style.width = `${rand(20, 100)}px`;
-        el.style.height = `${rand(20, 100)}px`;
-        el.style.borderRadius = '0';
-        el.style.clipPath = 'none';
-      } else {
-        // 三角形：统一用等腰直角三角形（朝上）
-        const size = rand(30, 100); // 三角形建议稍大一点更明显
-        el.style.width = `${size}px`;
-        el.style.height = `${size}px`;
-        el.style.borderRadius = '0';
-        // 用 clip-path 画一个朝上的三角形
-        el.style.clipPath = directions[rand(0, 3)];
-      }
+   // 2. 双重 rAF：确保初始状态已被渲染
+   requestAnimationFrame(() => {
+     requestAnimationFrame(() => {
+       // 3. 应用最终样式 → 触发动画
+       for (let i = 0; i < SHAPE_COUNT; i++) {
+         const el = shapePool[i];
+         const shapeType = rand(0, 2);
+         const x = rand(-50, innerWidth + 50);
+         const y = rand(-BUFFER, innerHeight + BUFFER);
 
-      // 随机位置
-      el.style.left = `${rand(-50, innerWidth + 50)}px`;
-      el.style.top = `${rand(-BUFFER, innerHeight + BUFFER)}px`;
-      el.style.opacity = '0.3';
-    }
-  }
+         if (shapeType === 0) {
+           const size = rand(20, 100);
+           el.style.width = `${size}px`;
+           el.style.height = `${size}px`;
+           el.style.borderRadius = '50%';
+           el.style.clipPath = 'none';
+         } else if (shapeType === 1) {
+           el.style.width = `${rand(20, 100)}px`;
+           el.style.height = `${rand(20, 100)}px`;
+           el.style.borderRadius = '0';
+           el.style.clipPath = 'none';
+         } else {
+           const size = rand(30, 100);
+           el.style.width = `${size}px`;
+           el.style.height = `${size}px`;
+           el.style.borderRadius = '0';
+           el.style.clipPath = directions[rand(0, 3)];
+         }
 
-  function generateOrRefresh() {
-    initShapePool();
-    updateShapes();
-  }
+         el.style.transform = `translate(${x}px, ${y}px)`;
+         el.style.opacity = '0.5';
+       }
+     });
+   });
+ }
 
-  // 初始化
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', generateOrRefresh);
-  } else {
-    generateOrRefresh();
-  }
+ function generateOrRefresh() {
+   initShapePool();
+   updateShapes();
+ }
 
-  // Astro 页面切换
-  document.addEventListener('astro:page-load', generateOrRefresh);
+ if (document.readyState === 'loading') {
+   document.addEventListener('DOMContentLoaded', generateOrRefresh);
+ } else {
+   generateOrRefresh();
+ }
+
+ document.addEventListener('astro:page-load', generateOrRefresh);
 </script>
