@@ -9,7 +9,7 @@ tags:
     - 仓颉
 ---
 
-<Info>
+:::note
 
 阅读文档版本:
 
@@ -19,15 +19,15 @@ tags:
 
 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
 
-有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.1)
+有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
-</Info>
+:::
 
-<Warning>
+:::warning
 
-博主在此之前, 基本就只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
+博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
 
-</Warning>
+:::
 
 > 此样式内容, 表示文档原文内容
 
@@ -521,11 +521,11 @@ main() {
 > }
 > ```
 
-<Info>
+:::note
 
 示例中都忽略了`init()`构造函数
 
-</Info>
+:::
 
 从示例观察, 可以看到:
 
@@ -916,7 +916,7 @@ struct B<X,Y> {
 
 **只有`struct`变量和其成员变量, 均用`var`修饰是, 才能通过`structInstance.varName = expr`的方式修改成员变量的值**
 
-<Question>
+:::important[QUESTION]
 
 `struct`是值类型的
 
@@ -928,7 +928,7 @@ struct B<X,Y> {
 
 > 仓颉好像提供有`CPointer`类型, 到时可以验证一下
 
-</Question>
+:::
 
 #### `class`类型和`interface`类型
 

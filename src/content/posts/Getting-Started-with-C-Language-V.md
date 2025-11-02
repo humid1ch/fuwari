@@ -9,13 +9,11 @@ tags:
     - 从零开始接触C语言
 ---
 
-<Warning>
-
-如果你从未接触过C语言, 那么我建议你先阅读前面的文章:
-
-[📌从零开始接触C语言](https://www.humid1ch.cn/blog/tag/从零开始接触C语言)
-
-</Warning>
+> [!TIP]
+>
+> 如果你从未接触过C语言, 那么我建议你先阅读前面的文章:
+>
+> [📌从零开始接触C语言](https://www.humid1ch.cn/blog/tag/从零开始接触C语言)
 
 ## 语句
 
@@ -361,11 +359,9 @@ int main() {
 
     可以看到, 在匹配到`case 1`之后, 在遇到`break;`或`switch`结束之前, 按顺序执行了之间的所有`case`分支
 
-<Info>
-
-`break;`关键词只能在`switch`和循环语句中使用, 作用是跳出所处结构
-
-</Info>
+> [!NOTE]
+> 
+> `break;`关键词只能在`switch`和循环语句中使用, 作用是跳出所处结构
 
 ### 循环语句
 

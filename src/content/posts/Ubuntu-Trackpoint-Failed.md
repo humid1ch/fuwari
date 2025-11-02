@@ -40,7 +40,7 @@ tags:
 
 即, 在 `/etc/default/grub` 文件的 `GRUB_CMDLINE_LINUX_DEFAULT` 行的值中, 添加 `i8042.nopnp=1 i8042.reset i8042.aux=1`
 
-<Info>
+:::note
 
 参数说明:
 
@@ -50,7 +50,7 @@ tags:
 
  - i8042.nopnp=1 → 忽略 BIOS PnP 信息(避免冲突)
 
-</Info>
+:::
 
 修改完之后, 执行:
 

@@ -9,7 +9,7 @@ tags:
     - 仓颉
 ---
 
-<Info>
+:::note
 
 阅读文档版本:
 
@@ -19,15 +19,15 @@ tags:
 
 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
 
-有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.1)
+有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
-</Info>
+:::
 
-<Warning>
+:::warning
 
-博主在此之前, 基本就只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
+博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
 
-</Warning>
+:::
 
 > 此样式内容, 表示文档原文内容
 
@@ -566,11 +566,11 @@ C/C++无论是函数、类型和变量, 都需要"先声明"再使用, 这里的
 
 `class`和`interface`的成员变量, 只能是绑定模式, 只有`varBindingPattern`吗?
 
-<Question>
+:::important[QUESTION]
 
 记录这两个问题, 具体了解到之后回答
 
-</Question>
+:::
 
 > 需要注意的是:
 >

@@ -9,13 +9,11 @@ tags:
     - 从零开始接触C语言
 ---
 
-<Warning>
-
-如果你从未接触过C语言, 那么我建议你先阅读前面的文章:
-
-[📌从零开始接触C语言](https://www.humid1ch.cn/blog/tag/从零开始接触C语言)
-
-</Warning>
+> [!TIP]
+>
+> 如果你从未接触过C语言, 那么我建议你先阅读前面的文章:
+>
+> [📌从零开始接触C语言](https://www.humid1ch.cn/blog/tag/从零开始接触C语言)
 
 ## 关键字
 
@@ -346,11 +344,11 @@ static int add(int num1, int num2) {
 >
 > 这是因为**第一次显式声明决定了函数的链接属性**
 
-<Warning>
+:::warning
 
 关键字`static`和`extern`不能一起使用
 
-</Warning>
+:::
 
 #### 功能2: 修饰变量, 提供静态属性
 

@@ -48,6 +48,8 @@
     }
   }
 
+  * mark,
+  * mark *,
   mark * {
     background-color: var(--primary);
     color: black;
@@ -131,8 +133,6 @@
     ::selection {
       @apply bg-[var(--codeblock-selection)];
     }
-
-    margin: 1rem;
   }
 
   ul,
@@ -152,7 +152,8 @@
     background-color: var(--blockquote-bg);
 
     &:before {
-      @apply content-[''] absolute block transition bg-[var(--btn-regular-bg-hover)] h-full w-1 rounded-full;
+      /*@apply content-[''] absolute block transition bg-[var(--btn-regular-bg-hover)] h-full w-1 rounded-full;*/
+      @apply content-[''] absolute block transition bg-[var(--primary)] h-full w-1 rounded-full;
       height: unset !important;
       left: -0.22rem;
       top: 0.7rem;
@@ -163,6 +164,11 @@
     p:before,
     p:after {
       @apply content-none;
+    }
+
+    .expressive-code,
+    p {
+        margin-right: 1rem;
     }
   }
 
@@ -175,5 +181,8 @@
   p > img {
     display: block;
     margin: auto;
+  }
+  .expressive-code .ec-line .code {
+    padding-left: 0.5rem;
   }
 }
