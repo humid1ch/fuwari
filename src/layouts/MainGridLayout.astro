@@ -231,7 +231,6 @@ const mainPanelTop = siteConfig.banner.enable
 <script>
 function initInlineCodeCopy() {
     document.addEventListener("click", async (e) => {
-        console.log("code clicked");
         const codeEl = e.target.closest("code");
         if (!codeEl || codeEl.closest("pre")) return;
         if (codeEl.dataset.copying === "true") return;
@@ -255,7 +254,6 @@ function initInlineCodeCopy() {
 
 function initCodeLineHighlight() {
     document.addEventListener("mousedown", (e) => {
-        console.log("linehighlight mousedown");
         const line = e.target.closest(".ec-line");
         if (!line) return;
         document.querySelectorAll(".ec-line.active").forEach(el => el.classList.remove("active"));
