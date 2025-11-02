@@ -9,7 +9,7 @@ tags:
     - 仓颉
 ---
 
-<Info>
+:::note
 
 阅读文档版本:
 
@@ -19,15 +19,15 @@ tags:
 
 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
 
-有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.1)
+有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
-</Info>
+:::
 
-<Warning>
+:::warning
 
 博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
 
-</Warning>
+:::
 
 > 此样式内容, 表示文档原文内容
 
@@ -280,11 +280,11 @@ main() {
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250920010311744.webp)
 
-<Info>
+:::note
 
 仓颉在`std.math`包中, 提供了接口, 可以获取不同浮点精度的`NaN`
 
-</Info>
+:::
 
 #### `Rune`类型
 
@@ -547,7 +547,7 @@ main() {
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250920213135269.webp)
 
-<Info>
+:::note
 
 类似`var (x, y)`的方式, 是仓颉中的多变量声明的一种方式
 
@@ -559,7 +559,7 @@ main() {
 var (x, y): (Int64, Int64)
 ```
 
-</Info>
+:::
 
 ##### 元组的下标访问
 

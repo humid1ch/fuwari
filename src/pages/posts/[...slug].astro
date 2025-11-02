@@ -224,7 +224,7 @@ const jsonLd = {
 
     <Comment post={entry} />
 
-    <script>
+    <!-- <script>
         function initInlineCodeCopy() {
             document
                 .querySelectorAll("code:not(pre code)")
@@ -275,5 +275,45 @@ const jsonLd = {
             initInlineCodeCopy();
             initCodeLineHighlight();
         });
+    </script> -->
+    <script>
+    function initInlineCodeCopy() {
+        document.addEventListener("click", async (e) => {
+            const codeEl = e.target.closest("code");
+            if (!codeEl || codeEl.closest("pre")) return;
+            if (codeEl.dataset.copying === "true") return;
+
+            const text = codeEl.textContent || "";
+            try {
+                codeEl.dataset.copying = "true";
+                await navigator.clipboard.writeText(text);
+                const original = codeEl.textContent;
+                codeEl.textContent = "已复制!";
+                setTimeout(() => {
+                    codeEl.textContent = original;
+                    codeEl.dataset.copying = "false";
+                }, 1500);
+            } catch (err) {
+                console.error("复制失败:", err);
+                codeEl.dataset.copying = "false";
+            }
+        });
+    }
+
+    function initCodeLineHighlight() {
+        document.addEventListener("mousedown", (e) => {
+            const line = e.target.closest(".ec-line");
+            if (!line) return;
+            document.querySelectorAll(".ec-line.active").forEach(el => el.classList.remove("active"));
+            line.classList.add("active");
+        });
+    }
+
+    // 只需在 DOMContentLoaded 时初始化一次（因为是事件委托）
+    document.addEventListener("DOMContentLoaded", () => {
+        initInlineCodeCopy();
+        initCodeLineHighlight();
+    });
+    // astro:page-load 通常不需要，除非你做 SPA 导航且需要重置状态
     </script>
 </MainGridLayout>

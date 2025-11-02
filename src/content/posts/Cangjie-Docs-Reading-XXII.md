@@ -9,7 +9,7 @@ tags:
     - 仓颉
 ---
 
-<Info>
+:::note
 
 阅读文档版本:
 
@@ -19,19 +19,19 @@ tags:
 
 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
 
-有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.1)
+有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
-</Info>
+:::
 
-<Warning>
+:::warning
 
-博主在此之前, 基本就只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
+博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
 
-</Warning>
+:::
 
 > 此样式内容, 表示文档原文内容
 
-<Info>
+:::note
 
 按照文档中的顺序, 异常与并发之间还存在两个章节: 语言互操作 和 元编程
 
@@ -39,7 +39,7 @@ tags:
 
 可以先了解并发的一些内容 再去看这两个章节
 
-</Info>
+:::
 
 ## 并发
 
@@ -600,11 +600,11 @@ tags:
 
 所以, `unlock()`需要实现可以解除全部的重复锁定, 也需要保证实现`lock()/tryLock()`可以支持重复锁定
 
-<Warning>
+:::warning
 
 按照最新版本的Cangjie文档, 此接口在未来将会被废弃, 将使用`Lock`代替
 
-</Warning>
+:::
 
 #### `ReentrantMutex`
 
@@ -647,11 +647,11 @@ tags:
 
 `ReentrantMutex`是仓颉提供的, 可重入锁 类, 不允许被继承
 
-<Warning>
+:::warning
 
 按照最新版本的Cangjie文档, 此类在未来将会被废弃, 将使用`Metux`代替
 
-</Warning>
+:::
 
 #### `synchronized`
 
@@ -775,13 +775,13 @@ tags:
 `Monitor.wait()`会释放持有的锁+并让线程陷入阻塞, 等待唤醒, 这就是条件变量+锁
 
 
-<Warning>
+:::warning
 
 按照最新版本的Cangjie文档, 此类在未来将会被废弃, 将使用`Condition`代替
 
 `Condition`是一个接口
 
-</Warning>
+:::
 
 #### `MultiConditionMonitor`
 
@@ -921,11 +921,11 @@ tags:
 > }
 > ```
 
-<Warning>
+:::warning
 
 按照最新版本的Cangjie文档, 此类在未来将会被废弃, 将使用`Mutex`代替
 
-</Warning>
+:::
 
 ### 内存模型
 
