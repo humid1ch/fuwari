@@ -2,13 +2,13 @@
 draft: true
 title: "[Linux] 网络编程 - 初见UDP套接字编程: 网络编程部分相关概念、TCP、UDP协议基本特点、大小端字节序、网络字节序、socket接口使用、简单的UDP网络及聊天室实现..."
 published: 2023-06-25
-description: '本篇文章正式开始Linux中的网络编程. 本文介绍了, 网络编程的一些概念, 以及简单的UDP套接字编程. 实现了最简单的UDP公共聊天室'
+description: "本篇文章正式开始Linux中的网络编程. 本文介绍了, 网络编程的一些概念, 以及简单的UDP套接字编程. 实现了最简单的UDP公共聊天室"
 image: https://dxyt-july-image.oss-cn-beijing.aliyuncs.com/202307021623107.webp
 category: Blogs
 tags:
-    - Linux网络
-    - 套接字
-    - UDP
+  - Linux网络
+  - 套接字
+  - UDP
 ---
 
 上一篇文章中, 我们简单的介绍了网络的最基础的部分内容, 没有涉及到编程相关的内容
@@ -31,7 +31,7 @@ tags:
 
 假如, 要从家里自驾去某个地方旅游, 首先 家是不会变的, 其次 即使中途可能经过许多地方, 但是正常情况下 你的最终目的地是不会变的
 
-### 2. 端口号和`socket`套接字 **
+### 2. 端口号和`socket`套接字 \*\*
 
 网络通信, 可以看成是两台主机在通信
 
@@ -76,7 +76,7 @@ tags:
 
 此组合, 也被称为**`socket`套接字**
 
->  **1. 端口号, 是一个2字节16位的整数**
+> **1. 端口号, 是一个 2 字节 16 位的整数**
 >
 > **2. 一个端口号, 只能被一个进程占用, 即 一个端口号只能标识一个进程**
 
@@ -88,7 +88,7 @@ tags:
 
 但是, 实际上操作系统中的**进程并不都需要网络通信**
 
-那么直接使用PID来确定网络中的唯一进程, 并不完全契合
+那么直接使用 PID 来确定网络中的唯一进程, 并不完全契合
 
 并且, `PID`在操作系统中主要是用来进程管理的
 
@@ -106,9 +106,9 @@ tags:
 
 所以, 就有了 **源端口号和目的端口号, 用来确定 源主机的发送进程 和 目的主机的接收进程**
 
-> 结合源IP地址与目的IP地址
+> 结合源 IP 地址与目的 IP 地址
 >
->  **源IP:源端口号**和**目的IP:目的端口号**就组成了一个**`socket`对**
+> **源 IP:源端口号**和**目的 IP:目的端口号**就组成了一个**`socket`对**
 >
 > `socket`对, 即指 发送端`Socket`和接收端`Socket`的组合
 
@@ -116,21 +116,21 @@ tags:
 
 此处先对`TCP`(`Transmission Control Protocol`传输控制协议)有一个直观的认识, 后面会对`TCP`协议有一个更细节的介绍
 
-TCP协议的基本特点:
+TCP 协议的基本特点:
 
 1. 传输层协议
 
 2. 有连接
 
-    有连接是什么意思呢? 比如, 使用`SSH`连接服务器主机
+   有连接是什么意思呢? 比如, 使用`SSH`连接服务器主机
 
-    `SSH`就是用的TCP协议, 必须要与服务器主机建立连接之后, 才能正常的与服务器进行通信
+   `SSH`就是用的 TCP 协议, 必须要与服务器主机建立连接之后, 才能正常的与服务器进行通信
 
 3. 可靠传输
 
-    什么是可靠传输? 可靠传输, 并不是一个主观的判断. 而是传输数据时, `TCP`会使用各种技术防止数据丢失或损坏, 这种实现方式称为可靠传输
+   什么是可靠传输? 可靠传输, 并不是一个主观的判断. 而是传输数据时, `TCP`会使用各种技术防止数据丢失或损坏, 这种实现方式称为可靠传输
 
-    但, 并不表示`TCP`传输就一定是可靠的
+   但, 并不表示`TCP`传输就一定是可靠的
 
 4. 面向字节流
 
@@ -144,15 +144,15 @@ TCP协议的基本特点:
 
 2. 无连接
 
-    无连接, 顾名思义就是通信前, 双方不需要建立连接
+   无连接, 顾名思义就是通信前, 双方不需要建立连接
 
-    比如, 直播、短视频等
+   比如, 直播、短视频等
 
 3. 不可靠传输
 
-    `UDP`协议不会确保数据的完整性, 如果传输过程中数据丢失, `UDP`协议也不会管, 更不会重新发送
+   `UDP`协议不会确保数据的完整性, 如果传输过程中数据丢失, `UDP`协议也不会管, 更不会重新发送
 
-    就像直播时, 如果网络差 很可能会导致画面、音频卡顿、模糊等
+   就像直播时, 如果网络差 很可能会导致画面、音频卡顿、模糊等
 
 4. 面向数据报
 
@@ -178,7 +178,7 @@ TCP协议的基本特点:
 
 2. 小端字节序: 数据的低位字节 存储在内存的低地址处, 高位字节 存储在内存的高地址处
 
-    小端字节序存储, **不是将数据倒序存储**, 而是**以字节为单位**, 从低位数据到高位数据 存储到内存的 低地址到高地址
+   小端字节序存储, **不是将数据倒序存储**, 而是**以字节为单位**, 从低位数据到高位数据 存储到内存的 低地址到高地址
 
 ![|big](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161305529.webp)
 
@@ -188,7 +188,7 @@ TCP协议的基本特点:
 
 **而使用小端字节序的平台, 读取数据 需要从内存的有效高地址处开始 读取到内存的有效低地址处**
 
-> CPU在读取内存中的数据时, 默认是从有效低地址开始的, 所以小端字节序平台, CPU默认读取到的数据 顺序是错误的.
+> CPU 在读取内存中的数据时, 默认是从有效低地址开始的, 所以小端字节序平台, CPU 默认读取到的数据 顺序是错误的.
 
 ---
 
@@ -207,7 +207,7 @@ TCP协议的基本特点:
 
 并且, **`TCP/IP协议规定: 网络数据流应采用大端字节序, 即低地址处高位字节.`**
 
-不管这台主机是大端机还是小端机, 都要按照这个TCP/IP规定的网络字节序来发送/接收数据;
+不管这台主机是大端机还是小端机, 都要按照这个 TCP/IP 规定的网络字节序来发送/接收数据;
 
 如果当前发送主机是小端, 就需要先将数据转成大端, 否则就忽略.
 
@@ -215,11 +215,11 @@ TCP协议的基本特点:
 
 网络数据流被规范之后, 网络上流动的数据就恒为大端字节序, 那么 **接收端读取数据 就按照读取大端字节序数据的方式, 或将接收到的数据的存储顺序调整为小端字节序 然后在读取**, 就可以正常的读取到数据了.
 
-> C语言提供了相应的数据转换字节序的接口:
+> C 语言提供了相应的数据转换字节序的接口:
 >
 > ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161307991.webp)
 >
-> 这些接口名很好记, `h` 表示 host, `n` 表示 network, `l` 表示 32位长整型, `s` 表示 16位短整型, `to` 表示 转换为
+> 这些接口名很好记, `h` 表示 host, `n` 表示 network, `l` 表示 32 位长整型, `s` 表示 16 位短整型, `to` 表示 转换为
 >
 > ```cpp
 > #include <arpa/inet.h>
@@ -239,7 +239,7 @@ TCP协议的基本特点:
 
 ## `socket`编程接口
 
-socket编程有一些常见的`API`接口:
+socket 编程有一些常见的`API`接口:
 
 ```cpp
 // 创建 socket 文件描述符 (TCP/UDP, 客户端 + 服务器)
@@ -295,9 +295,9 @@ ssize_t recvfrom(int socket, void* restrict buffer, size_t length, int flags, st
 
 ![|inline](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161311372.webp)
 
-> `struct sockaddr_in`的前16位是一个宏, **`AF_INET`**
+> `struct sockaddr_in`的前 16 位是一个宏, **`AF_INET`**
 >
-> `struct sockaddr_un`的前16位同样是一个宏, **`AF_UNIX`**
+> `struct sockaddr_un`的前 16 位同样是一个宏, **`AF_UNIX`**
 
 所需的资源不同, 也就是说需要传递给接口的资源不同
 
@@ -317,7 +317,7 @@ ssize_t recvfrom(int socket, void* restrict buffer, size_t length, int flags, st
 
 ![|inline](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161315663.webp)
 
-可以发现, 这三个结构体的首16位, 都指**地址类型**
+可以发现, 这三个结构体的首 16 位, 都指**地址类型**
 
 > 地址类型, 不同的宏可以区分 协议 以及 区分网络通信还是域间通信
 >
@@ -331,9 +331,9 @@ ssize_t recvfrom(int socket, void* restrict buffer, size_t length, int flags, st
 
 在使用`socket`接口的时候, 需要先将`struct sockaddr_in*`或`struct sockaddr_un*`等类型的结构体, 强转为`struct sockaddr*`然后再传给接口使用
 
-因为, `sockaddr`类似的结构体的前16位都表示地址类型
+因为, `sockaddr`类似的结构体的前 16 位都表示地址类型
 
-所以, **接口接收到传来的数据之后, 会根据 前16的地址类型 来区分 协议以及通信方式, 更会根据地址类型判断出数据的原结构体类型, 然后将`sockaddr`结构体, 强转回原结构体类型, 以获取完整的通信信息**
+所以, **接口接收到传来的数据之后, 会根据 前 16 的地址类型 来区分 协议以及通信方式, 更会根据地址类型判断出数据的原结构体类型, 然后将`sockaddr`结构体, 强转回原结构体类型, 以获取完整的通信信息**
 
 ### 接口演示: 简单的`UDP`网络通信
 
@@ -363,57 +363,57 @@ man 手册中是这样介绍的:
 
 1. `int domain`
 
-    介绍`sockaddr`相关结构体时, 结构体的前16位是地址类型, 通常是一个宏, 用来区分协议以及通信方式的
+   介绍`sockaddr`相关结构体时, 结构体的前 16 位是地址类型, 通常是一个宏, 用来区分协议以及通信方式的
 
-    而这里的第一个参数`int domain`, 就是传入地址类型 区分通信方式的
+   而这里的第一个参数`int domain`, 就是传入地址类型 区分通信方式的
 
-    被称作`socket`的域
+   被称作`socket`的域
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161320045.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161320045.webp)
 
-    其中, **`AF_UNIX`**和**`AF_LOCAL`** 相同
+   其中, **`AF_UNIX`**和**`AF_LOCAL`** 相同
 
-    传入之后 都表示本地通信
+   传入之后 都表示本地通信
 
-    而**`AF_INET`**表示`ipv4`网络通信, **`AF_INET6`**则表示`ipv6`网络通信
+   而**`AF_INET`**表示`ipv4`网络通信, **`AF_INET6`**则表示`ipv6`网络通信
 
-    最常用的, 其实就只有 **`AF_UNIX`** 和 **`AF_INET`**
+   最常用的, 其实就只有 **`AF_UNIX`** 和 **`AF_INET`**
 
 2. `int type`
 
-    此参数是用来选择**套接字类型**的, 决定了通信时候对应的 **报文类型**
+   此参数是用来选择**套接字类型**的, 决定了通信时候对应的 **报文类型**
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161322302.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161322302.webp)
 
-    其中, 前四个**`SOCK_STREAM`** **`SOCK_DGRAM`** **`SOCK_SEQPACKET`** **`SOCK_RAW`**是最常用的
+   其中, 前四个**`SOCK_STREAM`** **`SOCK_DGRAM`** **`SOCK_SEQPACKET`** **`SOCK_RAW`**是最常用的
 
-    1. **`SOCK_STREAM`**, 表示 流式套接字, 一般用于`TCP`
+   1. **`SOCK_STREAM`**, 表示 流式套接字, 一般用于`TCP`
 
-    2. **`SOCK_DGRAM`**, 表示 数据报式套接字, 一般用于`UDP`
+   2. **`SOCK_DGRAM`**, 表示 数据报式套接字, 一般用于`UDP`
 
-    3. **`SOCK_SEQPACKET`**, 表示 连续数据报套接字
+   3. **`SOCK_SEQPACKET`**, 表示 连续数据报套接字
 
-    4. **`SOCK_RAW`**, 表示 原始套接字
+   4. **`SOCK_RAW`**, 表示 原始套接字
 
-        使用此套接字, 通信可以直接绕过传输层的协议, 直接访问IP协议
+      使用此套接字, 通信可以直接绕过传输层的协议, 直接访问 IP 协议
 
-        不过, 绕过传输层协议, 就表示需要自己实现一些传输协议的内容
+      不过, 绕过传输层协议, 就表示需要自己实现一些传输协议的内容
 
-        一般用于网络诊断等方面
+      一般用于网络诊断等方面
 
 3. `int protocol`
 
-    这个参数用来选择**协议类型**
+   这个参数用来选择**协议类型**
 
-    此参数的选择 与 第二个参数 `type` 密切相关.
+   此参数的选择 与 第二个参数 `type` 密切相关.
 
-    比如, `type`传入**`SOCK_STREAM`**, 此参数就需要传入**`IPPROTO_TCP`**, 就选择了 TCP协议
+   比如, `type`传入**`SOCK_STREAM`**, 此参数就需要传入**`IPPROTO_TCP`**, 就选择了 TCP 协议
 
-    但实际上, 我们不需要手动使用宏去选择
+   但实际上, 我们不需要手动使用宏去选择
 
-    网络通信时, 选定`type`并且只需要使用一种协议时, `protocol`可以直接传入`0`, 表示使用默认协议, 其实就是操作系统根据前面的参数选择的最适用的协议
+   网络通信时, 选定`type`并且只需要使用一种协议时, `protocol`可以直接传入`0`, 表示使用默认协议, 其实就是操作系统根据前面的参数选择的最适用的协议
 
-    文章中在使用时, 一定都设置为`0`了
+   文章中在使用时, 一定都设置为`0`了
 
 了解了`socket()`的参数之后, 还需要了解一下它的返回值
 
@@ -522,7 +522,7 @@ void logMessage(int level, const char* format, ...) {
 
 要实现的最简单的`udpServer`, 需要满足什么功能?
 
-1. 运行时, 传入端口号和IP, 以绑定本机网络信息
+1. 运行时, 传入端口号和 IP, 以绑定本机网络信息
 2. 运行后, 绑定网络信息到主机, 并获取发送到本机网络上的信息
 
 了解了基本功能之后, 就可以尝试写一写了.
@@ -531,26 +531,26 @@ void logMessage(int level, const char* format, ...) {
 
 1. `socket()、recvfrom()、bind()...`
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161331036.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161331036.webp)
 
-    ```cpp
-    #include <sys/types.h>
-    #include <sys/socket.h>
-    ```
+   ```cpp
+   #include <sys/types.h>
+   #include <sys/socket.h>
+   ```
 
 2. `htonl()、inet_addr()...`
 
-    `htonl()`系列的接口已经简单的介绍过了
+   `htonl()`系列的接口已经简单的介绍过了
 
-    `inet_addr()`接口的作用是转换`IP`地址的格式
+   `inet_addr()`接口的作用是转换`IP`地址的格式
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161332806.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161332806.webp)
 
-    ```cpp
-    #include <sys/socket.h>
-    #include <netinet/in.h>
-    #include <arpa/inet.h>
-    ```
+   ```cpp
+   #include <sys/socket.h>
+   #include <netinet/in.h>
+   #include <arpa/inet.h>
+   ```
 
 这些就是套接字网络需要包含的最基本的头文件了.
 
@@ -731,7 +731,7 @@ int main(int argc, char* argv[]) {
 
 运行时, 当选项使用错误 会输出 `Usage`. 选项输入正确, 则执行代码, 并输出 `logMessage`
 
-当程序运行起来之后, 使用 `netstat -lnup` 可以查看操作系统中的UDP相关网络连接等信息:
+当程序运行起来之后, 使用 `netstat -lnup` 可以查看操作系统中的 UDP 相关网络连接等信息:
 
 ![|inline](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161339178.webp)
 
@@ -739,11 +739,11 @@ int main(int argc, char* argv[]) {
 
 当熟悉接口的使用之后, 其实非常的简单.
 
-> 需要了解的是, `inet_addr()` 接口 可以将点分十进制字符串类型的IP地址, 转换为 in_addr_t 类型的IP
+> 需要了解的是, `inet_addr()` 接口 可以将点分十进制字符串类型的 IP 地址, 转换为 in_addr_t 类型的 IP
 >
 > 同时, 也会 **`将转换后的IP自动转换为网络字节序存储形式`**
 
-到这里 一个简单的udp服务器其实就已经完成了. 这个服务器非常的简单, 只会接收信息 连回复功能都没有
+到这里 一个简单的 udp 服务器其实就已经完成了. 这个服务器非常的简单, 只会接收信息 连回复功能都没有
 
 ##### **最简单的`udpClient`**
 
@@ -1243,76 +1243,78 @@ clean:
 ![udp_chat](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161353751.gif)
 
 从演示中可以看到, 当服务器打开 客户端打开之后, 客户端就可以向服务器发送消息了.
-> 演示中 Windows的客户端 我取消了接收服务器消息的功能.
 
-相比最简单的 udp网络通信的实现. **`udpServer`** 和 **`udpClient`** 变化的地方在这些部分:
+> 演示中 Windows 的客户端 我取消了接收服务器消息的功能.
+
+相比最简单的 udp 网络通信的实现. **`udpServer`** 和 **`udpClient`** 变化的地方在这些部分:
+
 1. `udpServer`
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161356460.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161356460.webp)
 
-    在 udpServer 代码中, 首先是在类中添加了一个 成员变量 `_users`, 是一个哈希表 用来存储用户网络进程信息
+   在 udpServer 代码中, 首先是在类中添加了一个 成员变量 `_users`, 是一个哈希表 用来存储用户网络进程信息
 
-    然后就是 增添了这两个 成员函数: `checkOnlineUser()` `messageRoute()`
+   然后就是 增添了这两个 成员函数: `checkOnlineUser()` `messageRoute()`
 
-    `checkOnlineUser()`, 用来检测 向服务器发送消息的客户端是否已经在服务器的用户表中. 如果不在, 则添加.
+   `checkOnlineUser()`, 用来检测 向服务器发送消息的客户端是否已经在服务器的用户表中. 如果不在, 则添加.
 
-    `messageRoute()`, 则是实现消息路由转发的功能. 服务器 接收到 某个客户端发来的消息之后, 会将客户端的信息(IP:Port) 以及发过来的消息, 传入此函数内. 然后 此函数整合信息和消息, 再将整合后的信息 转发给所有在服务器用户表中的客户端用户.
+   `messageRoute()`, 则是实现消息路由转发的功能. 服务器 接收到 某个客户端发来的消息之后, 会将客户端的信息(IP:Port) 以及发过来的消息, 传入此函数内. 然后 此函数整合信息和消息, 再将整合后的信息 转发给所有在服务器用户表中的客户端用户.
 
 2. `udpClient`
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161359544.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161359544.webp)
 
-    客户端代码的最大的不同, 就是多了一个多线程执行的函数 `recverAndPrint()`
+   客户端代码的最大的不同, 就是多了一个多线程执行的函数 `recverAndPrint()`
 
-    此函数的功能是, 接收来自服务器的消息. 其实就是 接收所有人发送的消息.
+   此函数的功能是, 接收来自服务器的消息. 其实就是 接收所有人发送的消息.
 
-    此函数需要多线程执行, 为什么呢?
+   此函数需要多线程执行, 为什么呢?
 
-    我们在 `udpClient` 代码中, 获取用户在命令行输入的内容的实现是用 `getline();` 实现的.
+   我们在 `udpClient` 代码中, 获取用户在命令行输入的内容的实现是用 `getline();` 实现的.
 
-    是一个阻塞式的等待输入操作.
+   是一个阻塞式的等待输入操作.
 
-    如果 `recverAndPrint()` 也在主线程内执行. 那么就会出现 只有用户输入完毕之后, 来自服务器的消息才能输出在客户端中 的现象. 就像这样:
+   如果 `recverAndPrint()` 也在主线程内执行. 那么就会出现 只有用户输入完毕之后, 来自服务器的消息才能输出在客户端中 的现象. 就像这样:
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161402287.gif)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161402287.gif)
 
-    这样显然是不正确的. 所以使用多线程执行 `recverAndPrint()`. 主线程不干扰此线程.
+   这样显然是不正确的. 所以使用多线程执行 `recverAndPrint()`. 主线程不干扰此线程.
 
-    `udpClient` 代码还有其他的修改.
+   `udpClient` 代码还有其他的修改.
 
-    为了方便展示、查看 客户端接收到的服务器发来的信息. 演示时, 将 `udpClient` 的标准输出内容 重定向到了一个 命名管道文件中.
+   为了方便展示、查看 客户端接收到的服务器发来的信息. 演示时, 将 `udpClient` 的标准输出内容 重定向到了一个 命名管道文件中.
 
-    并且, 为了将来自服务器的信息重定向到其中 并且不出现扰乱信息, 我们将 `udpClient` 中其他 部分输出 由 `std::cout 标准输出` 换成了 `std::cerr 标准错误`. 比如, 输入提示的部分:
+   并且, 为了将来自服务器的信息重定向到其中 并且不出现扰乱信息, 我们将 `udpClient` 中其他 部分输出 由 `std::cout 标准输出` 换成了 `std::cerr 标准错误`. 比如, 输入提示的部分:
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161405141.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161405141.webp)
 
-    这样 可以避免将 输入提示符 也重定向到管道文件中. 因为 命令行中 `>` 是标准输出重定向
+   这样 可以避免将 输入提示符 也重定向到管道文件中. 因为 命令行中 `>` 是标准输出重定向
 
-    > `udpClient` 的改动, 涉及到 线程与重定向
-    >
-    > 博主 线程与重定向的相关文章:
-    >
-    > [[Linux] 线程同步分析: 什么是条件变量？生产者消费者模型是什么？POSIX信号量怎么用？阻塞队列和环形队列模拟生产者消费者模型](https://www.humid1ch.cn/posts/Linux-Thread-Synchronization)
-    >
-    > [[Linux] 线程互斥分析: 多线程会有什么问题？什么是互斥锁？C++怎么封装使用互斥锁？](https://www.humid1ch.cn/posts/Linux-Thread-Mutex)
-    >
-    > [[Linux] 如何理解线程ID？什么是线程局部存储？](https://www.humid1ch.cn/posts/Linux-ThreadID-Analysis)
-    >
-    > [[Linux] 多线程控制分析: 如何获取线程ID？如何自动回收线程？](https://www.humid1ch.cn/posts/Linux-Thread-Control)
-    >
-    > [[Linux] 多线程概念相关分析](https://www.humid1ch.cn/posts/Linux-Thread-Conceptual-Analysis)
-    >
-    > [[Linux] 详析 Linux下的 文件重定向 以及 文件缓冲区](https://www.humid1ch.cn/posts/Linux-Redirection&File-Buffers)
+   > `udpClient` 的改动, 涉及到 线程与重定向
+   >
+   > 博主 线程与重定向的相关文章:
+   >
+   > [[Linux] 线程同步分析: 什么是条件变量？生产者消费者模型是什么？POSIX 信号量怎么用？阻塞队列和环形队列模拟生产者消费者模型](https://blog.humid1ch.cn/posts/Linux-Thread-Synchronization)
+   >
+   > [[Linux] 线程互斥分析: 多线程会有什么问题？什么是互斥锁？C++怎么封装使用互斥锁？](https://blog.humid1ch.cn/posts/Linux-Thread-Mutex)
+   >
+   > [[Linux] 如何理解线程 ID？什么是线程局部存储？](https://blog.humid1ch.cn/posts/Linux-ThreadID-Analysis)
+   >
+   > [[Linux] 多线程控制分析: 如何获取线程 ID？如何自动回收线程？](https://blog.humid1ch.cn/posts/Linux-Thread-Control)
+   >
+   > [[Linux] 多线程概念相关分析](https://blog.humid1ch.cn/posts/Linux-Thread-Conceptual-Analysis)
+   >
+   > [[Linux] 详析 Linux 下的 文件重定向 以及 文件缓冲区](https://blog.humid1ch.cn/posts/Linux-Redirection&File-Buffers)
 
 这样就实现了 最简单的 `udp公共聊天`
 
 ### **`inet_ntoa()`**的相关问题
 
-上面在向`struct sockaddr_in`结构体内填充 IP地址时, 使用了一个接口: `inet_addr()`
+上面在向`struct sockaddr_in`结构体内填充 IP 地址时, 使用了一个接口: `inet_addr()`
 
-将 点分十进制的`IP`转换成了`uint32_t(in_addr_t)`类型的4字节表示的`IP`
+将 点分十进制的`IP`转换成了`uint32_t(in_addr_t)`类型的 4 字节表示的`IP`
 
-并且, `inet_addr()`会自动把4字节的`IP`存储顺序, 设置为**网络字节序**
+并且, `inet_addr()`会自动把 4 字节的`IP`存储顺序, 设置为**网络字节序**
 
 `inet_addr()`接口的使用 非常的方便
 
@@ -1320,7 +1322,7 @@ clean:
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161409503.webp)
 
-这个接口的功能也很简单, 就是将`struct in_addr`里存储的 4字节`IP`, 转换成我们可以看懂的点分十进制IP字符串, 然后以`char*`的类型返回
+这个接口的功能也很简单, 就是将`struct in_addr`里存储的 4 字节`IP`, 转换成我们可以看懂的点分十进制 IP 字符串, 然后以`char*`的类型返回
 
 `char*`指针返回, 这就需要存在一块空间, 来存储转换后的`IP`字符串
 
@@ -1347,7 +1349,7 @@ clean:
 > 其参数的使用:
 >
 > 1. **`int af`:** 指明地址族, `IPv4`或`IPv6`(**`AF_INET` 或 `AF_INET6`**)
-> 2. **`const void* src`:** 需要传入 表示网络字节序IP的结构体的地址(**`in_addr` 或 `in6_addr`**)
+> 2. **`const void* src`:** 需要传入 表示网络字节序 IP 的结构体的地址(**`in_addr` 或 `in6_addr`**)
 > 3. **`char* dst`:** 存放转换之后的字符串的缓冲区指针
 > 4. **`socklen_t`:** 缓冲区大小
 >

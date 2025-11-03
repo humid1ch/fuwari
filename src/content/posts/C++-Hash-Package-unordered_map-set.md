@@ -6,12 +6,12 @@ description: "STL的两个容器 unordered_map 和 unordered_set 底层是由哈
 image: https://dxyt-july-image.oss-cn-beijing.aliyuncs.com/202306251813360.webp
 category: Blogs
 tags:
-    - STL
-    - 哈希表
-    - 容器
+  - STL
+  - 哈希表
+  - 容器
 ---
 
-上一篇文章介绍分析了 哈希表的结构 与 基础的插入 查找 删除 三个接口, 也介绍了 STL的两个容器 `unordered_map`和`unordered_set`底层是由哈希表实现的, 那么本篇文章的内容 就是将哈希表封装为`unordered_set`和 `unordered_map`
+上一篇文章介绍分析了 哈希表的结构 与 基础的插入 查找 删除 三个接口, 也介绍了 STL 的两个容器 `unordered_map`和`unordered_set`底层是由哈希表实现的, 那么本篇文章的内容 就是将哈希表封装为`unordered_set`和 `unordered_map`
 
 但是 上一篇文章中模拟实现的哈希表 还不足以直接封装起来共`unordered_set`和`unordered_map`使用, 所以在封装之前, 需要 `改造哈希表`
 
@@ -23,31 +23,31 @@ tags:
 温馨提示: 本篇文章底层哈希表的实现 使用 开散列法, 即 链地址法
 ```
 
-> 阅读本文章之前, 建议先阅读博主 红黑树 和 set与map封装 的相关文章:
+> 阅读本文章之前, 建议先阅读博主 红黑树 和 set 与 map 封装 的相关文章:
 >
-> [[C++-STL\] 红黑树的详析分析与实现](http://humid1ch.cn/posts/DS-Analysis-RedBlack-Tree)
+> [[C++-STL\] 红黑树的详析分析与实现](https://blog.humid1ch.cn/posts/DS-Analysis-RedBlack-Tree)
 >
-> [[C++-STL\] set和map容器的模拟实现](http://humid1ch.cn/posts/C++-Simulate-the-Implementation-of-Set&Map)
+> [[C++-STL\] set 和 map 容器的模拟实现](https://blog.humid1ch.cn/posts/C++-Simulate-the-Implementation-of-Set&Map)
 
 unordered_set 和 unordered_map 的封装 其实与 set 和 map 的封装 `很相似`:
 
-1. 与 set 和 map 一样, 在使用的时候, 第一个模板参数传Key数据的类型, 第二个模板参数传Value数据的类型(set没有这个模板参数), 但在`底层的结构中`, 第一个模板参数只是为了说明Key的类型, `第二个模板参数才是真正的需要存储的数据类型`
+1. 与 set 和 map 一样, 在使用的时候, 第一个模板参数传 Key 数据的类型, 第二个模板参数传 Value 数据的类型(set 没有这个模板参数), 但在`底层的结构中`, 第一个模板参数只是为了说明 Key 的类型, `第二个模板参数才是真正的需要存储的数据类型`
 
-    即 节点中存储的数据类型 一个是 Key, 另一个是 pair<Key, Value>
+   即 节点中存储的数据类型 一个是 Key, 另一个是 pair<Key, Value>
 
-2. 由于 set是单个类型作为数据类型, 而 map是两个数据类型组合成pair作为实际的数据类型, 所以想要使用一个相同的底层结构, 就要用到仿函数来针对不同的数据类型提取当前数据中的 key(因为需要用key实现许多操作)
+2. 由于 set 是单个类型作为数据类型, 而 map 是两个数据类型组合成 pair 作为实际的数据类型, 所以想要使用一个相同的底层结构, 就要用到仿函数来针对不同的数据类型提取当前数据中的 key(因为需要用 key 实现许多操作)
 
-    即 与set和map原理相同的 `KeyOfT仿函数`
+   即 与 set 和 map 原理相同的 `KeyOfT仿函数`
 
-3. 只要实现了可以同时兼容实现 set 与 map 的底层, 关于set 与 map 的接口实现就非常的简单
+3. 只要实现了可以同时兼容实现 set 与 map 的底层, 关于 set 与 map 的接口实现就非常的简单
 
-与 set 和 map `不同的是`, unordered_set 和 unordered_map 的底层是哈希表, 所以在哈希表中需要`针对特别的数据类型(无法直接转换整形的类型)计算哈希值`, 所以 unordered_set 和 unordered_map 要多出一个 计算Key数据的哈希值的仿函数, 即 `hashFunc`
+与 set 和 map `不同的是`, unordered_set 和 unordered_map 的底层是哈希表, 所以在哈希表中需要`针对特别的数据类型(无法直接转换整形的类型)计算哈希值`, 所以 unordered_set 和 unordered_map 要多出一个 计算 Key 数据的哈希值的仿函数, 即 `hashFunc`
 
 ## 模板参数
 
-前面提到, unordered_set 和 unordered_map 使用时传参, 第一个传Key类型, 第二个传Value类型, 但实际上 底层实现 第二个传真正的数据类型, 在两个不同容器中分别为 Key 和 pair<Key, Value>
+前面提到, unordered_set 和 unordered_map 使用时传参, 第一个传 Key 类型, 第二个传 Value 类型, 但实际上 底层实现 第二个传真正的数据类型, 在两个不同容器中分别为 Key 和 pair<Key, Value>
 
-而且 还需要 KeyOfT仿函数 和 hashFunc仿函数, 所以 要实现可以同时兼容封装 unordered_set 和 unordered_map, 底层哈希表的模板参数需要改造为
+而且 还需要 KeyOfT 仿函数 和 hashFunc 仿函数, 所以 要实现可以同时兼容封装 unordered_set 和 unordered_map, 底层哈希表的模板参数需要改造为
 
 ```cpp
 template<class Key, class T, class KeyOfT, class hashFunc>
@@ -55,7 +55,7 @@ class hashTable {};
 /*  Key:关键字类型    T:存储的数据类型    KeyOfT:取数据中的关键字的仿函数      hashFunc:计算Key哈希值的仿函数*/
 ```
 
-## 哈希表的迭代器 *
+## 哈希表的迭代器 \*
 
 在模拟实现哈希表的迭代器之前, 首先要分析清楚, `迭代器的模板参数应该是什么`.
 
@@ -67,9 +67,9 @@ class hashTable {};
 
 2. ++操作, 迭代器根据哈希表中的桶的顺序及桶的内容 向后移动, 指向下一个节点
 
-    很明显, 想要实现在这个功能, 只知道某一个节点是不行的, 因为`哈希表存在多个桶(多个链表), 只知道某单个链表上的某个节点, 是不可能实现遍历整个哈希表的`. 所以 `每个迭代器中还需要知道迭代器指向节点所在的整个哈希表`, 也就是需要获取 此哈希表的指针
+   很明显, 想要实现在这个功能, 只知道某一个节点是不行的, 因为`哈希表存在多个桶(多个链表), 只知道某单个链表上的某个节点, 是不可能实现遍历整个哈希表的`. 所以 `每个迭代器中还需要知道迭代器指向节点所在的整个哈希表`, 也就是需要获取 此哈希表的指针
 
-    那么 其实 `迭代器的模板参数需要与哈希表的模板参数一模一样`
+   那么 其实 `迭代器的模板参数需要与哈希表的模板参数一模一样`
 
 这两个功能 除确定了 哈希表的模板参数之外, 其实还确定了 哈希表的两个成员变量: `数据节点的指针变量, 节点所在哈希表的指针变量`:
 
@@ -114,11 +114,11 @@ __hashTableIterator(Node* node, hashTable* pht)
 
 1. 当迭代器指向的节点 是桶的非尾节点时
 
-    此时 可以直接 指向下一个节点, 因为桶还没有遍历完, 只需要像单链表那样向后移动就可以了
+   此时 可以直接 指向下一个节点, 因为桶还没有遍历完, 只需要像单链表那样向后移动就可以了
 
 2. 当迭代器指向的节点 是桶的尾节点时
 
-    此时 就要面临一个问题: 已经是当前桶的最后一个数据节点了, ++之后, `迭代器需要到下一个不为空的桶的头节点位置, 怎么寻找下一个桶?`
+   此时 就要面临一个问题: 已经是当前桶的最后一个数据节点了, ++之后, `迭代器需要到下一个不为空的桶的头节点位置, 怎么寻找下一个桶?`
 
 其实 找桶的方法也不难:
 
@@ -159,7 +159,7 @@ Self& operator++() {
 }
 ```
 
-#### operator* operator->
+#### operator\* operator->
 
 对于迭代器, `*的作用可以看作对结点指针(迭代器可以看成类似结点指针)的解引用`, 也就是说 `*迭代器 可以直接访问 修改节点 数据`, 所以 :
 
@@ -251,7 +251,7 @@ private:
 };
 ```
 
-注意, **按照C++标准, 在`hashTable`类内 声明`__hashTableIterator`为友元类时, `__hashTableIterator`生命的模板参数不可以与`hashTable`的模板参数使用相同的命名, 即使 模板参数没有什么实际意义**
+注意, **按照 C++标准, 在`hashTable`类内 声明`__hashTableIterator`为友元类时, `__hashTableIterator`生命的模板参数不可以与`hashTable`的模板参数使用相同的命名, 即使 模板参数没有什么实际意义**
 
 什么意思?
 
@@ -298,7 +298,7 @@ class hashTable {
 因为哈希表的结构 参数都优化过, 所以细节会有一些区别:
 
 1. 返回值, insert 的返回值应该是 pair<iterator, bool> 类型的, 一个是插入数据的节点所在的迭代器, 另一个是插入结果
-2. 计算哈希值, 需要先用 KeyOfT仿函数取key值, 再进行计算
+2. 计算哈希值, 需要先用 KeyOfT 仿函数取 key 值, 再进行计算
 
 ```cpp
 pair<iterator, bool> insert(const T& data) {
@@ -432,7 +432,7 @@ iterator end() {
 
 模拟实现的 哈希表的底层是 vector 和 我们自己实现的单链表的结合
 
-虽然 vector会自动调用析构函数去释放空间, 但是 我们自己实现的单链表 是不会自己释放的, 所以 `需要写析构函数将 桶 释放`
+虽然 vector 会自动调用析构函数去释放空间, 但是 我们自己实现的单链表 是不会自己释放的, 所以 `需要写析构函数将 桶 释放`
 
 ```cpp
 ~hashTable() {
@@ -448,8 +448,6 @@ iterator end() {
     }
 }
 ```
-
-
 
 # 封装 unordered_set 与 unordered_map
 
@@ -477,15 +475,15 @@ private:
 };
 ```
 
-> 对于这里的 hashFunc可能会有疑问: 为什么要在这里传 hashFunc?
+> 对于这里的 hashFunc 可能会有疑问: 为什么要在这里传 hashFunc?
 >
-> 因为Key的类型是在使用unordered_set时 传过去的, 那么针对Key值计算哈希值的仿函数 也应该在使用 unordered_set 时传参
+> 因为 Key 的类型是在使用 unordered_set 时 传过去的, 那么针对 Key 值计算哈希值的仿函数 也应该在使用 unordered_set 时传参
 >
 > 同样也是因为, `unordered_set 是封装后的hashTable, 用户是不能直接修改 hashTable的, 所以需要在上层传参`
 
 ### 接口函数
 
-相较于 hashTable的底层实现, 上层封装容器的接口函数的实现就简单得多, 因为只需要调用底层接口就可以
+相较于 hashTable 的底层实现, 上层封装容器的接口函数的实现就简单得多, 因为只需要调用底层接口就可以
 
 ```cpp
 iterator begin() {
@@ -511,7 +509,7 @@ bool erase(const Key& key) {
 
 ## unordered_map
 
-unordered_map的封装与 unordered_set基本相同, 只是数据的类型不同而已
+unordered_map 的封装与 unordered_set 基本相同, 只是数据的类型不同而已
 
 ### 结构
 

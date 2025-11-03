@@ -2,29 +2,29 @@
 title: "仓颉文档阅读-开发指南I: 初始仓颉语言"
 published: 2025-10-21 17:11:11
 description: "仓颉文档阅读的开发指南部分, 本篇文章简单介绍仓颉语言的一些特点, 并安装仓颉工具链 运行仓颉程序"
-image: 'https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp'
+image: "https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp"
 category: Blogs
 tags:
-    - 开发语言
-    - 仓颉
+  - 开发语言
+  - 仓颉
 ---
 
 > [!NOTE]
-> 
+>
 > 阅读文档版本:
-> 
-> 语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
-> 
+>
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+>
 > 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
-> 
+>
 > 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
-> 
-> 有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+>
+> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
 > [!WARNING]
-> 
-> 博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
-> 
+>
+> 博主在此之前, 基本只接触过 C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与 C/C++中的相似概念作类比, 见谅
+>
 > 且, 本系列是文档阅读, 而不是仓颉的零基础教学, 所以如果要跟着阅读的话最好有一门编程语言的开发经验
 
 > 此样式内容, 表示文档原文内容
@@ -49,21 +49,21 @@ tags:
 >
 > - 多后端支持: 仓颉编程语言支持`CJNative`和`CJVM`两种后端
 >
->     其中`CJNative`后端将代码编译为原生二进制代码, 直接在操作系统层面上运行
+>   其中`CJNative`后端将代码编译为原生二进制代码, 直接在操作系统层面上运行
 >
->     `CJVM`后端将代码编译为字节码, 基于`VM(虚拟机)`进行运行
+>   `CJVM`后端将代码编译为字节码, 基于`VM(虚拟机)`进行运行
 >
->     本次发布仅提供`CJNative`后端`SDK`, `CJVM`后端`SDK`敬请期待
+>   本次发布仅提供`CJNative`后端`SDK`, `CJVM`后端`SDK`敬请期待
 >
 > - 语法简明高效: 仓颉编程语言提供了一系列简明高效的语法, 旨在减少冗余书写、提升开发效率, 例如插值字符串、主构造函数、`Flow`表达式、`match`和重导出等语法, 让开发者可以用较少编码表达相关逻辑
 >
 > - 多范式编程: 仓颉编程语言支持**函数式**、**命令式**和**面向对象**等多范式编程, 融合了高阶函数、代数数据类型、模式匹配、泛型等函数式语言的先进特性, 还有封装、接口、继承、子类型多态等支持模块化开发的面向对象语言特性, 以及值类型、全局函数等简洁高效的命令式语言特性
 >
->     开发者可以根据开发偏好或应用场景, 选用不同的编程范式
+>   开发者可以根据开发偏好或应用场景, 选用不同的编程范式
 >
 > - 类型安全: 仓颉编程语言是静态强类型语言, 通过编译时类型检查尽早识别程序错误, 降低运行时风险, 也便于代码维护
 >
->     同时, 仓颉编译器提供了强大的类型推断能力, 可以减少类型标注工作, 提高开发效率
+>   同时, 仓颉编译器提供了强大的类型推断能力, 可以减少类型标注工作, 提高开发效率
 >
 > - 内存安全: 仓颉编程语言支持**自动内存管理**, 并在运行时进行数组下标越界检查、溢出检查等操作, 确保运行时内存安全
 >
@@ -73,17 +73,17 @@ tags:
 >
 > - 领域易扩展: 仓颉编程语言提供了**基于词法宏的元编程能力**, 支持在编译时变换代码
 >
->     此外, 还提供了尾随`lambda`、属性、操作符重载、部分关键字可省略等特性, 开发者可由此深度定制程序的语法和语义, 这有利于内嵌式领域专用语言(Embedded Domain Specific Languages, EDSL)的构建
+>   此外, 还提供了尾随`lambda`、属性、操作符重载、部分关键字可省略等特性, 开发者可由此深度定制程序的语法和语义, 这有利于内嵌式领域专用语言(Embedded Domain Specific Languages, EDSL)的构建
 >
 > - 助力 UI 开发: UI 开发是构建端侧应用的重要环节, 基于仓颉编程语言的元编程和尾随`lambda`等特性, 用户可以搭建声明式 UI 开发框架, 提升 UI 开发效率和体验
 >
 > - 内置库功能丰富: 仓颉编程语言提供了功能丰富的内置库, 涉及数据结构、常用算法、数学计算、正则匹配、系统交互、文件操作、网络通信、数据库访问、日志打印、解压缩、编解码、加解密和序列化等功能
 
-从文档来看, 仓颉编程语言是全场景的通用开发语言, 提供原生后端和虚拟机后端, 但虚拟机后端SDK暂未提供
+从文档来看, 仓颉编程语言是全场景的通用开发语言, 提供原生后端和虚拟机后端, 但虚拟机后端 SDK 暂未提供
 
 仓颉提供协程, 仓颉拥有自动内存管理, 仓颉是强类型语言, 仓颉提供元编程能力
 
-这些都是现代语言特性, 与C/C++非常不一样
+这些都是现代语言特性, 与 C/C++非常不一样
 
 不过这介绍内容简单看一下就可以了, 具体还是语言细节更重要一些
 
@@ -109,9 +109,9 @@ tags:
 
 > `Linux`版仓颉工具链的系统环境要求如下:
 >
-> | 架构 | 环境要求 |
-> | ---- | -------- |
-> | `x86_64` | `glibc 2.22`, `Linux Kernel 4.12`或更高版本, 系统安装`libstdc++ 6.0.24`或更高版本 |
+> | 架构      | 环境要求                                                                          |
+> | --------- | --------------------------------------------------------------------------------- |
+> | `x86_64`  | `glibc 2.22`, `Linux Kernel 4.12`或更高版本, 系统安装`libstdc++ 6.0.24`或更高版本 |
 > | `aarch64` | `glibc 2.27`, `Linux Kernel 4.15`或更高版本, 系统安装`libstdc++ 6.0.24`或更高版本 |
 >
 > 除此之外, 对于`Ubuntu 18.04`, 还需要安装相应的依赖软件包:
@@ -124,9 +124,9 @@ tags:
 >
 > 此外, 仓颉工具链还依赖`OpenSSL 3`组件, 由于该组件可能无法从以上发行版的默认软件源直接安装, 因此需要自行手动安装, 安装方式请参见附录[`Linux`版本工具链的支持与安装](https://cangjie-lang.cn/docs?url=%2F1.0.3%2Fuser_manual%2Fsource_zh_cn%2FAppendix%2Flinux_toolchain_install.html)章节
 
-博主之前写了一篇文章, 是为C/C++搭建`WSL`环境, 系统是`openEuler 22.04`, 如果你手上当前没有可用的`Linux`系统, 可以去阅读一下 跟着部署一下`WSL`环境
+博主之前写了一篇文章, 是为 C/C++搭建`WSL`环境, 系统是`openEuler 22.04`, 如果你手上当前没有可用的`Linux`系统, 可以去阅读一下 跟着部署一下`WSL`环境
 
-[接触C语言之前的准备: 环境搭建](https://www.humid1ch.cn/blog/getting-started-with-c-language-before)
+[接触 C 语言之前的准备: 环境搭建](https://blog.humid1ch.cn/posts/getting-started-with-c-language-before)
 
 当然, 如果嫌麻烦可以跟着文档在`Windows`下配置环境
 
@@ -145,7 +145,6 @@ tags:
 > ```
 
 ##### 安装指导
-
 
 > 首先请前往[仓颉官网](https://cangjie-lang.cn/download/1.0.3), 下载适配平台架构的安装包:
 >
@@ -167,7 +166,6 @@ cp /mnt/c/Users/humid1ch/Downloads/cangjie-sdk-linux-x64-1.0.3.tar.gz .
 ```
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20251021211455904.webp)
-
 
 > 假设这里选择了`cangjie-sdk-linux-x64-x.y.z.tar.gz`, 下载到本地后, 请执行如下命令解压:
 >
@@ -210,36 +208,36 @@ cp /mnt/c/Users/humid1ch/Downloads/cangjie-sdk-linux-x64-1.0.3.tar.gz .
 然后执行命令激活工具链的相关配置:
 
 > [!WARNING]
-> 
+>
 > 如果你和我一样, 用的`fish`而不是`bash`或`zsh`, 那么`envsetup.sh`是没有办法直接执行的
-> 
+>
 > ```fish
 > # Copyright Huawei Technologies Co., Ltd. 2020-2023. All rights reserved.
 > # This script needs to be placed in the output directory of Cangjie compiler.
 > # ** NOTE: Please use`source' command to execute this script. **
-> 
+>
 > # Get the absolute path of this script
 > set script_dir (dirname (status -f))
 > set script_dir (realpath "$script_dir")
 > set -gx CANGJIE_HOME "$script_dir"
-> 
+>
 > # Get hardware architecture
 > set hw_arch (uname -m)
 > if test -z "$hw_arch"
 >     set hw_arch "x86_64"
 > end
-> 
+>
 > # Set PATH
 > set -gx PATH "$CANGJIE_HOME/bin" "$CANGJIE_HOME/tools/bin" "$HOME/.cjpm/bin" $PATH
-> 
+>
 > # Set LD_LIBRARY_PATH
 > set -gx LD_LIBRARY_PATH "$CANGJIE_HOME/runtime/lib/linux_$hw_arch"_llvm "$CANGJIE_HOME/tools/lib" $LD_LIBRARY_PATH
-> 
+>
 > # Setup auto completion for cjc and cjc-frontend (Fish equivalent)
 > if command -q cjc
 >     # Remove existing completions if any
 >     complete -c cjc --erase
-> 
+>
 >     # Set up generic file completion for cjc (similar to _gnu_generic in bash/zsh)
 >     complete -c cjc -f -a "(ls)" -d "Cangjie compiler command"
 >     complete -c cjc -s h -l help -d "Show help"
@@ -247,11 +245,11 @@ cp /mnt/c/Users/humid1ch/Downloads/cangjie-sdk-linux-x64-1.0.3.tar.gz .
 >     complete -c cjc -s v -l verbose -d "Verbose output"
 >     complete -c cjc -s o -l output -r -d "Output file"
 > end
-> 
+>
 > if command -q cjc-frontend
 >     # Remove existing completions if any
 >     complete -c cjc-frontend --erase
-> 
+>
 >     # Set up generic file completion for cjc-frontend
 >     complete -c cjc-frontend -f -a "(ls)" -d "Cangjie frontend command"
 >     complete -c cjc-frontend -s h -l help -d "Show help"
@@ -259,11 +257,11 @@ cp /mnt/c/Users/humid1ch/Downloads/cangjie-sdk-linux-x64-1.0.3.tar.gz .
 >     complete -c cjc-frontend -s v -l verbose -d "Verbose output"
 >     complete -c cjc-frontend -s o -l output -r -d "Output file"
 > end
-> 
+>
 > # Clean up temporary variables
 > set -e hw_arch
 > set -e script_dir
-> 
+>
 > echo "Cangjie environment set for Fish shell"
 > echo "CANGJIE_HOME = $CANGJIE_HOME"
 > echo "Auto-completion enabled for cjc and cjc-frontend"
@@ -289,7 +287,6 @@ cp /mnt/c/Users/humid1ch/Downloads/cangjie-sdk-linux-x64-1.0.3.tar.gz .
 >
 > 若需要更新仓颉工具链, 需要**先卸载当前版本**, 然后按上述指导**重新安装最新版本**的仓颉工具链
 
-
 #### Windows
 
 > 本节以`Windows 10`平台为例, 介绍仓颉工具链的安装方式
@@ -302,27 +299,27 @@ cp /mnt/c/Users/humid1ch/Downloads/cangjie-sdk-linux-x64-1.0.3.tar.gz .
 >
 > - 如果选择`zip`格式的安装包(例如`cangjie-sdk-windows-x64-x.y.z.zip`), 请将它解压到适当目录
 >
->     在安装包中, 仓颉为开发者提供了三种不同格式的安装脚本, 分别是`envsetup.bat`, `envsetup.ps1`和`envsetup.sh`, 可以根据使用习惯及环境配置, 选择一种执行:
+>   在安装包中, 仓颉为开发者提供了三种不同格式的安装脚本, 分别是`envsetup.bat`, `envsetup.ps1`和`envsetup.sh`, 可以根据使用习惯及环境配置, 选择一种执行:
 >
->     若使用`Windows 命令提示符(CMD)`环境, 请执行:
+>   若使用`Windows 命令提示符(CMD)`环境, 请执行:
 >
->     ```cmd
->     path\to\cangjie\envsetup.bat
->     ```
+>   ```cmd
+>   path\to\cangjie\envsetup.bat
+>   ```
 >
->     若使用`PowerShell`环境, 请执行:
+>   若使用`PowerShell`环境, 请执行:
 >
->     ```powershell
->     . path\to\cangjie\envsetup.ps1
->     ```
+>   ```powershell
+>   . path\to\cangjie\envsetup.ps1
+>   ```
 >
->     若使用`MSYS shell`、`bash`等环境, 请执行:
+>   若使用`MSYS shell`、`bash`等环境, 请执行:
 >
->     ```bash
->     source path/to/cangjie/envsetup.sh
->     ```
+>   ```bash
+>   source path/to/cangjie/envsetup.sh
+>   ```
 >
->     为了验证是否安装成功, 请在以上命令环境中继续执行`cjc -v`命令, 如果输出了仓颉编译器版本信息, 表示已经成功安装了仓颉工具链
+>   为了验证是否安装成功, 请在以上命令环境中继续执行`cjc -v`命令, 如果输出了仓颉编译器版本信息, 表示已经成功安装了仓颉工具链
 >
 > **值得注意的是**, 基于`zip`安装包和执行脚本的安装方式, 类似于`Linux`平台, 即`envsetup`脚本所配置的环境变量, 只在**当前命令行环境**中有效, 如果打开新的命令行窗口, 需要重新执行`envsetup`脚本配置环境
 >
@@ -330,68 +327,68 @@ cp /mnt/c/Users/humid1ch/Downloads/cangjie-sdk-linux-x64-1.0.3.tar.gz .
 >
 > - 若使用 bash 环境, 可以根据如下步骤操作:
 >
->     在`$HOME/.bashrc`初始化配置文件的最后加入以下命令(`$HOME`为当前用户目录的路径):
+>   在`$HOME/.bashrc`初始化配置文件的最后加入以下命令(`$HOME`为当前用户目录的路径):
 >
->     ```bash
->     # 假设仓颉安装包解压在 /home/user/cangjie 中
->     source /home/user/cangjie/envsetup.sh  # 即 envsetup.sh 的绝对路径
->     ```
+>   ```bash
+>   # 假设仓颉安装包解压在 /home/user/cangjie 中
+>   source /home/user/cangjie/envsetup.sh  # 即 envsetup.sh 的绝对路径
+>   ```
 >
->     配置完成后`bash`启动即可直接使用仓颉编译工具链
+>   配置完成后`bash`启动即可直接使用仓颉编译工具链
 >
 > - 若使用`Windows 命令提示符(CMD)`、`PowerShell`或其他环境, 可以根据如下步骤操作:
 >
->     1. 在`Windows`搜索框中, 搜索 "查看高级系统设置" 并打开对应窗口;
+>   1. 在`Windows`搜索框中, 搜索 "查看高级系统设置" 并打开对应窗口;
 >
->     2. 单击 "环境变量" 按钮;
+>   2. 单击 "环境变量" 按钮;
 >
->     3. 执行如下操作, 配置`CANGJIE_HOME`变量:
+>   3. 执行如下操作, 配置`CANGJIE_HOME`变量:
 >
->         1. 在 "用户变量"(为当前用户进行配置)或 "系统变量"(为系统所有用户进行配置)区域中, 查看是否已有`CANGJIE_HOME`环境变量
+>      1. 在 "用户变量"(为当前用户进行配置)或 "系统变量"(为系统所有用户进行配置)区域中, 查看是否已有`CANGJIE_HOME`环境变量
 >
->             若没有, 则单击 "新建" 按钮, 并在 "变量名" 字段中输入`CANGJIE_HOME`
+>         若没有, 则单击 "新建" 按钮, 并在 "变量名" 字段中输入`CANGJIE_HOME`
 >
->             若有, 则说明该环境可能已经进行过仓颉配置, 如果想要继续为当前的仓颉版本进行配置并覆盖原配置, 请点击 "编辑" 按钮, 进入 "编辑系统变量" 窗口
+>         若有, 则说明该环境可能已经进行过仓颉配置, 如果想要继续为当前的仓颉版本进行配置并覆盖原配置, 请点击 "编辑" 按钮, 进入 "编辑系统变量" 窗口
 >
->         2. 在 "变量值" 字段中输入仓颉安装包的解压路径, 若原先已经存在路径, 则使用新的路径覆盖原有的路径, 例如仓颉安装包解压在`D:\cangjie`, 则输入`D:\cangjie`
+>      2. 在 "变量值" 字段中输入仓颉安装包的解压路径, 若原先已经存在路径, 则使用新的路径覆盖原有的路径, 例如仓颉安装包解压在`D:\cangjie`, 则输入`D:\cangjie`
 >
->         3. 配置完成后,  "编辑用户变量" 或 "编辑系统变量" 窗口中显示的变量名为`CANGJIE_HOME`、变量值为`D:\cangjie`
+>      3. 配置完成后, "编辑用户变量" 或 "编辑系统变量" 窗口中显示的变量名为`CANGJIE_HOME`、变量值为`D:\cangjie`
 >
->             确认路径正确配置后单击 "确定"
+>         确认路径正确配置后单击 "确定"
 >
->     4. 执行如下操作, 配置`Path`变量:
+>   4. 执行如下操作, 配置`Path`变量:
 >
->         1. 在 "用户变量"(为当前用户进行配置)或 "系统变量"(为系统所有用户进行配置)区域中, 找到并选择`Path`变量, 单击 "编辑" 按钮, 进入 "编辑环境变量" 窗口
+>      1. 在 "用户变量"(为当前用户进行配置)或 "系统变量"(为系统所有用户进行配置)区域中, 找到并选择`Path`变量, 单击 "编辑" 按钮, 进入 "编辑环境变量" 窗口
 >
->         2. 分别单击 "新建" 按钮, 并分别输入`%CANGJIE_HOME%\bin`、`%CANGJIE_HOME%\tools\bin`、`%CANGJIE_HOME%\tools\lib`、`%CANGJIE_HOME%\runtime\lib\windows_x86_64_llvm`(`%CANGJIE_HOME%`为仓颉安装包的解压路径)
+>      2. 分别单击 "新建" 按钮, 并分别输入`%CANGJIE_HOME%\bin`、`%CANGJIE_HOME%\tools\bin`、`%CANGJIE_HOME%\tools\lib`、`%CANGJIE_HOME%\runtime\lib\windows_x86_64_llvm`(`%CANGJIE_HOME%`为仓颉安装包的解压路径)
 >
->             例如, 仓库安装包解压在`D:\cangjie`, 则新建的环境变量分别为: `D:\cangjie\bin`、`D:\cangjie\tools\bin`、`D:\cangjie\tools\lib`、`D:\cangjie\runtime\lib\windows_x86_64_llvm`
+>         例如, 仓库安装包解压在`D:\cangjie`, 则新建的环境变量分别为: `D:\cangjie\bin`、`D:\cangjie\tools\bin`、`D:\cangjie\tools\lib`、`D:\cangjie\runtime\lib\windows_x86_64_llvm`
 >
->         3. (仅适用于为当前用户设置)单击 "新建" 按钮, 并输入当前用户目录路径, 并在路径后面添加`.cjpm\bin`
+>      3. (仅适用于为当前用户设置)单击 "新建" 按钮, 并输入当前用户目录路径, 并在路径后面添加`.cjpm\bin`
 >
->             例如用户路径在`C:\Users\bob`, 则输入`C:\Users\bob\.cjpm\bin`
+>         例如用户路径在`C:\Users\bob`, 则输入`C:\Users\bob\.cjpm\bin`
 >
->         4. 配置完成后应能在 "编辑环境变量" 窗口中看到配置的路径如下所示
+>      4. 配置完成后应能在 "编辑环境变量" 窗口中看到配置的路径如下所示
 >
->             确认路径正确配置后单击 "确定"
+>         确认路径正确配置后单击 "确定"
 >
->             ```
->             D:\cangjie\bin
->             D:\cangjie\tools\bin
->             D:\cangjie\tools\lib
->             D:\cangjie\runtime\lib\windows_x86_64_llvm
->             C:\Users\bob\.cjpm\bin
->             ```
+>         ```
+>         D:\cangjie\bin
+>         D:\cangjie\tools\bin
+>         D:\cangjie\tools\lib
+>         D:\cangjie\runtime\lib\windows_x86_64_llvm
+>         C:\Users\bob\.cjpm\bin
+>         ```
 >
->         5. 单击 "确定" 按钮, 退出 "环境变量" 窗口
+>      5. 单击 "确定" 按钮, 退出 "环境变量" 窗口
 >
->         6. 单击 "确定" 按钮, 完成设置
+>      6. 单击 "确定" 按钮, 完成设置
 >
->         > 注意:
->         >
->         > 设置完成后可能需要**重启命令行窗口或重启系统**以让设置生效
+>      > 注意:
+>      >
+>      > 设置完成后可能需要**重启命令行窗口或重启系统**以让设置生效
 >
->     配置完成后`Windows 命令提示符(CMD)`或`PowerShell`启动即可直接使用仓颉编译工具链
+>   配置完成后`Windows 命令提示符(CMD)`或`PowerShell`启动即可直接使用仓颉编译工具链
 
 ##### 卸载与更新
 
@@ -400,7 +397,6 @@ cp /mnt/c/Users/humid1ch/Downloads/cangjie-sdk-linux-x64-1.0.3.tar.gz .
 > - 如果选择`zip`格式的安装包进行的安装, 删除仓颉工具链的安装包目录, 同时移除上述环境变量设置(若有), 即可完成卸载
 >
 > 若需要更新仓颉工具链, 需要先卸载当前版本, 然后按上述指导重新安装最新版本的仓颉工具链
-
 
 ### 运行第一个仓颉程序
 

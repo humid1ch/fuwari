@@ -2,28 +2,28 @@
 title: "仓颉文档阅读-语言规约II: 类型(I)"
 published: 2025-09-18
 description: "一直对仓颉挺感兴趣的, 但是一直没有去读一下文档, 慢慢看一看, 了解一下"
-image: 'https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp'
+image: "https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp"
 category: Blogs
 tags:
-    - 开发语言
-    - 仓颉
+  - 开发语言
+  - 仓颉
 ---
 
 > [!NOTE]
-> 
+>
 > 阅读文档版本:
-> 
-> 语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
-> 
+>
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+>
 > 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
-> 
+>
 > 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
-> 
-> 有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+>
+> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
 > [!WARNING]
-> 
-> 博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
+>
+> 博主在此之前, 基本只接触过 C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与 C/C++中的相似概念作类比, 见谅
 
 > 此样式内容, 表示文档原文内容
 
@@ -39,7 +39,7 @@ tags:
 
 强类型语言, 说明 仓颉可能会禁止很多或许很常见的隐式类型转换
 
-用C语言和仓颉举一个最简单的例子:
+用 C 语言和仓颉举一个最简单的例子:
 
 ```c
 // C语言
@@ -65,7 +65,7 @@ main() {
 }
 ```
 
-这两段代码, C语言是可以编译通过 并可以运行的:
+这两段代码, C 语言是可以编译通过 并可以运行的:
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250919161902248.webp)
 
@@ -103,11 +103,11 @@ main() {
 >
 > 不可变类型和可变类型的区别在于: 不可变类型的值, 其数据值一经初始化后就不会发生变化; 可变类型的值, 其数据值初始化后仍然有可以修改的方法
 
-对于基本只接触过C/C++的我来说, 我想真心的发问 可变类型和不可变类型是什么?
+对于基本只接触过 C/C++的我来说, 我想真心的发问 可变类型和不可变类型是什么?
 
 不可变类型的值, 其数据值一经初始化后就不会发生变化?? 可变类型的值, 其数据值初始化后仍然有可以修改的方法??
 
-在C/C++中, 对于一个普通变量, 定义好之后 可以随便修改这个变量的值啊? 难道仓颉不是吗?
+在 C/C++中, 对于一个普通变量, 定义好之后 可以随便修改这个变量的值啊? 难道仓颉不是吗?
 
 经过查阅资料以及一些验证, 了解了一下可变类型以及不可变类型的相关概念和相关特性
 
@@ -121,18 +121,15 @@ main() {
 
 但是, 针对不同的编程语言, 对不可变类型的可变变量 的多次赋值操作, 存在不同的处理
 
-有些编程语言, 对同一不可变类型的可变变量 多次赋值时, 并不像C/C++那样 直接修改原变量地址中的数据, 而是直接创建一个新的地址和值, 并将变量名与新的地址绑定, 此时 变量的地址和值都会发生改变, 比如: Python或一些纯函数式编程语言
+有些编程语言, 对同一不可变类型的可变变量 多次赋值时, 并不像 C/C++那样 直接修改原变量地址中的数据, 而是直接创建一个新的地址和值, 并将变量名与新的地址绑定, 此时 变量的地址和值都会发生改变, 比如: Python 或一些纯函数式编程语言
 
-Cangjie是怎样处理的呢?
+Cangjie 是怎样处理的呢?
 
 经使用`cjdb`进行测试, 对同一变量进行多次赋值并观测地址变化情况, 发现**变量的地址并不会发生变化**
 
-那么, 仓颉对不可变类型的可变变量的多次赋值操作的处理方式, 与C/C++类似, 是**修改原变量的地址内的数据**, 而不是创建新的地址空间
+那么, 仓颉对不可变类型的可变变量的多次赋值操作的处理方式, 与 C/C++类似, 是**修改原变量的地址内的数据**, 而不是创建新的地址空间
 
 当然不排除, 编译器 其实是创建了新的空间但复用了原地址这种情况(别当真
-
-
-
 
 ### 不可变类型
 
@@ -152,21 +149,21 @@ Cangjie是怎样处理的呢?
 
 仓颉语言中 整型和浮点型属于不可变类型
 
-| 类型         | 范围                                                         |
-| ------------ | ------------------------------------------------------------ |
-| `Int8`       | **−2<sup>7</sup> ∼ 2<sup>7</sup>−1 (-128 to 127)**           |
-| `Int16`      | **−2<sup>15</sup> ∼ 2<sup>15</sup>−1 (-32768 to 32767)**     |
-| `Int32`      | **−2<sup>31</sup> ∼ 2<sup>31</sup>−1 (-2147483648 to 2147483647)** |
+| 类型         | 范围                                                                                 |
+| ------------ | ------------------------------------------------------------------------------------ |
+| `Int8`       | **−2<sup>7</sup> ∼ 2<sup>7</sup>−1 (-128 to 127)**                                   |
+| `Int16`      | **−2<sup>15</sup> ∼ 2<sup>15</sup>−1 (-32768 to 32767)**                             |
+| `Int32`      | **−2<sup>31</sup> ∼ 2<sup>31</sup>−1 (-2147483648 to 2147483647)**                   |
 | `Int64`      | **−2<sup>63</sup> ∼ 2<sup>63</sup>−1 (-9223372036854775808 to 9223372036854775807)** |
-| `IntNative`  | 平台相关                                                     |
-| `UInt8`      | **0 ∼ 2<sup>8</sup>−1 (0 to 255)**                           |
-| `UInt16`     | **0 ∼ 2<sup>15</sup>−1 (0 to 65535)**                        |
-| `UInt32`     | **0 ∼ 2<sup>31</sup>−1 (0 to 4294967295)**                   |
-| `UInt64`     | **0 ∼ 2<sup>63</sup>−1 (0 to 18446744073709551615)**         |
-| `UIntNative` | 平台相关                                                     |
-| `Float16`    | 详情见 IEEE754 Binary16 格式                                 |
-| `Float32`    | 详情见 IEEE754 Binary32 格式                                 |
-| `Float64`    | 详情见 IEEE754 Binary64 格式                                 |
+| `IntNative`  | 平台相关                                                                             |
+| `UInt8`      | **0 ∼ 2<sup>8</sup>−1 (0 to 255)**                                                   |
+| `UInt16`     | **0 ∼ 2<sup>15</sup>−1 (0 to 65535)**                                                |
+| `UInt32`     | **0 ∼ 2<sup>31</sup>−1 (0 to 4294967295)**                                           |
+| `UInt64`     | **0 ∼ 2<sup>63</sup>−1 (0 to 18446744073709551615)**                                 |
+| `UIntNative` | 平台相关                                                                             |
+| `Float16`    | 详情见 IEEE754 Binary16 格式                                                         |
+| `Float32`    | 详情见 IEEE754 Binary32 格式                                                         |
+| `Float64`    | 详情见 IEEE754 Binary64 格式                                                         |
 
 > 1. `Byte`类型作为`UInt8`的类型别名, `Byte`与`UInt8`完全等价
 > 2. `Int/UInt`类型分别作为`Int64/UInt64`的类型别名, `Int`与`Int64`完全等价, `UInt`与`UInt64`完全等价
@@ -175,7 +172,7 @@ Cangjie是怎样处理的呢?
 
 ##### 数值类型字面量
 
-详细的表述, 在[阅读仓颉文档的第一篇文章](https://www.humid1ch.cn/blog/cangjie-docs-reading-i#heading-5)中 有涉及仓颉中的整型字面量 和 浮点类型字面量
+详细的表述, 在[阅读仓颉文档的第一篇文章](https://blog.humid1ch.cn/posts/cangjie-docs-reading-i/#heading-5)中 有涉及仓颉中的整型字面量 和 浮点类型字面量
 
 > 浮点类型量中有几个特殊的值需要注意: 正无穷(`POSITIVE_INFINITY`), 负无穷(`NEGATIVE_INFINITY`), Not a Number(`NaN`), 正`0`(`+0.0`), 负`0`(`-0.0`)
 >
@@ -196,8 +193,6 @@ Cangjie是怎样处理的呢?
 > 数值类型支持的操作符包括: 算术操作符、位操作符、关系操作符、自增(减)操作符、一元负号操作符和(复合)赋值操作符
 >
 > 其中浮点类型不支持位操作符
-
-
 
 > **算术操作符**包括加(`+`)、减(`-`)、乘(`*`)、除(`/`)、取余(`%`)、取幂(`**`)
 >
@@ -235,7 +230,7 @@ main() {
 >
 > **自增(减)操作符只能作为后缀操作符使用**, 且只能作用于整数类型可变变量, 因为不可变变量和整数字面量的值不允许修改
 
-与C/C++中的`++`和`--`不同, **仓颉语言中的`++`和`--`只能后置**
+与 C/C++中的`++`和`--`不同, **仓颉语言中的`++`和`--`只能后置**
 
 **仓颉中的`++`和`--`只能操作 整型可变变量, 即`var`修饰定义的整型变量**
 
@@ -277,7 +272,7 @@ main() {
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250920010311744.webp)
 
 > [!NOTE]
-> 
+>
 > 仓颉在`std.math`包中, 提供了接口, 可以获取不同浮点精度的`NaN`
 
 #### `Rune`类型
@@ -290,9 +285,9 @@ main() {
 
 `Rune`类型的值是`Unicode`字符集中的字符, `Rune`类型代表一个完整的`Unicode`码位
 
-`Unicode`字符集中, 除了基础的`ASCII`码符号, 还有中文和`emoji`表情等, 所以`Rune`占用的大小肯定不是1字节
+`Unicode`字符集中, 除了基础的`ASCII`码符号, 还有中文和`emoji`表情等, 所以`Rune`占用的大小肯定不是 1 字节
 
-关于`Rune`字面量可以阅读[上一篇文章中相关内容](https://www.humid1ch.cn/blog/cangjie-docs-reading-i#heading-12)
+关于`Rune`字面量可以阅读[上一篇文章中相关内容](https://blog.humid1ch.cn/posts/cangjie-docs-reading-i/#heading-12)
 
 > `Rune`类型的字面量由一对单引号和字符组成, 如:
 >
@@ -304,18 +299,18 @@ main() {
 >
 > 非打印和特殊的字符型字面量使用转义字符(`\`)定义:
 >
-> | escape character | character                                                    |
-> | :--------------- | :----------------------------------------------------------- |
-> | `\0`             | Empty character                                              |
-> | `\\`             | backslash`\`                                                 |
-> | `\b`             | Backspace                                                    |
-> | `\f`             | Writer                                                       |
-> | `\n`             | newline                                                      |
-> | `\r`             | Enter                                                        |
-> | `\t`             | Horizontal tab                                               |
-> | `\v`             | Vertical tab                                                 |
-> | `\’`             | single quotation mark`’`                                     |
-> | `\"`             | double quotation marks`"`                                    |
+> | escape character | character                                                         |
+> | :--------------- | :---------------------------------------------------------------- |
+> | `\0`             | Empty character                                                   |
+> | `\\`             | backslash`\`                                                      |
+> | `\b`             | Backspace                                                         |
+> | `\f`             | Writer                                                            |
+> | `\n`             | newline                                                           |
+> | `\r`             | Enter                                                             |
+> | `\t`             | Horizontal tab                                                    |
+> | `\v`             | Vertical tab                                                      |
+> | `\’`             | single quotation mark`’`                                          |
+> | `\"`             | double quotation marks`"`                                         |
 > | `\u{X}`          | Any Unicode code point, where`X`is a 1-8 digit hexadecimal number |
 
 > `Rune`类型仅支持关系操作符(根据`Unicode code point`编码进行比较)
@@ -351,7 +346,7 @@ C/C++语言中, 用`char`类型表示单个字符, `char`本质是整型, 所以
 
 **仓颉语言中, 禁止整型和浮点型与布尔类型之间的转换, 也禁止其他非布尔值作为布尔值使用**
 
-在C/C++语言中, 整型和浮点型数据是可以直接作为布尔表达式表示真假的, 非0即为真, 仓颉显然禁止掉了这种使用
+在 C/C++语言中, 整型和浮点型数据是可以直接作为布尔表达式表示真假的, 非 0 即为真, 仓颉显然禁止掉了这种使用
 
 经过测试, 仓颉的`Bool`类型甚至没有提供直接使用类型名强制类型转换的功能, 即 没有办法通过`Bool(value)`的方式将值强制转换到`Bool`类型
 
@@ -390,7 +385,7 @@ main() {
 >
 > **除了赋值、判等和判不等外, `Unit`类型不支持其他操作**
 
-思来想去, 感觉可以把`Unit`类型类比为C/C++中的`void`, 是一个有字面量, 且字面量只能为`()`的`void`
+思来想去, 感觉可以把`Unit`类型类比为 C/C++中的`void`, 是一个有字面量, 且字面量只能为`()`的`void`
 
 因为仓颉语言是强类型语言, 所以这里`Unit`类型的赋值、判等和判不等操作, 应该是`Unit`类型之间的使用
 
@@ -423,7 +418,7 @@ main() {
 >
 > 仓颉编译器会对检测到的死代码进行编译告警
 
-`Nothing`, 在C/C++中 没有一个类型可以类比为`Nothing`
+`Nothing`, 在 C/C++中 没有一个类型可以类比为`Nothing`
 
 但从描述来看: **如果 块内 某条表达式是`Nothing`类型, 则其后的所有表达式和声明均不会被执行到**
 
@@ -443,7 +438,7 @@ main() {
 
 > 字符串字面量可以分为三类: 单行字符串字面量, 多行字符串字面量, 多行原始字符串字面量
 
-关于字符串字面量, [前一篇文章中的相关内容](https://www.humid1ch.cn/blog/cangjie-docs-reading-i#heading-8)已经阅读过了
+关于字符串字面量, [前一篇文章中的相关内容](https://blog.humid1ch.cn/posts/cangjie-docs-reading-i/#heading-8)已经阅读过了
 
 ##### 插值字符串
 
@@ -455,7 +450,7 @@ main() {
 >
 > 多行字符串中的插值表达式支持换行
 
-插值字符串, 应该是C++开发者心心念念了很久的东西了, 但即使是C++最新的标准, 它还没有呈上来
+插值字符串, 应该是 C++开发者心心念念了很久的东西了, 但即使是 C++最新的标准, 它还没有呈上来
 
 这应该是现代语言非常常用的一种字符串字面量
 
@@ -488,7 +483,7 @@ main() {
 
 > 仓颉编程语言中元组(`Tuple`)类型是一个由多种不同类型组合而成的不可变(`immutable`)类型, 使用`(Type1, Type2, ..., TypeN)`表示, 其中`N`代表元组的维度
 >
->  关于元组类型, 说明如下:
+> 关于元组类型, 说明如下:
 >
 > 1. `Type1`到`TypeN`可以是任意类型(要求 N 不小于 2, 即`Tuple`至少是二元的)
 >
@@ -496,13 +491,13 @@ main() {
 >
 > 3. 当`(Type1, Type2, ..., TypeN)`中的`Type1`到`TypeN`均支持使用`==`进行值判等(使用`!=`进行值判不等)时, 此`Tuple`类型才支持使用`==`进行值判等(使用`!=`进行值判不等);
 >
->     否则, 此`Tuple`类型不支持`==`和`!=`(如果使用`==`和`!=`, 编译报错)
+>    否则, 此`Tuple`类型不支持`==`和`!=`(如果使用`==`和`!=`, 编译报错)
 >
->     两个同类型的`Tuple`实例相等, 当且仅当相同位置(`index`)的元素全部相等(意味着它们的长度相等)
+>    两个同类型的`Tuple`实例相等, 当且仅当相同位置(`index`)的元素全部相等(意味着它们的长度相等)
 
 元组是大多语言都拥有的一个概念
 
-仓颉的`Tuple`元组可以类比C++11标准提出提出`std::tuple`
+仓颉的`Tuple`元组可以类比 C++11 标准提出提出`std::tuple`
 
 ##### 元组字面量
 
@@ -537,18 +532,18 @@ main() {
 
 `main()`函数中, 执行`var (x, y) = multiValues(8, 24)`, 将返回的元组解构到两个变量中
 
-最终的结果, `x`被赋值为32, `y`被赋值为-16, 即为`multiValues(8, 24)`返回的元组`(8+24, 8-24)`的两个元素
+最终的结果, `x`被赋值为 32, `y`被赋值为-16, 即为`multiValues(8, 24)`返回的元组`(8+24, 8-24)`的两个元素
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250920213135269.webp)
 
 > [!NOTE]
-> 
+>
 > 类似`var (x, y)`的方式, 是仓颉中的多变量声明的一种方式
-> 
+>
 > 在上面的示例中, 用于元组的解构赋值
-> 
+>
 > 如果只是要声明变量, 而不是解构元组, 就需要指明变量类型:
-> 
+>
 > ```cangjie
 > var (x, y): (Int64, Int64)
 > ```
@@ -597,7 +592,7 @@ var pointThree: ((Int64, Int64), Int64) = ((2, 3), 4)
 
 > 仓颉编程语言使用`Range<T>`表示`Range`类型, 并要求`T`只能实例化为实现了`Comparable`interface 和`Countable`interface 的类型
 
-`Range`又是一个C/C++中没有的一个类型, `Python`中倒是有`range`但只限于整型
+`Range`又是一个 C/C++中没有的一个类型, `Python`中倒是有`range`但只限于整型
 
 仓颉中, `Range`是一个泛型类型, 但`T`必须要要实例化有两个接口:`Comparable`和`Countable`
 
@@ -634,39 +629,39 @@ var pointThree: ((Int64, Int64), Int64) = ((2, 3), 4)
 >
 > 2. 表达式`start..end:step`中,
 >
->     当`step > 0`且`start >= end`, 或者`step < 0`且`start <= end`时, `start..end:step`返回一个空`Range`实例(不包含任何元素的空序列);
+>    当`step > 0`且`start >= end`, 或者`step < 0`且`start <= end`时, `start..end:step`返回一个空`Range`实例(不包含任何元素的空序列);
 >
->     如果`start..end:step`的结果是非空`Range`实例, 则`Range`实例中元素的个数等于`(end-start)/step`向上取整(即大于等于`(end-start)/step`的最小整数)
+>    如果`start..end:step`的结果是非空`Range`实例, 则`Range`实例中元素的个数等于`(end-start)/step`向上取整(即大于等于`(end-start)/step`的最小整数)
 >
 > 3. 表达式`start..=end:step`中, 当`step > 0`且`start > end`, 或者`step < 0`且`start < end`时, `start..=end:step`返回一个空`Range`实例; 如果`start..=end:step`的结果是非空`Range`实例, 则`Range`实例中元素的个数等于`((end-start)/step)+1`向下取整(即小于等于`((end-start)/step)+1`的最大整数)
 >
->     ```cangjie
->     let range1 = 0..10:1     // Define an half-open range [0,10) (with step = 1) which contains 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9.
->     let range2 = 0..=10:2     // Define a closed range [0,10] (with step = 2) which contains 0, 2, 4, 6, 8 and 10.
->     let range3 = 10..0:-2     // Define an half-open range [10,0) (with step = -2) which contains 10, 8, 6, 4 and 2.
->     let range4 = 10..=0:-1     // Define a closed range [10,0] (with step = -1) which contains 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 and 0.
->     let range5 = 10..0:1     // Define an empty range.
->     let range6 = 0..0:1     // Define an empty range.
->     let range7 = 0..=0:1    // Define a closed range [0,0] (with step = 1) which only contains 0.
->     let range8 = 0..=10:-1     // Define an empty range.
->     ```
+>    ```cangjie
+>    let range1 = 0..10:1     // Define an half-open range [0,10) (with step = 1) which contains 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9.
+>    let range2 = 0..=10:2     // Define a closed range [0,10] (with step = 2) which contains 0, 2, 4, 6, 8 and 10.
+>    let range3 = 10..0:-2     // Define an half-open range [10,0) (with step = -2) which contains 10, 8, 6, 4 and 2.
+>    let range4 = 10..=0:-1     // Define a closed range [10,0] (with step = -1) which contains 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 and 0.
+>    let range5 = 10..0:1     // Define an empty range.
+>    let range6 = 0..0:1     // Define an empty range.
+>    let range7 = 0..=0:1    // Define a closed range [0,0] (with step = 1) which only contains 0.
+>    let range8 = 0..=10:-1     // Define an empty range.
+>    ```
 >
 > 4. 表达式`start..end:step`和`start..=end:step`中, **`step`的值不能等于`0`**
 >
->     ```cangjie
->     let range9 = 0..10: 0                 // error: the value of the step should not be zero.
->     let range10 = 0..=10: 0             // error: the value of the step should not be zero.
->     ```
+>    ```cangjie
+>    let range9 = 0..10: 0                 // error: the value of the step should not be zero.
+>    let range10 = 0..=10: 0             // error: the value of the step should not be zero.
+>    ```
 >
 > 5. 除了下节提到的`Range<Int64>`类型的实例用在下标操作符`[]`中时可以省略`start`或`end`外, 其他场景下, **`start`和`end`均是必选的**, 只有`step`是可选的(默认`step=1`)
 >
->     ```cangjie
->     let range11 = 1..10          // Define an half-open range [1, 10) with step = 1.
->     let range12 = 1..=10          // Define a closed range [1, 10] with step = 1.
->     let range13 = ..10              // error: the start value is required.
->     let range14 = 1..              // error: the end value is required.
->     let range15 = ..              // error: the start and end value are required.
->     ```
+>    ```cangjie
+>    let range11 = 1..10          // Define an half-open range [1, 10) with step = 1.
+>    let range12 = 1..=10          // Define a closed range [1, 10] with step = 1.
+>    let range13 = ..10              // error: the start value is required.
+>    let range14 = 1..              // error: the end value is required.
+>    let range15 = ..              // error: the start and end value are required.
+>    ```
 
 ##### `Range`类型的使用
 
@@ -808,75 +803,75 @@ enum TimeUnit3<T1, T2> {
 >
 > 2. 不支持空括号无参的`constructor`定义, 且**无参`constructor`的类型为被定义的`enum`类型本身**, 不视作函数类型
 >
->     **有参的`constructor`具有函数类型, 但不能作为一等公民使用**:
+>    **有参的`constructor`具有函数类型, 但不能作为一等公民使用**:
 >
->     ```
->     enum E {
->         | mkE // OK. The type of mkE is E but not () -> E.
->         | mkE() // Syntax error.
->     }
+>    ```
+>    enum E {
+>        | mkE // OK. The type of mkE is E but not () -> E.
+>        | mkE() // Syntax error.
+>    }
 >
->     enum E1 {
->         | A
->     }
->     let a = A // ok, a: E1
+>    enum E1 {
+>        | A
+>    }
+>    let a = A // ok, a: E1
 >
->     enum E2 {
->         | B(Bool)
->     }
->     let b = B // error
->     // 不能作为一等公民
+>    enum E2 {
+>        | B(Bool)
+>    }
+>    let b = B // error
+>    // 不能作为一等公民
 >
->     enum E3 {
->         | C
->         | C(Bool)
->     }
->     let c = C // ok, c: E3
->     ```
+>    enum E3 {
+>        | C
+>        | C(Bool)
+>    }
+>    let c = C // ok, c: E3
+>    ```
 >
 > 3. 作为一种自定义类型, **`enum`类型默认不支持使用`==`(`!=`)进行判等(判不等)**
 >
->     当然, 可以通过重载`==`(`!=`)操作符使得自定义的`enum`类型支持`==`(`!=`)
+>    当然, 可以通过重载`==`(`!=`)操作符使得自定义的`enum`类型支持`==`(`!=`)
 >
 > 4. 同一个`enum`中支持`constructor`的重载, 但是**只有参数个数参与重载, 参数类型不参与重载**, 也就是说, 允许同一个`enum`中定义多个同名`constructor`, 但是要求它们的参数个数不同(没有参数的`constructor`虽不为函数类型, 也可以与其它`constructor`重载), 例如:
 >
->     ```cangjie
->     enum TimeUnit4 {
->         | Year
->         | Year(Int32)                              // ok
->         | Year(Float32)                          // error: redeclaration of 'Year'
->         | Month(Int32, Float32)                  // ok
->         | Month(Int32, Int32)                      // error: redeclaration of 'Month'
->         | Month(Int32)                              // ok
->         | Day(Int32, Float32, Float32)           // ok
->         | Day(Float32, Float32, Float32)          // error: redeclaration of 'Day'
->         | Day(Float32, Float32)                  // ok
->         | Hour(Int32, Float32, Float32, Float32) // ok
->         | Hour(Int32, Int32, Int32, Int32)          // error: redeclaration of 'Hour'
->         | Hour(Int32, Int32, Int32)              // ok
->     }
->     ```
+>    ```cangjie
+>    enum TimeUnit4 {
+>        | Year
+>        | Year(Int32)                              // ok
+>        | Year(Float32)                          // error: redeclaration of 'Year'
+>        | Month(Int32, Float32)                  // ok
+>        | Month(Int32, Int32)                      // error: redeclaration of 'Month'
+>        | Month(Int32)                              // ok
+>        | Day(Int32, Float32, Float32)           // ok
+>        | Day(Float32, Float32, Float32)          // error: redeclaration of 'Day'
+>        | Day(Float32, Float32)                  // ok
+>        | Hour(Int32, Float32, Float32, Float32) // ok
+>        | Hour(Int32, Int32, Int32, Int32)          // error: redeclaration of 'Hour'
+>        | Hour(Int32, Int32, Int32)              // ok
+>    }
+>    ```
 >
 > 5. `enum`类型支持递归和互递归定义, 例如:
 >
->     ```cangjie
->     // 递归
->     enum TimeUnit5 {
->         | Year(Int32)
->         | Month(Int32, Float32)
->         | Day(Int32, Float32, Float32)
->         | Hour(Int32, Float32, Float32, Float32)
->         | Twounit(TimeUnit5, TimeUnit5)
->     }
+>    ```cangjie
+>    // 递归
+>    enum TimeUnit5 {
+>        | Year(Int32)
+>        | Month(Int32, Float32)
+>        | Day(Int32, Float32, Float32)
+>        | Hour(Int32, Float32, Float32, Float32)
+>        | Twounit(TimeUnit5, TimeUnit5)
+>    }
 >
->     // 互递归定义
->     enum E1 {
->         A | B(E2)
->     }
->     enum E2 {
->         C(E1) | D(E1)
->     }
->     ```
+>    // 互递归定义
+>    enum E1 {
+>        A | B(E2)
+>    }
+>    enum E2 {
+>        C(E1) | D(E1)
+>    }
+>    ```
 >
 > 6. `enum`不可以被继承
 >
@@ -1063,7 +1058,7 @@ main() {
 
 且, `Option`的`match`, `None`是必须处理的, 这可以看作一种强制判空的处理
 
-`Option`的用法, 类似返回C/C++中的返回指针, 可能返回的是`nullptr`也可能是有效的指针, 所以获取返回值之后一般需要手动判空, 如果忘记判空, 可能会出现一定的问题
+`Option`的用法, 类似返回 C/C++中的返回指针, 可能返回的是`nullptr`也可能是有效的指针, 所以获取返回值之后一般需要手动判空, 如果忘记判空, 可能会出现一定的问题
 
 而仓颉中, 如果要使用返回值, 就需要强制处理有值和空的情况, 更安全
 
@@ -1075,30 +1070,30 @@ main() {
 >
 > 1. 虽然`T`和`Option<T>`是不同的类型, 但是当明确知道某个位置需要的是`Option<T>`类型的值时, 可以直接传一个`T`类型的值, 编译器会将`T`类型的值封装成`Option<T>`类型的`Some constructor`
 >
->     例如, 下面的定义是合法的
+>    例如, 下面的定义是合法的
 >
->     ```cangjie
->     let v1: ?Int64 = 100
->     let v2: ??Int64 = 100
->     ```
+>    ```cangjie
+>    let v1: ?Int64 = 100
+>    let v2: ??Int64 = 100
+>    ```
 >
 > 2. **对于两个不相等的类型`T1`和`T2`, 即使它们之间拥有子类型关系, `Option<T1>`和`Option<T2>`之间也不会构成子类型关系**
 >
->     `Option`类型的使用遵循泛型`enum`类型的使用规则
+>    `Option`类型的使用遵循泛型`enum`类型的使用规则
 >
->     例如, 可以定义一系列不同`Option`类型的变量:
+>    例如, 可以定义一系列不同`Option`类型的变量:
 >
->     ```cangjie
->     let opInt32_1 = Some(100)           // The type of 'opInt32_1' is 'Option<Int32>'
->     let opInt32_2 = Option<Int32>.None  // The type of 'opInt32_2' is 'Option<Int32>'
->     let opChar = Some('m')              // The type of 'opChar' is 'Option<Rune>'
->     let opBool = Option<Bool>.None      // The type of 'opBool' is 'Option<Bool>'
+>    ```cangjie
+>    let opInt32_1 = Some(100)           // The type of 'opInt32_1' is 'Option<Int32>'
+>    let opInt32_2 = Option<Int32>.None  // The type of 'opInt32_2' is 'Option<Int32>'
+>    let opChar = Some('m')              // The type of 'opChar' is 'Option<Rune>'
+>    let opBool = Option<Bool>.None      // The type of 'opBool' is 'Option<Bool>'
 >
->     enum TimeUnit1 {
->         Year | Month | Day | Hour
->     }
->     let opEnum = Some(TimeUnit1.Year)   // The type of 'opEnum' is 'Option<TimeUnit1>'
->     ```
+>    enum TimeUnit1 {
+>        Year | Month | Day | Hour
+>    }
+>    let opEnum = Some(TimeUnit1.Year)   // The type of 'opEnum' is 'Option<TimeUnit1>'
+>    ```
 
 ##### `Option`值的解构
 
@@ -1106,67 +1101,67 @@ main() {
 
 > 1. `Option`类型是一种`enum`类型, 因此可以使用模式匹配表达式中的`enum pattern`实现`Option`值的解构
 >
->     ```cangjie
->     let number1 = match (opInt32_1) {
->         case Some(num) => num
->         case None => 0
->     }
+>    ```cangjie
+>    let number1 = match (opInt32_1) {
+>        case Some(num) => num
+>        case None => 0
+>    }
 >
->     let number2 = match (opInt32_2) {
->         case Some(num) => num
->         case None => 0
->     }
+>    let number2 = match (opInt32_2) {
+>        case Some(num) => num
+>        case None => 0
+>    }
 >
->     let enumValue = match (opEnum) {
->         case Some(tu) => match (tu) {
->                               case Year => "Year"   // matched
->                               case Month => "Month"
->                               case Day => "Day"
->                               case Hour => "Hour"
->                           }
->         case None => "None"
->     }
->     ```
+>    let enumValue = match (opEnum) {
+>        case Some(tu) => match (tu) {
+>                              case Year => "Year"   // matched
+>                              case Month => "Month"
+>                              case Day => "Day"
+>                              case Hour => "Hour"
+>                          }
+>        case None => "None"
+>    }
+>    ```
 >
 > 2. 对于`Option<T>`类型的表达式`e`, 通过调用函数`getOrThrow()`或`getOrThrow(exception: ()->Exception)`实现对`e`的解构:
 >
->     如果`e`的值等于`Option<T>.Some(v)`, 则`e.getOrThrow()`(或`e.getOrThrow(lambdaArg)`)的值等于`v`的值;
+>    如果`e`的值等于`Option<T>.Some(v)`, 则`e.getOrThrow()`(或`e.getOrThrow(lambdaArg)`)的值等于`v`的值;
 >
->     如果`e`的值等于`Option<T>.None`, 则`e.getOrThrow()`在运行时抛出`NoneValueException`异常(`e.getOrThrow(lambdaArg)`在运行时抛出`lambdaArg`中指定的异常)
+>    如果`e`的值等于`Option<T>.None`, 则`e.getOrThrow()`在运行时抛出`NoneValueException`异常(`e.getOrThrow(lambdaArg)`在运行时抛出`lambdaArg`中指定的异常)
 >
->     ```cangjie
->     let number1 = opInt32_1.getOrThrow()                 // number1 = 100
->     let number2 = opInt32_2.getOrThrow()                 // throw NoneValueException
->     let number3 = opInt32_2.getOrThrow{ MyException("Get None value") } // throw MyException
->     ```
+>    ```cangjie
+>    let number1 = opInt32_1.getOrThrow()                 // number1 = 100
+>    let number2 = opInt32_2.getOrThrow()                 // throw NoneValueException
+>    let number3 = opInt32_2.getOrThrow{ MyException("Get None value") } // throw MyException
+>    ```
 >
 > 3. 对于`Option<T>`类型的表达式`e1`和`T`类型的表达式`e2`, 表达式`e1 ?? e2`的类型为`T`
 >
->     当`e1`的值等于`Option<T>.Some(v)`时, `e1 ?? e2`的值等于`v`的值;
+>    当`e1`的值等于`Option<T>.Some(v)`时, `e1 ?? e2`的值等于`v`的值;
 >
->     当`e1`的值等于`Option<T>.None`时, `e1 ?? e2`的值等于`e2`的值
+>    当`e1`的值等于`Option<T>.None`时, `e1 ?? e2`的值等于`e2`的值
 >
->     ```cangjie
->     let number1 = opInt32_1 ?? 0  // number1 = 100
->     let number2 = opInt32_2 ?? 0  // number2 = 0
->     ```
+>    ```cangjie
+>    let number1 = opInt32_1 ?? 0  // number1 = 100
+>    let number2 = opInt32_2 ?? 0  // number2 = 0
+>    ```
 >
 > 4. 问号操作符(`?`)是一元后缀操作符
 >
->     `?`需和后缀操作符`.`, `()`, `{}`或`[]`一起使用, 以实现`Option<T>`对这些后缀操作符的支持
+>    `?`需和后缀操作符`.`, `()`, `{}`或`[]`一起使用, 以实现`Option<T>`对这些后缀操作符的支持
 >
->     对于一个`Option`类型的表达式`e`, `e?.b`表示当`e`为 Some 时得到`Option<T>.Some(b)`, 否则得到`Option<T>.None`(T 为 b 的类型), 其它操作符同理
+>    对于一个`Option`类型的表达式`e`, `e?.b`表示当`e`为 Some 时得到`Option<T>.Some(b)`, 否则得到`Option<T>.None`(T 为 b 的类型), 其它操作符同理
 >
->     ```cangjie
->     class C {
->         var item = 100
->     }
->     let c = C()
->     let c1 = Some(c)
->     let c2 = Option<C>.None
->     let r1 = c1?.item   // r1 = Option<Int64>.Some(100)
->     let r2 = c2?.item   // r2 = Option<Int64>.None
->     ```
+>    ```cangjie
+>    class C {
+>        var item = 100
+>    }
+>    let c = C()
+>    let c1 = Some(c)
+>    let c2 = Option<C>.None
+>    let r1 = c1?.item   // r1 = Option<Int64>.Some(100)
+>    let r2 = c2?.item   // r2 = Option<Int64>.None
+>    ```
 
 `Option`在`match`中的解构, 就是匹配有值和无值两种情况, 并进行处理
 

@@ -2,37 +2,37 @@
 title: "仓颉文档阅读-语言规约XIII: 并发"
 published: 2025-10-17 09:13:41
 description: "一直对仓颉挺感兴趣的, 但是一直没有去读一下文档, 慢慢看一看, 了解一下"
-image: 'https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp'
+image: "https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp"
 category: Blogs
 tags:
-    - 开发语言
-    - 仓颉
+  - 开发语言
+  - 仓颉
 ---
 
 > [!NOTE]
-> 
+>
 > 阅读文档版本:
-> 
-> 语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
-> 
+>
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+>
 > 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
-> 
+>
 > 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
-> 
-> 有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+>
+> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
 > [!WARNING]
-> 
-> 博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
+>
+> 博主在此之前, 基本只接触过 C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与 C/C++中的相似概念作类比, 见谅
 
 > 此样式内容, 表示文档原文内容
 
 > [!NOTE]
-> 
+>
 > 按照文档中的顺序, 异常与并发之间还存在两个章节: 语言互操作 和 元编程
-> 
-> 语言互操作基本上是与C语言的互操作, 元编程则是仓颉宏的一些内容
-> 
+>
+> 语言互操作基本上是与 C 语言的互操作, 元编程则是仓颉宏的一些内容
+>
 > 可以先了解并发的一些内容 再去看这两个章节
 
 ## 并发
@@ -113,7 +113,7 @@ tags:
 >
 > 一旦`spawn`表达式执行完成, 任务对应的线程便处于可执行状态
 >
-> 需要注意的是, `spawn`表达式的闭包中不可捕获`var`声明的局部变量; 关于闭包, 详见[闭包](https://www.humid1ch.cn/blog/cangjie-docs-reading-xi/#heading-2)
+> 需要注意的是, `spawn`表达式的闭包中不可捕获`var`声明的局部变量; 关于闭包, 详见[闭包](https://blog.humid1ch.cn/posts/cangjie-docs-reading-xi/#heading-2)
 
 使用`spawn`可以创建仓颉线程, 表达式会返回一个`Future<T>`类型变量, 仓颉线程并不是操作系统原生线程
 
@@ -260,7 +260,6 @@ tags:
 
 #### 线程睡眠
 
-
 > 在仓颉标准库的`sync`包中提供了`sleep`函数能够让线程睡眠指定时长
 >
 > 如果睡眠时长为零, 即参数时长为`duration.Zero`, 那么当前线程只会**让出执行资源**并不会进入睡眠
@@ -269,7 +268,7 @@ tags:
 > func sleep(duration: Duration)
 > ```
 
-仓颉中`sleep()`可以让线程睡眠指定时长, 也可以让线程让出资源, 类似C++中的`yield()`
+仓颉中`sleep()`可以让线程睡眠指定时长, 也可以让线程让出资源, 类似 C++中的`yield()`
 
 #### 线程终止
 
@@ -379,11 +378,11 @@ tags:
 >
 > - 构造方法`init`用于构造线程局部变量
 >
->     在构造完但未设置变量值时, 线程对变量的读取将得到空值`None`;
+>   在构造完但未设置变量值时, 线程对变量的读取将得到空值`None`;
 >
 > - 读写方法`get/set`用于访问线程局部变量的值
 >
->     当线程将变量的值设为`None`后, 当前线程中的变量值将被清除
+>   当线程将变量的值设为`None`后, 当前线程中的变量值将被清除
 >
 > ```cangjie
 > class ThreadLocal<T> {
@@ -437,112 +436,112 @@ tags:
 
 > - 对于整数类型, 我们提供基本的读写、交换以及算术运算的操作:
 >
->     - `load`: 读取
+>   - `load`: 读取
 >
->     - `store`: 写入
+>   - `store`: 写入
 >
->     - `swap`: 交换
+>   - `swap`: 交换
 >
->     - `compareAndSwap`: 比较再交换
+>   - `compareAndSwap`: 比较再交换
 >
->     - `fetchAdd`: 加法
+>   - `fetchAdd`: 加法
 >
->     - `fetchSub`: 减法
+>   - `fetchSub`: 减法
 >
->     - `fetchAnd`: 与
+>   - `fetchAnd`: 与
 >
->     - `fetchOr`: 或
+>   - `fetchOr`: 或
 >
->     - `fetchXor`: 异或
+>   - `fetchXor`: 异或
 >
->     ```cangjie
->     // 有符号整型
->     class AtomicInt8 {
->         ... ...
->         init(val: Int8)
+>   ```cangjie
+>   // 有符号整型
+>   class AtomicInt8 {
+>       ... ...
+>       init(val: Int8)
 >
->         public func load(): Int8
->         public func store(val: Int8): Unit
->         public func swap(val: Int8): Int8
->         public func compareAndSwap(old: Int8, new: Int8): Bool
+>       public func load(): Int8
+>       public func store(val: Int8): Unit
+>       public func swap(val: Int8): Int8
+>       public func compareAndSwap(old: Int8, new: Int8): Bool
 >
->         public func fetchAdd(val: Int8): Int8
->         public func fetchSub(val: Int8): Int8
->         public func fetchAnd(val: Int8): Int8
->         public func fetchOr(val: Int8): Int8
->         public func fetchXor(val: Int8): Int8
+>       public func fetchAdd(val: Int8): Int8
+>       public func fetchSub(val: Int8): Int8
+>       public func fetchAnd(val: Int8): Int8
+>       public func fetchOr(val: Int8): Int8
+>       public func fetchXor(val: Int8): Int8
 >
->         ... ... // 运算符重载等
->     }
+>       ... ... // 运算符重载等
+>   }
 >
->     class AtomicInt16 {...}
->     class AtomicInt32 {...}
->     class AtomicInt64 {...}
+>   class AtomicInt16 {...}
+>   class AtomicInt32 {...}
+>   class AtomicInt64 {...}
 >
->     // 无符号整型
->     class AtomicUInt8  {...}
->     class AtomicUInt16 {...}
->     class AtomicUInt32 {...}
->     class AtomicUInt64 {...}
->     ```
+>   // 无符号整型
+>   class AtomicUInt8  {...}
+>   class AtomicUInt16 {...}
+>   class AtomicUInt32 {...}
+>   class AtomicUInt64 {...}
+>   ```
 >
 > - 对于布尔类型, 仅提供基本的读写、交换操作, 不提供算术运算的操作:
 >
->     - `load`: 读取
+>   - `load`: 读取
 >
->     - `store`: 写入
+>   - `store`: 写入
 >
->     - `swap`: 交换
+>   - `swap`: 交换
 >
->     - `compareAndSwap`: 比较再交换
+>   - `compareAndSwap`: 比较再交换
 >
->     ```cangjie
->     // Boolean.
->     class AtomicBool {
->         ... ...
->         init(val: Bool)
+>   ```cangjie
+>   // Boolean.
+>   class AtomicBool {
+>       ... ...
+>       init(val: Bool)
 >
->         public func load(): Bool
->         public func store(val: Bool): Unit
->         public func swap(val: Bool): Bool
->         public func compareAndSwap(old: Bool, new: Bool): Bool
+>       public func load(): Bool
+>       public func store(val: Bool): Unit
+>       public func swap(val: Bool): Bool
+>       public func compareAndSwap(old: Bool, new: Bool): Bool
 >
->         ... ... // 运算符重载等
->     }
->     ```
+>       ... ... // 运算符重载等
+>   }
+>   ```
 >
 > - 对于引用类型, 仅提供基本的读写、交换操作, 不提供算术运算的操作:
 >
->     - `load`: 读取
+>   - `load`: 读取
 >
->     - `store`: 写入
+>   - `store`: 写入
 >
->     - `swap`: 交换
+>   - `swap`: 交换
 >
->     - `compareAndSwap`: 比较再交换
+>   - `compareAndSwap`: 比较再交换
 >
->     ```cangjie
->     class AtomicReference<T> where T <: Object {
->         ... ...
->         init(val: T)
+>   ```cangjie
+>   class AtomicReference<T> where T <: Object {
+>       ... ...
+>       init(val: T)
 >
->         public func load(): T
->         public func store(val: T): Unit
->         public func swap(val: T): T
->         public func compareAndSwap(old: T, new: T): Bool
->     }
->     ```
+>       public func load(): T
+>       public func store(val: T): Unit
+>       public func swap(val: T): T
+>       public func compareAndSwap(old: T, new: T): Bool
+>   }
+>   ```
 >
 > - 此外, 对于可空引用类型, 可以通过`AtomicOptionReference`保存"空引用"(以`None`表示)
 >
->     ```cangjie
->     class AtomicOptionReference<T> where T <: Object {
->         public init(val: Option(T))
->         public func load(): Option<T>
->         public func store(val: Option<T>): Unit
->         public func swap(val: Option<T>): Option<T>
->         public func compareAndSwap(old: Option<T>, new: Option<T>): Bool
->     }
+>   ```cangjie
+>   class AtomicOptionReference<T> where T <: Object {
+>       public init(val: Option(T))
+>       public func load(): Option<T>
+>       public func store(val: Option<T>): Unit
+>       public func swap(val: Option<T>): Option<T>
+>       public func compareAndSwap(old: Option<T>, new: Option<T>): Bool
+>   }
 >   ```
 
 对于比较基础的只有单个数值类型的原子操作, 比较容易理解
@@ -595,8 +594,8 @@ tags:
 所以, `unlock()`需要实现可以解除全部的重复锁定, 也需要保证实现`lock()/tryLock()`可以支持重复锁定
 
 > [!WARNING]
-> 
-> 按照最新版本的Cangjie文档, 此接口在未来将会被废弃, 将使用`Lock`代替
+>
+> 按照最新版本的 Cangjie 文档, 此接口在未来将会被废弃, 将使用`Lock`代替
 
 #### `ReentrantMutex`
 
@@ -640,8 +639,8 @@ tags:
 `ReentrantMutex`是仓颉提供的, 可重入锁 类, 不允许被继承
 
 > [!WARNING]
-> 
-> 按照最新版本的Cangjie文档, 此类在未来将会被废弃, 将使用`Metux`代替
+>
+> 按照最新版本的 Cangjie 文档, 此类在未来将会被废弃, 将使用`Metux`代替
 
 #### `synchronized`
 
@@ -764,11 +763,10 @@ tags:
 
 `Monitor.wait()`会释放持有的锁+并让线程陷入阻塞, 等待唤醒, 这就是条件变量+锁
 
-
 > [!WARNING]
-> 
-> 按照最新版本的Cangjie文档, 此类在未来将会被废弃, 将使用`Condition`代替
-> 
+>
+> 按照最新版本的 Cangjie 文档, 此类在未来将会被废弃, 将使用`Condition`代替
+>
 > `Condition`是一个接口
 
 #### `MultiConditionMonitor`
@@ -910,8 +908,8 @@ tags:
 > ```
 
 > [!WARNING]
-> 
-> 按照最新版本的Cangjie文档, 此类在未来将会被废弃, 将使用`Mutex`代替
+>
+> 按照最新版本的 Cangjie 文档, 此类在未来将会被废弃, 将使用`Mutex`代替
 
 ### 内存模型
 
@@ -923,80 +921,79 @@ tags:
 >
 > > 主要解决并发编程中内存可见性的问题, 即一个线程的写操作何时会对另一个线程可见
 
-
 #### `Happens-Before`
 
 `happens-before`简单理解为 **先行发生**
 
 > - 程序顺序规则: 同一个线程中的每个操作`happens-before`于该线程中的任意后续操作
 >
->     ```cangjie
->     var a: String
+>   ```cangjie
+>   var a: String
 >
->     main(): Int64 {
->         a = "hello, world"
->         println(a)
->         return 0
->     }
+>   main(): Int64 {
+>       a = "hello, world"
+>       println(a)
+>       return 0
+>   }
 >
->     // OUTPUT:
->     // hello, world
->     ```
+>   // OUTPUT:
+>   // hello, world
+>   ```
 >
 > - 线程启动规则: 如果线程`A`通过`spawn`创建线程`B`, 那么线程`A`的`spawn`操作`happens-before`于线程`B`中的任意操作
 >
->     ```cangjie
->     var a: String = "123"
+>   ```cangjie
+>   var a: String = "123"
 >
->     func foo(): Unit {
->         println(a)
->     }
+>   func foo(): Unit {
+>       println(a)
+>   }
 >
->     main(): Int64 {
->         a = "hello, world"
->         let fut: Future<Unit>= spawn {
->             foo()
->         }
->         fut.get()
->         return 0
->     }
+>   main(): Int64 {
+>       a = "hello, world"
+>       let fut: Future<Unit>= spawn {
+>           foo()
+>       }
+>       fut.get()
+>       return 0
+>   }
 >
->     // OUTPUT:
->     // hello, world
->     ```
+>   // OUTPUT:
+>   // hello, world
+>   ```
 >
 > - 线程终止规则: 如果线程`A`调用`futureB.get()`并成功返回, 那么线程`B`中的任意操作`happens-before`于线程`A`中的`futureB.get()`调用
 >
->     如果线程`A`调用`futureB.cancel()`并且线程`B`在此之后访问`hasPendingCancellation`, 那么这两个调用构成`happens-before`关系
+>   如果线程`A`调用`futureB.cancel()`并且线程`B`在此之后访问`hasPendingCancellation`, 那么这两个调用构成`happens-before`关系
 >
->     ```cangjie
->     var a: String = "123"
+>   ```cangjie
+>   var a: String = "123"
 >
->     func foo(): Unit {
->         a = "hello, world"
->     }
+>   func foo(): Unit {
+>       a = "hello, world"
+>   }
 >
->     main(): Int64 {
->         let fut: Future<Unit> = spawn {
->             foo()
->         }
+>   main(): Int64 {
+>       let fut: Future<Unit> = spawn {
+>           foo()
+>       }
 >
->         fut.get()
->         println(a)
->         return 0
->     }
+>       fut.get()
+>       println(a)
+>       return 0
+>   }
 >
->     // OUTPUT:
->     // hello, world
->     ```
+>   // OUTPUT:
+>   // hello, world
+>   ```
 >
 > - 线程同步规则: 在同一个线程同步对象(例如互斥锁、信号量等)上的操作存在一个 **全序**
 >
->     一个线程对一个同步对象的操作(例如对互斥锁的解锁操作)`happens-before`于这个全序上后续对这个同步对象的操作(例如对互斥锁的上锁操作)
+>   一个线程对一个同步对象的操作(例如对互斥锁的解锁操作)`happens-before`于这个全序上后续对这个同步对象的操作(例如对互斥锁的上锁操作)
 >
 > - 原子变量规则: 对于所有原子变量的操作存在一个 **全序**
 >
->     一个线程对一个原子变量的操作`happens-before`于这个全序上后续所有的原子变量的操作
+>   一个线程对一个原子变量的操作`happens-before`于这个全序上后续所有的原子变量的操作
 >
 > - 传递性规则: 如果`A happens-before B`且`B happens-before C`, 那么`A happens-before C`
 

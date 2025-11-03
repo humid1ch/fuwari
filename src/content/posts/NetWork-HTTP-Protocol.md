@@ -6,10 +6,10 @@ description: "应用层协议实际是规定应用层在传输数据时需要遵
 image: https://dxyt-july-image.oss-cn-beijing.aliyuncs.com/202307311030910.webp
 category: Blogs
 tags:
-    - Linux网络
-    - TCP-IP
-    - 应用层
-    - HTTP
+  - Linux网络
+  - TCP-IP
+  - 应用层
+  - HTTP
 ---
 
 应用层协议实际是规定应用层在传输数据时需要遵循的一系列规则和标准
@@ -32,7 +32,7 @@ tags:
 
 接下来要做的就是, 学习理解优秀的协议的一些使用和实现细节
 
-# HTTP协议
+# HTTP 协议
 
 平时使用浏览器时, 我们会访问一些网站:`CSDN`、`百度`、`Gitee`等
 
@@ -64,7 +64,7 @@ tags:
 
 之后就是`域名`和`端口号`
 
-其中 使用域名访问网站时 是会被转换成对应的IP的, 也必须如此, 后面就是端口
+其中 使用域名访问网站时 是会被转换成对应的 IP 的, 也必须如此, 后面就是端口
 
 `IP:Port`可以确定网络中的一个服务器.
 
@@ -126,11 +126,11 @@ tags:
 
 ![|inline](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181318650.webp)
 
-又比如在CSDN中的一篇文章:
+又比如在 CSDN 中的一篇文章:
 
 ![|inline](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181320445.webp)
 
-就是CSDN的服务器中的某个用户名目录下的层层目录的中的某个编好号文件
+就是 CSDN 的服务器中的某个用户名目录下的层层目录的中的某个编好号文件
 
 通过浏览器, 使用`HTTPS`协议向服务器中获取某个文件, 获取到了就在页面中展示出来
 
@@ -158,14 +158,14 @@ tags:
 
 `url`中 针对需要进行编码的符号的 编码规则是:
 
-1. 针对ASCII码表中的符号, 可以直接转换成16进制, 然后从右到左, 取4位(不足4位直接处理), 每2位当作1位, 前面加上`%`, 编码成`%XY`格式
-2. 针对非ASCII码表中的符号、文字等, 先 其它规则进行编码 再对其他规则的编码16进制结果的每字节数据前加上`%`. 编码成多个`%XY`的格式
+1. 针对 ASCII 码表中的符号, 可以直接转换成 16 进制, 然后从右到左, 取 4 位(不足 4 位直接处理), 每 2 位当作 1 位, 前面加上`%`, 编码成`%XY`格式
+2. 针对非 ASCII 码表中的符号、文字等, 先 其它规则进行编码 再对其他规则的编码 16 进制结果的每字节数据前加上`%`. 编码成多个`%XY`的格式
 
 比如:
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181324856.webp)
 
-百度搜索`C++`, 在`url`中就显示为`C%2B%2B` `2B`就是`+`的16进制形式
+百度搜索`C++`, 在`url`中就显示为`C%2B%2B` `2B`就是`+`的 16 进制形式
 
 `https://www.baidu.com/s?wd=C%2B%2B&rsv_spt=1&rsv_iqid=0xfdc1da9500081925&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&rqlang=cn&tn=baiduhome_pg&rsv_enter=1&rsv_dl=tb&oq=%2526lt%253B%252B%252B&rsv_btype=t&inputT=1&rsv_t=b33aMahumMWox0zFsNrY2he0Sn8D%2BQ4jTCh9Kdwti9jiIQq4qTDXa%2F09UiGMOLpg%2Bgds&rsv_pq=8dec283100024fa3&rsv_sug3=30&rsv_sug1=23&rsv_sug7=100&rsv_sug2=0&rsv_sug4=340`
 
@@ -183,33 +183,33 @@ tags:
 
 ## `HTTP`协议请求格式
 
-`HTTP`协议的请求是**字符串**, 由**4部分组成, 每一部分由单行或多行组成. 每行以`\r\n`区分**
+`HTTP`协议的请求是**字符串**, 由**4 部分组成, 每一部分由单行或多行组成. 每行以`\r\n`区分**
 
 `http request`:
 
 1. 第一行自成一部分:
 
-    **请求行**, 内容是 **请求方法 `url` `HTTP`协议版本**
+   **请求行**, 内容是 **请求方法 `url` `HTTP`协议版本**
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181329306.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181329306.webp)
 
-    这里的`url`可以只是完整`url`中资源的路径, 也可以是一个完整的`url`
+   这里的`url`可以只是完整`url`中资源的路径, 也可以是一个完整的`url`
 
 2. 第二部分由多行组成:
 
-    **请求报头**, 内容是请求的各种属性. 每行结构为:`key: value`.
+   **请求报头**, 内容是请求的各种属性. 每行结构为:`key: value`.
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181330943.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181330943.webp)
 
 3. 第三部分是单独一行的`\r\n`
 
-    用来表示报头部分读取完毕:
+   用来表示报头部分读取完毕:
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181333325.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181333325.webp)
 
 4. 第四部分则是需要请求的资源的有效载荷, 也是请求资源的正文部分
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181335922.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181335922.webp)
 
 将这四部分组合起来, 就是一个完整的`http requst`:
 
@@ -221,33 +221,33 @@ tags:
 
 与请求格式相同, `HTTP`协议的响应格式也是 **字符串**
 
-同样是由 **4部分组成, 每一部分由单行或多行组成. 每行以`\r\n`区分**
+同样是由 **4 部分组成, 每一部分由单行或多行组成. 每行以`\r\n`区分**
 
 `http request`:
 
 1. 第一行自成一部分:
 
-    **响应行**, 内容是 **`HTTP`协议版本 状态码 状态码描述**
+   **响应行**, 内容是 **`HTTP`协议版本 状态码 状态码描述**
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181340368.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181340368.webp)
 
-    状态码即为, 请求的状态. 状态码描述即为, 对状态码的解释
+   状态码即为, 请求的状态. 状态码描述即为, 对状态码的解释
 
 2. 第二部分同样由多行组成:
 
-    **响应报头**, 内容是响应正文的各种属性, 每行结构为:`key: value`
+   **响应报头**, 内容是响应正文的各种属性, 每行结构为:`key: value`
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181341740.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181341740.webp)
 
 3. 第三部分是单独一行的`\r\n`
 
-    用来表示报头部分读取完毕:
+   用来表示报头部分读取完毕:
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181344203.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181344203.webp)
 
 4. 第四部分则是需要响应回客户端的资源的有效载荷, 也是资源的正文部分
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181345649.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181345649.webp)
 
 将这四部分组合起来, 就是一个完整的`http requst`:
 
@@ -263,255 +263,255 @@ tags:
 
 1. 使用这些代码, 可以看到请求的内容:
 
-    **`logMessage`:**
+   **`logMessage`:**
 
-    ```cpp
-    #pragma once
+   ```cpp
+   #pragma once
 
-    #include <cassert>
-    #include <cerrno>
-    #include <cstdarg>
-    #include <cstdio>
-    #include <cstdlib>
-    #include <cstring>
-    #include <ctime>
-    #include <fcntl.h>
-    #include <sys/stat.h>
-    #include <sys/types.h>
-    #include <unistd.h>
+   #include <cassert>
+   #include <cerrno>
+   #include <cstdarg>
+   #include <cstdio>
+   #include <cstdlib>
+   #include <cstring>
+   #include <ctime>
+   #include <fcntl.h>
+   #include <sys/stat.h>
+   #include <sys/types.h>
+   #include <unistd.h>
 
-    // 宏定义 四个日志等级
-    #define DEBUG 0
-    #define NOTICE 1
-    #define WARINING 2
-    #define FATAL 3
+   // 宏定义 四个日志等级
+   #define DEBUG 0
+   #define NOTICE 1
+   #define WARINING 2
+   #define FATAL 3
 
-    const char* log_level[] = {"DEBUG", "NOTICE", "WARINING", "FATAL"};
+   const char* log_level[] = {"DEBUG", "NOTICE", "WARINING", "FATAL"};
 
-    // 日志消息打印接口
-    void logMessage(int level, const char* format, ...) {
-        // 通过可变参数实现, 传入日志等级, 日志内容格式, 日志内容相关参数
+   // 日志消息打印接口
+   void logMessage(int level, const char* format, ...) {
+       // 通过可变参数实现, 传入日志等级, 日志内容格式, 日志内容相关参数
 
-        // 确保日志等级正确
-        assert(level >= DEBUG);
-        assert(level <= FATAL);
+       // 确保日志等级正确
+       assert(level >= DEBUG);
+       assert(level <= FATAL);
 
-        // 获取当前用户名
-        char* name = getenv("USER");
+       // 获取当前用户名
+       char* name = getenv("USER");
 
-        // 简单的定义log缓冲区
-        char logInfo[1024];
+       // 简单的定义log缓冲区
+       char logInfo[1024];
 
-        // 定义一个指向可变参数列表的指针
-        va_list ap;
-        // 将 ap 指向可变参数列表中的第一个参数, 即 format 之后的第一个参数
-        va_start(ap, format);
+       // 定义一个指向可变参数列表的指针
+       va_list ap;
+       // 将 ap 指向可变参数列表中的第一个参数, 即 format 之后的第一个参数
+       va_start(ap, format);
 
-        // 此函数 会通过 ap 遍历可变参数列表, 然后根据 format 字符串指定的格式,
-        // 将ap当前指向的参数以字符串的形式 写入到logInfo缓冲区中
-        vsnprintf(logInfo, sizeof(logInfo) - 1, format, ap);
+       // 此函数 会通过 ap 遍历可变参数列表, 然后根据 format 字符串指定的格式,
+       // 将ap当前指向的参数以字符串的形式 写入到logInfo缓冲区中
+       vsnprintf(logInfo, sizeof(logInfo) - 1, format, ap);
 
-        // ap 使用完之后, 再将 ap置空
-        va_end(ap); // ap = NULL
+       // ap 使用完之后, 再将 ap置空
+       va_end(ap); // ap = NULL
 
-        // 通过判断日志等级, 来选择是标准输出流还是标准错误流
-        FILE* out = (level == FATAL) ? stderr : stdout;
+       // 通过判断日志等级, 来选择是标准输出流还是标准错误流
+       FILE* out = (level == FATAL) ? stderr : stdout;
 
-        // 获取本地时间
-        time_t tm = time(nullptr);
-        struct tm* localTm = localtime(&tm);
-        char* localTmStr = asctime(localTm);
-        char* nC = strstr(localTmStr, "\n");
-        if (nC) {
-            *nC = '\0';
-        }
-        fprintf(out, "%s | %s | %s | %s\n", log_level[level], localTmStr,
-                name == nullptr ? "unknow" : name, logInfo);
+       // 获取本地时间
+       time_t tm = time(nullptr);
+       struct tm* localTm = localtime(&tm);
+       char* localTmStr = asctime(localTm);
+       char* nC = strstr(localTmStr, "\n");
+       if (nC) {
+           *nC = '\0';
+       }
+       fprintf(out, "%s | %s | %s | %s\n", log_level[level], localTmStr,
+               name == nullptr ? "unknow" : name, logInfo);
 
-        // 将C缓冲区的内容 刷入系统
-        fflush(out);
-        // 将系统缓冲区的内容 刷入文件
-        fsync(fileno(out));
-    }
-    ```
+       // 将C缓冲区的内容 刷入系统
+       fflush(out);
+       // 将系统缓冲区的内容 刷入文件
+       fsync(fileno(out));
+   }
+   ```
 
-    **`tcpServer.hpp`:**
+   **`tcpServer.hpp`:**
 
-    ```cpp
-    #pragma once
+   ```cpp
+   #pragma once
 
-    #include <iostream>
-    #include <string>
-    #include <cstdlib>
-    #include <cstring>
-    #include <unistd.h>
-    #include <signal.h>
-    #include <pthread.h>
-    #include <sys/wait.h>
-    #include <sys/types.h>
-    #include <sys/socket.h>
-    #include <netinet/in.h>
-    #include <arpa/inet.h>
+   #include <iostream>
+   #include <string>
+   #include <cstdlib>
+   #include <cstring>
+   #include <unistd.h>
+   #include <signal.h>
+   #include <pthread.h>
+   #include <sys/wait.h>
+   #include <sys/types.h>
+   #include <sys/socket.h>
+   #include <netinet/in.h>
+   #include <arpa/inet.h>
 
-    #include "logMessage.hpp"
+   #include "logMessage.hpp"
 
-    #define SOCKET_ERR 1
-    #define BIND_ERR 2
-    #define LISTEN_ERR 3
-    #define USE_ERR 4
-    #define CONNECT_ERR 5
-    #define FORK_ERR 6
-    #define WAIT_ERR 7
+   #define SOCKET_ERR 1
+   #define BIND_ERR 2
+   #define LISTEN_ERR 3
+   #define USE_ERR 4
+   #define CONNECT_ERR 5
+   #define FORK_ERR 6
+   #define WAIT_ERR 7
 
-    void handlerHttpRequest(int sock) {
-        char buffer[1024];
-        ssize_t s = read(sock, buffer, sizeof buffer - 1);
-        if (s > 0) {
-            std::cout << buffer << std::endl;
-        }
-    }
+   void handlerHttpRequest(int sock) {
+       char buffer[1024];
+       ssize_t s = read(sock, buffer, sizeof buffer - 1);
+       if (s > 0) {
+           std::cout << buffer << std::endl;
+       }
+   }
 
-    class tcpServer {
-    public:
-        tcpServer(uint16_t port, const std::string& ip = "")
-            : _port(port)
-            , _ip(ip)
-            , _listenSock(-1) {}
+   class tcpServer {
+   public:
+       tcpServer(uint16_t port, const std::string& ip = "")
+           : _port(port)
+           , _ip(ip)
+           , _listenSock(-1) {}
 
-        ~tcpServer() {
-            if (_listenSock >= 0)
-                close(_listenSock);
-        }
+       ~tcpServer() {
+           if (_listenSock >= 0)
+               close(_listenSock);
+       }
 
-        void init() {
-            // 先创建套接字文件描述符
-            _listenSock = socket(AF_INET, SOCK_STREAM, 0);
+       void init() {
+           // 先创建套接字文件描述符
+           _listenSock = socket(AF_INET, SOCK_STREAM, 0);
 
-            if (_listenSock < 0) {
-                logMessage(FATAL, "socket() faild:: %s : %d", strerror(errno), _listenSock);
-                exit(SOCKET_ERR); // 创建套接字失败 以 SOCKET_ERR 退出
-            }
-            logMessage(DEBUG, "socket create success: %d", _listenSock);
+           if (_listenSock < 0) {
+               logMessage(FATAL, "socket() faild:: %s : %d", strerror(errno), _listenSock);
+               exit(SOCKET_ERR); // 创建套接字失败 以 SOCKET_ERR 退出
+           }
+           logMessage(DEBUG, "socket create success: %d", _listenSock);
 
-            struct sockaddr_in local;
-            std::memset(&local, 0, sizeof(local));
+           struct sockaddr_in local;
+           std::memset(&local, 0, sizeof(local));
 
-            // 填充网络信息
-            local.sin_family = AF_INET;
-            local.sin_port = htons(_port);
-            _ip.empty() ? (local.sin_addr.s_addr = htonl(INADDR_ANY))
-                        : (inet_aton(_ip.c_str(), &local.sin_addr));
+           // 填充网络信息
+           local.sin_family = AF_INET;
+           local.sin_port = htons(_port);
+           _ip.empty() ? (local.sin_addr.s_addr = htonl(INADDR_ANY))
+                       : (inet_aton(_ip.c_str(), &local.sin_addr));
 
-            // 绑定网络信息到主机
-            if (bind(_listenSock, (const struct sockaddr*)&local, sizeof(local)) == -1) {
-                // 绑定失败
-                logMessage(FATAL, "bind() faild:: %s : %d", strerror(errno), _listenSock);
-                exit(BIND_ERR);
-            }
-            logMessage(DEBUG, "socket bind success : %d", _listenSock);
-            // 监听是否有其他主机发来连接请求, 需要用到接口 listen()
-            if (listen(_listenSock, 5) == -1) {
-                logMessage(FATAL, "listen() faild:: %s : %d", strerror(errno), _listenSock);
-                exit(LISTEN_ERR);
-            }
-            logMessage(DEBUG, "listen success : %d", _listenSock);
-        }
+           // 绑定网络信息到主机
+           if (bind(_listenSock, (const struct sockaddr*)&local, sizeof(local)) == -1) {
+               // 绑定失败
+               logMessage(FATAL, "bind() faild:: %s : %d", strerror(errno), _listenSock);
+               exit(BIND_ERR);
+           }
+           logMessage(DEBUG, "socket bind success : %d", _listenSock);
+           // 监听是否有其他主机发来连接请求, 需要用到接口 listen()
+           if (listen(_listenSock, 5) == -1) {
+               logMessage(FATAL, "listen() faild:: %s : %d", strerror(errno), _listenSock);
+               exit(LISTEN_ERR);
+           }
+           logMessage(DEBUG, "listen success : %d", _listenSock);
+       }
 
-        // 服务器初始化完成之后, 就可以启动了
-        void loop() {
-            while (true) {
-                struct sockaddr_in peer;          // 输出型参数 接受所连接主机客户端网络信息
-                socklen_t peerLen = sizeof(peer); // 输入输出型参数
+       // 服务器初始化完成之后, 就可以启动了
+       void loop() {
+           while (true) {
+               struct sockaddr_in peer;          // 输出型参数 接受所连接主机客户端网络信息
+               socklen_t peerLen = sizeof(peer); // 输入输出型参数
 
-                // 使用 accept() 接口, 接受来自其他网络客户端的连接
-                int serviceSock = accept(_listenSock, (struct sockaddr*)&peer, &peerLen);
-                if (serviceSock == -1) {
-                    logMessage(WARINING, "accept() faild:: %s : %d", strerror(errno), serviceSock);
-                    continue;
-                }
-                // 连接成功之后, 就可以获取到连接客户端的网络信息了:
-                uint16_t peerPort = ntohs(peer.sin_port);
-                std::string peerIP = inet_ntoa(peer.sin_addr);
-                logMessage(DEBUG, "accept success: [%s: %d] | %d ", peerIP.c_str(), peerPort, serviceSock);
+               // 使用 accept() 接口, 接受来自其他网络客户端的连接
+               int serviceSock = accept(_listenSock, (struct sockaddr*)&peer, &peerLen);
+               if (serviceSock == -1) {
+                   logMessage(WARINING, "accept() faild:: %s : %d", strerror(errno), serviceSock);
+                   continue;
+               }
+               // 连接成功之后, 就可以获取到连接客户端的网络信息了:
+               uint16_t peerPort = ntohs(peer.sin_port);
+               std::string peerIP = inet_ntoa(peer.sin_addr);
+               logMessage(DEBUG, "accept success: [%s: %d] | %d ", peerIP.c_str(), peerPort, serviceSock);
 
-                pid_t id = fork();
-                if (id == 0) {
-                    close(_listenSock);
+               pid_t id = fork();
+               if (id == 0) {
+                   close(_listenSock);
 
-                    if (fork() > 0)
-                        exit(0);
+                   if (fork() > 0)
+                       exit(0);
 
-                    handlerHttpRequest(serviceSock);
-                    exit(0);
-                }
-                waitpid(id, nullptr, 0);
+                   handlerHttpRequest(serviceSock);
+                   exit(0);
+               }
+               waitpid(id, nullptr, 0);
 
-                close(serviceSock);
-            }
-        }
+               close(serviceSock);
+           }
+       }
 
-    private:
-        uint16_t _port; // 端口号
-        std::string _ip;
-        int _listenSock; // 服务器套接字文件描述符
-    };
-    ```
+   private:
+       uint16_t _port; // 端口号
+       std::string _ip;
+       int _listenSock; // 服务器套接字文件描述符
+   };
+   ```
 
-    **`tcpServer.cc`:**
+   **`tcpServer.cc`:**
 
-    ```cpp
-    #include "tcpServer.hpp"
+   ```cpp
+   #include "tcpServer.hpp"
 
-    void Usage(std::string proc) {
-        std::cerr << "Usage:: \n\t" << proc << " port ip" << std::endl;
-        std::cerr << "example:: \n\t" << proc << " 8080 127.0.0.1" << std::endl;
-    }
+   void Usage(std::string proc) {
+       std::cerr << "Usage:: \n\t" << proc << " port ip" << std::endl;
+       std::cerr << "example:: \n\t" << proc << " 8080 127.0.0.1" << std::endl;
+   }
 
-    int main(int argc, char* argv[]) {
-        if (argc != 3 && argc != 2) {
-            Usage(argv[0]);
-            exit(USE_ERR);
-        }
-        uint16_t port = atoi(argv[1]);
-        std::string ip;
-        if (argc == 3) {
-            ip = argv[2];
-        }
+   int main(int argc, char* argv[]) {
+       if (argc != 3 && argc != 2) {
+           Usage(argv[0]);
+           exit(USE_ERR);
+       }
+       uint16_t port = atoi(argv[1]);
+       std::string ip;
+       if (argc == 3) {
+           ip = argv[2];
+       }
 
-        tcpServer svr(port, ip);
+       tcpServer svr(port, ip);
 
-        svr.init();
-        svr.loop();
+       svr.init();
+       svr.loop();
 
-        return 0;
-    }
-    ```
+       return 0;
+   }
+   ```
 
-    编译`tcpServer.cc`, 并运行可执行程序之后
+   编译`tcpServer.cc`, 并运行可执行程序之后
 
-    在浏览器输入IP地址 和 端口号, 就可以看到服务器进程接收到了请求, 并打印了出来:
+   在浏览器输入 IP 地址 和 端口号, 就可以看到服务器进程接收到了请求, 并打印了出来:
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181353687.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181353687.webp)
 
-    其格式为:
+   其格式为:
 
-    1. 第一行:
+   1. 第一行:
 
-        **请求方法:`GET`、`url`:`/`、`HTTP`协议版本:`HTTP/1.1`**
+      **请求方法:`GET`、`url`:`/`、`HTTP`协议版本:`HTTP/1.1`**
 
-    2. 之后, 则为请求报头相关内容
+   2. 之后, 则为请求报头相关内容
 
-    3. 最后添加了一个`\r\n`空行
+   3. 最后添加了一个`\r\n`空行
 
 2. 还可以使用`telnet`连接到服务器之后, 向服务器发送请求, 然后可以看到 响应的内容:
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181355410.gif)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181355410.gif)
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181357632.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181357632.webp)
 
-    这里相应的有效载荷其实就是百度首页的`html`文件内容
+   这里相应的有效载荷其实就是百度首页的`html`文件内容
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181359768.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181359768.webp)
 
 ## 给服务器添加`HTTP`响应
 
@@ -581,7 +581,7 @@ void handlerHttpRequest(int sock) {
 
 1. 网页编码: `utf-8`
 2. 网页`title`: `HELLO`
-3. 内容1级标题: `标题 HELLO WORLD`
+3. 内容 1 级标题: `标题 HELLO WORLD`
 4. 段落: `段落 hello world`
 
 此时, 编译服务器并打开服务器, 再访问服务器:
@@ -615,7 +615,7 @@ void handlerHttpRequest(int sock) {
 }
 ```
 
-然后, 可以先使用GET方法获取一下响应内容, 然后再用浏览器访问:
+然后, 可以先使用 GET 方法获取一下响应内容, 然后再用浏览器访问:
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181409524.gif)
 
@@ -674,13 +674,13 @@ void handlerHttpRequest(int sock) {
 
 1. 如何获取文件路径?
 
-    这个简单, `HTTP`协议的请求中, 第一行的第二个字段一般就表示需要请求的文件资源的路径
+   这个简单, `HTTP`协议的请求中, 第一行的第二个字段一般就表示需要请求的文件资源的路径
 
 2. 如何读取文件的内容?
 
-    这个也很简单, 无论是C语言还是C++都提供有文件的相关操作
+   这个也很简单, 无论是 C 语言还是 C++都提供有文件的相关操作
 
-    只需要按照一定的格式打开并读取就可以了
+   只需要按照一定的格式打开并读取就可以了
 
 `HTTP`协议请求的第一行的第二个字段表示需要请求的资源的路径
 
@@ -809,7 +809,7 @@ void handlerHttpRequest(int sock) {
     <img border="2px" src="https://dxyt-july-image.oss-cn-beijing.aliyuncs.com/202307302017964.webp" alt="img-test" width="500px" height="500px"> </img>
 
     <h2>链接</h2>
-    <p>个人博客链接: <a href="http://www.humid1ch.cn">July.cc Blogs</a></p>
+    <p>个人博客链接: <a href="https://blog.humid1ch.cn">July.cc Blogs</a></p>
   </body>
 </html>
 ```
@@ -852,13 +852,13 @@ tree
 
 1. 需要把远端服务器的资源 获取到本地
 
-    此行为, 就是上面我们使用`GET`获取服务器文件等内容的行为, 涉及到`GET`方法
+   此行为, 就是上面我们使用`GET`获取服务器文件等内容的行为, 涉及到`GET`方法
 
 2. 需要把输入的属性字段, 提交到远端服务器
 
-    就比如在某些网页需要登录账号时, 就需要把输入的内容字段, 提交到远端的服务器中.
+   就比如在某些网页需要登录账号时, 就需要把输入的内容字段, 提交到远端的服务器中.
 
-    而此行为, 可以通过两个方法实现:`GET`和`POST`
+   而此行为, 可以通过两个方法实现:`GET`和`POST`
 
 > `GET`与`POST`方法, 可以将输入的属性字段提交到远端服务器
 >
@@ -869,8 +869,7 @@ tree
 > 基本的语法是:
 >
 > ```html
-> <form action="submit_url" method="post">
-> </form>
+> <form action="submit_url" method="post"></form>
 > ```
 >
 > `form`即为一个表单, 属性可以设置:
@@ -918,7 +917,7 @@ tree
     </form>
 
     <h2>链接</h2>
-    <p>个人博客链接: <a href="http://www.humid1ch.cn">July.cc Blogs</a></p>
+    <p>个人博客链接: <a href="https://blog.humid1ch.cn">July.cc Blogs</a></p>
   </body>
 </html>
 ```
@@ -993,7 +992,7 @@ tree
     </form>
 
     <h2>链接</h2>
-    <p>个人博客链接: <a href="http://www.humid1ch.cn">July.cc Blogs</a></p>
+    <p>个人博客链接: <a href="https://blog.humid1ch.cn">July.cc Blogs</a></p>
   </body>
 </html>
 ```
@@ -1066,33 +1065,33 @@ tree
 
 1. **`1xx`**
 
-    一般在请求处理较慢时响应. 告诉客户端请求依然正在处理, 并没有出错, 只是较慢 还没有处理完成
+   一般在请求处理较慢时响应. 告诉客户端请求依然正在处理, 并没有出错, 只是较慢 还没有处理完成
 
 2. **`2xx`**
 
-    就是成功了, 比如`200`, 状态码描述是`OK`
+   就是成功了, 比如`200`, 状态码描述是`OK`
 
 3. **`3xx`**
 
-    重定向相关状态码, 具体情况下面介绍
+   重定向相关状态码, 具体情况下面介绍
 
 4. **`4xx`**
 
-    出现`4xx`一般是客户端的请求存在错误
+   出现`4xx`一般是客户端的请求存在错误
 
-    比如`404(NOT FOUND)`, 找不到请求的资源, 并不是服务器处理的问题, 而是因为请求出错, 请求的资源根本就没有
+   比如`404(NOT FOUND)`, 找不到请求的资源, 并不是服务器处理的问题, 而是因为请求出错, 请求的资源根本就没有
 
-    **不能赖服务器**
+   **不能赖服务器**
 
 5. **`5xx`**
 
-    这个才是服务器处理请求出错时响应的状态码
+   这个才是服务器处理请求出错时响应的状态码
 
-    比如, 正确接收到了请求, 在打开文件时出错了? 或者处理时出错了? 或者传输时出错了?
+   比如, 正确接收到了请求, 在打开文件时出错了? 或者处理时出错了? 或者传输时出错了?
 
-    这些问题, 响应的状态码都是`5xx`
+   这些问题, 响应的状态码都是`5xx`
 
-    比如: `504(Bad Gateway)`, 网关超时 一看就是**服务器在处理时出现了问题**
+   比如: `504(Bad Gateway)`, 网关超时 一看就是**服务器在处理时出现了问题**
 
 > 市面上的浏览器, 由于各种内核各种版本
 >
@@ -1113,25 +1112,25 @@ tree
 
 1. `Host: value`, 用于客户端, 告知服务器, 所请求的资源是在哪个主机的哪个端口上
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181439565.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181439565.webp)
 
 2. `User-Agent: value`, 声明用户的操作系统和浏览器版本信息等
 
-    这个属性有什么用呢?
+   这个属性有什么用呢?
 
-    使用不同的设备, 访问同一个网页时:
+   使用不同的设备, 访问同一个网页时:
 
-    ![PC访问 QQ音乐下载页 |wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181441498.webp)
+   ![PC访问 QQ音乐下载页 |wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181441498.webp)
 
-    ![Android访问 QQ音乐下载页 |wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181444531.webp)
+   ![Android访问 QQ音乐下载页 |wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181444531.webp)
 
-    某些网页, 会根据设备的不同展示不同的内容. 而设备信息, 就是通过`User-Agent`获取的.
+   某些网页, 会根据设备的不同展示不同的内容. 而设备信息, 就是通过`User-Agent`获取的.
 
 3. `referer: value`, 用来说明 当前页面是从哪个页面跳转过来的
 
-    什么意思呢?
+   什么意思呢?
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181446815.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181446815.webp)
 
 ### `Location: value` 重定向
 
@@ -1206,9 +1205,9 @@ void handlerHttpRequest(int sock) {
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181455196.webp)
 
-结合上图不难得出结论: 重定向是 **将一个URL地址重定向到另一个URL地址的过程**
+结合上图不难得出结论: 重定向是 **将一个 URL 地址重定向到另一个 URL 地址的过程**
 
-当浏览器请求一个URL时, 服务器可以将请求重定向到另一个URL, 浏览器会自动跳转到新的URL
+当浏览器请求一个 URL 时, 服务器可以将请求重定向到另一个 URL, 浏览器会自动跳转到新的 URL
 
 接收重定向信息 和 跳转的动作, 一般都是浏览器自动完成的
 
@@ -1224,33 +1223,33 @@ void handlerHttpRequest(int sock) {
 
 1. **临时重定向**
 
-    表示请求的资源已经暂时移动到了另一个`url`
+   表示请求的资源已经暂时移动到了另一个`url`
 
-    这时, 浏览器会跳转到新的`url`
+   这时, 浏览器会跳转到新的`url`
 
-    但是, 并不代表旧的`url`以后就无法使用了
+   但是, 并不代表旧的`url`以后就无法使用了
 
-    浏览器会继续为原始`url`进行排名, 同时将重定向的`url`视为一个临时的副本
+   浏览器会继续为原始`url`进行排名, 同时将重定向的`url`视为一个临时的副本
 
-    浏览器会自动跳转到新的`url`, 但会保留原始`url`
+   浏览器会自动跳转到新的`url`, 但会保留原始`url`
 
-    一般用于, 原服务器维护 需要使用另外的临时服务器的情况
+   一般用于, 原服务器维护 需要使用另外的临时服务器的情况
 
 2. **永久重定向**
 
-    表示请求的资源已经永久移动到了另一个`url`
+   表示请求的资源已经永久移动到了另一个`url`
 
-    这时, 浏览器同样会跳转到新的`url`
+   这时, 浏览器同样会跳转到新的`url`
 
-    不过, 此时浏览器会将重定向的`url`视为原始`url`的替代品, 并将其用于排名目的
+   不过, 此时浏览器会将重定向的`url`视为原始`url`的替代品, 并将其用于排名目的
 
-    浏览器会自动跳转到新的`url`, 并且不会保留原始`url`
+   浏览器会自动跳转到新的`url`, 并且不会保留原始`url`
 
 **临时重定向**和**永久重定向**两类中, 又有细分的状态码
 
 不同的状态码, 给浏览器传递的信息也有细微的差别, 不再一一列举, 有兴趣可以搜索一下
 
-### `Cookie` **
+### `Cookie` \*\*
 
 `HTTP`协议的特点之一是: **无状态**(同样也是`HTTPS`的特点)
 
@@ -1381,7 +1380,7 @@ void handlerHttpRequest(int sock) {
 
 如果信息被频繁的异常访问 或 账号在频繁的异常向服务器提交信息
 
-那么用户的账号可能就会被限制或直接冻结, 就像 QQ号被盗了之后, 很可能就会被冻结
+那么用户的账号可能就会被限制或直接冻结, 就像 QQ 号被盗了之后, 很可能就会被冻结
 
 **数据在传输时 安全的问题非常重要, 但是 服务器自身的防盗系统也是非常的重要的**
 

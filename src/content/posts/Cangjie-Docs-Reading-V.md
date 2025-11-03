@@ -2,28 +2,28 @@
 title: "仓颉文档阅读-语言规约III: 名字、作用域、变量、修饰符"
 published: 2025-09-24
 description: "一直对仓颉挺感兴趣的, 但是一直没有去读一下文档, 慢慢看一看, 了解一下"
-image: 'https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp'
+image: "https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp"
 category: Blogs
 tags:
-    - 开发语言
-    - 仓颉
+  - 开发语言
+  - 仓颉
 ---
 
 > [!NOTE]
-> 
+>
 > 阅读文档版本:
-> 
-> 语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
-> 
+>
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+>
 > 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
-> 
+>
 > 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
-> 
-> 有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+>
+> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
 > [!WARNING]
-> 
-> 博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
+>
+> 博主在此之前, 基本只接触过 C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与 C/C++中的相似概念作类比, 见谅
 
 > 此样式内容, 表示文档原文内容
 
@@ -31,13 +31,13 @@ tags:
 
 > 本章首先介绍名字、作用域、遮盖, 然后介绍其中一种名字——变量, 包括变量的定义和初始化, 最后是修饰符
 
-这里有一个名词: 遮盖, 猜测 可能是C/C++中嵌套作用域出现同名变量的情况
+这里有一个名词: 遮盖, 猜测 可能是 C/C++中嵌套作用域出现同名变量的情况
 
 ### 名字
 
 > 仓颉编程语言中, 我们用**名字**(names)标识变量、函数、类型、package、module 等实体(entities)
 >
-> **名字**必须是一个合法的[标识符](https://www.humid1ch.cn/blog/cangjie-docs-reading-i#heading-1)
+> **名字**必须是一个合法的[标识符](https://blog.humid1ch.cn/posts/cangjie-docs-reading-i/#heading-1)
 >
 > 仓颉编程语言的关键字、变量、函数、类型(包括:`class`、`interface`、`struct`、`enum`、`type alias`)、泛型参数、`package`名、`module`名共用同一个**命名空间**, 即, 在同一个`scope`声明或定义的实体, 不允许同名(除了构成重载的名字)
 >
@@ -173,7 +173,7 @@ tags:
 >
 > - `Top-level`变量, 即由`let`, `var`和`const`引入的名字, 其作用域为从定义(包括赋初值)完成之后开始, 不包括从本文件开头到变量声明之间的区间, 名字对`package`的其它文件可见
 >
->     但由于变量的初始化过程可能有副作用, **必须先声明且初始化后再使用**
+>   但由于变量的初始化过程可能有副作用, **必须先声明且初始化后再使用**
 >
 > ```cangjie
 > /* 全局变量只能在定义之后再使用 */
@@ -196,7 +196,7 @@ tags:
 > }
 > ```
 
-`Top-level`函数和类型部分, 与C/C++有很大的不同
+`Top-level`函数和类型部分, 与 C/C++有很大的不同
 
 C/C++无论是函数、类型和变量, 都需要"先声明"再使用, 这里的"先声明", 指 在使用之前, 使用所在行之上必须能看到对应的声明
 
@@ -212,19 +212,19 @@ C/C++无论是函数、类型和变量, 都需要"先声明"再使用, 这里的
 >
 > - 局部变量, 其作用域 从声明之后开始到`scope`结束, 必须先定义和初始化后使用
 >
->     局部变量的遮盖从引入变量名的声明或定义之后开始
+>   局部变量的遮盖从引入变量名的声明或定义之后开始
 >
 > - 局部函数, 其作用域从声明的位置之后到`scope`结束, 支持递归定义, 不支持互递归定义
 >
 > - 函数的参数和泛型参数 的作用域从参数名声明后开始到函数体结束, 其作用域级别与函数体内定义的变量等同
 >
->     - 函数定义`func f(x : Int32, y! : Int32 = x) { }`是合法的
->     - 函数定义`func f(x! : Int32 = x) { }`是不合法的
+>   - 函数定义`func f(x : Int32, y! : Int32 = x) { }`是合法的
+>   - 函数定义`func f(x! : Int32 = x) { }`是不合法的
 >
 > - 泛型类型声明或者扩展泛型类型时 引入的泛型参数 从参数名声明后开始到类型体或扩展体结束, 其作用域级别与类型内定义的名字等同
 >
->     - 泛型类型定义`class C<T> {}`中`T`的作用域从`T`出现到整个`class C`的声明结束
->     - 泛型类型的扩展`extend C<T> {}`中`T`的作用域从`T`出现到整个扩展定义结束
+>   - 泛型类型定义`class C<T> {}`中`T`的作用域从`T`出现到整个`class C`的声明结束
+>   - 泛型类型的扩展`extend C<T> {}`中`T`的作用域从`T`出现到整个扩展定义结束
 >
 > - `lambda`表达式的参数名的作用域与函数的相同, 为`lambda`表达式的函数体部分, 其作用域级别可视为与`lambda`表达式的函数体内定义的变量等同
 >
@@ -234,24 +234,24 @@ C/C++无论是函数、类型和变量, 都需要"先声明"再使用, 这里的
 >
 > - `match`表达式的`match case`中 **`pattern`引入的名字, 其作用域级别比所在的`match`表达式更高**, 从引入处开始到该`match case`结束
 >
->     每个`match case`均有独立的作用域
+>   每个`match case`均有独立的作用域
 >
->     `match case`绑定模式中引入的名字被视作 由胖箭头`=>`之后的作用域引入, 在`=>`之后再次引入相同名字会触发重定义错
+>   `match case`绑定模式中引入的名字被视作 由胖箭头`=>`之后的作用域引入, 在`=>`之后再次引入相同名字会触发重定义错
 >
 > - 对于所有三种循环, **循环条件与循环块的作用域级别相同**, 即其中引入的名字互相不能遮盖
 >
->     且额外规定 **循环条件无法引用循环体中定义的变量**
+>   且额外规定 **循环条件无法引用循环体中定义的变量**
 >
->     则有如下推论:
+>   则有如下推论:
 >
->     - 对于`for-in`表达式, 其循环体可以引用循环条件中引入的变量名
->     - 对于`while`和`do-while`表达式, 它们的循环条件都无法引用其循环体中引入的变量名, 即便`do-while`的循环条件在循环体后
+>   - 对于`for-in`表达式, 其循环体可以引用循环条件中引入的变量名
+>   - 对于`while`和`do-while`表达式, 它们的循环条件都无法引用其循环体中引入的变量名, 即便`do-while`的循环条件在循环体后
 >
 > - 对于`for-in`循环, 额外规定 **其循环条件处引入的变量不能在`in`关键字之后的表达式中使用**
 >
 > - 对于`try`异常处理, `try`后面紧跟的块以及每个`catch`块的的作用域互相独立
 >
->     `catch pattern`引入的名字被视作由`catch`后紧跟的块引入, 在`catch`块中再次引入相同名字会触发重定义错
+>   `catch pattern`引入的名字被视作由`catch`后紧跟的块引入, 在`catch`块中再次引入相同名字会触发重定义错
 >
 > - `try-with-resources`表达式, `try`关键字和`{}`之间引入的名字, 被视作由`try`块引入, 在`try`块中再次引入相同名字会触发重定义错
 >
@@ -300,7 +300,7 @@ C/C++无论是函数、类型和变量, 都需要"先声明"再使用, 这里的
 > }
 > ```
 
-大多都与C/C++的规则类似, 不需要死记硬背, 关于作用域用多了自然有自己的判断
+大多都与 C/C++的规则类似, 不需要死记硬背, 关于作用域用多了自然有自己的判断
 
 不过, 仓颉可以定义**局部函数**, 局部函数需要先定义再使用, 而**不是在整个局部作用域可见**
 
@@ -310,7 +310,7 @@ C/C++无论是函数、类型和变量, 都需要"先声明"再使用, 这里的
 
 2. 不同级作用域允许声明或定义重复的名字, 但触发遮盖现象
 
-    即, 高级遮盖低级
+   即, 高级遮盖低级
 
 3. `for-in`, 在条件中引入的变量, 无法在`in`之后的表达式中使用
 
@@ -335,83 +335,83 @@ C/C++无论是函数、类型和变量, 都需要"先声明"再使用, 这里的
 >
 > 1. 若作用域级别高的名字`C`为一个类型, 则直接发生遮盖
 >
->     ```cangjie
->     // == 在 package a 中 ==
->     public class C {} // ver 1
+>    ```cangjie
+>    // == 在 package a 中 ==
+>    public class C {} // ver 1
 >
->     // == 在 package b 中 ==
->     import a.*
+>    // == 在 package b 中 ==
+>    import a.*
 >
->     class C {} // ver 2
+>    class C {} // ver 2
 >
->     let v = C() // will use ver 2
->     ```
+>    let v = C() // will use ver 2
+>    ```
 >
 > 2. 若作用域级别高的名字`x`为一个变量, 则直接发生遮盖(对于成员变量的遮盖规则, 请参见 "类和接口" 章节)
 >
->     ```cangjie
->     let x = 1
+>    ```cangjie
+>    let x = 1
 >
->     func foo() {
->         let x = 2
->         println(x) // will print 2
->     }
->     ```
+>    func foo() {
+>        let x = 2
+>        println(x) // will print 2
+>    }
+>    ```
 >
 > 3. 若作用域级别高的名字`p`为`package`名字, 则直接发生遮盖
 >
->     ```cangjie
->     // == 在 package a 中 ==
->     public class b {
->         public static let c = 1
->     }
+>    ```cangjie
+>    // == 在 package a 中 ==
+>    public class b {
+>        public static let c = 1
+>    }
 >
->     // == 在 package a.b 中 ==
->     public let c = 2
+>    // == 在 package a.b 中 ==
+>    public let c = 2
 >
->     // == 在 package test 中 ==
->     import a.*
->     import a.b.*
+>    // == 在 package test 中 ==
+>    import a.*
+>    import a.b.*
 >
->     let v = a.b.c // will be 1
->     ```
+>    let v = a.b.c // will be 1
+>    ```
 >
 > 4. 若作用域级别高的名字`f`为一个成员函数, 则按重载的规则判断`f`是否发生重载, 如无重载, 则可能发生覆盖或重定义;
 >
->     如无重载且不能覆盖/重定义, 则报错(具体规则, 见[覆盖]、[重定义])
+>    如无重载且不能覆盖/重定义, 则报错(具体规则, 见[覆盖]、[重定义])
 >
->     ```cangjie
->     open class A {
->         public open func foo() {
->             println(1)
->         }
->     }
+>    ```cangjie
+>    open class A {
+>        public open func foo() {
+>            println(1)
+>        }
+>    }
 >
->     class B <: A {
->         public override func foo() {  // override
->             println(2)
->         }
+>    class B <: A {
+>        public override func foo() {  // override
+>            println(2)
+>        }
 >
->         public func foo() {  // error, conflicting definitions
->             println(3)
->         }
->     }
->     ```
+>        public func foo() {  // error, conflicting definitions
+>            println(3)
+>        }
+>    }
+>    ```
 >
 > 5. 若作用域级别高的名字`f`为非成员函数, 则按重载的规则判断`f`是否发生重载
 >
->     如无重载, 则视为遮盖
+>    如无重载, 则视为遮盖
 >
->     ```cangjie
->     func foo() { 1 }
+>    ```cangjie
+>    func foo() { 1 }
 >
->     func test() {
->         func foo() { 2 } // shadows
->         func foo(x: Int64) { 3 } // overloads
+>    func test() {
+>        func foo() { 2 } // shadows
+>        func foo(x: Int64) { 3 } // overloads
 >
->         println(foo()) // will print 2
->     }
->     ```
+>        println(foo()) // will print 2
+>    }
+>    ```
 >
 > 下面的例子展示了函数内变量的作用域级别和之间的遮盖关系, 以及项与类型在同一命名空间
 >
@@ -494,7 +494,7 @@ C/C++无论是函数、类型和变量, 都需要"先声明"再使用, 这里的
 >
 > 根据是否可进行修改, 可将变量分为 3 类: 不可变变量(一旦初始化, 值不可改变)、可变变量(值可以改变)、`const`变量(必须编译期初始化, 不可修改)
 
-仓颉将变量类型分为了3种, 是根据可变状态和初始化状态区分的
+仓颉将变量类型分为了 3 种, 是根据可变状态和初始化状态区分的
 
 `const`修饰的变量, 定义时必须初始化
 
@@ -521,32 +521,32 @@ C/C++无论是函数、类型和变量, 都需要"先声明"再使用, 这里的
 >
 > 1. 修饰符
 >
->     - `top-level`变量的修饰符包括:`public`, `protected`, `private`, `internal`
->     - **局部变量不能用修饰符修饰**
->     - `class`类型的成员变量的修饰符包括:`public`, `protected`, `private`, `internal`, `static`
->     - `struct`类型的成员变量的修饰符包括:`public`, `private`, `internal`, `static`
+>    - `top-level`变量的修饰符包括:`public`, `protected`, `private`, `internal`
+>    - **局部变量不能用修饰符修饰**
+>    - `class`类型的成员变量的修饰符包括:`public`, `protected`, `private`, `internal`, `static`
+>    - `struct`类型的成员变量的修饰符包括:`public`, `private`, `internal`, `static`
 >
 > 2. 关键字`let/var/const`
 >
->     - `let`用于定义不可变变量, `let`变量一旦初始化就不能再改变
->     - `var`用于定义可变变量
->     - `const`用于定义`const`变量
+>    - `let`用于定义不可变变量, `let`变量一旦初始化就不能再改变
+>    - `var`用于定义可变变量
+>    - `const`用于定义`const`变量
 >
 > 3. `patternsMaybeIrrefutable`
 >
->     - `let`(或`var/const`)之后只能是那些一定或可能为 *`irrefutable`* 的`pattern`(见 [模式的分类])
+>    - `let`(或`var/const`)之后只能是那些一定或可能为 _`irrefutable`_ 的`pattern`(见 [模式的分类])
 >
->         在语义检查阶段, 会检查`pattern`是否真的是 *`irrefutable`*, 如果不是 *`irrefutable`*`pattern`, 则编译报错
+>      在语义检查阶段, 会检查`pattern`是否真的是 _`irrefutable`_, 如果不是 _`irrefutable`_`pattern`, 则编译报错
 >
->     - `let`(或`var/const`)之后的`pattern`中引入的新的变量, 全部都是`let`修饰(或`var`修饰)的变量
+>    - `let`(或`var/const`)之后的`pattern`中引入的新的变量, 全部都是`let`修饰(或`var`修饰)的变量
 >
->     - 在`class`和`struct`中定义成员变量时, 只能使用`binding pattern`(见 [绑定模式])
+>    - 在`class`和`struct`中定义成员变量时, 只能使用`binding pattern`(见 [绑定模式])
 >
 > 4. 变量类型是可选的, 不声明变量类型时需要给变量初始值, 编译器将尝试根据初始值推断变量类型
 >
 > 5. 变量可以定义在`top-level`, 表达式内部, `class/struct`类型内部
 
-顶层作用域种定义变量, 仓颉比C/C++多了修饰符, 应该是包管理的原因, C/C++包管理不完善(悲)
+顶层作用域种定义变量, 仓颉比 C/C++多了修饰符, 应该是包管理的原因, C/C++包管理不完善(悲)
 
 根据已经了解的一些内容
 
@@ -576,14 +576,14 @@ C/C++无论是函数、类型和变量, 都需要"先声明"再使用, 这里的
 >
 > 3. 局部变量除了使用上述语法定义之外, 还有如下几种情形会引入局部变量:
 >
->     - `for-in`循环表达式中, `for`和`in`中间的`pattern`, 详见 [for-in 表达式]
->     - 函数、`lambda`定义中的形参, 详见 [参数]
->     - `try-with-resource`表达式中`ResourceSpecifications`, 详见 [异常]
->     - `match`表达式中, `case`后的`pattern`, 详见 [模式匹配表达式]
+>    - `for-in`循环表达式中, `for`和`in`中间的`pattern`, 详见 [for-in 表达式]
+>    - 函数、`lambda`定义中的形参, 详见 [参数]
+>    - `try-with-resource`表达式中`ResourceSpecifications`, 详见 [异常]
+>    - `match`表达式中, `case`后的`pattern`, 详见 [模式匹配表达式]
 >
 > 4. 可以使用一对反引号(<code>\` `</code>)将关键字变为合法的标识符
 >
->     (例如, <code>\`open`</code>等)
+>    (例如, <code>\`open`</code>等)
 >
 > 下面给出变量定义的一些实例:
 >
@@ -651,24 +651,24 @@ C/C++无论是函数、类型和变量, 都需要"先声明"再使用, 这里的
 >
 > - **全局变量在声明时必须立即对其进行初始化**, 否则报错
 >
->     即, 声明必须提供一个初始化表达式
+>   即, 声明必须提供一个初始化表达式
 >
 > - **静态变量在声明时必须立即对其进行初始化**, 可以采用与全局变量的初始化相同的形式, 也**可以在静态初始化器中进行初始化**(更多细节见[静态初始化器]部分)
 >
->     - 注意, 静态变量不能在其他静态变量中初始化:
+>   - 注意, 静态变量不能在其他静态变量中初始化:
 >
->         ```cangjie
->         class Foo {
->             static let x: Int64
->             static let y = (x = 1) // it's forbidden
->         }
->         ```
+>     ```cangjie
+>     class Foo {
+>         static let x: Int64
+>         static let y = (x = 1) // it's forbidden
+>     }
+>     ```
 >
 > - 初始化表达式`e`不能依赖未初始化的全局变量或静态变量
 >
->     编译器会进行保守的分析, 如果`e`可能会访问到未初始化的全局变量或静态变量, 则报错
+>   编译器会进行保守的分析, 如果`e`可能会访问到未初始化的全局变量或静态变量, 则报错
 >
->     详细的分析取决于编译器的实现, 在规范中没有指定
+>   详细的分析取决于编译器的实现, 在规范中没有指定
 
 C/C++中可没有关于静态初始化器的内容
 
@@ -678,52 +678,52 @@ C/C++中可没有关于静态初始化器的内容
 >
 > - 对于同一个文件中声明的全局/静态变量, 初始化顺序根据变量的声明顺序从上到下进行
 >
->     如果使用了静态初始化器, 则根据静态初始化器的初始化顺序规则执行(详见[静态初始化器]部分)
+>   如果使用了静态初始化器, 则根据静态初始化器的初始化顺序规则执行(详见[静态初始化器]部分)
 >
 > - 同一个包里不同文件或不同包中声明的全局/静态变量的初始化顺序取决于文件或包之间的依赖关系
 >
->     如果文件`B.cj`依赖文件`A.cj`且`A.cj`不依赖`B.cj`, 则`A.cj`中的全局/静态变量的初始化在`B.cj`中的全局/静态变量的初始化之前
+>   如果文件`B.cj`依赖文件`A.cj`且`A.cj`不依赖`B.cj`, 则`A.cj`中的全局/静态变量的初始化在`B.cj`中的全局/静态变量的初始化之前
 >
 > - 如果文件或包之间存在循环依赖或者不存在任何依赖, 那么它们之间的初始化顺序不确定, 由编译器实现决定
 >
->     ```cangjie
->     /* 全局变量的初始化不能依赖于 全局在同一包的其他文件中定义的变量 */
->     // a.cj
->     let x = 2
->     let y = z       // OK, b.cj 不直接或间接依赖于此文件
->     let a = x       // OK.
+>   ```cangjie
+>   /* 全局变量的初始化不能依赖于 全局在同一包的其他文件中定义的变量 */
+>   // a.cj
+>   let x = 2
+>   let y = z       // OK, b.cj 不直接或间接依赖于此文件
+>   let a = x       // OK.
 >
->     let c = A()
->     let d = c.f()
->     /* c.f 是一个开放函数, 编译器无法静态确定该函数是否符合全局变量的初始化规则, 可能会报告错误 */
+>   let c = A()
+>   let d = c.f()
+>   /* c.f 是一个开放函数, 编译器无法静态确定该函数是否符合全局变量的初始化规则, 可能会报告错误 */
 >
->     open class A {
->         // static var x = A.z     // Error, A.z 在初始化之前被使用
->         // static var y = B.f     // Error, B.f 在初始化之前被使用
->         static var z = 1
->         public open func f(): Int64 {
->             return 77
->         }
->     }
+>   open class A {
+>       // static var x = A.z     // Error, A.z 在初始化之前被使用
+>       // static var y = B.f     // Error, B.f 在初始化之前被使用
+>       static var z = 1
+>       public open func f(): Int64 {
+>           return 77
+>       }
+>   }
 >
->     class B {
->         static var e = A.z    // OK.
->         static var f = x      // OK.
->     }
+>   class B {
+>       static var e = A.z    // OK.
+>       static var f = x      // OK.
+>   }
 >
->     // b.cj
->     let z = 10
->     // let y = 10   // Error, y 已经在 a.cj 中定义了
+>   // b.cj
+>   let z = 10
+>   // let y = 10   // Error, y 已经在 a.cj 中定义了
 >
->     // main.cj
->     main(): Int64 {
->         print("${x}")
->         print("${y}")
->         print("${z}")
+>   // main.cj
+>   main(): Int64 {
+>       print("${x}")
+>       print("${y}")
+>       print("${z}")
 >
->         return 1
->     }
->     ```
+>       return 1
+>   }
+>   ```
 
 ##### `const`变量
 

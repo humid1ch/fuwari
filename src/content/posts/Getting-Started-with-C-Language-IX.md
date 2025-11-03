@@ -1,27 +1,27 @@
 ---
-title: '从零接触C语言(初览)-IX: 关键字'
-description: 'C语言标准中定义了一些关键字, 这些关键字是不允许被定义成变量名的, 并且每个关键词都有自己的作用'
+title: "从零接触C语言(初览)-IX: 关键字"
+description: "C语言标准中定义了一些关键字, 这些关键字是不允许被定义成变量名的, 并且每个关键词都有自己的作用"
 published: 2025-08-19
-image: 'https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710215328038.webp'
+image: "https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710215328038.webp"
 category: Blogs
 tags:
-    - C
-    - 从零开始接触C语言
+  - C
+  - 从零开始接触C语言
 ---
 
 > [!TIP]
 >
-> 如果你从未接触过C语言, 那么我建议你先阅读前面的文章:
+> 如果你从未接触过 C 语言, 那么我建议你先阅读前面的文章:
 >
-> [📌从零开始接触C语言](https://www.humid1ch.cn/blog/tag/从零开始接触C语言)
+> [📌 从零开始接触 C 语言](https://blog.humid1ch.cn/posts/tag/从零开始接触C语言)
 
 ## 关键字
 
-在介绍[C语言变量的命名规则](https://www.humid1ch.cn/blog/getting-started-with-c-language-ii#heading-2)时, 提到过一条规则是: **禁止与关键字冲突**
+在介绍[C 语言变量的命名规则](https://blog.humid1ch.cn/posts/getting-started-with-c-language-ii/#heading-2)时, 提到过一条规则是: **禁止与关键字冲突**
 
-C语言标准中定义了许多的关键字, 这些关键字都具有特定的功能, 所以在变量命名时会明确禁止与关键字冲突, 否则编译器会无法确定该作为变量使用还是关键字使用
+C 语言标准中定义了许多的关键字, 这些关键字都具有特定的功能, 所以在变量命名时会明确禁止与关键字冲突, 否则编译器会无法确定该作为变量使用还是关键字使用
 
-C语言标准中存在许多的关键字, 虽然在之前的文章中已经见过不少, 但本篇文章会总览C语言标准中定义的所有关键字
+C 语言标准中存在许多的关键字, 虽然在之前的文章中已经见过不少, 但本篇文章会总览 C 语言标准中定义的所有关键字
 
 ### 已知关键字
 
@@ -68,7 +68,7 @@ goto
 
 **其中`unsigned`和`signed`是相对的, 通常与类型一起使用, 声明数据是无符号数据还是有符号数据, 具体用法暂不过多介绍**
 
-而`auto`, 在C语言中则是一个十分不常用的关键字, 他几乎没有什么作用, 他的唯一作用就是 在定义变量时使用, 是用来定义一个由程序自动管理生命周期的变量的, 但即使省略`auto`, 定义的局部变量也是由程序自动管理生命周期的
+而`auto`, 在 C 语言中则是一个十分不常用的关键字, 他几乎没有什么作用, 他的唯一作用就是 在定义变量时使用, 是用来定义一个由程序自动管理生命周期的变量的, 但即使省略`auto`, 定义的局部变量也是由程序自动管理生命周期的
 
 上面这些关键字, 本篇文章中不用再过多介绍
 
@@ -76,7 +76,7 @@ goto
 
 ### `extern`
 
-`extern`在首次介绍[变量的声明](https://www.humid1ch.cn/blog/getting-started-with-c-language-ii#heading-2)时, 已经简单的见过了
+`extern`在首次介绍[变量的声明](https://blog.humid1ch.cn/posts/getting-started-with-c-language-ii/#heading-2)时, 已经简单的见过了
 
 `extern`是一个非常重要的关键字, **它用于声明一个变量或函数, 并指定其具有外部链接属性**
 
@@ -97,33 +97,33 @@ extern void func1();
 
 什么是外部链接属性?
 
-事实上, C语言开发是不仅仅局限于单个代码文件的
+事实上, C 语言开发是不仅仅局限于单个代码文件的
 
-C语言允许在多个文件中进行代码编写, 并进行编译
+C 语言允许在多个文件中进行代码编写, 并进行编译
 
-此时, 如果你在文件1中定义了一个全局变量, 但是想要在文件2中进行使用, 那么 就可以用到`extern`关键字
+此时, 如果你在文件 1 中定义了一个全局变量, 但是想要在文件 2 中进行使用, 那么 就可以用到`extern`关键字
 
-1. 文件1: `globalVar.c`
+1. 文件 1: `globalVar.c`
 
-    ```c
-    int globalVar = 30;
-    ```
+   ```c
+   int globalVar = 30;
+   ```
 
-2. 文件2: `main.c`
+2. 文件 2: `main.c`
 
-    如果想要在`main.c`中直接使用`globalVar.c`中定义的全局变量`globalVar`, 就需要用到`extern`
+   如果想要在`main.c`中直接使用`globalVar.c`中定义的全局变量`globalVar`, 就需要用到`extern`
 
-    ```c
-    #include <stdio.h>
+   ```c
+   #include <stdio.h>
 
-    extern int globalVar;
+   extern int globalVar;
 
-    int main() {
-        printf("globalVar: %d\n", globalVar);
+   int main() {
+       printf("globalVar: %d\n", globalVar);
 
-        return 0;
-    }
-    ```
+       return 0;
+   }
+   ```
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250822144230398.webp)
 
@@ -162,17 +162,17 @@ int main() {
 
 1. 如果直接使用:
 
-    ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250822144858480.webp)
+   ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250822144858480.webp)
 
-    编译会报错: **变量`globalVar`在函数第一次使用时, 未声明**
+   编译会报错: **变量`globalVar`在函数第一次使用时, 未声明**
 
 2. 如果不使用`extern`关键字:
 
-    ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250822145233137.webp)
+   ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250822145233137.webp)
 
-    编译时, 会出现另外一个问题: **链接出现错误, 变量`globalVar`多次定义, 无法确定链接**
+   编译时, 会出现另外一个问题: **链接出现错误, 变量`globalVar`多次定义, 无法确定链接**
 
-    即, `globalVar`变量定义了两次, 这是不允许的
+   即, `globalVar`变量定义了两次, 这是不允许的
 
 函数也是相似的, 函数也可以在其他文件中定义, 但是在使用之前, 一定要先声明函数
 
@@ -184,20 +184,20 @@ int main() {
 >
 > 其实完整的写法应该是`extern int add(int num1, int num2);`, 只是 `extern`可以被省略
 
-### `static`**
+### `static`\*\*
 
-C语言中还有一个非常重要的关键字: `static`, 非常非常非常重要
+C 语言中还有一个非常重要的关键字: `static`, 非常非常非常重要
 
 `static`可以用来修饰变量或函数, **在变量或函数声明时, 用`static`修饰的变量或函数 被称为静态变量或静态函数**
 
-C语言中`static`具体的功能有两个:
+C 语言中`static`具体的功能有两个:
 
 1. **限制变量或函数内部链接**
 2. **修饰变量, 为变量提供静态属性**
 
-#### 功能1: 限制变量或函数内部链接
+#### 功能 1: 限制变量或函数内部链接
 
-功能1的作用, 正好与`extern`的功能相反
+功能 1 的作用, 正好与`extern`的功能相反
 
 **`static`修饰变量或函数, 可以将变量或函数的作用范围 限定到当前文件中**, 这个功能与`extern`是相反的
 
@@ -213,7 +213,7 @@ C语言中`static`具体的功能有两个:
 static int globalVar = 30;
 ```
 
- `main.c`
+`main.c`
 
 ```c
 #include <stdio.h>
@@ -324,7 +324,7 @@ static int add(int num1, int num2) {
 
 **如果你在声明时, 没有说明这是一个静态函数, 但在定义实现尝试将其实现为静态函数**, 编译器就会报错: **函数静态声明位于非静态声明之后**
 
-这是C语言标准中禁止的行为, 这说明: **C语言, 不能将已经声明为外部链接的标识符改为内部链接**
+这是 C 语言标准中禁止的行为, 这说明: **C 语言, 不能将已经声明为外部链接的标识符改为内部链接**
 
 > 有人可能存在疑问:
 >
@@ -340,15 +340,15 @@ static int add(int num1, int num2) {
 >
 > 这是因为:
 >
-> C语言标准中, 如果一个函数先被声明为`static`, 后续的定义即使没有`static`, 该函数仍然保持内部链接
+> C 语言标准中, 如果一个函数先被声明为`static`, 后续的定义即使没有`static`, 该函数仍然保持内部链接
 >
 > 这是因为**第一次显式声明决定了函数的链接属性**
 
 > [!WARNING]
-> 
+>
 > 关键字`static`和`extern`不能一起使用
 
-#### 功能2: 修饰变量, 提供静态属性
+#### 功能 2: 修饰变量, 提供静态属性
 
 `static`还有非常重要的第二个功能: **修饰变量时, 创建静态变量**
 
@@ -360,97 +360,97 @@ static int add(int num1, int num2) {
 
 1. 被`static`修饰的变量, **生命周期为 程序运行期间**
 
-    即使尝试定义临时变量, 但只要使用`static`进行修饰, 此变量的生命周期就为 整个程序运行期间
+   即使尝试定义临时变量, 但只要使用`static`进行修饰, 此变量的生命周期就为 整个程序运行期间
 
-    即, **无论是静态全局变量, 还是静态局部变量, 生命周期 均为整个程序的运行期间**
+   即, **无论是静态全局变量, 还是静态局部变量, 生命周期 均为整个程序的运行期间**
 
 2. 被`static`修饰的变量, 作用域为 其所在代码块内
 
-    作用域方面, 静态全局变量和静态局部变量存在一定的不同
+   作用域方面, 静态全局变量和静态局部变量存在一定的不同
 
-    在介绍功能1时, 已经了解过, **静态全局变量的作用域是 其所在的文件内**
+   在介绍功能 1 时, 已经了解过, **静态全局变量的作用域是 其所在的文件内**
 
-    而静态局部变量不同, **静态局部变量的作用域是 定义此变量时, 其所在的代码块内**
+   而静态局部变量不同, **静态局部变量的作用域是 定义此变量时, 其所在的代码块内**
 
-    可以用代码测试一下:
+   可以用代码测试一下:
 
-    ```c
-    #include <stdio.h>
+   ```c
+   #include <stdio.h>
 
-    int main() {
-        {
-            static int globalVar = 1;
-            printf("file: Test1 globalVar %d, %p\n", globalVar, &globalVar);
-        }
-        printf("file: Test1 globalVar %d, %p\n", globalVar, &globalVar);
+   int main() {
+       {
+           static int globalVar = 1;
+           printf("file: Test1 globalVar %d, %p\n", globalVar, &globalVar);
+       }
+       printf("file: Test1 globalVar %d, %p\n", globalVar, &globalVar);
 
-        return 0;
-    }
-    ```
+       return 0;
+   }
+   ```
 
-    ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250902160120114.webp)
+   ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250902160120114.webp)
 
-    从编译结果来看, 第`8`行的`printf("file: Test1 globalVar %d, %p\n", globalVar, &globalVar);`提示`globalVar`未定义
+   从编译结果来看, 第`8`行的`printf("file: Test1 globalVar %d, %p\n", globalVar, &globalVar);`提示`globalVar`未定义
 
-    而第`6`行的相同语句, 并没有报错
+   而第`6`行的相同语句, 并没有报错
 
 3. 被`static`修饰的变量, **在整个程序运行期间, 只会被初始化一次**
 
-    从字面来看, 这个属性好像并不容易理解
+   从字面来看, 这个属性好像并不容易理解
 
-    但可以结合代码理解:
+   但可以结合代码理解:
 
-    ```c
-    #include <stdio.h>
+   ```c
+   #include <stdio.h>
 
-    int main() {
-        int count = 5;
-        while (count--) {
-            int staticVal = 10;
-            printf("staticVal: %d\n", staticVal++);
-        }
+   int main() {
+       int count = 5;
+       while (count--) {
+           int staticVal = 10;
+           printf("staticVal: %d\n", staticVal++);
+       }
 
-        return 0;
-    }
-    ```
+       return 0;
+   }
+   ```
 
-    ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250902161529967.webp)
+   ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250902161529967.webp)
 
-    ```c
-    #include <stdio.h>
+   ```c
+   #include <stdio.h>
 
-    int main() {
-        int count = 5;
-        while (count--) {
-            int val = 10;
-            printf("val: %d\n", val++);
-        }
+   int main() {
+       int count = 5;
+       while (count--) {
+           int val = 10;
+           printf("val: %d\n", val++);
+       }
 
-        return 0;
-    }
-    ```
+       return 0;
+   }
+   ```
 
-    ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250902161434478.webp)
+   ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250902161434478.webp)
 
-    对比这两段代码 和 其运行结果
+   对比这两段代码 和 其运行结果
 
-    从结果中可以看到
+   从结果中可以看到
 
-    1. 被`static`修饰的临时变量`staticVal`
+   1. 被`static`修饰的临时变量`staticVal`
 
-        初始化语句写在`while()`循环内, 但**即使多次循环, 也只初始化了一次**
+      初始化语句写在`while()`循环内, 但**即使多次循环, 也只初始化了一次**
 
-        在循环体内的`staticVal++`操作, 会对此静态变量随着循环执行累加操作
+      在循环体内的`staticVal++`操作, 会对此静态变量随着循环执行累加操作
 
-    2. 没有被`static`修饰的**普通临时变量`val`**
+   2. 没有被`static`修饰的**普通临时变量`val`**
 
-        初始化语句同样写在`while()`循环内, **但每次循环, 都会初始化一次**
+      初始化语句同样写在`while()`循环内, **但每次循环, 都会初始化一次**
 
-        循环体内的`val++`操作, `val`总是从`10`开始
+      循环体内的`val++`操作, `val`总是从`10`开始
 
 ### `typedef`
 
-C语言中, `typedef`的功能只有一个: **可以为数据类型重新起一个新名字**
+C 语言中, `typedef`的功能只有一个: **可以为数据类型重新起一个新名字**
 
 用法也非常简单:
 
@@ -475,7 +475,7 @@ int main() {
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250902163230751.webp)
 
-可以看到, `uint`在C语言标准中是不存在的类型
+可以看到, `uint`在 C 语言标准中是不存在的类型
 
 但使用`typedef`对`unsigned int`起一个新名字`uint`, 在之后就可以使用`uint`定义无符号整型数据
 
@@ -483,4 +483,4 @@ int main() {
 
 ---
 
-C语言还有一些其他的关键字, 各有作用, 但限于篇幅有限, 在之后的文章中再进行介绍
+C 语言还有一些其他的关键字, 各有作用, 但限于篇幅有限, 在之后的文章中再进行介绍

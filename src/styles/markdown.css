@@ -24,7 +24,7 @@
     }
 
     a:after {
-        content: '' !important;
+      content: "" !important;
     }
   }
 
@@ -44,7 +44,7 @@
     }
 
     &:after {
-      content: '↗'
+      content: "↗";
     }
   }
 
@@ -168,7 +168,7 @@
 
     .expressive-code,
     p {
-        margin-right: 1rem;
+      margin-right: 1rem;
     }
   }
 
@@ -185,4 +185,9 @@
   .expressive-code .ec-line .code {
     padding-left: 0.5rem;
   }
+}
+
+#toc-inner-wrapper {
+  background-color: var(--card-bg);
+  backdrop-filter: blur(11px);
 }

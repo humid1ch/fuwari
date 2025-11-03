@@ -2,28 +2,28 @@
 title: "仓颉文档阅读-语言规约V: 函数(I)"
 published: 2025-09-29 16:30:10
 description: "一直对仓颉挺感兴趣的, 但是一直没有去读一下文档, 慢慢看一看, 了解一下"
-image: 'https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp'
+image: "https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp"
 category: Blogs
 tags:
-    - 开发语言
-    - 仓颉
+  - 开发语言
+  - 仓颉
 ---
 
 > [!NOTE]
-> 
+>
 > 阅读文档版本:
-> 
-> 语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
-> 
+>
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+>
 > 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
-> 
+>
 > 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
-> 
-> 有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+>
+> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
 > [!WARNING]
-> 
-> 博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
+>
+> 博主在此之前, 基本只接触过 C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与 C/C++中的相似概念作类比, 见谅
 
 > 此样式内容, 表示文档原文内容
 
@@ -114,7 +114,7 @@ tags:
 
 > 类成员函数可用修饰符有: `public`, `protected`, `private`, `internal`, `static`, `open`, `override`, `redef`详见[类的成员]以及包和模块管理章节[访问修饰符]
 >
-> 接口成员函数可用修饰符有:  `static`, `mut`, 详见[接口成员]
+> 接口成员函数可用修饰符有: `static`, `mut`, 详见[接口成员]
 >
 > `struct` 成员函数可用修饰符有: `mut`, `public`, `private`, `internal`, `static`, 详见[struct 类型]
 >
@@ -161,7 +161,6 @@ tags:
 >     : (identifier | '_') ':' type
 >     ;
 > ```
->
 
 仓颉中, 函数的参数类型有两种: 非命名参数 和 命名参数
 
@@ -215,40 +214,40 @@ tags:
 >
 > - 函数定义时, 命名形参后不允许有非命名形参
 >
->     ```cangjie
->     func add1(a: Int32, b!: Int32): Int32 { a + b } // ok
+>   ```cangjie
+>   func add1(a: Int32, b!: Int32): Int32 { a + b } // ok
 >
->     func add2(a!: Int32, b: Int32): Int32 { a + b } // error
->     ```
+>   func add2(a!: Int32, b: Int32): Int32 { a + b } // error
+>   ```
 >
 > - 当形参被定义成命名形参后, 调用这个函数时, 则**必须在实参值前使用`参数名: `前缀来指定这个实参对应的形参**, 否则编译报错
 >
->     ```cangjie
->     func add(a: Int32, b!: Int32): Int32 { a + b }
+>   ```cangjie
+>   func add(a: Int32, b!: Int32): Int32 { a + b }
 >
->     add(1, b: 2) // ok
->     add(1, 2)    // error
->     ```
+>   add(1, b: 2) // ok
+>   add(1, 2)    // error
+>   ```
 >
 > - 如果抽象函数或 `open` 修饰的函数有命名形参, 那么实现函数或 `override` 修饰的函数也需要保持同样的命名形参
 >
->     ```cangjie
->     open class A {
->         public open func f(a!: Int32): Int32 {
->             return a + 1
->         }
->     }
->     class B <: A {
->         public override func f(a!: Int32): Int32 { // ok
->             return a + 1
->         }
->     }
->     class C <: A {
->         public override func f(b!: Int32): Int32 { // error
->             return b + 1
->         }
->     }
->     ```
+>   ```cangjie
+>   open class A {
+>       public open func f(a!: Int32): Int32 {
+>           return a + 1
+>       }
+>   }
+>   class B <: A {
+>       public override func f(a!: Int32): Int32 { // ok
+>           return a + 1
+>       }
+>   }
+>   class C <: A {
+>       public override func f(b!: Int32): Int32 { // error
+>           return b + 1
+>       }
+>   }
+>   ```
 
 仓颉中, 如果函数存在命名参数, 则必须通过`参数名: 值`来进行传参
 
@@ -283,7 +282,7 @@ tags:
 > add(3, b: 2)    // return 5
 > ```
 
-了解过C++的话, 仓颉中存在默认值参数的使用, 也没有太大区别
+了解过 C++的话, 仓颉中存在默认值参数的使用, 也没有太大区别
 
 > - 类或接口中被 `open` 关键字修饰的函数不允许有可选参数
 >
@@ -303,55 +302,55 @@ tags:
 >
 > - 函数调用时, **通过函数名调用可以使用默认值, 通过变量名调用不支持使用默认值**
 >
->     ```cangjie
->     // 编译时错误
->     // func f(a: Int32, b!: Int32 = 2, c: Int32): Int32 { ... }
+>   ```cangjie
+>   // 编译时错误
+>   // func f(a: Int32, b!: Int32 = 2, c: Int32): Int32 { ... }
 >
->     // OK.
->     func f1(a: Int32, b: Int32, c!: Int32 = 3, d!: Int32 = 4): Int32 {
->         a + b + c + d
->     }
+>   // OK.
+>   func f1(a: Int32, b: Int32, c!: Int32 = 3, d!: Int32 = 4): Int32 {
+>       a + b + c + d
+>   }
 >
->     func test() {
->         f1(1, 2)            // 10,  f1(1, 2, 3, 4)
->         f1(1, 2, c: 5)        // 12,  f1(1, 2, 5, 4)
->     }
->     ```
+>   func test() {
+>       f1(1, 2)            // 10,  f1(1, 2, 3, 4)
+>       f1(1, 2, c: 5)        // 12,  f1(1, 2, 5, 4)
+>   }
+>   ```
 >
->     ```cangjie
->     /* 在默认值中引入的名称, 不需要具有与函数相同或更严格的可访问性 */
->     var x = 10
->     var y = 10
->     func g() {}
->     public func f2(a!: Int64 = x * 2 + y, b!: ()->Unit = g) {}  // OK.
+>   ```cangjie
+>   /* 在默认值中引入的名称, 不需要具有与函数相同或更严格的可访问性 */
+>   var x = 10
+>   var y = 10
+>   func g() {}
+>   public func f2(a!: Int64 = x * 2 + y, b!: ()->Unit = g) {}  // OK.
 >
->     class AAA {
->         static private var x = 10
+>   class AAA {
+>       static private var x = 10
 >
->         func f(a!: Int64 = x) { // OK, public 方法可以使用私有静态字段
->             print("${a}")
->             x = x + 10
->             print("${x}")
->         }
->     }
->     ```
+>       func f(a!: Int64 = x) { // OK, public 方法可以使用私有静态字段
+>           print("${a}")
+>           x = x + 10
+>           print("${x}")
+>       }
+>   }
+>   ```
 >
->     ```cangjie
->     /*
->     调用函数时, 函数声明中的名称可以使用默认值
->     使用变量名调用函数时, 参数不能是可选的, 即不支持使用默认值
->     */
->     func f1(): (Int64) -> Unit { g1 }
+>   ```cangjie
+>   /*
+>   调用函数时, 函数声明中的名称可以使用默认值
+>   使用变量名调用函数时, 参数不能是可选的, 即不支持使用默认值
+>   */
+>   func f1(): (Int64) -> Unit { g1 }
 >
->     func g1(a!: Int64 = 42) {
->         print("g1: ${a}")
->     }
+>   func g1(a!: Int64 = 42) {
+>       print("g1: ${a}")
+>   }
 >
->     let gg1 = f1()
->     let x = gg1()    // Error, 不能省略参数
->     let gg3 = g1
->     let a = gg3()    // Error, 不能省略参数
->     ```
+>   let gg1 = f1()
+>   let x = gg1()    // Error, 不能省略参数
+>   let gg3 = g1
+>   let a = gg3()    // Error, 不能省略参数
+>   ```
 
 文档中有两句比较不明确的介绍:
 
@@ -400,7 +399,7 @@ tags:
 > }
 > ```
 
-熟悉C/C++, 对局部变量再熟悉不过了
+熟悉 C/C++, 对局部变量再熟悉不过了
 
 #### 嵌套函数
 
@@ -437,23 +436,23 @@ tags:
 >
 > - **返回值为元组的函数**: 可以使用元组类型作为函数的返回类型, 将多个值作为一个复合返回值返回
 >
->     如以下例子, 它的返回是一个元组`(a, b)`, 返回类型是`(Int32, Int32)`
+>   如以下例子, 它的返回是一个元组`(a, b)`, 返回类型是`(Int32, Int32)`
 >
->     ```cangjie
->     func returnAB(a: Int32, b: Int32): (Int32, Int32) {
->         (a, b)
->     }
->     ```
+>   ```cangjie
+>   func returnAB(a: Int32, b: Int32): (Int32, Int32) {
+>       (a, b)
+>   }
+>   ```
 >
 > - **函数类型作为返回类型**: 可以使用函数类型作为另一个函数的返回类型
 >
->     如下示例, 在`:`后紧跟的是`add`函数的类型`(Int32, Int32) -> Int32`
+>   如下示例, 在`:`后紧跟的是`add`函数的类型`(Int32, Int32) -> Int32`
 >
->     ```cangjie
->     func returnAdd(a: Int32, b: Int32): (Int32, Int32) -> Int32 {
->         return {a, b => a + b}    // 返回一个 lambda 表达式
->     }
->     ```
+>   ```cangjie
+>   func returnAdd(a: Int32, b: Int32): (Int32, Int32) -> Int32 {
+>       return {a, b => a + b}    // 返回一个 lambda 表达式
+>   }
+>   ```
 
 函数作为仓颉语言中的一等公民, 是可以作为返回值的, 返回值类型也就有函数类型
 
@@ -504,7 +503,7 @@ tags:
 >
 > 函数的返回类型推导规则如下:
 >
-> **函数体是表达式和声明的序列**, 我们将**序列的最后一项的类型记为 `T0`**(若块的最后一项是表达式, 则为表达式的类型; 若最后一项为声明, 则 `T0 = Unit`), 再将**函数体中所有 `return e` (包括所有子表达式中的 `return e`)表达式中 `e`  的类型记为 `T1 ... Tn`**, 则函数的返回类型是 `T0, T1, ..., Tn`的最小公共父类型
+> **函数体是表达式和声明的序列**, 我们将**序列的最后一项的类型记为 `T0`**(若块的最后一项是表达式, 则为表达式的类型; 若最后一项为声明, 则 `T0 = Unit`), 再将**函数体中所有 `return e` (包括所有子表达式中的 `return e`)表达式中 `e` 的类型记为 `T1 ... Tn`**, 则函数的返回类型是 `T0, T1, ..., Tn`的最小公共父类型
 >
 > 如果不存在最小公共父类型, 则产生一个编译错误
 >
@@ -558,7 +557,7 @@ tags:
 >
 > 函数声明可以出现在抽象类, 接口中
 
-仓颉中的函数声明与C/C++中的函数声明有些不同
+仓颉中的函数声明与 C/C++中的函数声明有些不同
 
 C/C++中的函数声明, 只是声明一下函数的符号, 此函数是否已经被实现是不确定的
 
@@ -580,7 +579,7 @@ C/C++中的函数声明, 只是声明一下函数的符号, 此函数是否已�
 >
 > - 在继承时, 对于子类中的一个与父类同名且参数类型完全相同的函数, 若其返回类型是父类中的版本的子类型, 则构成覆盖, 也不构成重定义
 >
->     这是因为子类与父类作用域不同
+>   这是因为子类与父类作用域不同
 >
 > 对于两个泛型函数, 如果重命名一个函数的泛型形参后, 其非泛型部分与另一个函数的非泛型部分构成重定义, 则这两个泛型函数构成重定义
 >
@@ -588,24 +587,24 @@ C/C++中的函数声明, 只是声明一下函数的符号, 此函数是否已�
 >
 > 1. 下面这两个泛型函数构成重定义, 因为存在一种 `[T1 |-> T2]` 的重命名(作用到第一个函数上), 使得两个函数的非泛型部分构成重定义
 >
->     ```cangjie
->     func f<T1>(a: T1) {}
->     func f<T2>(b: T2) {}
->     ```
+>    ```cangjie
+>    func f<T1>(a: T1) {}
+>    func f<T2>(b: T2) {}
+>    ```
 >
 > 2. 下面这两个泛型函数不构成重定义, 因为找不到上述的一种重命名
 >
->     ```cangjie
->     func f<X, Y>(a:X, b:Y) {}
->     func f<Y, X>(a:X, b:Y) {}
->     ```
+>    ```cangjie
+>    func f<X, Y>(a:X, b:Y) {}
+>    func f<Y, X>(a:X, b:Y) {}
+>    ```
 >
 > 3. 下面的这两个泛型函数构成重定义, 因为存在一种 `[X |-> Y, Y |-> X]` 的重命名使得两个函数的非泛型部分构成重定义
 >
->     ```cangjie
->     func f<X, Y>(a:X, b:Y) {}
->     func f<Y, X>(a:Y, b:X) {}
->     ```
+>    ```cangjie
+>    func f<X, Y>(a:X, b:Y) {}
+>    func f<Y, X>(a:Y, b:X) {}
+>    ```
 
 `[T1 |-> T2]`是泛型类型参数重命名映射的一种表示, 意思是 将`T1`映射为`T2`
 
@@ -630,60 +629,60 @@ C/C++中的函数声明, 只是声明一下函数的符号, 此函数是否已�
 >
 > - 示例 1: 没有参数、返回类型为`Unit`
 >
->     ```cangjie
->     func hello(): Unit { print("Hello!") }
+>   ```cangjie
+>   func hello(): Unit { print("Hello!") }
 >
->     // function type: () -> Unit
->     ```
+>   // function type: () -> Unit
+>   ```
 >
 > - 示例 2: 参数类型为`Int32`, 返回类型为`Unit`
 >
->     ```cangjie
->     func display(a: Int32): Unit { print("${a}") }
+>   ```cangjie
+>   func display(a: Int32): Unit { print("${a}") }
 >
->     // function type: (Int32) -> Unit
->     ```
+>   // function type: (Int32) -> Unit
+>   ```
 >
 > - 示例 3: 两个参数类型均为`Int32`, 返回类型为`Int32`
 >
->     ```cangjie
->     func add(a: Int32, b: Int32): Int32 { a + b }
+>   ```cangjie
+>   func add(a: Int32, b: Int32): Int32 { a + b }
 >
->     // function type: (Int32, Int32) -> Int32
->     ```
+>   // function type: (Int32, Int32) -> Int32
+>   ```
 >
 > - 示例 4: 参数类型为`(Int32, Int32) -> Int32`, `Int32` 和 `Int32`, 返回类型为`Unit`
 >
->     ```cangjie
->     func printAdd(add: (Int32, Int32) -> Int32, a: Int32, b: Int32): Unit {
->         print("${add(a, b)}")
->     }
->     // function type: ((Int32, Int32) -> Int32, Int32, Int32) -> Unit
->     ```
+>   ```cangjie
+>   func printAdd(add: (Int32, Int32) -> Int32, a: Int32, b: Int32): Unit {
+>       print("${add(a, b)}")
+>   }
+>   // function type: ((Int32, Int32) -> Int32, Int32, Int32) -> Unit
+>   ```
 >
 > - 示例 5: 两个参数类型均为`Int32`, 返回类型为函数类型`(Int32, Int32) -> Int32`
 >
->     ```cangjie
->     func returnAdd(a: Int32, b: Int32): (Int32, Int32) -> Int32 {
->       {a, b => a + b}
->     }
+>   ```cangjie
+>   func returnAdd(a: Int32, b: Int32): (Int32, Int32) -> Int32 {
+>     {a, b => a + b}
+>   }
 >
->     // function type: (Int32, Int32) -> (Int32, Int32) -> Int32
->     ```
+>   // function type: (Int32, Int32) -> (Int32, Int32) -> Int32
+>   ```
 >
 > - 示例 6: 两个参数类型均为`Int32`, 返回为一个元组类型为: `(Int32, Int32)`
 >
->     ```cangjie
->     func returnAB(a: Int32, b: Int32): (Int32, Int32) { (a, b) }
+>   ```cangjie
+>   func returnAB(a: Int32, b: Int32): (Int32, Int32) { (a, b) }
 >
->     // function type: (Int32, Int32) -> (Int32, Int32)
->     ```
+>   // function type: (Int32, Int32) -> (Int32, Int32)
+>   ```
 
 仓颉中的每个函数都拥有自己的类型: **`(参数类型列表) -> 返回值类型`**
 
 ### 函数调用
 
-> 有关函数调用表达式的语法, 请参考[函数调用表达式](https://www.humid1ch.cn/blog/cangjie-docs-reading-vii#heading-19)
+> 有关函数调用表达式的语法, 请参考[函数调用表达式](https://blog.humid1ch.cn/posts/cangjie-docs-reading-vii/#heading-19)
 
 #### 命名实参
 
@@ -717,34 +716,80 @@ C/C++中的函数声明, 只是声明一下函数的符号, 此函数是否已�
 
 > 1. 如果函数调用表达式中指定了类型参数, 只有类型实参的个数与类型形参的个数相同才可能通过类型检查, 即假设函数调用表达式为: `f<T1, ..., Tm>(A1, ..., An)`, 其中给定了 `m` 个类型实参, 则函数类型形参数量须为 `m`
 >
->     ```cangjie
->     open class Base {}
->     class Sub <: Base {}
+>    ```cangjie
+>    open class Base {}
+>    class Sub <: Base {}
 >
->     func f<X, Y>(a: X, b: Y) {}    // f1
->     func f<X>(a: Base, b: X) {}    // f2
+>    func f<X, Y>(a: X, b: Y) {}    // f1
+>    func f<X>(a: Base, b: X) {}    // f2
 >
->     f<Base>(Base(), Sub())        // f2 may pass the type checking
->     ```
+>    f<Base>(Base(), Sub())        // f2 may pass the type checking
+>    ```
 >
 > 2. 根据调用表达式中的实参 和 调用表达式所在的类型检查上下文中 指定的返回类型 `R` 对函数进行类型检查
 >
->     假设函数定义为:
->     $$
->     f_i<T_{i1}, ..., T_{ip}>(A_{i1}, ..., A_{ik}):R_i\ where\ C_{i1}, ..., C_{iq_i}
->     $$
+>    假设函数定义为:
 >
->     1. **如果调用表达式带了类型实参: `fi<T1, ..., Tp>(A1, ..., Ak)`, 那么对于函数`fi`的类型检查规则如下**:
+>    $$
+>    f_i<T_{i1}, ..., T_{ip}>(A_{i1}, ..., A_{ik}):R_i\ where\ C_{i1}, ..., C_{iq_i}
+>    $$
 >
->         1. **类型实参约束检查**: 类型实参 `<T1, ..., Tp>` 需要满足函数 `fi` 的类型约束
+>    1. **如果调用表达式带了类型实参: `fi<T1, ..., Tp>(A1, ..., Ak)`, 那么对于函数`fi`的类型检查规则如下**:
+>
+>       1. **类型实参约束检查**: 类型实参 `<T1, ..., Tp>` 需要满足函数 `fi` 的类型约束
+>
+>          $$
+>          \begin{aligned}
+>          &σ=[T_1↦T_{i1},...,T_p↦T_{ip}] \\
+>          &Δ⊢σ\ \ solves\ \ C_{i1},...,C{iq_i}
+>          \end{aligned}
+>          $$
+>
+>       2. **参数类型检查**: 将类型实参代入函数 `fi` 的形参后, 满足实参类型 `(A1, ..., Ak)` 是类型实参代入形参后类型的子类型
+>
+>          $$
+>          \begin{aligned}
+>          &σ=[T_1↦T_{i1},...,T_p↦T_{ip}] \\
+>          &Δ⊢(A_1,...,A_k)<:σ(A_{i1},...,A_{ik})
+>          \end{aligned}
+>          $$
+>
+>       3. **返回类型检查**: 如果调用表达式的上下文对其有明确类型要求`R`, 则需要根据返回类型进行类型检查, 将类型实参代入函数 `fi` 的返回类型 `Ri` 后, 满足类型实参代入后的返回类型是 `R` 的子类型
+>          $$
+>          \begin{aligned}
+>          &σ=[T_1↦T_{i1},...,T_p↦T_{ip}] \\
+>          &Δ⊢σR_i<:R
+>          \end{aligned}
+>          $$
+>
+>    2. **如果调用表达式不带类型实参: `f(A1, ..., An)`, 那么对于函数`fi`的类型检查规则如下**:
+>
+>       1. 如果**`fi`是非泛型函数**, 则按如下规则进行类型检查:
+>
+>          1. **参数类型检查**: 实参类型 `(A1, ..., Ak)` 是形参类型的子类型
+>
 >             $$
->             \begin{aligned}
->             &σ=[T_1↦T_{i1},...,T_p↦T_{ip}] \\
->             &Δ⊢σ\ \ solves\ \ C_{i1},...,C{iq_i}
->             \end{aligned}
+>             Δ⊢(A_1,...,A_k)<:(A_{i1},...,A_{ik})
 >             $$
 >
->         2. **参数类型检查**: 将类型实参代入函数 `fi` 的形参后, 满足实参类型 `(A1, ..., Ak)` 是类型实参代入形参后类型的子类型
+>          2. **返回类型检查**: 如果调用表达式的上下文对其有明确类型要求 `R`, 则检查函数 `fi` 的返回类型 `Ri` 是 `R` 的子类型
+>
+>             $$
+>             Δ⊢R_i<:R
+>             $$
+>
+>             ```cangjie
+>             open class Base {}
+>             class Sub <: Base {}
+>             func f(a: Sub) {1}        // f1
+>             func f(a: Base) {Base()}    // f2
+>             let x: Base = f(Sub())    // f2 can pass the type checking
+>             ```
+>
+>       2. 如果 **`fi`是泛型函数**, 则按如下规则进行类型检查:
+>
+>          1. 参数类型检查: 存在代换使得实参类型`(A1, ..., Ak)`是形参类型代换后的类型的子类型
+>
 >             $$
 >             \begin{aligned}
 >             &σ=[T_1↦T_{i1},...,T_p↦T_{ip}] \\
@@ -752,53 +797,13 @@ C/C++中的函数声明, 只是声明一下函数的符号, 此函数是否已�
 >             \end{aligned}
 >             $$
 >
->         3. **返回类型检查**: 如果调用表达式的上下文对其有明确类型要求`R`, 则需要根据返回类型进行类型检查, 将类型实参代入函数 `fi` 的返回类型 `Ri` 后, 满足类型实参代入后的返回类型是 `R` 的子类型
+>          2. 返回类型检查: 如果调用表达式的上下文对其有明确类型要求`R`, 则需要根据返回类型进行类型检查, 将 a) 中的代换代入函数`fi`的返回类型`Ri`后, 满足代换后的返回类型是`R`的子类型
 >             $$
 >             \begin{aligned}
 >             &σ=[T_1↦T_{i1},...,T_p↦T_{ip}] \\
 >             &Δ⊢σR_i<:R
 >             \end{aligned}
 >             $$
->
->     2. **如果调用表达式不带类型实参: `f(A1, ..., An)`, 那么对于函数`fi`的类型检查规则如下**:
->
->         1. 如果**`fi`是非泛型函数**, 则按如下规则进行类型检查:
->
->             1. **参数类型检查**: 实参类型 `(A1, ..., Ak)` 是形参类型的子类型
->                 $$
->                 Δ⊢(A_1,...,A_k)<:(A_{i1},...,A_{ik})
->                 $$
->
->             2. **返回类型检查**: 如果调用表达式的上下文对其有明确类型要求 `R`, 则检查函数 `fi` 的返回类型 `Ri` 是 `R` 的子类型
->                 $$
->                 Δ⊢R_i<:R
->                 $$
->
->                 ```cangjie
->                 open class Base {}
->                 class Sub <: Base {}
->                 func f(a: Sub) {1}        // f1
->                 func f(a: Base) {Base()}    // f2
->                 let x: Base = f(Sub())    // f2 can pass the type checking
->                 ```
->
->         2. 如果 **`fi`是泛型函数**, 则按如下规则进行类型检查:
->
->             1. 参数类型检查: 存在代换使得实参类型`(A1, ..., Ak)`是形参类型代换后的类型的子类型
->                 $$
->                 \begin{aligned}
->                 &σ=[T_1↦T_{i1},...,T_p↦T_{ip}] \\
->                 &Δ⊢(A_1,...,A_k)<:σ(A_{i1},...,A_{ik})
->                 \end{aligned}
->                 $$
->
->             2. 返回类型检查: 如果调用表达式的上下文对其有明确类型要求`R`, 则需要根据返回类型进行类型检查, 将 a) 中的代换代入函数`fi`的返回类型`Ri`后, 满足代换后的返回类型是`R`的子类型
->                 $$
->                 \begin{aligned}
->                 &σ=[T_1↦T_{i1},...,T_p↦T_{ip}] \\
->                 &Δ⊢σR_i<:R
->                 \end{aligned}
->                 $$
 >
 > 需要注意的是:
 >
@@ -811,28 +816,28 @@ C/C++中的函数声明, 只是声明一下函数的符号, 此函数是否已�
 
 2. 泛型函数, 如果显式传入类型实参, 则会:
 
-    1. **进行类型约束的检查**, 即 判断是否满足 函数定义时 对实参类型指定的约束条件(`where 条件`)
-    2. 类型实参传入之后, 函数**调用实参**的类型要满足 是传入类型实参的子类型
-    3. 根据传入类型实参, 检查最终的返回值类型 是否满足 函数定义的返回类型的子类型
+   1. **进行类型约束的检查**, 即 判断是否满足 函数定义时 对实参类型指定的约束条件(`where 条件`)
+   2. 类型实参传入之后, 函数**调用实参**的类型要满足 是传入类型实参的子类型
+   3. 根据传入类型实参, 检查最终的返回值类型 是否满足 函数定义的返回类型的子类型
 
 3. 如果不显式传入类型实参, 则有可能是非泛型函数
 
-    1. 如果是非泛型函数, 则会:
+   1. 如果是非泛型函数, 则会:
 
-        1. 检查函数调用实参类型 是否满足 函数定义的形参类型的子类型
-        2. 检查返回值类型 是否满足 函数定义的返回类型的子类型
+      1. 检查函数调用实参类型 是否满足 函数定义的形参类型的子类型
+      2. 检查返回值类型 是否满足 函数定义的返回类型的子类型
 
-    2. 如果是泛型函数, 则会:
+   2. 如果是泛型函数, 则会:
 
-        1. 检查调用参数类型
+      1. 检查调用参数类型
 
-            根据函数调用传入的实参类型, **推导类型代换σ(上面的类型映射数学公式), 使得实参类型满足代换后的形参类型**
+         根据函数调用传入的实参类型, **推导类型代换 σ(上面的类型映射数学公式), 使得实参类型满足代换后的形参类型**
 
-            即 **传入的实参的类型, 属于函数形参类型的子类型**
+         即 **传入的实参的类型, 属于函数形参类型的子类型**
 
-        2. 检查返回类型
+      2. 检查返回类型
 
-            还是根据推导和代换的形参类型, 去推导最后的返回值类型 是否满足 函数定义的返回类型的子类型
+         还是根据推导和代换的形参类型, 去推导最后的返回值类型 是否满足 函数定义的返回类型的子类型
 
 文本上比较绕, 但其实**核心很简单: 根据实参类型推导、代换形参类型, 再根据形参类型 进行实际的参数检查、返回值类型检查等操作**
 
@@ -925,25 +930,25 @@ f(1, 2, { p1, p2 => p1 * p2 })    // 普通函数调用
 f(1, 2) { p1, p2 => p1 * p2}      // 尾随 lambda
 ```
 
-这是一个在C/C++中从未见过的`lambda`表达式传参方法
+这是一个在 C/C++中从未见过的`lambda`表达式传参方法
 
 #### 变长参数
 
 > 变长参数是一种特殊的函数调用语法糖, 当形参最后一个非命名参数是 `Array` 类型时, 实参中对应位置可以直接传入参数序列代替 `Array` 字面量
 >
->   1. 变长参数没有特殊的声明语法, 只要求函数声明处最后一个非命名参数是 `Array` 类型
+> 1. 变长参数没有特殊的声明语法, 只要求函数声明处最后一个非命名参数是 `Array` 类型
 >
->   2. 变长参数在函数调用时可以使用普通参数列表的形式逐个传入 `Array` 的多个元素
+> 2. 变长参数在函数调用时可以使用普通参数列表的形式逐个传入 `Array` 的多个元素
 >
->   3. 非命名参数中, 只有最后一个位置的参数可以使用变长参数
+> 3. 非命名参数中, 只有最后一个位置的参数可以使用变长参数
 >
->      命名参数不能使用这个语法糖
+>    命名参数不能使用这个语法糖
 >
->   4. 变长参数对全局函数、静态成员函数、实例成员函数、局部函数、构造函数、函数变量、`lambda`、函数调用操作符重载、索引操作符重载的调用都适用, 不支持其它操作符重载、`compose`、`pipeline` 这几种调用方式
+> 4. 变长参数对全局函数、静态成员函数、实例成员函数、局部函数、构造函数、函数变量、`lambda`、函数调用操作符重载、索引操作符重载的调用都适用, 不支持其它操作符重载、`compose`、`pipeline` 这几种调用方式
 >
->   5. 变长参数的个数可以是 0 个或以上
+> 5. 变长参数的个数可以是 0 个或以上
 >
->   6. 变长参数只有在函数重载所有情况都不匹配的情况下, 才判断是否可以应用语法糖, 优先级最低
+> 6. 变长参数只有在函数重载所有情况都不匹配的情况下, 才判断是否可以应用语法糖, 优先级最低
 >
 > ```cangjie
 > func f1(arr: Array<Int64>) {}
@@ -1016,55 +1021,56 @@ f(1, 2) { p1, p2 => p1 * p2}      // 尾随 lambda
 >
 > - 全局函数
 >
->     在**源程序顶层**定义函数称为全局函数, 它的作用域是全局的
+>   在**源程序顶层**定义函数称为全局函数, 它的作用域是全局的
 >
->     如下示例, 函数 `globalFunction` 是全局函数
+>   如下示例, 函数 `globalFunction` 是全局函数
 >
->     它的作用域是**全局作用域**
+>   它的作用域是**全局作用域**
 >
->     ```cangjie
->     func globalFunction() {}
->     ```
+>   ```cangjie
+>   func globalFunction() {}
+>   ```
 >
 > - 嵌套函数
 >
->     在**函数体内部**定义的函数成为嵌套函数, 它的作用域是局部的, 详见[作用域]
+>   在**函数体内部**定义的函数成为嵌套函数, 它的作用域是局部的, 详见[作用域]
 >
->     如下示例, 函数 `nestedFunction` 是嵌套函数, 它的作用域是从定义之后开始, 到 `globalFunction` 函数体结束
+>   如下示例, 函数 `nestedFunction` 是嵌套函数, 它的作用域是从定义之后开始, 到 `globalFunction` 函数体结束
 >
->     ```cangjie
->     func globalFunction() {
->         func nestedFunction() {}
->     }
->     ```
+>   ```cangjie
+>   func globalFunction() {
+>       func nestedFunction() {}
+>   }
+>   ```
+>
 > - 成员函数
 >
->     在**类型定义中**可以声明或定义成员函数
+>   在**类型定义中**可以声明或定义成员函数
 >
->     成员函数的作用域是整个类型及其扩展
+>   成员函数的作用域是整个类型及其扩展
 >
->     ```cangjie
->     interface Myinterface {
->         func foo(): Unit
->         static func bar(): Unit
->     }
+>   ```cangjie
+>   interface Myinterface {
+>       func foo(): Unit
+>       static func bar(): Unit
+>   }
 >
->     class MyClass {
->         func foo() {}
->         static func bar() {}
->     }
->     ```
+>   class MyClass {
+>       func foo() {}
+>       static func bar() {}
+>   }
+>   ```
 >
 > - 扩展成员函数
 >
->     在**扩展中**可以声明额外的成员函数
+>   在**扩展中**可以声明额外的成员函数
 >
->     它的作用域是被扩展类型的所有扩展, 同时受访问修饰符限制
+>   它的作用域是被扩展类型的所有扩展, 同时受访问修饰符限制
 >
->     ```cangjie
->     extend MyType {
->         func foo(): Unit {}
->     }
->     ```
+>   ```cangjie
+>   extend MyType {
+>       func foo(): Unit {}
+>   }
+>   ```
 
 如果你了解过任意一门有面向对象思想的编程语言, 这一部分应该没有什么特别的问题

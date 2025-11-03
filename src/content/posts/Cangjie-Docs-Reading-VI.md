@@ -2,28 +2,28 @@
 title: "仓颉文档阅读-语言规约IV: 表达式(I)"
 published: 2025-09-25
 description: "一直对仓颉挺感兴趣的, 但是一直没有去读一下文档, 慢慢看一看, 了解一下"
-image: 'https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp'
+image: "https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp"
 category: Blogs
 tags:
-    - 开发语言
-    - 仓颉
+  - 开发语言
+  - 仓颉
 ---
 
 > [!NOTE]
-> 
+>
 > 阅读文档版本:
-> 
-> 语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
-> 
+>
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+>
 > 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
-> 
+>
 > 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
-> 
-> 有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+>
+> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
 > [!WARNING]
-> 
-> 博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
+>
+> 博主在此之前, 基本只接触过 C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与 C/C++中的相似概念作类比, 见谅
 
 > 此样式内容, 表示文档原文内容
 
@@ -41,7 +41,7 @@ tags:
 
 ### 字面量
 
-> [字面量](https://www.humid1ch.cn/blog/cangjie-docs-reading-i#heading-4)是一种拥有固定语法的表达式
+> [字面量](https://blog.humid1ch.cn/posts/cangjie-docs-reading-i/#heading-4)是一种拥有固定语法的表达式
 >
 > 对于内部不包含其他表达式的字面量, 它的值就是字面量自身的值, 它的类型可由其语法或所在的上下文决定
 >
@@ -162,7 +162,7 @@ tags:
 
 仓颉中条件表达式的`()`中, 可以使用`let 解构模式`作为条件
 
-只熟悉C/C++的我, 没有见过相关用法, 具体后面了解
+只熟悉 C/C++的我, 没有见过相关用法, 具体后面了解
 
 > `if`表达式举例:
 >
@@ -226,7 +226,7 @@ tags:
 >
 > `let`之后的 pattern 支持常量模式、通配符模式、绑定模式、`Tuple`模式、`enum`模式
 
-普通`if`表达式与C/C++中的基本一样, 不过 仓颉中的普通`if`表达式, `()`内的表达式必须是`Bool`类型的, 且没有隐式类型转换
+普通`if`表达式与 C/C++中的基本一样, 不过 仓颉中的普通`if`表达式, `()`内的表达式必须是`Bool`类型的, 且没有隐式类型转换
 
 但仓颉中还有`if-let`表达式, 即`if (let)`, 此`if-let`表达式中`()`内需要是解构模式的用法, 可以是任意类型的
 
@@ -288,15 +288,15 @@ main(): Int64 {
 >
 > - 如果`if`表达式的值没有被读取或者返回, 那么`if`表达式的类型为`Unit`, 两个分支不要求存在公共父类型
 >
->     否则, 按如下规则检查
+>   否则, 按如下规则检查
 >
 > - 在上下文没有明确的类型要求时, 如果`if`的两个分支类型, 设它们为`T1`和`T2`, 则`if`表达式的类型是`T1`和`T2`的最小公共父类型`T`
 >
->     如果不存在最小公共父类型`T`, 则编译报错
+>   如果不存在最小公共父类型`T`, 则编译报错
 >
 > - 在上下文有明确的类型要求时, 此类型即为`if`表达式的类型
 >
->     此时要求`if`的两个分支的类型都是上下文所要求的类型的子类型
+>   此时要求`if`的两个分支的类型都是上下文所要求的类型的子类型
 >
 > 举例如下:
 >
@@ -349,7 +349,7 @@ main(): Int64 {
 
 1. **如果上下文没有指定类型(读取类型或返回值类型)**
 
-    **表达式的类型是不同分支的 最小公共夫类型**
+   **表达式的类型是不同分支的 最小公共夫类型**
 
 2. **如果上下文指定了类型, 那么表达式的每个分支都必须为指定类型或其子类型**
 
@@ -388,7 +388,7 @@ C++直到现在也没有完善的模式匹配语法, 只有一个类似的只能
 
 > 对于带 selector 的`match`表达式, 关键字`match`之后的`expression`即为待匹配的 selector
 >
->  selector 之后的`{}`内可定义若干`matchCase`
+> selector 之后的`{}`内可定义若干`matchCase`
 >
 > 每个`matchCase`以关键字`case`开头, 后跟一个 pattern 或者多个由`|`分隔的相同种类的 pattern (关于不同 pattern 的详细定义, 见[模式]节)
 >
@@ -396,7 +396,7 @@ C++直到现在也没有完善的模式匹配语法, 只有一个类似的只能
 >
 > 一个胖箭头`=>`和一系列(至少一个)声明或表达式(多个声明或表达式之间使用分号或换行符分隔)
 >
-> 在执行`match`表达式的过程中, 匹配顺序即`case`定义的顺序,  selector 按照匹配顺序依次和`case`中定义的 pattern 进行匹配, **一旦 selector 和当前 pattern 匹配成功(且满足 pattern guard )**, 则执行`=>`之后的代码, 且**无需再与它之后的 pattern 进行匹配**
+> 在执行`match`表达式的过程中, 匹配顺序即`case`定义的顺序, selector 按照匹配顺序依次和`case`中定义的 pattern 进行匹配, **一旦 selector 和当前 pattern 匹配成功(且满足 pattern guard )**, 则执行`=>`之后的代码, 且**无需再与它之后的 pattern 进行匹配**
 >
 > 否则(与当前 pattern 不匹配), 继续与下一个 pattern 进行匹配判断, 依次类推
 >
@@ -460,7 +460,7 @@ C++直到现在也没有完善的模式匹配语法, 只有一个类似的只能
 >
 > - 在上下文有明确的类型要求时, 此类型即为`match`表达式的类型
 >
->     此时要求每条`case`中`=>`之后的表达式的类型都是上下文所要求的类型的子类型
+>   此时要求每条`case`中`=>`之后的表达式的类型都是上下文所要求的类型的子类型
 
 模式匹配表达式的类型和值, 可以参照条件表达式
 
@@ -477,7 +477,7 @@ C++直到现在也没有完善的模式匹配语法, 只有一个类似的只能
 > 5. 类型模式(type patterns)
 > 6. `enum`模式(enum patterns)
 >
->  pattern 的语法定义为:
+> pattern 的语法定义为:
 >
 > ```
 > pattern
@@ -494,7 +494,7 @@ C++直到现在也没有完善的模式匹配语法, 只有一个类似的只能
 
 > 常量模式可以是整数字面量、字节字面量、浮点数字面量、`Rune`字面量、布尔字面量、字符串字面量**(不支持字符串插值)**、Unit 字面量
 >
-> 常量模式中字面量的类型需要和 selector 的类型一致,  selector 和一个常量模式匹配成功的条件是 selector 与常量模式中的字面量相等(这里指值相等)
+> 常量模式中字面量的类型需要和 selector 的类型一致, selector 和一个常量模式匹配成功的条件是 selector 与常量模式中的字面量相等(这里指值相等)
 >
 > 常量模式的语法定义为:
 >
@@ -600,11 +600,11 @@ C++直到现在也没有完善的模式匹配语法, 只有一个类似的只能
 
 ##### `Tuple`模式
 
->  tuple pattern 用于匹配`Tuple`值, tuple pattern 定义为由圆括号括起来的多个 pattern , 每个 pattern 之间使用逗号分隔: `(pattern_1, pattern_2, … pattern_k)`
+> tuple pattern 用于匹配`Tuple`值, tuple pattern 定义为由圆括号括起来的多个 pattern , 每个 pattern 之间使用逗号分隔: `(pattern_1, pattern_2, … pattern_k)`
 >
 > 例如, `(x, y, z)`是由三个 binding pattern 组成的一个 tuple pattern , `(1, 0, 0)`是由三个 constant pattern 组成的一个 tuple pattern
 >
->  tuple pattern 中的子 pattern 个数需要和 selector 的维度相同, 并且如果子 pattern 是 constant pattern 或 enum pattern 时, 其类型要和 selector 对应维度的类型相同
+> tuple pattern 中的子 pattern 个数需要和 selector 的维度相同, 并且如果子 pattern 是 constant pattern 或 enum pattern 时, 其类型要和 selector 对应维度的类型相同
 >
 > tuple 模式的语法定义为:
 >
@@ -683,7 +683,7 @@ C++直到现在也没有完善的模式匹配语法, 只有一个类似的只能
 
 > `enum`模式主要和`enum`类型配合使用
 >
->  enum pattern 用于匹配`enum constructor`, 格式是`constructorName`(无参构造器)或`constructorName(pattern_1, pattern_2, ..., pattern_k)`(有参构造器), 圆括号内用逗号分隔的若干 pattern (可以是其它任何类型的 pattern , 并允许嵌套)依次对每个参数进行匹配
+> enum pattern 用于匹配`enum constructor`, 格式是`constructorName`(无参构造器)或`constructorName(pattern_1, pattern_2, ..., pattern_k)`(有参构造器), 圆括号内用逗号分隔的若干 pattern (可以是其它任何类型的 pattern , 并允许嵌套)依次对每个参数进行匹配
 >
 > `enum`模式的语法定义为:
 >
@@ -765,18 +765,18 @@ C++直到现在也没有完善的模式匹配语法, 只有一个类似的只能
 
 #### 模式的分类
 
-> 一般地, 在类型匹配的前提下, 当一个 pattern 有可能和它所要匹配的值不匹配时, 称此 pattern 为 *`refutable pattern`*
+> 一般地, 在类型匹配的前提下, 当一个 pattern 有可能和它所要匹配的值不匹配时, 称此 pattern 为 _`refutable pattern`_
 >
-> 反之, 当一个 pattern 总是可以和它所要匹配的值匹配时, 称此 pattern 为 *irrefutable pattern*
+> 反之, 当一个 pattern 总是可以和它所要匹配的值匹配时, 称此 pattern 为 _irrefutable pattern_
 >
 > 对于上述介绍的各类 pattern , 规定:
 >
-> - constant pattern 总是 *refutable pattern*;
-> - wildcard pattern 总是 *irrefutable pattern*;
-> - binding pattern 总是 *irrefutable pattern*;
-> - tuple pattern 是 *irrefutable pattern*, 当且仅当其包含的每个 pattern 都是 *irrefutable pattern*;
-> - type pattern 总是 *refutable pattern*;
-> - enum pattern 是 *irrefutable pattern*, 当且仅当其对应的`enum`类型中只有一个带参`constructor`, 且 enum pattern 中包含的其他 pattern (如果存在)都是 *irrefutable pattern*
+> - constant pattern 总是 _refutable pattern_;
+> - wildcard pattern 总是 _irrefutable pattern_;
+> - binding pattern 总是 _irrefutable pattern_;
+> - tuple pattern 是 _irrefutable pattern_, 当且仅当其包含的每个 pattern 都是 _irrefutable pattern_;
+> - type pattern 总是 _refutable pattern_;
+> - enum pattern 是 _irrefutable pattern_, 当且仅当其对应的`enum`类型中只有一个带参`constructor`, 且 enum pattern 中包含的其他 pattern (如果存在)都是 _irrefutable pattern_
 
 通配符和绑定模式, 总是 可以和其所要匹配的值匹配
 
@@ -806,7 +806,7 @@ match (value) {
 }
 ```
 
-#### 字符串、字节和Rune的匹配规则
+#### 字符串、字节和 Rune 的匹配规则
 
 > 在模式匹配的目标是静态类型为`Rune`的值时, `Rune`字面量和单字符字符串字面量都可用于表示`Rune`类型字面量的常量 pattern
 >
@@ -818,7 +818,7 @@ match (value) {
 
 > 为了对匹配出来的值做进一步的判断, 仓颉支持使用 pattern guard
 >
->  pattern guard 可以在`match`表达式中使用, 也可以在 for-in 表达式中使用
+> pattern guard 可以在`match`表达式中使用, 也可以在 for-in 表达式中使用
 >
 > 本节主要介绍 pattern guard 在`match`表达式中的使用, 关于其在`for in`表达式中的使用请参见[for-in 表达式]
 >
@@ -826,7 +826,7 @@ match (value) {
 >
 > 匹配的过程中, 只有当值与 pattern 匹配并且满足`where`之后的`boolExpression`时, 整个`case`才算匹配成功, 否则匹配失败
 >
->  pattern guard 的语法定义为:
+> pattern guard 的语法定义为:
 >
 > ```
 > patternGuard
@@ -848,6 +848,6 @@ match (value) {
 > }
 > ```
 
- pattern 守卫, 就是在 pattern 匹配成功之后, 又多了一层判断
+pattern 守卫, 就是在 pattern 匹配成功之后, 又多了一层判断
 
 只有这一个判断为`true`, 才算最终匹配成功
