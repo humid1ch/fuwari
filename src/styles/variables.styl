@@ -203,3 +203,21 @@ define({
 
   --toc-width: calc((100vw - var(--page-width)) / 2 - 1rem)
 })
+
+/* 手机端：无透明或微透明 */
+@media (max-width: 768px)
+  :root
+    --card-bg: var(--card-bg-trans80)
+    --btn-plain-bg-hover: var(--btn-plain-bg-hover-trans80)
+    --btn-plain-bg-active: var(--btn-plain-bg-active-trans80)
+    --float-panel-bg: var(--float-panel-bg-trans80)
+    --toc-btn-hover: var(--toc-btn-hover-trans80)
+
+/* 手机端：无透明或微透明 */
+@media (min-width: 769px) and (max-width: 1024px)
+  :root
+    --card-bg: var(--card-bg-trans80)
+    --btn-plain-bg-hover: var(--btn-plain-bg-hover-trans80)
+    --btn-plain-bg-active: var(--btn-plain-bg-active-trans80)
+    --float-panel-bg: var(--float-panel-bg-trans80)
+    --toc-btn-hover: var(--toc-btn-hover-trans80)
