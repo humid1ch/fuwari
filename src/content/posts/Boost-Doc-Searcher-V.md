@@ -6,18 +6,18 @@ description: "本篇文章 介绍如何使用cpphttplib 将已经完成的后端
 image: https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230056681.webp
 category: Blogs
 tags:
-    - 项目
-    - 搜索引擎
-    - Boost
-    - 服务器
+  - 项目
+  - 搜索引擎
+  - Boost
+  - 服务器
 ---
 
 在前四篇文章中, 我们实现了从文档文件的清理 到 搜索的所有内容:
 
-1. 项目背景: [🫦[C++项目] Boost文档 站内搜索引擎(1): 项目背景介绍、相关技术栈、相关概念介绍...](https://www.humid1ch.cn/posts/Boost-Doc-Searcher-I)
-2. 文档解析、处理模块`parser`的实现: [🫦[C++项目] Boost文档 站内搜索引擎(2): 文档文本解析模块parser的实现、如何对文档文件去标签、如何获取文档标题...](https://www.humid1ch.cn/posts/Boost-Doc-Searcher-II)
-3. 文档 **正排索引与倒排索引** 建立的接口的实现: [🫦[C++项目] Boost文档 站内搜索引擎(3): 建立文档及其关键字的正排 倒排索引、jieba库的安装与使用...](https://www.humid1ch.cn/posts/Boost-Doc-Searcher-III)
-4. 文档的 **搜索功能** 接口的实现: [🫦[C++项目] Boost文档 站内搜索引擎(4): 实现搜索的相关接口、线程安全的单例index接口、cppjieba分词库的使用...](https://www.humid1ch.cn/posts/Boost-Doc-Searcher-IV)
+1. 项目背景: [🫦[C++项目] Boost 文档 站内搜索引擎(1): 项目背景介绍、相关技术栈、相关概念介绍...](https://blog.humid1ch.cn/posts/Boost-Doc-Searcher-I)
+2. 文档解析、处理模块`parser`的实现: [🫦[C++项目] Boost 文档 站内搜索引擎(2): 文档文本解析模块 parser 的实现、如何对文档文件去标签、如何获取文档标题...](https://blog.humid1ch.cn/posts/Boost-Doc-Searcher-II)
+3. 文档 **正排索引与倒排索引** 建立的接口的实现: [🫦[C++项目] Boost 文档 站内搜索引擎(3): 建立文档及其关键字的正排 倒排索引、jieba 库的安装与使用...](https://blog.humid1ch.cn/posts/Boost-Doc-Searcher-III)
+4. 文档的 **搜索功能** 接口的实现: [🫦[C++项目] Boost 文档 站内搜索引擎(4): 实现搜索的相关接口、线程安全的单例 index 接口、cppjieba 分词库的使用...](https://blog.humid1ch.cn/posts/Boost-Doc-Searcher-IV)
 5. **建议先阅读上面四篇文章**
 
 后端的主要功能接口完成之后, 就可以结合网络将其设计为服务器 然后部署到网络上了
@@ -32,7 +32,7 @@ tags:
 
 ### `gcc`升级
 
-我们将`gcc`升级到`8.3.1`. 非常的简单, 只需要一共6条指令 就可以完成:
+我们将`gcc`升级到`8.3.1`. 非常的简单, 只需要一共 6 条指令 就可以完成:
 
 ```bash
 # 安装 centos-release-scl
@@ -122,7 +122,7 @@ cp cpp-httplib-0.7.16/httplib.h gitHub/Boost-Doc-Searcher/.
 
 ### `cpphttplib`的简单使用
 
-关于`cpphttplib`的使用, Github文档有简单的使用介绍
+关于`cpphttplib`的使用, Github 文档有简单的使用介绍
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722183120245.webp)
 
@@ -160,21 +160,21 @@ int main() {
 
 1. 第一个参数, 用来指定处理 申请某内容的请求.
 
-    如果传入`/hi`, 就会处理 请求的`url`是`wwwRoot/hi`的请求. 如果传入`/index.html`, 就会处理 请求的`url`是`wwwRoot/hi`的请求
+   如果传入`/hi`, 就会处理 请求的`url`是`wwwRoot/hi`的请求. 如果传入`/index.html`, 就会处理 请求的`url`是`wwwRoot/hi`的请求
 
-    > `wwwRoot`表示`web`根目录, 没有设置 即为服务器运行路径
+   > `wwwRoot`表示`web`根目录, 没有设置 即为服务器运行路径
 
 2. 第二个参数, 是一个回调函数 **用来 接收请求 对请求进行处理, 并响应**
 
-    此回调函数的第一个参数 就是用来接收请求的.
+   此回调函数的第一个参数 就是用来接收请求的.
 
-    第二个参数, 可以看作一个输出型参数. 是用来填充响应的
+   第二个参数, 可以看作一个输出型参数. 是用来填充响应的
 
-    在例子中, 使用`httplib::Response::set_content()`, 接口设置响应正文以及相应的类型
+   在例子中, 使用`httplib::Response::set_content()`, 接口设置响应正文以及相应的类型
 
 最后监听指定端口, 就可以通过`ip:port`的形式访问服务器.
 
-## 项目网络服务 **
+## 项目网络服务 \*\*
 
 了解了`cpphttplib`的最基本使用. 就可以为项目创建网络服务了
 
@@ -540,139 +540,135 @@ int main() {
 
 1. 首先最外层 是`html`最基本的框架:
 
-    ```html
-    <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title></title>
-        </head>
-        <body>
+   ```html
+   <!DOCTYPE html>
+   <html lang="en">
+     <head>
+       <meta charset="UTF-8" />
+       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+       <title></title>
+     </head>
+     <body></body>
+   </html>
+   ```
 
-        </body>
-    </html>
-    ```
-
-    `<body> </body>`之间的内容, 就是要在页面中显示的内容
+   `<body> </body>`之间的内容, 就是要在页面中显示的内容
 
 2. 在`<body> </body>`之间. 先设置了一个`<div class="container"> </div>`
 
-    可以看作是在页面内容中设置了一个框架, 之后只要在这个`<div>`内部的 都会显示在这个框架中
+   可以看作是在页面内容中设置了一个框架, 之后只要在这个`<div>`内部的 都会显示在这个框架中
 
 3. 然后`<div class="container"></div>`内最主要的就是:
 
-    1. ```html
-        <div class="search-box">
-            <input
-                   type="text"
-                   id="search-input"
-                   class="search-input"
-                   placeholder=""
-                   />
-            <button onclick="Search()" class="search-button">&#9829; Search</button>
-        </div>
-        ```
+   1. ```html
+      <div class="search-box">
+        <input
+          type="text"
+          id="search-input"
+          class="search-input"
+          placeholder=""
+        />
+        <button onclick="Search()" class="search-button">&#9829; Search</button>
+      </div>
+      ```
 
-        又设置了一个`<div>`并在其内部设置了:
+      又设置了一个`<div>`并在其内部设置了:
 
-        一个搜索框 `<input type="text" id="search-input" class="search-input" placeholder="" />`
+      一个搜索框 `<input type="text" id="search-input" class="search-input" placeholder="" />`
 
-        一个搜索按钮 `<button onclick="Search()" class="search-button">&#9829; Search</button>`
+      一个搜索按钮 `<button onclick="Search()" class="search-button">&#9829; Search</button>`
 
-        `<button> </button>`之间是按钮上显示的内容, `onclick="Search()"`表示点击按钮执行的函数
+      `<button> </button>`之间是按钮上显示的内容, `onclick="Search()"`表示点击按钮执行的函数
 
-    2. ```html
-        <div class="result">
-            // 这里是展示搜索结果的地方
-        </div>
-        ```
+   2. ```html
+      <div class="result">// 这里是展示搜索结果的地方</div>
+      ```
 
-        搜索框下面就是要展示的内容了
+      搜索框下面就是要展示的内容了
 
-        设置了`<div class="result"> </div>`, 这个`<div>`内部就是展示搜索结果用的
+      设置了`<div class="result"> </div>`, 这个`<div>`内部就是展示搜索结果用的
 
-        搜索结果用这个元素`item`表示:
+      搜索结果用这个元素`item`表示:
 
-        ```html
-        <div class="item">
-            <a href="" target="_blank">跳转标题</a>
-            <i>url</i>
-            <p>摘要</p>
-        </div>
-        ```
+      ```html
+      <div class="item">
+        <a href="" target="_blank">跳转标题</a>
+        <i>url</i>
+        <p>摘要</p>
+      </div>
+      ```
 
 4. 布局设置完毕之后, 就需要使用`JavaScript` `JQuery` `ajax`来发送请求, 接收响应 和 设置搜索结果了
 
-    ```html
-    <script>
-        // 获取输入框元素
-        const input = document.getElementById("search-input");
+   ```html
+   <script>
+     // 获取输入框元素
+     const input = document.getElementById("search-input");
 
-        // 输入框按键按下事件监听
-        input.addEventListener("keydown", function (event) {
-            // 判断按键为回车键
-            if (event.keyCode === 13) {
-                // 模拟按钮点击事件
-                document.querySelector(".search-button").click();
-            }
-        });
-        function Search() {
-            // 是浏览器的一个弹出框
-            // alert("hello js!");
-            // 1. 提取数据, $可以理解成就是JQuery的别称
-            let query = $(".container .search-input").val();
-            console.log("query = " + query); //console是浏览器的对话框, 可以用来进行查看js数据
+     // 输入框按键按下事件监听
+     input.addEventListener("keydown", function (event) {
+       // 判断按键为回车键
+       if (event.keyCode === 13) {
+         // 模拟按钮点击事件
+         document.querySelector(".search-button").click();
+       }
+     });
+     function Search() {
+       // 是浏览器的一个弹出框
+       // alert("hello js!");
+       // 1. 提取数据, $可以理解成就是JQuery的别称
+       let query = $(".container .search-input").val();
+       console.log("query = " + query); //console是浏览器的对话框, 可以用来进行查看js数据
 
-            //2. 发起http请求,ajax: 属于一个和后端进行数据交互的函数, JQuery中的
-            $.ajax({
-                type: "GET",
-                url: "/s?word=" + query,
-                success: function (data) {
-                    console.log(data);
-                    BuildHtml(data);
-                },
-            });
-        }
+       //2. 发起http请求,ajax: 属于一个和后端进行数据交互的函数, JQuery中的
+       $.ajax({
+         type: "GET",
+         url: "/s?word=" + query,
+         success: function (data) {
+           console.log(data);
+           BuildHtml(data);
+         },
+       });
+     }
 
-        function BuildHtml(data) {
-            // 获取html中的result标签
-            let result_lable = $(".container .result");
-            // 清空历史搜索结果
-            result_lable.empty();
+     function BuildHtml(data) {
+       // 获取html中的result标签
+       let result_lable = $(".container .result");
+       // 清空历史搜索结果
+       result_lable.empty();
 
-            for (let elem of data) {
-                // console.log(elem.title);
-                // console.log(elem.url);
-                let a_lable = $("<a>", {
-                    text: elem.title,
-                    href: elem.url,
-                    // 跳转到新的页面
-                    target: "_blank",
-                });
-                let i_lable = $("<i>", {
-                    text: elem.url,
-                });
-                let p_lable = $("<p>", {
-                    text: elem.desc,
-                });
-                let div_lable = $("<div>", {
-                    class: "item",
-                });
-                a_lable.appendTo(div_lable);
-                i_lable.appendTo(div_lable);
-                p_lable.appendTo(div_lable);
-                div_lable.appendTo(result_lable);
-            }
-        }
-    </script>
-    ```
+       for (let elem of data) {
+         // console.log(elem.title);
+         // console.log(elem.url);
+         let a_lable = $("<a>", {
+           text: elem.title,
+           href: elem.url,
+           // 跳转到新的页面
+           target: "_blank",
+         });
+         let i_lable = $("<i>", {
+           text: elem.url,
+         });
+         let p_lable = $("<p>", {
+           text: elem.desc,
+         });
+         let div_lable = $("<div>", {
+           class: "item",
+         });
+         a_lable.appendTo(div_lable);
+         i_lable.appendTo(div_lable);
+         p_lable.appendTo(div_lable);
+         div_lable.appendTo(result_lable);
+       }
+     }
+   </script>
+   ```
 
-    `<script> </script>`内部, 首先设置了一个监听按键的函数. 为了实现 **按下回车搜索**
+   `<script> </script>`内部, 首先设置了一个监听按键的函数. 为了实现 **按下回车搜索**
 
-    然后就是`Search()`函数, 获取`search-input`搜索框内的数据为`query`, 然后创建`HTTP`的`GET`方法请求, 并携带`?word=query` 发送给服务器.
+   然后就是`Search()`函数, 获取`search-input`搜索框内的数据为`query`, 然后创建`HTTP`的`GET`方法请求, 并携带`?word=query` 发送给服务器.
 
-    然后成功接收到响应之后, 根据响应数据 执行`Build()`函数 在`<div class="result"></div>`内部 设置`item`元素
+   然后成功接收到响应之后, 根据响应数据 执行`Build()`函数 在`<div class="result"></div>`内部 设置`item`元素
 
 ---
 
@@ -688,13 +684,13 @@ svr.set_base_dir(rootPath.c_str());
 
 1. 没有执行搜索的界面:
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230146275.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230146275.webp)
 
 2. 执行了搜索之后的界面:
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230147826.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230147826.webp)
 
-    搜索结果, 都会按照权重一个个排列在下面
+   搜索结果, 都会按照权重一个个排列在下面
 
 至此, 我们的`Boost`搜索引擎就可以使用了!
 
@@ -706,157 +702,157 @@ svr.set_base_dir(rootPath.c_str());
 
 1. 没有搜索到内容时, 不会有任何反应. 可能会让用户认为服务器没有运作.
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230149747.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230149747.webp)
 
-    所以可以考虑在没有搜索到任何文档的时候, 响应一个没有任何内容的`item`元素. 并实现, 点击标题 跳转回主页:
+   所以可以考虑在没有搜索到任何文档的时候, 响应一个没有任何内容的`item`元素. 并实现, 点击标题 跳转回主页:
 
-    ```cpp
-    /* searcher.hpp */
+   ```cpp
+   /* searcher.hpp */
 
-    // 排序之后, allInvertedElemOut 中文档的排序就是倒序了
-    // 然后 通过遍历此数组, 获取文档id, 根据id获取文档在正排索引中的内容
-    // 然后再将 所有内容序列化
-    Json::Value root;
-    if (allInvertedElemOut.empty()) {
-        // 如果没有查找到一个文档
-        Json::Value elem;
-        elem["url"] = "http://119.3.223.238:8080";
-        elem["title"] = "Search nothing!";
-        // 关于文档的内容, 搜索结果中是不展示文档的全部内容的, 应该只显示包含关键词的摘要, 点进文档才显示相关内容
-        // 而docInfo中存储的是文档去除标签之后的所有内容, 所以不能直接将 doc._content 存储到elem对应key:value中
-        elem["desc"] = "Search nothing!";
-        root.append(elem);
-        // 处理url 都设置为无效值
-    }
-    else {
-        for (auto& elemOut : allInvertedElemOut) {
-            // 通过Json::Value 对象, 存储文档内容
-            Json::Value elem;
-            // 通过elemOut._docId 获取正排索引中 文档的内容信息
-            ns_index::docInfo_t* doc = _index->getForwardIndex(elemOut._docId);
-            // elem赋值
-            elem["url"] = doc->_url;
-            elem["title"] = doc->_title;
-            // 关于文档的内容, 搜索结果中是不展示文档的全部内容的, 应该只显示包含关键词的摘要, 点进文档才显示相关内容
-            // 而docInfo中存储的是文档去除标签之后的所有内容, 所以不能直接将 doc._content 存储到elem对应key:value中
-            elem["desc"] = getDesc(doc->_content, elemOut._keywords[0]); // 只根据第一个关键词来获取摘要
-            // for Debug
-            // 这里有一个bug, jsoncpp 0.10.5.2 是不支持long或long long 相关类型的, 所以需要转换成 double
-            // 这里转换成 double不会有什么影响, 因为这两个参数只是本地调试显示用的.
-            elem["docId"] = (double)doc->_docId;
-            elem["weight"] = (double)elemOut._weight;
+   // 排序之后, allInvertedElemOut 中文档的排序就是倒序了
+   // 然后 通过遍历此数组, 获取文档id, 根据id获取文档在正排索引中的内容
+   // 然后再将 所有内容序列化
+   Json::Value root;
+   if (allInvertedElemOut.empty()) {
+       // 如果没有查找到一个文档
+       Json::Value elem;
+       elem["url"] = "http://119.3.223.238:8080";
+       elem["title"] = "Search nothing!";
+       // 关于文档的内容, 搜索结果中是不展示文档的全部内容的, 应该只显示包含关键词的摘要, 点进文档才显示相关内容
+       // 而docInfo中存储的是文档去除标签之后的所有内容, 所以不能直接将 doc._content 存储到elem对应key:value中
+       elem["desc"] = "Search nothing!";
+       root.append(elem);
+       // 处理url 都设置为无效值
+   }
+   else {
+       for (auto& elemOut : allInvertedElemOut) {
+           // 通过Json::Value 对象, 存储文档内容
+           Json::Value elem;
+           // 通过elemOut._docId 获取正排索引中 文档的内容信息
+           ns_index::docInfo_t* doc = _index->getForwardIndex(elemOut._docId);
+           // elem赋值
+           elem["url"] = doc->_url;
+           elem["title"] = doc->_title;
+           // 关于文档的内容, 搜索结果中是不展示文档的全部内容的, 应该只显示包含关键词的摘要, 点进文档才显示相关内容
+           // 而docInfo中存储的是文档去除标签之后的所有内容, 所以不能直接将 doc._content 存储到elem对应key:value中
+           elem["desc"] = getDesc(doc->_content, elemOut._keywords[0]); // 只根据第一个关键词来获取摘要
+           // for Debug
+           // 这里有一个bug, jsoncpp 0.10.5.2 是不支持long或long long 相关类型的, 所以需要转换成 double
+           // 这里转换成 double不会有什么影响, 因为这两个参数只是本地调试显示用的.
+           elem["docId"] = (double)doc->_docId;
+           elem["weight"] = (double)elemOut._weight;
 
-            root.append(elem);
-        }
-    }
-    ```
+           root.append(elem);
+       }
+   }
+   ```
 
-    此时, 搜索不到内容:
+   此时, 搜索不到内容:
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230152131.gif)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230152131.gif)
 
-    点击就会跳转至主页.
+   点击就会跳转至主页.
 
 2. 可能没有标题:
 
-    当搜索到的文章没有标题时, 就不会显示出来. 显示不出来也就无法通过标题跳转至指定的页面:
+   当搜索到的文章没有标题时, 就不会显示出来. 显示不出来也就无法通过标题跳转至指定的页面:
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230154463.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230154463.webp)
 
-    为什么没有标题呢? 不是因为出错了, 是因为 这篇文章本身就没有标题:
+   为什么没有标题呢? 不是因为出错了, 是因为 这篇文章本身就没有标题:
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230156882.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230156882.webp)
 
-    所以, 我们可以考虑修改搜索时获取标题的代码:
+   所以, 我们可以考虑修改搜索时获取标题的代码:
 
-    ```cpp
-    /* searcher.hpp */
+   ```cpp
+   /* searcher.hpp */
 
-    Json::Value root;
-    if (allInvertedElemOut.empty()) {
-        Json::Value elem;
-        elem["url"] = "119.3.223.238:8080";
-        elem["title"] = "Search nothing!";
-        // 关于文档的内容, 搜索结果中是不展示文档的全部内容的, 应该只显示包含关键词的摘要, 点进文档才显示相关内容
-        // 而docInfo中存储的是文档去除标签之后的所有内容, 所以不能直接将 doc._content 存储到elem对应key:value中
-        elem["desc"] = "Search nothing!";
-        root.append(elem);
-    }
-    else {
-        for (auto& elemOut : allInvertedElemOut) {
-            // 通过Json::Value 对象, 存储文档内容
-            Json::Value elem;
-            // 通过elemOut._docId 获取正排索引中 文档的内容信息
-            ns_index::docInfo_t* doc = _index->getForwardIndex(elemOut._docId);
-            // elem赋值
-            elem["url"] = doc->_url;
-            elem["title"] = doc->_title;
-            if (doc->_title.empty()) {
-                // 如果无标题, 将标题设置为TITLE
-                elem["title"] = "TITLE";
-            }
-            // 关于文档的内容, 搜索结果中是不展示文档的全部内容的, 应该只显示包含关键词的摘要, 点进文档才显示相关内容
-            // 而docInfo中存储的是文档去除标签之后的所有内容, 所以不能直接将 doc._content 存储到elem对应key:value中
-            elem["desc"] = getDesc(doc->_content, elemOut._keywords[0]); // 只根据第一个关键词来获取摘要
-            // for Debug
-            // 这里有一个bug, jsoncpp 0.10.5.2 是不支持long或long long 相关类型的, 所以需要转换成 double
-            // 这里转换成 double不会有什么影响, 因为这两个参数只是本地调试显示用的.
-            elem["docId"] = (double)doc->_docId;
-            elem["weight"] = (double)elemOut._weight;
+   Json::Value root;
+   if (allInvertedElemOut.empty()) {
+       Json::Value elem;
+       elem["url"] = "119.3.223.238:8080";
+       elem["title"] = "Search nothing!";
+       // 关于文档的内容, 搜索结果中是不展示文档的全部内容的, 应该只显示包含关键词的摘要, 点进文档才显示相关内容
+       // 而docInfo中存储的是文档去除标签之后的所有内容, 所以不能直接将 doc._content 存储到elem对应key:value中
+       elem["desc"] = "Search nothing!";
+       root.append(elem);
+   }
+   else {
+       for (auto& elemOut : allInvertedElemOut) {
+           // 通过Json::Value 对象, 存储文档内容
+           Json::Value elem;
+           // 通过elemOut._docId 获取正排索引中 文档的内容信息
+           ns_index::docInfo_t* doc = _index->getForwardIndex(elemOut._docId);
+           // elem赋值
+           elem["url"] = doc->_url;
+           elem["title"] = doc->_title;
+           if (doc->_title.empty()) {
+               // 如果无标题, 将标题设置为TITLE
+               elem["title"] = "TITLE";
+           }
+           // 关于文档的内容, 搜索结果中是不展示文档的全部内容的, 应该只显示包含关键词的摘要, 点进文档才显示相关内容
+           // 而docInfo中存储的是文档去除标签之后的所有内容, 所以不能直接将 doc._content 存储到elem对应key:value中
+           elem["desc"] = getDesc(doc->_content, elemOut._keywords[0]); // 只根据第一个关键词来获取摘要
+           // for Debug
+           // 这里有一个bug, jsoncpp 0.10.5.2 是不支持long或long long 相关类型的, 所以需要转换成 double
+           // 这里转换成 double不会有什么影响, 因为这两个参数只是本地调试显示用的.
+           elem["docId"] = (double)doc->_docId;
+           elem["weight"] = (double)elemOut._weight;
 
-            root.append(elem);
-        }
-    }
-    ```
+           root.append(elem);
+       }
+   }
+   ```
 
-    然后, 再搜索:
+   然后, 再搜索:
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230159275.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230159275.webp)
 
 3. 我们之前为了方便观测调试, 把文档的`docId`和`weight`也存储并发送了. 现在可以去除
 
 4. 在使用`parser`模块处理文档`html`文件的时候, 有三个符号被转换成了编码`<: &lt;` `>: &gt;` `&: &amp;`
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230201346.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230201346.webp)
 
-    搜索的结果在页面中显示的时候, `<` `>` `&` 符号会以编码的形式显示. 所以我们可以在构建结果的的时候, 再将其转换回去:
+   搜索的结果在页面中显示的时候, `<` `>` `&` 符号会以编码的形式显示. 所以我们可以在构建结果的的时候, 再将其转换回去:
 
-    ```cpp
-    /*index.html*/
+   ```cpp
+   /*index.html*/
 
-    for (let elem of data) {
-        // console.log(elem.title);
-        // console.log(elem.url);
-        let a_lable = $("<a>", {
-            text: elem.title.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&"),
-            href: elem.url,
-            // 跳转到新的页面
-            target: "_blank",
-        });
-        let i_lable = $("<i>", {
-            text: elem.url,
-        });
+   for (let elem of data) {
+       // console.log(elem.title);
+       // console.log(elem.url);
+       let a_lable = $("<a>", {
+           text: elem.title.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&"),
+           href: elem.url,
+           // 跳转到新的页面
+           target: "_blank",
+       });
+       let i_lable = $("<i>", {
+           text: elem.url,
+       });
 
-        let p_lable = $("<p>", {
-            text: elem.desc.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&"),
-        });
-        let div_lable = $("<div>", {
-            class: "item",
-        });
-        a_lable.appendTo(div_lable);
-        i_lable.appendTo(div_lable);
-        p_lable.appendTo(div_lable);
-        div_lable.appendTo(result_lable);
-    }
-    ```
+       let p_lable = $("<p>", {
+           text: elem.desc.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&"),
+       });
+       let div_lable = $("<div>", {
+           class: "item",
+       });
+       a_lable.appendTo(div_lable);
+       i_lable.appendTo(div_lable);
+       p_lable.appendTo(div_lable);
+       div_lable.appendTo(result_lable);
+   }
+   ```
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230203748.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710230203748.webp)
 
 ## 添加日志 并 部署服务器
 
 > 这部分涉及到守护进程相关内容, 建议阅读博主文章了解:
 >
-> [🫦[Linux] 守护进程介绍、服务器的部署、日志文件...](https://www.humid1ch.cn/posts/Linux-Daemon-Process)
+> [🫦[Linux] 守护进程介绍、服务器的部署、日志文件...](https://blog.humid1ch.cn/posts/Linux-Daemon-Process)
 
 直接在项目中引入两个文件, 这两个文件都是之前实现过 只不过做了一点点修改的. 很简单:
 
@@ -1069,8 +1065,7 @@ int main() {
 
 执行了`daemonize()`之后, 服务器就会变成守护进程. 只要服务器主机不关机 或者 不主动`kill`掉进程. 服务就会一直在后台运行. 所有人都可以随时随地访问.
 
-> 欢迎访问: [Boost库 文档搜索](http://119.3.223.238:8080)
->
+> 欢迎访问: [Boost 库 文档搜索](http://119.3.223.238:8080)
 
 # 项目的完整目录结构 以及 完整代码 展示
 

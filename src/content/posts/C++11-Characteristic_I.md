@@ -6,21 +6,21 @@ description: "本篇文章是关于C++11标准 一些常用的新特性的介绍
 image: https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722153310131.webp
 category: Blogs
 tags:
-    - C++
-    - C++11
+  - C++
+  - C++11
 ---
 
 # C++11
 
 ## 介绍
 
-在2003年C++标准委员会曾经提交了一份技术勘误表(简称TC1), 使C++03这个名字已经取代了C++98成为`C++11`之前的最新C++标准名称
+在 2003 年 C++标准委员会曾经提交了一份技术勘误表(简称 TC1), 使 C++03 这个名字已经取代了 C++98 成为`C++11`之前的最新 C++标准名称
 
-不过由于C++03主要是对C++98标准中的漏洞进行修复, 语言的核心部分则没有改动, 因此还是习惯性的把两个标准合并称为C++98/03标准
+不过由于 C++03 主要是对 C++98 标准中的漏洞进行修复, 语言的核心部分则没有改动, 因此还是习惯性的把两个标准合并称为 C++98/03 标准
 
-从C++0x到`C++11`, C++标准10年磨一剑, 第二个真正意义上的标准珊珊来迟
+从 C++0x 到`C++11`, C++标准 10 年磨一剑, 第二个真正意义上的标准珊珊来迟
 
-相比于C++98/03, `C++11`则带来了数量可观的变化, 其中包含了约140个新特性, 以及对C++03标准中约600个缺陷的修正, 这使`C++11`更像是从C++98/03中孕育出的一种**新语言**
+相比于 C++98/03, `C++11`则带来了数量可观的变化, 其中包含了约 140 个新特性, 以及对 C++03 标准中约 600 个缺陷的修正, 这使`C++11`更像是从 C++98/03 中孕育出的一种**新语言**
 
 相比较而言, `C++11`能更好地用于系统开发和库开发、语法更加泛华和简单化、更加稳定和安全, 不仅功能更强大, 而且能提升程序员的开发效率
 
@@ -84,9 +84,9 @@ int main() {
 }
 ```
 
-C++11之前, 对于类实例化对象, 一般都会使用`Date d1(2022, 1, 1);`
+C++11 之前, 对于类实例化对象, 一般都会使用`Date d1(2022, 1, 1);`
 
-C++11之后, 就也可以使用 `{} 列表初始化`
+C++11 之后, 就也可以使用 `{} 列表初始化`
 
 但是, 这些用法好像没有什么实际用处?
 
@@ -152,11 +152,11 @@ int main() {
 
 本质上, 其实就是调用了**以`{}`对象为参数的构造函数**来实例化对象
 
-因为, STL容器中其实定义有 使用`{}`对象的构造函数
+因为, STL 容器中其实定义有 使用`{}`对象的构造函数
 
 ![|biger](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175048838.webp)
 
-其他STL 容器中 也同样如此:
+其他 STL 容器中 也同样如此:
 
 `set:`
 
@@ -183,9 +183,9 @@ int main() {
 }
 ```
 
-STL的容器, 在`C++11`之后 都支持了`initializer_list`对象为参数的构造函数
+STL 的容器, 在`C++11`之后 都支持了`initializer_list`对象为参数的构造函数
 
-也就是说, STL容器实现`{}`初始化对象是通过实现了针对`initializer_list`类型的构造函数
+也就是说, STL 容器实现`{}`初始化对象是通过实现了针对`initializer_list`类型的构造函数
 
 而自己自定义的多成员变量的类是怎么实现使用`{}`初始化的呢？
 
@@ -237,15 +237,15 @@ int main() {
 
 ### `nullptr`
 
-在C++中可能经常使用`nullptr`来表示空指针
+在 C++中可能经常使用`nullptr`来表示空指针
 
 而`nullptr`实际上是`C++11`才提出的
 
-在C语言中, 通常使用`NULL`作为空指针, 不过`NULL`在C语言中其实就是0, **有时可能会被识别为整型**
+在 C 语言中, 通常使用`NULL`作为空指针, 不过`NULL`在 C 语言中其实就是 0, **有时可能会被识别为整型**
 
 所以, `C++11`就使用了`nullptr`
 
-## 范围for
+## 范围 for
 
 范围`for`, 其实是一种遍历容器数据的一种方法, 是**基于范围**的`for`循环
 
@@ -270,11 +270,11 @@ int main() {
 
 不过本篇文章不做介绍:
 
-[C++智能指针原理分析 介绍: RAII思想、智能指针原理、unique_ptr、shared_ptr、weak_ptr分析及模拟、与boost库中智能指针的关系...](http://humid1ch.cn/posts/C++-Smart-Pointer)
+[C++智能指针原理分析 介绍: RAII 思想、智能指针原理、unique_ptr、shared_ptr、weak_ptr 分析及模拟、与 boost 库中智能指针的关系...](https://blog.humid1ch.cn/posts/C++-Smart-Pointer)
 
 ## STL 新容器
 
-`C++11`为STL添加了六个新容器:
+`C++11`为 STL 添加了六个新容器:
 
 ![|bigger](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175102920.webp)
 
@@ -286,21 +286,21 @@ int main() {
 
 > 另外的 哈希表, 博主有专门介绍的文章:
 >
-> [[C++-STL] 哈希表以及unordered_set和unordered_set的介绍](https://www.humid1ch.cn/posts/C++-Hash-Table)
+> [[C++-STL] 哈希表以及 unordered_set 和 unordered_set 的介绍](https://blog.humid1ch.cn/posts/C++-Hash-Table)
 >
-> [[C++-STL] 用哈希表封装unordered_map和unordered_set](https://www.humid1ch.cn/posts/C++-Hash-Table-Package-unordered_map&unordered_set)
+> [[C++-STL] 用哈希表封装 unordered_map 和 unordered_set](https://blog.humid1ch.cn/posts/C++-Hash-Table-Package-unordered_map&unordered_set)
 
-## 右值引用 **
+## 右值引用 \*\*
 
 文章篇幅有限, 详情请阅读单独的文章:
 
-[C++11新特性--右值引用的深入分析: 右值引用、万能引用、引用折叠、完美转发、移动语义...](http://humid1ch.cn/posts/C++11-Characteristic_RvalueRef)
+[C++11 新特性--右值引用的深入分析: 右值引用、万能引用、引用折叠、完美转发、移动语义...](https://blog.humid1ch.cn/posts/C++11-Characteristic_RvalueRef)
 
 ## 新的类功能
 
 ### 新默认成员函数
 
-在`C++11`之前, 类一共有6个默认成员函数:
+在`C++11`之前, 类一共有 6 个默认成员函数:
 
 1. 构造函数
 2. 析构函数
@@ -309,30 +309,30 @@ int main() {
 5. 取地址重载函数
 6. const 取地址重载函数
 
-`C++11`之后, 又有2个新增的默认成员函数 我们已经介绍过了:
+`C++11`之后, 又有 2 个新增的默认成员函数 我们已经介绍过了:
 
 1. 移动构造函数
 2. 移动赋值重载函数
 
 既然是默认成员函数, 那么他们是可以由编译器自动生成的.
 
-但是, 这2个默认成员函数与其他的默认成员函数有一些不同. 他们的自动生成的条件有一些严苛, 不过功能的实现与其他默认成员函数类似:
+但是, 这 2 个默认成员函数与其他的默认成员函数有一些不同. 他们的自动生成的条件有一些严苛, 不过功能的实现与其他默认成员函数类似:
 
 1. 如果没有自己实现 **移动构造函数**, 且 **没有实现析构函数、拷贝构造、拷贝赋值重载中的任意一个**
 
-    那么, 编译器才会自动生成一个默认移动构造
+   那么, 编译器才会自动生成一个默认移动构造
 
-    默认生成的移动构造函数, 对于内置类型成员会执行逐成员按字节拷贝(深拷贝)
+   默认生成的移动构造函数, 对于内置类型成员会执行逐成员按字节拷贝(深拷贝)
 
-    对于自定义类型成员, 则需要看这个成员是否实现移动构造, 如果实现了就调用移动构造, 没有实现就调用拷贝构造
+   对于自定义类型成员, 则需要看这个成员是否实现移动构造, 如果实现了就调用移动构造, 没有实现就调用拷贝构造
 
 2. 如果没有自己实现 **移动赋值重载函数**, 且 **没有实现析构函数 、拷贝构造、拷贝赋值重载中的任意一个**
 
-    那么, 编译器才会自动生成一个默认移动赋值
+   那么, 编译器才会自动生成一个默认移动赋值
 
-    默认生成的移动赋值重载函数, 对于内置类型成员会执行逐成员按字节拷贝
+   默认生成的移动赋值重载函数, 对于内置类型成员会执行逐成员按字节拷贝
 
-    对于自定义类型成员, 则需要看这个成员是否实现移动赋值, 如果实现了就调用移动赋值, 没有实现就调用拷贝赋值
+   对于自定义类型成员, 则需要看这个成员是否实现移动赋值, 如果实现了就调用移动赋值, 没有实现就调用拷贝赋值
 
 3. **如果你提供了移动构造或者移动赋值, 编译器不会自动提供拷贝构造和拷贝赋值**
 
@@ -362,9 +362,9 @@ public:
 
 `delete`是禁止生成默认成员函数, 或者 可理解为禁用
 
-## 可变参数模板 **
+## 可变参数模板 \*\*
 
-在C语言中, 经常使用的两个函数 具有可变参数: `printf()` 和 `scanf()`
+在 C 语言中, 经常使用的两个函数 具有可变参数: `printf()` 和 `scanf()`
 
 这两个函数的参数数量是可变的. 即可以根据需要传入不同数量的参数.
 
@@ -401,110 +401,110 @@ void ShowList(Args... args) {
 
 1. 递归 展开参数包
 
-    ```cpp
-    // 递归终止函数
-    template <class T>
-    void ShowList(const T& t) {
-        cout << typeid(t).name() << ":";
-        cout << t << endl;
-    }
+   ```cpp
+   // 递归终止函数
+   template <class T>
+   void ShowList(const T& t) {
+       cout << typeid(t).name() << ":";
+       cout << t << endl;
+   }
 
-    // 展开函数
-    template <class T, class ...Args>
-    void ShowList(T value, Args... args) {
-        cout << typeid(value).name() << ":";
-        cout << value <<"    ";
-        ShowList(args...);
-    }
+   // 展开函数
+   template <class T, class ...Args>
+   void ShowList(T value, Args... args) {
+       cout << typeid(value).name() << ":";
+       cout << value <<"    ";
+       ShowList(args...);
+   }
 
-    int main() {
-        ShowList(1);
-        ShowList(1, 'A');
-        ShowList(1, 'A', std::string("sort"));
+   int main() {
+       ShowList(1);
+       ShowList(1, 'A');
+       ShowList(1, 'A', std::string("sort"));
 
-        return 0;
-    }
-    ```
+       return 0;
+   }
+   ```
 
-    我们可以通过在模板可变参数之前, 添加一个普通模板参数
+   我们可以通过在模板可变参数之前, 添加一个普通模板参数
 
-    那么, 传入模板的**第一个参数**就是**可直接使用**的
+   那么, 传入模板的**第一个参数**就是**可直接使用**的
 
-    只需要在此函数内, 递归调用此函数
+   只需要在此函数内, 递归调用此函数
 
-    那么 就可以不断 **获得参数包内的第一个参数**
+   那么 就可以不断 **获得参数包内的第一个参数**
 
-    直到递归到最后, 参数包内只剩一个参数时, 开始返回
+   直到递归到最后, 参数包内只剩一个参数时, 开始返回
 
-    > 这里递归结束的函数是 针对`ShowList()`实现了一个只有一个参数时的特化
+   > 这里递归结束的函数是 针对`ShowList()`实现了一个只有一个参数时的特化
 
-    这段代码执行结果是:
+   这段代码执行结果是:
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175121698.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175121698.webp)
 
 2. 列表初始化 展开参数包
 
-    ```cpp
-    template <class T>
-    void PrintArg(T t) {
-        cout << typeid(t).name() << ":";
-        cout << t << "    ";
-    }
+   ```cpp
+   template <class T>
+   void PrintArg(T t) {
+       cout << typeid(t).name() << ":";
+       cout << t << "    ";
+   }
 
-    //展开函数
-    template <class ...Args>
-    void ShowList(Args... args) {
-        int arr[] = { (PrintArg(args), 0)... };
-        cout << endl;
-    }
+   //展开函数
+   template <class ...Args>
+   void ShowList(Args... args) {
+       int arr[] = { (PrintArg(args), 0)... };
+       cout << endl;
+   }
 
-    int main() {
-        ShowList(1);
-        ShowList(1, 'A');
-        ShowList(1, 'A', std::string("sort"));
+   int main() {
+       ShowList(1);
+       ShowList(1, 'A');
+       ShowList(1, 'A', std::string("sort"));
 
-        return 0;
-    }
-    ```
+       return 0;
+   }
+   ```
 
-    在这种方法中, 我们使用逗号表达式保证 `(PrintArg(args), 0)` 的值为 0.
+   在这种方法中, 我们使用逗号表达式保证 `(PrintArg(args), 0)` 的值为 0.
 
-    然后还使用了列表初始化 来初始化一个变长数组
+   然后还使用了列表初始化 来初始化一个变长数组
 
-    `int arr[] = { (PrintArg(args), 0)... }`
+   `int arr[] = { (PrintArg(args), 0)... }`
 
-    会被展开为
+   会被展开为
 
-    `int arr[] = { (PrintArg(arg1), 0), (PrintArg(arg2), 0), (PrintArg(arg3), 0)... }`
+   `int arr[] = { (PrintArg(arg1), 0), (PrintArg(arg2), 0), (PrintArg(arg3), 0)... }`
 
-    当然, 这里的逗号表达式不是必须的, 只需要将`PrintArgs()`设置一个整型返回值, 就可以不用逗号表达式
+   当然, 这里的逗号表达式不是必须的, 只需要将`PrintArgs()`设置一个整型返回值, 就可以不用逗号表达式
 
-    ```cpp
-    template <class T>
-    int PrintArg(T t) {
-        cout << typeid(t).name() << ":";
-        cout << t << "    ";
+   ```cpp
+   template <class T>
+   int PrintArg(T t) {
+       cout << typeid(t).name() << ":";
+       cout << t << "    ";
 
-        return 0;
-    }
+       return 0;
+   }
 
-    //展开函数
-    template <class ...Args>
-    void ShowList(Args... args) {
-        int arr[] = { PrintArg(args)... };
-        cout << endl;
-    }
-    ```
+   //展开函数
+   template <class ...Args>
+   void ShowList(Args... args) {
+       int arr[] = { PrintArg(args)... };
+       cout << endl;
+   }
+   ```
 
-    这种方法的执行结果为:
+   这种方法的执行结果为:
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175125814.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175125814.webp)
 
 ## `emplace_back()`
 
-`emplace_back()` 是`C++11`之后, 添加到STL容器中的一个 使用可变参数的元素插入接口
+`emplace_back()` 是`C++11`之后, 添加到 STL 容器中的一个 使用可变参数的元素插入接口
 
-我们都知道, STL容器都是模板类, `emplace_back()`其实使用的就是模板可变参数
+我们都知道, STL 容器都是模板类, `emplace_back()`其实使用的就是模板可变参数
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175127970.webp)
 
@@ -537,31 +537,31 @@ int main() {
 
 1. `arr.emplace_back(11, "十一");` 和 `arr.emplace_back(20, "二十");`
 
-    `emplace_back()`会根据传入的两个参数, 直接调用`pair`的构造函数构造一个`pair`对象, 然后存储在 `arr`末尾
+   `emplace_back()`会根据传入的两个参数, 直接调用`pair`的构造函数构造一个`pair`对象, 然后存储在 `arr`末尾
 
 2. `arr.emplace_back(make_pair(30, "三十"));`
 
-    先执行`make_pair()`创建了一个临时`pair`对象
+   先执行`make_pair()`创建了一个临时`pair`对象
 
-    然后通过`emplace_back`在`arr`末尾创建了这个对象的副本
+   然后通过`emplace_back`在`arr`末尾创建了这个对象的副本
 
-    它调用了两次`pair`构造函数: 一次在`make_pair`, 一次在`emplace_back`
+   它调用了两次`pair`构造函数: 一次在`make_pair`, 一次在`emplace_back`
 
 3. `arr.push_back(make_pair(40, "四十"));`
 
-    先执行`make_pair()`创建了一个临时`pair`对象
+   先执行`make_pair()`创建了一个临时`pair`对象
 
-    然后通过`push_back`将创建这个对象的副本, 并将这个对象的副本插入到`arr`的末尾
+   然后通过`push_back`将创建这个对象的副本, 并将这个对象的副本插入到`arr`的末尾
 
-    它也调用了两次`pair`构造函数: 一次在`make_pair`, 一次在`push_back`
+   它也调用了两次`pair`构造函数: 一次在`make_pair`, 一次在`push_back`
 
 4. `arr.push_back({ 50, "五十" });`
 
-    首先, 通过**列表初始化**创建了一个临时`pair`对象
+   首先, 通过**列表初始化**创建了一个临时`pair`对象
 
-    然后通过`push_back`将创建这个对象的副本, 并将这个对象的副本插入到`arr`的末尾
+   然后通过`push_back`将创建这个对象的副本, 并将这个对象的副本插入到`arr`的末尾
 
-    它也调用了两次`pair`构造函数: 一次在**列表初始化**, 一次在`push_back`
+   它也调用了两次`pair`构造函数: 一次在**列表初始化**, 一次在`push_back`
 
 总的来说, 就是当容器的元素类型是自定义类型时
 

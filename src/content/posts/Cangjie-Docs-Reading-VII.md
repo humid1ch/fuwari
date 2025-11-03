@@ -2,32 +2,28 @@
 title: "仓颉文档阅读-语言规约IV: 表达式(II)"
 published: 2025-09-26
 description: "一直对仓颉挺感兴趣的, 但是一直没有去读一下文档, 慢慢看一看, 了解一下"
-image: 'https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp'
+image: "https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp"
 category: Blogs
 tags:
-    - 开发语言
-    - 仓颉
+  - 开发语言
+  - 仓颉
 ---
 
-:::note
+> [!NOTE]
+>
+> 阅读文档版本:
+>
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+>
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+>
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+>
+> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
-阅读文档版本:
-
-语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
-
-具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
-
-在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
-
-有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
-
-:::
-
-:::warning
-
-博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
-
-:::
+> [!WARNING]
+>
+> 博主在此之前, 基本只接触过 C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与 C/C++中的相似概念作类比, 见谅
 
 > 此样式内容, 表示文档原文内容
 
@@ -67,7 +63,7 @@ tags:
 > }
 > ```
 >
-> 其中`pattern guard``where c`是非必须的, 因此更简易的 **`for-in`表达式** 具有如下形式:
+> 其中` pattern guard``where c `是非必须的, 因此更简易的 **`for-in`表达式** 具有如下形式:
 >
 > ```
 > for (p in e) {
@@ -94,15 +90,15 @@ tags:
 >     ;
 > ```
 >
-> 上述语法定义中, 关键字`for`之后只能是那些一定或可能为 *irrefutable* 的 pattern(见 [模式的分类](https://www.humid1ch.cn//blog/cangjie-docs-reading-vi#heading-14))
+> 上述语法定义中, 关键字`for`之后只能是那些一定或可能为 _irrefutable_ 的 pattern(见 [模式的分类](https://blog.humid1ch.cn//blog/cangjie-docs-reading-vi#heading-14))
 >
-> 在语义检查阶段, 会检查`for`之后的 pattern 是否真的是 *irrefutable*, 如果不是 *irrefutable* pattern, 则编译报错
+> 在语义检查阶段, 会检查`for`之后的 pattern 是否真的是 _irrefutable_, 如果不是 _irrefutable_ pattern, 则编译报错
 >
 > 另外, 如果`for`之后的 pattern 中存在 binding pattern, 相当于新声明了一个(或多个)`let`变量, 每个变量的作用域从它第一次出现的位置到循环体结束
 
 `for(pattern in expression patternGuard)`
 
-中要求 pattern 必须 一定或可能 *irrefutable*, 也就是不能总是 *refutable*
+中要求 pattern 必须 一定或可能 _irrefutable_, 也就是不能总是 _refutable_
 
 这意味着, `for-in`表达式, 允许像模式匹配那样, 匹配遍历`expression`中的元素
 
@@ -118,7 +114,7 @@ for ((i, j) in [(1, 2), (3, 4)]) {
 
 从语法定义来看, 还可以通配符模式、绑定模式、枚举模式进行匹配
 
-但都要满足 *irrefutable*
+但都要满足 _irrefutable_
 
 且, 如果存在 绑定模式, 相当于声明了新的变量, 也就可能触发遮盖:
 
@@ -183,7 +179,7 @@ pattern 匹配的是`expreesion`的迭代器元素, 循环体执行完, 自动�
 >
 > `while`表达式首先对`while`之后的表达式进行求值(要求表达式的类型为`Bool`), 如果表达式的值等于`true`, 则执行它之后的块, 接着重新计算表达式的值并判断是否重新执行一次循环; 如果表达式的值等于`false`, 则终止循环
 
-如果`while()`的括号内是普通`Bool`类型表达式, 那么就与C/C++中的`while`表达式一样
+如果`while()`的括号内是普通`Bool`类型表达式, 那么就与 C/C++中的`while`表达式一样
 
 如果表达式值为`true`, 那么就去执行循环体
 
@@ -212,7 +208,7 @@ pattern 匹配的是`expreesion`的迭代器元素, 循环体执行完, 自动�
 >
 > `let`之后的 pattern 支持常量模式、通配符模式、绑定模式、`Tuple`模式、`enum`模式
 
-`while-let`与之前的`if-let`是类似的(见[条件表达式](https://www.humid1ch.cn/blog/cangjie-docs-reading-vi#heading-4))
+`while-let`与之前的`if-let`是类似的(见[条件表达式](https://blog.humid1ch.cn/posts/cangjie-docs-reading-vi/#heading-4))
 
 #### `do-while`表达式
 
@@ -286,7 +282,7 @@ pattern 匹配的是`expreesion`的迭代器元素, 循环体执行完, 自动�
 >
 > `try-with-resources`表达式的主要目的是自动释放非内存资源, 详见[异常]章节
 
-没了解过其他现代语言, 只了解C++中的异常
+没了解过其他现代语言, 只了解 C++中的异常
 
 所以对于普通`try`有一定的了解, 仓颉中的`try`在异常时具体再看
 
@@ -311,7 +307,7 @@ pattern 匹配的是`expreesion`的迭代器元素, 循环体执行完, 自动�
 > }
 > ```
 
-仓颉中明确表示, `break``continue``return``throw`表达式类型是`Nothing`
+仓颉中明确表示, ` break``continue``return``throw `表达式类型是`Nothing`
 
 > 控制转移表达式中:
 >
@@ -349,7 +345,7 @@ pattern 匹配的是`expreesion`的迭代器元素, 循环体执行完, 自动�
 >   ;
 > ```
 
-目前看来, 仓颉的`break`与C/C++不同, 仓颉的`break`只能直接用在循环体内
+目前看来, 仓颉的`break`与 C/C++不同, 仓颉的`break`只能直接用在循环体内
 
 #### `break`表达式
 
@@ -394,7 +390,7 @@ pattern 匹配的是`expreesion`的迭代器元素, 循环体执行完, 自动�
 > }
 > ```
 
-仓颉的`break`用法基本与C/C++中`break`在循环体中的用法是一致的
+仓颉的`break`用法基本与 C/C++中`break`在循环体中的用法是一致的
 
 只能跳出所在层的循环, 对更外层循环无用
 
@@ -419,7 +415,7 @@ pattern 匹配的是`expreesion`的迭代器元素, 循环体执行完, 自动�
 > }
 > ```
 
-`continue`的用法, 也基本与C/C++一致
+`continue`的用法, 也基本与 C/C++一致
 
 #### `return`表达式
 
@@ -429,39 +425,39 @@ pattern 匹配的是`expreesion`的迭代器元素, 循环体执行完, 自动�
 >
 > - 若为`return expr`的形式, 我们将`expr`的值作为函数的返回值, 所以要求`expr`的类型与函数定义中的返回类型保持一致
 >
->     ```cangjie
+>   ```cangjie
 >
->     // return expression
->     func larger(a: Int32, b: Int32): Int32 {
->         if (a >= b) {
->             return a
->         } else {
->             return b
->         }
->     }
->     ```
+>   // return expression
+>   func larger(a: Int32, b: Int32): Int32 {
+>       if (a >= b) {
+>           return a
+>       } else {
+>           return b
+>       }
+>   }
+>   ```
 >
 > - 若为`return`的形式, 我们将其视为`return ()`的语法糖, 所以要求函数的返回类型也为`Unit`
 >
->     ```cangjie
->     // return expression
->     func equal(a: Int32, b: Int32): Unit {
->         if (a == b) {
->             print("a is equal to b")
->             return
->         } else {
->             print("a is not equal to b")
->         }
->     }
->     ```
+>   ```cangjie
+>   // return expression
+>   func equal(a: Int32, b: Int32): Unit {
+>       if (a == b) {
+>           print("a is equal to b")
+>           return
+>       } else {
+>           print("a is not equal to b")
+>       }
+>   }
+>   ```
 >
 > 需要说明的是, `return`表达式作为一个整体, 其类型并不由后面跟随的表达式决定(`return`后面跟随的表达式为`()`), 而是`Nothing`类型
 
-`return`的用法, 也基本与C/C++保持一致
+`return`的用法, 也基本与 C/C++保持一致
 
 但, 仓颉中`return`拥有具体类型:`Nothing`. 且恒为`Nothing`
 
-`return`是`return ()`的语法糖, 就像C/C++中, 如果函数返回值类型为`void`, 可以不使用`return`, 也可以执行`return;`
+`return`是`return ()`的语法糖, 就像 C/C++中, 如果函数返回值类型为`void`, 可以不使用`return`, 也可以执行`return;`
 
 #### `throw`表达式
 
@@ -485,7 +481,7 @@ pattern 匹配的是`expreesion`的迭代器元素, 循环体执行完, 自动�
 
 ### 数值类型转化表达式
 
-> 数值类型转换表达式用于实现数值类型间的转换, 它的值是类型转换后的值, 它的类型是转换到的目标类型(但原表达式的类型不受目标类型影响), 详细的转换规则可参见 [类型转换](https://www.humid1ch.cn/blog/cangjie-docs-reading-iv#heading-1)
+> 数值类型转换表达式用于实现数值类型间的转换, 它的值是类型转换后的值, 它的类型是转换到的目标类型(但原表达式的类型不受目标类型影响), 详细的转换规则可参见 [类型转换](https://blog.humid1ch.cn/posts/cangjie-docs-reading-iv/#heading-1)
 >
 > 数值类型转换表达式的语法定义为:
 >
@@ -509,7 +505,7 @@ pattern 匹配的是`expreesion`的迭代器元素, 循环体执行完, 自动�
 >     ;
 > ```
 
-仓颉的数值类型转换表达式, 其实就是C/C++中的最普通的强制类型转换
+仓颉的数值类型转换表达式, 其实就是 C/C++中的最普通的强制类型转换
 
 只不过, 仓颉只允许数值类型(整型、浮点型)之间进行强制类型转换
 
@@ -532,7 +528,7 @@ pattern 匹配的是`expreesion`的迭代器元素, 循环体执行完, 自动�
 >     ;
 > ```
 
-仓颉的`this`我能理解等价于C++类中的`this`指针, 表示当前实例
+仓颉的`this`我能理解等价于 C++类中的`this`指针, 表示当前实例
 
 `super`我也理解是存在继承关系的类中, 表示直接父类实例
 
@@ -600,7 +596,7 @@ pattern 匹配的是`expreesion`的迭代器元素, 循环体执行完, 自动�
 >     ;
 > ```
 
-从文本介绍来看, 后缀表达式应该类似于:`obj.mem``func1()``arr[0]`等
+从文本介绍来看, 后缀表达式应该类似于:` obj.mem``func1()``arr[0] `等
 
 但, 语法定义中描述了许多内容
 
@@ -688,7 +684,7 @@ C/C++中因为存在值和指针, 所以有两种访问成员的方式`.`和`->`
 
 非命名参数就只能非命名传参
 
-`refTransferExpression`意思是引用传参? 应该与C++中的引用传参一样, 可以通过形参直接访问实参(具体还要阅读到函数章节再了解)
+`refTransferExpression`意思是引用传参? 应该与 C++中的引用传参一样, 可以通过形参直接访问实参(具体还要阅读到函数章节再了解)
 
 #### 索引访问表达式
 
@@ -706,7 +702,7 @@ C/C++中因为存在值和指针, 所以有两种访问成员的方式`.`和`->`
 >     ;
 > ```
 >
-> 索引访问表达式用于那些支持索引访问的类型(包括`Array`类型和`Tuple`类型)通过下标来访问其具体位置的元素, 详见第 2 章中关于[`Array`类型](https://www.humid1ch.cn/blog/cangjie-docs-reading-iii#heading-3)和[`Tuple`类型](https://www.humid1ch.cn/blog/cangjie-docs-reading-ii#heading-13)的介绍
+> 索引访问表达式用于那些支持索引访问的类型(包括`Array`类型和`Tuple`类型)通过下标来访问其具体位置的元素, 详见第 2 章中关于[`Array`类型](https://blog.humid1ch.cn/posts/cangjie-docs-reading-iii/#heading-3)和[`Tuple`类型](https://blog.humid1ch.cn/posts/cangjie-docs-reading-ii/#heading-13)的介绍
 >
 > 对于索引访问表达式`e[a]`(假设`e`的类型是`T`):
 >
@@ -748,13 +744,13 @@ C/C++中因为存在值和指针, 所以有两种访问成员的方式`.`和`->`
 >
 > 1. 对于表达式`e`, 将`e`中的所有`?`删除, 并且将紧邻`?`之前的表达式的类型由`Option<T>`替换为`T`之后, 得到表达式`e1`
 >
->     如果`e1`的类型是`Option`类型, 则在`e`之后使用`.`、`()`、`{}`或`[]`时, 需要在`e`和这些操作符之间加上`?`; 否则, 不应该加`?`
+>    如果`e1`的类型是`Option`类型, 则在`e`之后使用`.`、`()`、`{}`或`[]`时, 需要在`e`和这些操作符之间加上`?`; 否则, 不应该加`?`
 >
 > 2. Optional chaining 表达式的类型是`Option<T>`(即无论其中有几个`?`, 类型都只有一层`Option`), 类型`T`为 optional chaining 中最后一个表达式(变量或函数名、函数调用表达式、下标访问表达式)的类型
 >
 > 3. 一旦 optional chaining 中的某个`Option`类型的表达式的值为`None`, 则整个 optional chaining 表达式的值为`None`
 >
->     如果 optional chaining 中每个`Option`类型的表达式的值都等于某个`Some`值, 则整个表达式的值为`Some(v)`(`v`的类型是最后一个表达式的类型)
+>    如果 optional chaining 中每个`Option`类型的表达式的值都等于某个`Some`值, 则整个表达式的值为`Some(v)`(`v`的类型是最后一个表达式的类型)
 
 解释一下这部分文档内容
 
@@ -764,7 +760,7 @@ C/C++中因为存在值和指针, 所以有两种访问成员的方式`.`和`->`
 
 `?`之后的操作符, 是根据`Option<T>`中 这个实际的`T`决定的, `T`是类、结构体、`interface`就用`.`, 是函数就用`()`, 是`lambda`就可以用尾闭包`{}`, 是数组、元组等就可以用`[]`
 
-`?`操作符, 通过`Option`类型, 来安全判断`None`的情况, 你的`Option<T>`数据如果是`None`, 使用`?`就会取值`None`, 并终止之后的操作, 整个表达式值就是`None`. 这对应文档中, 规则3上半部分:
+`?`操作符, 通过`Option`类型, 来安全判断`None`的情况, 你的`Option<T>`数据如果是`None`, 使用`?`就会取值`None`, 并终止之后的操作, 整个表达式值就是`None`. 这对应文档中, 规则 3 上半部分:
 
 > 一旦 Optional chaining 中的某个 Option 类型的表达式的值为`None`, 则整个 Optional chaining 表达式的值为`None`
 
@@ -798,23 +794,23 @@ main(): Int64 {
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250928173045720.webp)
 
-这个结果也对应文档中的规则3的下半部分:
+这个结果也对应文档中的规则 3 的下半部分:
 
 > 如果 optional chaining 中每个 Option 类型的表达式的值都等于某个`Some`值, 则整个表达式的值为`Some(v)`(`v`的类型是最后一个表达式的类型)
 
 **即, 如果一个完整的 Optional chaining, 链中不存在`None`, 那么最终结果就是`Some(value)`, `value`是最终结果的实际类型的数据**
 
-其次, 无论Optional chaining有多长, 最终的结果也就只有一层`Option`, 即`a?.b?.c?[2]?()`也就只有一层`Option`, 不是`None`就是`Some(value)`. 这是规则2的内容
+其次, 无论 Optional chaining 有多长, 最终的结果也就只有一层`Option`, 即`a?.b?.c?[2]?()`也就只有一层`Option`, 不是`None`就是`Some(value)`. 这是规则 2 的内容
 
-但是对于规则1, 不是很理解. 因为按照规则3, Optional chaining的最终结果一定是`Option`类型, 如果访问成员或调用函数是一定要加`?`的, 但规则1说有另外的判断
+但是对于规则 1, 不是很理解. 因为按照规则 3, Optional chaining 的最终结果一定是`Option`类型, 如果访问成员或调用函数是一定要加`?`的, 但规则 1 说有另外的判断
 
-规则1的意思容易理解为 要根据最终`Some(value)`, `value`的实际类型来判断是否需要再加`?`, 但是从实际情况来看无论`value`是什么类型, 最终Optional chaining的结果是一定要加`?`的
+规则 1 的意思容易理解为 要根据最终`Some(value)`, `value`的实际类型来判断是否需要再加`?`, 但是从实际情况来看无论`value`是什么类型, 最终 Optional chaining 的结果是一定要加`?`的
 
-但是经过不断地测试和验证, **规则1 针对的不是一个完整的Optional chaining**
+但是经过不断地测试和验证, **规则 1 针对的不是一个完整的 Optional chaining**
 
-规则1针对的应该是一个Optional chaining的中间过程, 即 如果一个Optional chaining很长, 那么并不是所有的成员访问都需要加`?`的
+规则 1 针对的应该是一个 Optional chaining 的中间过程, 即 如果一个 Optional chaining 很长, 那么并不是所有的成员访问都需要加`?`的
 
-可能存在`a?.b?.c?.d`, 也可能存在`a?.b?.c.d`, 规则1针对的是类似这种情况, 在Optional chaining的过程中, 如果出现访问到的某个元素是**非`Option`类型**的, 那么要用此元素访问其成员或调用函数等操作, 不需要加`?`, 但最终整个Optional chaining是`Option`类型的
+可能存在`a?.b?.c?.d`, 也可能存在`a?.b?.c.d`, 规则 1 针对的是类似这种情况, 在 Optional chaining 的过程中, 如果出现访问到的某个元素是**非`Option`类型**的, 那么要用此元素访问其成员或调用函数等操作, 不需要加`?`, 但最终整个 Optional chaining 是`Option`类型的
 
 类似:
 
@@ -846,7 +842,7 @@ main(): Int64 {
 
 过程中访问到`res`的成员`base`, `base`是非`Option`类型的, 所以不加`?`访问其成员
 
-但整个Optional chaining的最终类型就是`Option`类型
+但整个 Optional chaining 的最终类型就是`Option`类型
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929094349935.webp)
 
@@ -854,15 +850,15 @@ main(): Int64 {
 >
 > 1. 表达式`a`的类型需要是某个`Option<T1>`且`T1`包含实例成员`b`
 >
->     表达式`c`的类型需要是某个`Option<(T2)->U2>`且`d`的类型为`T2`
+>    表达式`c`的类型需要是某个`Option<(T2)->U2>`且`d`的类型为`T2`
 >
->     表达式`e`的类型需要是某个`Option<T3>`且`T3`支持下标操作符
+>    表达式`e`的类型需要是某个`Option<T3>`且`T3`支持下标操作符
 >
 > 2. 表达式`a?.b`, `c?(d)`和`e?[f]`的类型分别为`Option<U1>`, `Option<U2>`和`Option<U3>`, 其中`U1`是`T1`中实例成员`b`的类型, `U2`是函数类型`(T2)->U2`的返回值类型, `U3`是`T3`执行下标操作的返回类型
 >
 > 3. 当`a`, `c`和`e`的值分别等于`Some(v1)`, `Some(v2)`和`Some(v3)`时, `a?.b`, `c?(d)`和`e?[f]`的值分别等于`Option<U1>.Some(v1.b)`, `Option<U2>.Some(v2(d))`和`Option<U3>.Some(v3[f])`
 >
->     当`a`, `c`和`e`的值分别等于`None`时, `a?.b`, `c?(d)`和`e?[f]`的值分别等于`Option<U1>.None`, `Option<U2>.None`和`Option<U3>.None`(注意这里的`b`, `d`和`f`都不会被求值)
+>    当`a`, `c`和`e`的值分别等于`None`时, `a?.b`, `c?(d)`和`e?[f]`的值分别等于`Option<U1>.None`, `Option<U2>.None`和`Option<U3>.None`(注意这里的`b`, `d`和`f`都不会被求值)
 >
 > 事实上, 表达式`a?.b`, `c?(d)`和`e?[f]`分别等价于如下`match`表达式:
 >
@@ -898,9 +894,9 @@ main(): Int64 {
 >
 > 3. 当`a`的值等于`Some(va)`且`va.b.c`的值等于`Some(vc)`时, `a?.b.c?.d`的值等于`Option<Td>.Some(vc.d)`
 >
->     当`a`的值等于`Some(va)`且`va.b.c`的值等于`None`时, `a?.b.c?.d`的值等于`Option<Td>.None`(`d`不会被求值)
+>    当`a`的值等于`Some(va)`且`va.b.c`的值等于`None`时, `a?.b.c?.d`的值等于`Option<Td>.None`(`d`不会被求值)
 >
->     当`a`的值等于`None`时, `a?.b.c?.d`的值等于`Option<Td>.None`(`b`, `c`和`d`都不会被求值)
+>    当`a`的值等于`None`时, `a?.b.c?.d`的值等于`Option<Td>.None`(`b`, `c`和`d`都不会被求值)
 >
 > 表达式`a?.b.c?.d`等价于如下`match`表达式:
 >
@@ -960,7 +956,7 @@ main(): Int64 {
 > }
 > ```
 
-Option chaining可以当作左值被赋值, **且仅当最后一部分访问符(`.`或`[]`)前的变量实际是引用类型, 且成员可变或重载`set()`时, 才能当作左值被赋值**
+Option chaining 可以当作左值被赋值, **且仅当最后一部分访问符(`.`或`[]`)前的变量实际是引用类型, 且成员可变或重载`set()`时, 才能当作左值被赋值**
 
 因为从给的例子来看:
 

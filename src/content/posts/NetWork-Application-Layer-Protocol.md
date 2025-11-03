@@ -6,21 +6,21 @@ description: "真正的应用层开发中, 需要传输的网络数据并不只�
 image: https://dxyt-july-image.oss-cn-beijing.aliyuncs.com/202307261508349.webp
 category: Blogs
 tags:
-    - Linux网络
-    - TCP-IP
-    - 应用层
-    - 协议
+  - Linux网络
+  - TCP-IP
+  - 应用层
+  - 协议
 ---
 
 # 写在应用层之前
 
-有关Linux网络, 之前的文章已经简单演示介绍了`UDP`、`TCP`套接字编程
+有关 Linux 网络, 之前的文章已经简单演示介绍了`UDP`、`TCP`套接字编程
 
 > 相关文章:
 >
-> [[Linux] 网络编程 - 初见UDP套接字编程: 网络编程部分相关概念、TCP、UDP协议基本特点、网络字节序、socket接口使用、简单的UDP网络及聊天室实现...](https://www.humid1ch.cn/posts/Linux-Network-UDPSocket_I)
+> [[Linux] 网络编程 - 初见 UDP 套接字编程: 网络编程部分相关概念、TCP、UDP 协议基本特点、网络字节序、socket 接口使用、简单的 UDP 网络及聊天室实现...](https://blog.humid1ch.cn/posts/Linux-Network-UDPSocket_I)
 >
-> [[Linux] 网络编程 - 初见TCP套接字编程: 实现简单的单进程、多进程、多线程、线程池tcp服务器...](https://www.humid1ch.cn/posts/Linux-Network-TCPSocket_I)
+> [[Linux] 网络编程 - 初见 TCP 套接字编程: 实现简单的单进程、多进程、多线程、线程池 tcp 服务器...](https://blog.humid1ch.cn/posts/Linux-Network-TCPSocket_I)
 
 之前用的所有接口: `soket()`、`bind()`、`listen()`、`connect()`、`accept()`...
 
@@ -40,7 +40,7 @@ tags:
 
 传输字符串, 直接使用原生类型存储并发送就可以了. 因为这些类型的数据的读写都是二进制按位读写的
 
-但如果传输结构化的数据呢? 比如C语言中的结构体, 或C++中的类
+但如果传输结构化的数据呢? 比如 C 语言中的结构体, 或 C++中的类
 
 ## 序列化 与 反序列化
 
@@ -50,7 +50,7 @@ tags:
 
 ![|inline](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181134277.webp)
 
-可不可以把`msg1`原封不动的从平台1传输到平台2?
+可不可以把`msg1`原封不动的从平台 1 传输到平台 2?
 
 答案是不可以. 为什么呢?
 
@@ -74,9 +74,9 @@ C/C++原生数据类型, 在内存中的读写就直接是以二进制的形式�
 
 比如, 将`msg1 = {"July.cc", "xxxxxxx", "Hello world"}`转换成`"July.cc\1xxxxxxx\1Hello world"`字符串
 
-即 将数据以`'\1'`分割, 然后从平台1 发送到 平台2, 平台2 收到`"July.cc\1xxxxxxx\1Hello world"`字符串之后, 再以`'\1'`将其还原成原本的数据
+即 将数据以`'\1'`分割, 然后从平台 1 发送到 平台 2, 平台 2 收到`"July.cc\1xxxxxxx\1Hello world"`字符串之后, 再以`'\1'`将其还原成原本的数据
 
-即, 平台1和平台2约定好 发送的数据分三个区域, 以`'\1'`分割
+即, 平台 1 和平台 2 约定好 发送的数据分三个区域, 以`'\1'`分割
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181136976.webp)
 
@@ -107,9 +107,9 @@ C/C++原生数据类型, 在内存中的读写就直接是以二进制的形式�
 
 其实很简单, 只需要**发送方在序列化之后的字符串数据之前 声明一下此次传输的字符串长度**
 
-比如 在序列化的字符串数据之前 用4字节大小的空间存储字符串的长度
+比如 在序列化的字符串数据之前 用 4 字节大小的空间存储字符串的长度
 
-然后接收到数据之后, 先读取一下前4字节的数据, 就可以知道本次的字符串长度了
+然后接收到数据之后, 先读取一下前 4 字节的数据, 就可以知道本次的字符串长度了
 
 即:
 
@@ -127,7 +127,7 @@ C/C++原生数据类型, 在内存中的读写就直接是以二进制的形式�
 
 ## 网络整型计算器
 
-> 在之前实现的TCP服务器与客户端通信的基础上实现
+> 在之前实现的 TCP 服务器与客户端通信的基础上实现
 
 如何实现网络计算器呢?
 
@@ -145,7 +145,7 @@ C/C++原生数据类型, 在内存中的读写就直接是以二进制的形式�
 
 2. 一个, 用于响应请求, 成员变量: `int _exitCode` `int _result` 分别表示 退出码 和 计算结果
 
-    退出码主要用于记录是否出现 除零错误或模零错误
+   退出码主要用于记录是否出现 除零错误或模零错误
 
 并且, 由于是应用层传输, 所以两个类中还需要各自实现 序列化和反序列化的接口.
 
@@ -346,7 +346,7 @@ static response calculator(const request& req) {
 
 接收`inBuffer`和`&strPackageLen`, 然后判断`inBuffer`中第一个请求是否完整:
 
-如果不完整则返回空`string`, 并设置`&strPackageLen`值为0
+如果不完整则返回空`string`, 并设置`&strPackageLen`值为 0
 
 如果完整, 则将`inBuffer`中的第一个请求中 有效载荷作为`string`返回, 有效载荷的长度字段 所存储的长度 设置为`&strPackageLen`的值
 
@@ -485,7 +485,7 @@ std::string encode(const std::string& inS, uint32_t len) {
 
 那么 客户端需要实现什么功能呢?
 
-连接到服务器之后, 需要从命令行接收字符串, 并根据字符串初始化一个`request`对象. (输入格式就按照`_x _op _y`的形式S)
+连接到服务器之后, 需要从命令行接收字符串, 并根据字符串初始化一个`request`对象. (输入格式就按照`_x _op _y`的形式 S)
 
 然后将`request`对象序列化, 进行`encode`编码.
 

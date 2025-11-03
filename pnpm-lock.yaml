@@ -4,6 +4,14 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@emmetio/css-parser': https://codeload.github.com/ramya-rao-a/css-parser/tar.gz/370c480ac103bd17c7bcfb34bf5d577dc40d3660
+
+patchedDependencies:
+  remark-github-admonitions-to-directives@1.0.5:
+    hash: deo5bdwgze732b6hwhr7jv5ac4
+    path: patches/remark-github-admonitions-to-directives@1.0.5.patch
+
 importers:
 
   .:
@@ -115,7 +123,7 @@ importers:
         version: 0.4.2
       remark-github-admonitions-to-directives:
         specifier: ^1.0.5
-        version: 1.0.5
+        version: 1.0.5(patch_hash=deo5bdwgze732b6hwhr7jv5ac4)
       remark-math:
         specifier: ^6.0.0
         version: 6.0.0
@@ -9848,7 +9856,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  remark-github-admonitions-to-directives@1.0.5:
+  remark-github-admonitions-to-directives@1.0.5(patch_hash=deo5bdwgze732b6hwhr7jv5ac4):
     dependencies:
       '@types/mdast': 4.0.4
       mdast-util-directive: 3.1.0

@@ -2,42 +2,36 @@
 title: "仓颉文档阅读-开发指南III: 基础数据类型(IV) - 元组类型和数组类型"
 published: 2025-10-29 15:29:12
 description: "仓颉文档阅读的开发指南部分, 本篇文章介绍一些仓颉语言的基础类型: 元组类型 数组类型"
-image: 'https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp'
+image: "https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp"
 category: Blogs
 tags:
-    - 开发语言
-    - 仓颉
+  - 开发语言
+  - 仓颉
 ---
 
-:::note
+> [!NOTE]
+>
+> 阅读文档版本:
+>
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+>
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+>
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+>
+> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
-阅读文档版本:
+> [!WARNING]
+>
+> 博主在此之前, 基本只接触过 C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与 C/C++中的相似概念作类比, 见谅
+>
+> 且, 本系列是文档阅读, 而不是仓颉的零基础教学, 所以如果要跟着阅读的话最好有一门编程语言的开发经验
 
-语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
-
-具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
-
-在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
-
-有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
-
-:::
-
-:::warning
-
-博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
-
-且, 本系列是文档阅读, 而不是仓颉的零基础教学, 所以如果要跟着阅读的话最好有一门编程语言的开发经验
-
-:::
-
-:::warning
-
-在阅读仓颉编程语言的开发指南之前, 已经大概阅读了一遍 仓颉编程语言的语言规约，已经对仓颉编程语言有了一个大概的了解
-
-所以在阅读开发指南时，不会对类似：类、函数、结构体、接口等解释起来较为复杂名称 做出解释
-
-:::
+> [!WARNING]
+>
+> 在阅读仓颉编程语言的开发指南之前, 已经大概阅读了一遍 仓颉编程语言的语言规约，已经对仓颉编程语言有了一个大概的了解
+>
+> 所以在阅读开发指南时，不会对类似：类、函数、结构体、接口等解释起来较为复杂名称 做出解释
 
 > 此样式内容, 表示文档原文内容
 
@@ -111,7 +105,7 @@ tags:
 > PI
 > ```
 >
-> 在赋值表达式中，可使用元组进行多赋值，参见[赋值操作符](https://www.humid1ch.cn/blog/cangjie-docs-reading-xxxi#heading-2)章节
+> 在赋值表达式中，可使用元组进行多赋值，参见[赋值操作符](https://blog.humid1ch.cn/posts/cangjie-docs-reading-xxxi/#heading-2)章节
 
 元组的类型是`(T1, T2, T3, ..., TN)`, 元组字面量也很简单: `(expr1, expr2, expr3, ..., exprN)`
 
@@ -220,52 +214,52 @@ println()
 
 1. `init()`
 
-    无参, 构造一个空的`Array`数组
+   无参, 构造一个空的`Array`数组
 
-    ```cangjie
-    let a = Array<Int64>()
-    println(a)
-    ```
+   ```cangjie
+   let a = Array<Int64>()
+   println(a)
+   ```
 
-    执行结果为:
+   执行结果为:
 
-    ```text
-    []
-    ```
+   ```text
+   []
+   ```
 
 2. `init(size: Int64, repeat!: T)`
 
-    第一个参数: `size`, 表示构造的`Array`数组的长度
+   第一个参数: `size`, 表示构造的`Array`数组的长度
 
-    第二个参数: `repeat!`, 表示元素初始值, 如果是此参数传入引用类型, 则数组中所有元素**指向同一引用**
+   第二个参数: `repeat!`, 表示元素初始值, 如果是此参数传入引用类型, 则数组中所有元素**指向同一引用**
 
-    ```cangjie
-    let b = Array<Int64>(3, repeat: 1)
-    println(b)
-    ```
+   ```cangjie
+   let b = Array<Int64>(3, repeat: 1)
+   println(b)
+   ```
 
-    执行结果为:
+   执行结果为:
 
-    ```text
-    [1, 1, 1]
-    ```
+   ```text
+   [1, 1, 1]
+   ```
 
 3. `init(size: Int64, initElement: (Int64) -> T)`
 
-    第一个参数: `size`, 表示构造的`Array`数组的长度
+   第一个参数: `size`, 表示构造的`Array`数组的长度
 
-    第二个参数: `initElement`, 各索引元素的初始化函数, 即 各位置会将索引作为参数, 传入此函数 返回值作为元素值
+   第二个参数: `initElement`, 各索引元素的初始化函数, 即 各位置会将索引作为参数, 传入此函数 返回值作为元素值
 
-    ```cangjie
-    let c = Array<Int64>(3, {i => i + 1})
-    println(c)
-    ```
+   ```cangjie
+   let c = Array<Int64>(3, {i => i + 1})
+   println(c)
+   ```
 
-    执行结果为:
+   执行结果为:
 
-    ```text
-    [1, 2, 3]
-    ```
+   ```text
+   [1, 2, 3]
+   ```
 
 `Array`还有其他构造函数, 具体之后再分析
 
@@ -332,15 +326,15 @@ println()
 
 1. `for-in`按顺序, 迭代遍历访问`Array`的元素
 
-    `for-in`访问`Array`的元素, 是不可修改的
+   `for-in`访问`Array`的元素, 是不可修改的
 
 2. `[index]`, 通过下标索引访问`Array`的元素
 
-    通过`[index]`访问`Array`的元素, 是可以修改索引位置的元素值的
+   通过`[index]`访问`Array`的元素, 是可以修改索引位置的元素值的
 
-    访问单个元素时, `index`索引只能是 **`Int64`类型**, 甚至**不能是`Int32`等其他整数类型**
+   访问单个元素时, `index`索引只能是 **`Int64`类型**, 甚至**不能是`Int32`等其他整数类型**
 
-    且, 仓颉`Array`的索引下标的范围也是: `[0, size - 1]` 或 `[0, size)`
+   且, 仓颉`Array`的索引下标的范围也是: `[0, size - 1]` 或 `[0, size)`
 
 仓颉的`Array`提供有`size`属性, 可以可以直接访问获取`Array`的元素个数
 
@@ -369,23 +363,23 @@ println()
 
 1. **`end`省略, 但`start`不省略: `array[start..]`**
 
-    此时, 表示从索引`start`开始截取(包括索引`start`的元素), 到`Array`的结尾
+   此时, 表示从索引`start`开始截取(包括索引`start`的元素), 到`Array`的结尾
 
-    当`Range`字面量的`=`省略时, `end`不能省略
+   当`Range`字面量的`=`省略时, `end`不能省略
 
 2. **`start`省略, 但`end`不省略: `array[..(=)end]`**
 
-    此时, 表示从`Array`首位开始截取, 到索引`end`结束
+   此时, 表示从`Array`首位开始截取, 到索引`end`结束
 
-    如果`Range`字面量的`=`不省略, 则包括索引`end`的元素
+   如果`Range`字面量的`=`不省略, 则包括索引`end`的元素
 
-    如果`=`省略, 则不包括索引`end`的元素
+   如果`=`省略, 则不包括索引`end`的元素
 
-    其实只要理解了`Range`语法, 就很简单
+   其实只要理解了`Range`语法, 就很简单
 
 3. **`start`和`end`都省略: `array[..]`**
 
-    此时, 表示截取整个`Array`, 其实就等价于`array`
+   此时, 表示截取整个`Array`, 其实就等价于`array`
 
 通过`[Range]`截取的`Array`, 是原`Array`数组片段的引用, 通过截取的片段修改元素, 是 **会影响原`Array`**的
 
@@ -437,7 +431,7 @@ println()
 >
 > 但是需要注意的是，由于值类型本身在传递和赋值时的拷贝，会产生额外的性能开销，因此建议不要在性能敏感场景使用较大长度的 `VArray`
 >
-> 值类型和引用类型的特点请参见[值类型和引用类型变量](https://www.humid1ch.cn/blog/cangjie-docs-reading-xxix#heading-5)
+> 值类型和引用类型的特点请参见[值类型和引用类型变量](https://blog.humid1ch.cn/posts/cangjie-docs-reading-xxix/#heading-5)
 >
 > ```cangjie
 > type varr1 = VArray<Int64, $3>        // Ok
@@ -479,26 +473,26 @@ println()
 >
 > - 用于下标访问和修改的 `[]` 操作符方法：
 >
->     ```cangjie
->     var a: VArray<Int64, $3> = [1, 2, 3]
->     let i = a[1]                                  // i is 2
->     a[2] = 4                                      // a is [1, 2, 4]
->     ```
+>   ```cangjie
+>   var a: VArray<Int64, $3> = [1, 2, 3]
+>   let i = a[1]                                  // i is 2
+>   a[2] = 4                                      // a is [1, 2, 4]
+>   ```
 >
->     下标访问的下标类型必须为 `Int64`
+>   下标访问的下标类型必须为 `Int64`
 >
 > - 用于获取 `VArray` 长度的 `size` 成员：
 >
->     ```cangjie
->     var a: VArray<Int64, $3> = [1, 2, 3]
->     let s = a.size                                // s is 3
->     ```
+>   ```cangjie
+>   var a: VArray<Int64, $3> = [1, 2, 3]
+>   let s = a.size                                // s is 3
+>   ```
 >
->     `size` 属性的类型为 `Int64`
+>   `size` 属性的类型为 `Int64`
 >
 > 此外，`VArray` 还支持仓颉与 `C` 语言互操作场景使用，相关内容请参见[数组]()
 
-`VArray`实例可以直接使用 `Array`数组字面量 创建, 但是**必须声明实例类型为`VArray<T, $N>`**, 否则会创建`Array`实例
+`VArray`实例可以直接使用 `Array`数组字面量创建, 但是**此时必须声明实例类型为`VArray<T, $N>`**, 否则会创建`Array`实例
 
 并且, **声明的类型的`$N`必须与字面量中的元素个数一致, 否则类型不匹配**
 
@@ -506,11 +500,11 @@ println()
 
 1. `init(repeat!: T)`
 
-    命名参数`repeat`, 类型为数组元素类型, 用于设置`VArray`数组每个元素的初始值
+   命名参数`repeat`, 类型为数组元素类型, 用于设置`VArray`数组每个元素的初始值
 
 2. `init(initElement: (Int64) -> T)`
 
-    参数`initElement`, 各索引元素的初始化函数, 即 各位置会将索引作为参数, 传入此函数 返回值作为元素值
+   参数`initElement`, 各索引元素的初始化函数, 即 各位置会将索引作为参数, 传入此函数 返回值作为元素值
 
 `VArray`未实现`ToString`接口, 所以不能直接使用`print`或`println`
 

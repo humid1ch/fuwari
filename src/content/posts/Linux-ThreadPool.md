@@ -6,22 +6,22 @@ description: ""
 image: https://dxyt-july-image.oss-cn-beijing.aliyuncs.com/202307121404386.webp
 category: Blogs
 tags:
-    - Linux系统
-    - 多线程
-    - 线程池
+  - Linux系统
+  - 多线程
+  - 线程池
 ---
 
 > 本篇文章主要用到线程相关内容, 下面是博主关于线程相关内容的文章:
 >
-> [[Linux] 线程同步分析: 什么是条件变量？生产者消费者模型是什么？POSIX信号量怎么用？阻塞队列和环形队列模拟生产者消费者模型](https://www.humid1ch.cn/posts/Linux-Thread-Synchronization)
+> [[Linux] 线程同步分析: 什么是条件变量？生产者消费者模型是什么？POSIX 信号量怎么用？阻塞队列和环形队列模拟生产者消费者模型](https://blog.humid1ch.cn/posts/Linux-Thread-Synchronization)
 >
-> [[Linux] 线程互斥分析: 多线程的问题、互斥锁、C++封装使用互斥锁、线程安全分析、死锁分析...](https://www.humid1ch.cn/posts/Linux-Thread-Mutex)
+> [[Linux] 线程互斥分析: 多线程的问题、互斥锁、C++封装使用互斥锁、线程安全分析、死锁分析...](https://blog.humid1ch.cn/posts/Linux-Thread-Mutex)
 >
-> [[Linux] 如何理解线程ID？什么是线程局部存储？](https://www.humid1ch.cn/posts/Linux-ThreadID-Analysis)
+> [[Linux] 如何理解线程 ID？什么是线程局部存储？](https://blog.humid1ch.cn/posts/Linux-ThreadID-Analysis)
 >
-> [[Linux] 多线程控制分析: 获取线程ID、线程退出分析、自动回收线程、线程分离...](https://www.humid1ch.cn/posts/Linux-Thread-Control)
+> [[Linux] 多线程控制分析: 获取线程 ID、线程退出分析、自动回收线程、线程分离...](https://blog.humid1ch.cn/posts/Linux-Thread-Control)
 >
-> [[Linux] 多线程概念相关分析: 什么是线程、再次理解进程、线程的创建与查看、线程异常、线程与进程的对比...](https://www.humid1ch.cn/posts/Linux-Thread-Conceptual-Analysis)
+> [[Linux] 多线程概念相关分析: 什么是线程、再次理解进程、线程的创建与查看、线程异常、线程与进程的对比...](https://blog.humid1ch.cn/posts/Linux-Thread-Conceptual-Analysis)
 
 ---
 
@@ -439,7 +439,7 @@ int main() {
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181015045.gif)
 
-可以看到运行的结果就是 我们期望的结果, 主线程每秒添加并分配一个, 5个线程同步获取到任务并执行.
+可以看到运行的结果就是 我们期望的结果, 主线程每秒添加并分配一个, 5 个线程同步获取到任务并执行.
 
 我们还可以将任务的处理速度设置慢一些, 任务的添加分配速度快一些, 更明显的看到多线程的并发
 
@@ -447,7 +447,7 @@ int main() {
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181018329.gif)
 
-当派发速度变快 处理速度变慢, 之间超过5倍差的时候:
+当派发速度变快 处理速度变慢, 之间超过 5 倍差的时候:
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722181025498.webp)
 

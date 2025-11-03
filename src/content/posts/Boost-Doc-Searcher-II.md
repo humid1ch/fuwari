@@ -6,47 +6,47 @@ description: "从本篇文章开始, Boost文档 站内搜索引擎项目, 就�
 image: https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710225251143.webp
 category: Blogs
 tags:
-    - 项目
-    - 搜索引擎
-    - Boost
+  - 项目
+  - 搜索引擎
+  - Boost
 ---
 
 # 项目开始的准备工作
 
 在上一篇文章中, 已经从`Boost`官网获取了`Boost`库的源码.
 
-> [🫦[C++项目] Boost文档 站内搜索引擎(1): 项目背景介绍、相关技术栈、相关概念介绍...](https://www.humid1ch.cn/posts/Boost-Doc-Searcher-I)
+> [🫦[C++项目] Boost 文档 站内搜索引擎(1): 项目背景介绍、相关技术栈、相关概念介绍...](https://blog.humid1ch.cn/posts/Boost-Doc-Searcher-I)
 
 接下来就要编写代码了. 不过还需要做一些准备工作.
 
 1. 创建项目目录
 
-    所有的项目文件肯定要在一个目录下, 找一个位置执行下面这行指令
+   所有的项目文件肯定要在一个目录下, 找一个位置执行下面这行指令
 
-    ```bash
-    mkdir Boost-Doc-Searcher
-    ```
+   ```bash
+   mkdir Boost-Doc-Searcher
+   ```
 
 2. 将文档`html`文件, 存放到项目中
 
-    `cd Boost-Doc-Searcher`进入刚刚创建的项目目录下, 执行指令:
+   `cd Boost-Doc-Searcher`进入刚刚创建的项目目录下, 执行指令:
 
-    ```bash
-    mkdir -p data/input
-    # 将Boost库中的文档目录下的所有文件, 拷贝到 Boost-Doc-Searcher/data/input/. 下
-    # 我的Boost库源码, 与 项目目录Boost-Doc-Searcher, 在同一个目录下
-    # ❯ pwd
-    # /home/July/gitCode/gitHub/Boost-Doc-Searcher
-    cp ../boost_1_82_0/doc/html/* data/input/.
-    ```
+   ```bash
+   mkdir -p data/input
+   # 将Boost库中的文档目录下的所有文件, 拷贝到 Boost-Doc-Searcher/data/input/. 下
+   # 我的Boost库源码, 与 项目目录Boost-Doc-Searcher, 在同一个目录下
+   # ❯ pwd
+   # /home/July/gitCode/gitHub/Boost-Doc-Searcher
+   cp ../boost_1_82_0/doc/html/* data/input/.
+   ```
 
-    然后进入, `data/input`目录下执行`ls -R |grep -E "*.html" |wc -l`
+   然后进入, `data/input`目录下执行`ls -R |grep -E "*.html" |wc -l`
 
-    查看目录下(包括子目录)有多少个`.html`文件:
+   查看目录下(包括子目录)有多少个`.html`文件:
 
-    ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710225300589.webp)
+   ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710225300589.webp)
 
-    > `boost 1.82.0`版本 一共有 `8563`个文档文件
+   > `boost 1.82.0`版本 一共有 `8563`个文档文件
 
 上面两个步骤, 相当于将`Boost`文档网页爬取到项目中. 接下来要做的就是对所有的文档`html`文件进行解析.
 
@@ -196,43 +196,43 @@ int main() {
 
 1. 首先
 
-    `const std::string srcPath = "data/input"` 存储 项目中所有文档`html`文件所在的目录
+   `const std::string srcPath = "data/input"` 存储 项目中所有文档`html`文件所在的目录
 
-    `const std::string output = "data/output/raw"` 存储 清理后文档内容的 存储文件的路径
+   `const std::string output = "data/output/raw"` 存储 清理后文档内容的 存储文件的路径
 
 2. 然后定义结构体, 用于存储单个文档的 `title` `content` `url`
 
-    ```cpp
-    typedef struct docInfo {
-        std::string _title;   // 文档的标题
-        std::string _content; // 文档内容
-        std::string _url;     // 该文档在官网中的url
-    } docInfo_t;
-    ```
+   ```cpp
+   typedef struct docInfo {
+       std::string _title;   // 文档的标题
+       std::string _content; // 文档内容
+       std::string _url;     // 该文档在官网中的url
+   } docInfo_t;
+   ```
 
 3. 再然后, 就是主函数需要执行的内容:
 
-    1. 首先, 获取`srcPath`目录下的所有`.html`文档文件名(包括相对路径), 并存储到`vector`中
+   1. 首先, 获取`srcPath`目录下的所有`.html`文档文件名(包括相对路径), 并存储到`vector`中
 
-        所以, 先定义了一个`std::vector<std::string> filesList`, 用于存储文件名
+      所以, 先定义了一个`std::vector<std::string> filesList`, 用于存储文件名
 
-        然后执行`enumFile(srcPath, &filesList)`, 并判断结果.
+      然后执行`enumFile(srcPath, &filesList)`, 并判断结果.
 
-        ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710225356596.webp)
+      ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710225356596.webp)
 
-    2. 获取完所有文档的文件名之后, 就可以根据文件名找到文档. 然后对文档进行去标签处理, 并获取文档的 `title` `content` `url`. 并将其以`docInfo`结构体的形式存储到`vector`中
+   2. 获取完所有文档的文件名之后, 就可以根据文件名找到文档. 然后对文档进行去标签处理, 并获取文档的 `title` `content` `url`. 并将其以`docInfo`结构体的形式存储到`vector`中
 
-        所以定义了一个`std::vector<docInfo_t> docResults`, 用于存储去标签之后的文档的信息
+      所以定义了一个`std::vector<docInfo_t> docResults`, 用于存储去标签之后的文档的信息
 
-        然后执行`parseDocInfo(filesList, &docResults)`, 并判断结果
+      然后执行`parseDocInfo(filesList, &docResults)`, 并判断结果
 
-        ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710225358270.webp)
+      ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710225358270.webp)
 
-    3. 最后就是, 将`docResults`中存储的每个文档的`title` `content` `url`信息, 都存储到`output`文件中.
+   3. 最后就是, 将`docResults`中存储的每个文档的`title` `content` `url`信息, 都存储到`output`文件中.
 
-        即, 执行`saveDocInfo(docResults, output)`, 并判断结果
+      即, 执行`saveDocInfo(docResults, output)`, 并判断结果
 
-        ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710225400468.webp)
+      ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710225400468.webp)
 
 这些步骤, 就是`parser`模块的基本结构了. 之后只需要实现三个接口就可以了
 
@@ -284,17 +284,17 @@ bool enumFile(const std::string& srcPath, std::vector<std::string>* filesList) {
 
 1. 首先是`boost::filesystem::path`类:
 
-    `path`对象可以表示一条路径. `boost`库中 对它的描述是这样的:
+   `path`对象可以表示一条路径. `boost`库中 对它的描述是这样的:
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710225403077.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710225403077.webp)
 
 2. 其次`recursive_directory_iterator`迭代器:
 
-    通过`path`对象可以实例化`recursive_directory_iterator`迭代器.
+   通过`path`对象可以实例化`recursive_directory_iterator`迭代器.
 
-    此迭代器可以对目录下的所有文件进行迭代, 包括子目录下的文件. 该过程是递归的.
+   此迭代器可以对目录下的所有文件进行迭代, 包括子目录下的文件. 该过程是递归的.
 
-    ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710225405104.webp)
+   ![|wide](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250710225405104.webp)
 
 重要的就是这两个内容了.
 
@@ -1053,7 +1053,7 @@ bool saveDocInfo(const std::vector<docInfo_t>& docResults, const std::string& ou
 
 但是, 后面的步骤就需要自己动手做了.
 
-而`parser`解析器 模块做的 就是建立索引的第2个步骤: **对爬取的内容进行解析、去标签, 提取文本、链接、媒体内容等信息**
+而`parser`解析器 模块做的 就是建立索引的第 2 个步骤: **对爬取的内容进行解析、去标签, 提取文本、链接、媒体内容等信息**
 
 我们实现的`parser`解析器, 就是对 所有文档`html`文件的内容, 进行去标签, 提取文本, 链接等操作, 并将所有内汇总在一个文件中.
 

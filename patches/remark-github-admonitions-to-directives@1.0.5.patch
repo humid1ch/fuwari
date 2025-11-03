@@ -1,0 +1,16 @@
+diff --git a/dist/map-github-alert-type-to-directive-name.js b/dist/map-github-alert-type-to-directive-name.js
+index 1b82dd5e0d85e766f6f171ae957ffc5e4d2e153d..3ba2738c41c3334681c4b516826e8e1505781b16 100644
+--- a/dist/map-github-alert-type-to-directive-name.js
++++ b/dist/map-github-alert-type-to-directive-name.js
+@@ -8,9 +8,9 @@ export function mapGithubAlertTypeToDirectiveName(type) {
+         case GithubAlertType.WARNING:
+             return "warning";
+         case GithubAlertType.IMPORTANT:
+-            return "warning";
++            return "important";
+         case GithubAlertType.CAUTION:
+-            return "danger";
++            return "caution";
+     }
+ }
+ //# sourceMappingURL=map-github-alert-type-to-directive-name.js.map

@@ -2,32 +2,28 @@
 title: "仓颉文档阅读-语言规约IV: 表达式(III)"
 published: 2025-09-29 09:42:13
 description: "一直对仓颉挺感兴趣的, 但是一直没有去读一下文档, 慢慢看一看, 了解一下"
-image: 'https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp'
+image: "https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp"
 category: Blogs
 tags:
-    - 开发语言
-    - 仓颉
+  - 开发语言
+  - 仓颉
 ---
 
-:::note
+> [!NOTE]
+>
+> 阅读文档版本:
+>
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+>
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+>
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+>
+> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
-阅读文档版本:
-
-语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
-
-具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
-
-在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
-
-有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
-
-:::
-
-:::warning
-
-博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
-
-:::
+> [!WARNING]
+>
+> 博主在此之前, 基本只接触过 C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与 C/C++中的相似概念作类比, 见谅
 
 > 此样式内容, 表示文档原文内容
 
@@ -80,7 +76,7 @@ tags:
 
 仓颉规定`++`和`--`只能后置, 且只能用于整型, 且变量必须可变
 
-这点和C/C++很不一样, C++是可以重载`++`和`--`运算符的, 且区分前置和后置
+这点和 C/C++很不一样, C++是可以重载`++`和`--`运算符的, 且区分前置和后置
 
 ### 算术表达式
 
@@ -243,9 +239,9 @@ tags:
 > x ** y = NaN                                   // 对 有限的 x < 0.0 且 有限的 y 的值不为整数时
 > ```
 >
->> 注: 在上述所列特殊情况之外, 一旦有操作数的值为`NaN`, 则求幂表达式的值等于`NaN`
+> > 注: 在上述所列特殊情况之外, 一旦有操作数的值为`NaN`, 则求幂表达式的值等于`NaN`
 
-`**`幂运算符, 是C/C++中不存在的一个东西
+`**`幂运算符, 是 C/C++中不存在的一个东西
 
 仓颉中`**`运算符的左、右操作数都是只能为`Int64`和`Float64`类型
 
@@ -375,7 +371,7 @@ tags:
 > }
 > ```
 
-关系运算符是非结合运算符, 这一点与C/C++一致, 但仓颉中强制关系表达式为`Bool`类型且不可类型转换
+关系运算符是非结合运算符, 这一点与 C/C++一致, 但仓颉中强制关系表达式为`Bool`类型且不可类型转换
 
 ### `type test`和`type cast`表达式
 
@@ -571,7 +567,7 @@ tags:
 > }
 > ```
 
-如果已经熟悉C/C++中的位运算, 仓颉的位运算应该也不会陌生
+如果已经熟悉 C/C++中的位运算, 仓颉的位运算应该也不会陌生
 
 > 对于移位操作符, 要求其操作数必须是整数类型(但两个操作数的类型可以不一样), 并且无论左移还是右移, **右操作数都不允许为负数**(对于编译时可检查出的此类错误, 编译报错, 如果运行时发生此错误, 则抛出异常)
 >
@@ -600,7 +596,7 @@ tags:
 > let y1 = x1 >> 11       // compilation error
 > ```
 
-仓颉的位运算, 除了移位时超出位数的强制安全措施, 其他运算方式基本与与C/C++中的一致
+仓颉的位运算, 除了移位时超出位数的强制安全措施, 其他运算方式基本与与 C/C++中的一致
 
 ### 区间表达式
 
@@ -619,7 +615,7 @@ tags:
 >
 > 区间操作符有两种: `..`和`..=`, 分别用于创建"左闭右开"和"左闭右闭"的`Range`实例
 >
-> 关于它们的介绍, 请参见 [Range 类型](https://www.humid1ch.cn/blog/cangjie-docs-reading-ii#heading-18)
+> 关于它们的介绍, 请参见 [Range 类型](https://blog.humid1ch.cn/posts/cangjie-docs-reading-ii/#heading-18)
 
 ### 逻辑表达式
 
@@ -677,9 +673,9 @@ tags:
 > }
 > ```
 
-仓颉中的逻辑操作符, 与C/C++中的也一致, 包括**短路求值策略**
+仓颉中的逻辑操作符, 与 C/C++中的也一致, 包括**短路求值策略**
 
-### `coalescing`表达式 **
+### `coalescing`表达式 \*\*
 
 > `coalescing`表达式是包含`coalescing`操作符的表达式
 >
@@ -705,7 +701,7 @@ tags:
 >
 > 3. 当`e1`的值等于`Option<T>.Some(v)`时, `e1 ?? e2`的值等于`v`的值(此时, 不会再去对`e2`求值, 即满足"短路求值")
 >
->     当`e1`的值等于`Option<T>.None`时, `e1 ?? e2`的值等于`e2`的值
+>    当`e1`的值等于`Option<T>.None`时, `e1 ?? e2`的值等于`e2`的值
 >
 > 表达式`e1 ?? e2`是如下`match`表达式的语法糖:
 >
