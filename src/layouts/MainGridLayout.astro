@@ -134,8 +134,8 @@ const mainPanelTop = siteConfig.banner.enable
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  const SHAPE_COUNT = 55;
-  const BUFFER = 300;
+  const SHAPE_COUNT = 40;
+  const BUFFER = 200;
 
   // 初始化全局状态（只做一次）
   if (!window._shapePool) {
@@ -182,7 +182,7 @@ const mainPanelTop = siteConfig.banner.enable
         for (let i = 0; i < SHAPE_COUNT; i++) {
           const el = shapePool[i];
           const shapeType = rand(0, 2);
-          const x = rand(-50, innerWidth + 50);
+          const x = rand(-30, innerWidth + 30);
           const y = rand(-BUFFER, innerHeight + BUFFER);
 
           if (shapeType === 0) {
