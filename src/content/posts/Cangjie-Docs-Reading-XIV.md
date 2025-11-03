@@ -9,25 +9,21 @@ tags:
     - 仓颉
 ---
 
-:::note
+> [!NOTE]
+> 
+> 阅读文档版本:
+> 
+> 语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
+> 
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+> 
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+> 
+> 有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
-阅读文档版本:
-
-语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
-
-具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
-
-在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
-
-有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
-
-:::
-
-:::warning
-
-博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
-
-:::
+> [!WARNING]
+> 
+> 博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
 
 > 此样式内容, 表示文档原文内容
 
@@ -139,13 +135,11 @@ C++中不严格存在接口的概念
 
 而`public`则是赋予他们包外**可访问性**, 这两个是不冲突的
 
-:::note
-
-仓颉中, `interface`与`interface`之间, 为**继承关系**, 即 存在`interface2`继承自`interface1`
-
-而`interface`与`class`或`struct`之间, 可以为**实现关系**, 即 存在`class`或`struct`实现了`interface`, 也可以叫做继承
-
-:::
+> [!NOTE]
+> 
+> 仓颉中, `interface`与`interface`之间, 为**继承关系**, 即 存在`interface2`继承自`interface1`
+> 
+> 而`interface`与`class`或`struct`之间, 可以为**实现关系**, 即 存在`class`或`struct`实现了`interface`, 也可以叫做继承
 
 #### 接口成员
 

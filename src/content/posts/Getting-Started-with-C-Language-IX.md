@@ -344,11 +344,9 @@ static int add(int num1, int num2) {
 >
 > 这是因为**第一次显式声明决定了函数的链接属性**
 
-:::warning
-
-关键字`static`和`extern`不能一起使用
-
-:::
+> [!WARNING]
+> 
+> 关键字`static`和`extern`不能一起使用
 
 #### 功能2: 修饰变量, 提供静态属性
 

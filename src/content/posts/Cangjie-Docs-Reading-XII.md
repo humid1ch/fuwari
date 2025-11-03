@@ -9,25 +9,21 @@ tags:
     - 仓颉
 ---
 
-:::note
+> [!NOTE]
+> 
+> 阅读文档版本:
+> 
+> 语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
+> 
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+> 
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+> 
+> 有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
-阅读文档版本:
-
-语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
-
-具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
-
-在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
-
-有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
-
-:::
-
-:::warning
-
-博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
-
-:::
+> [!WARNING]
+> 
+> 博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
 
 > 此样式内容, 表示文档原文内容
 
@@ -162,15 +158,13 @@ tags:
 
 `sealed`的子类, 可以被`open`修饰, 可以将子类暴露在包外, 在包外进行继承
 
-:::note
-
-经测试, `sealed`修饰符只能用于抽象类!!!!!
-
-不禁怀疑, Cangjie 0.53.18的语法规约是不是有一定的错误还没有修正?
-
-不过也有可能, 这只是非常简单的语法上介绍的内容, 具体的语义等行为, 要在开发指南中进行具体分析介绍
-
-:::
+> [!NOTE]
+> 
+> 经测试, `sealed`修饰符只能用于抽象类!!!!!
+> 
+> 不禁怀疑, Cangjie 0.53.18的语法规约是不是有一定的错误还没有修正?
+> 
+> 不过也有可能, 这只是非常简单的语法上介绍的内容, 具体的语义等行为, 要在开发指南中进行具体分析介绍
 
 ###### 抽象类修饰符
 

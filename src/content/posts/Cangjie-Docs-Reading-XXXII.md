@@ -9,35 +9,29 @@ tags:
     - 仓颉
 ---
 
-:::note
+> [!NOTE]
+> 
+> 阅读文档版本:
+> 
+> 语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
+> 
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+> 
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+> 
+> 有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
-阅读文档版本:
+> [!WARNING]
+> 
+> 博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
+> 
+> 且, 本系列是文档阅读, 而不是仓颉的零基础教学, 所以如果要跟着阅读的话最好有一门编程语言的开发经验
 
-语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
-
-具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
-
-在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
-
-有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
-
-:::
-
-:::warning
-
-博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
-
-且, 本系列是文档阅读, 而不是仓颉的零基础教学, 所以如果要跟着阅读的话最好有一门编程语言的开发经验
-
-:::
-
-:::warning
-
-在阅读仓颉编程语言的开发指南之前, 已经大概阅读了一遍 仓颉编程语言的语言规约, 已经对仓颉编程语言有了一个大概的了解
-
-所以在阅读开发指南时, 不会对类似: 类、函数、结构体、接口等解释起来较为复杂名称 做出解释
-
-:::
+> [!WARNING]
+> 
+> 在阅读仓颉编程语言的开发指南之前, 已经大概阅读了一遍 仓颉编程语言的语言规约, 已经对仓颉编程语言有了一个大概的了解
+> 
+> 所以在阅读开发指南时, 不会对类似: 类、函数、结构体、接口等解释起来较为复杂名称 做出解释
 
 > 此样式内容, 表示文档原文内容
 
@@ -283,27 +277,25 @@ tags:
 
 **精度并不仅表示小数位精度, 而是指整个完整的浮点数, 包括整数部分和小数部分**
 
-:::note
-
-仓颉中, 使用`print`和`println`直接打印浮点类型数据, 默认最多保留6位小数:
-
-```cangjie
-let value = 123.1234567890
-println(value)
-```
-
-但可以通过`FloatN.format()`接口, 调整输出小数位
-
-不过在使用前需要导入`std.convert.Formattable`接口
-
-```cangjie
-import std.convert.Formattable
-
-let value = 123.1234567890
-println(value.format(".10"))
-```
-
-:::
+> [!NOTE]
+> 
+> 仓颉中, 使用`print`和`println`直接打印浮点类型数据, 默认最多保留6位小数:
+> 
+> ```cangjie
+> let value = 123.1234567890
+> println(value)
+> ```
+> 
+> 但可以通过`FloatN.format()`接口, 调整输出小数位
+> 
+> 不过在使用前需要导入`std.convert.Formattable`接口
+> 
+> ```cangjie
+> import std.convert.Formattable
+> 
+> let value = 123.1234567890
+> println(value.format(".10"))
+> ```
 
 #### 浮点类型字面量
 

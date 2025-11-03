@@ -9,27 +9,23 @@ tags:
     - 仓颉
 ---
 
-:::note
+> [!NOTE]
+> 
+> 阅读文档版本:
+> 
+> 语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
+> 
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+> 
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+> 
+> 有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
-阅读文档版本:
-
-语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
-
-具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
-
-在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
-
-有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
-
-:::
-
-:::warning
-
-博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
-
-且, 本系列是文档阅读, 而不是仓颉的零基础教学, 所以如果要跟着阅读的话最好有一门编程语言的开发经验
-
-:::
+> [!WARNING]
+> 
+> 博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
+> 
+> 且, 本系列是文档阅读, 而不是仓颉的零基础教学, 所以如果要跟着阅读的话最好有一门编程语言的开发经验
 
 > 此样式内容, 表示文档原文内容
 
@@ -213,67 +209,65 @@ cp /mnt/c/Users/humid1ch/Downloads/cangjie-sdk-linux-x64-1.0.3.tar.gz .
 
 然后执行命令激活工具链的相关配置:
 
-:::warning
-
-如果你和我一样, 用的`fish`而不是`bash`或`zsh`, 那么`envsetup.sh`是没有办法直接执行的
-
-```fish
-# Copyright Huawei Technologies Co., Ltd. 2020-2023. All rights reserved.
-# This script needs to be placed in the output directory of Cangjie compiler.
-# ** NOTE: Please use`source' command to execute this script. **
-
-# Get the absolute path of this script
-set script_dir (dirname (status -f))
-set script_dir (realpath "$script_dir")
-set -gx CANGJIE_HOME "$script_dir"
-
-# Get hardware architecture
-set hw_arch (uname -m)
-if test -z "$hw_arch"
-    set hw_arch "x86_64"
-end
-
-# Set PATH
-set -gx PATH "$CANGJIE_HOME/bin" "$CANGJIE_HOME/tools/bin" "$HOME/.cjpm/bin" $PATH
-
-# Set LD_LIBRARY_PATH
-set -gx LD_LIBRARY_PATH "$CANGJIE_HOME/runtime/lib/linux_$hw_arch"_llvm "$CANGJIE_HOME/tools/lib" $LD_LIBRARY_PATH
-
-# Setup auto completion for cjc and cjc-frontend (Fish equivalent)
-if command -q cjc
-    # Remove existing completions if any
-    complete -c cjc --erase
-
-    # Set up generic file completion for cjc (similar to _gnu_generic in bash/zsh)
-    complete -c cjc -f -a "(ls)" -d "Cangjie compiler command"
-    complete -c cjc -s h -l help -d "Show help"
-    complete -c cjc -l version -d "Show version"
-    complete -c cjc -s v -l verbose -d "Verbose output"
-    complete -c cjc -s o -l output -r -d "Output file"
-end
-
-if command -q cjc-frontend
-    # Remove existing completions if any
-    complete -c cjc-frontend --erase
-
-    # Set up generic file completion for cjc-frontend
-    complete -c cjc-frontend -f -a "(ls)" -d "Cangjie frontend command"
-    complete -c cjc-frontend -s h -l help -d "Show help"
-    complete -c cjc-frontend -l version -d "Show version"
-    complete -c cjc-frontend -s v -l verbose -d "Verbose output"
-    complete -c cjc-frontend -s o -l output -r -d "Output file"
-end
-
-# Clean up temporary variables
-set -e hw_arch
-set -e script_dir
-
-echo "Cangjie environment set for Fish shell"
-echo "CANGJIE_HOME = $CANGJIE_HOME"
-echo "Auto-completion enabled for cjc and cjc-frontend"
-```
-
-:::
+> [!WARNING]
+> 
+> 如果你和我一样, 用的`fish`而不是`bash`或`zsh`, 那么`envsetup.sh`是没有办法直接执行的
+> 
+> ```fish
+> # Copyright Huawei Technologies Co., Ltd. 2020-2023. All rights reserved.
+> # This script needs to be placed in the output directory of Cangjie compiler.
+> # ** NOTE: Please use`source' command to execute this script. **
+> 
+> # Get the absolute path of this script
+> set script_dir (dirname (status -f))
+> set script_dir (realpath "$script_dir")
+> set -gx CANGJIE_HOME "$script_dir"
+> 
+> # Get hardware architecture
+> set hw_arch (uname -m)
+> if test -z "$hw_arch"
+>     set hw_arch "x86_64"
+> end
+> 
+> # Set PATH
+> set -gx PATH "$CANGJIE_HOME/bin" "$CANGJIE_HOME/tools/bin" "$HOME/.cjpm/bin" $PATH
+> 
+> # Set LD_LIBRARY_PATH
+> set -gx LD_LIBRARY_PATH "$CANGJIE_HOME/runtime/lib/linux_$hw_arch"_llvm "$CANGJIE_HOME/tools/lib" $LD_LIBRARY_PATH
+> 
+> # Setup auto completion for cjc and cjc-frontend (Fish equivalent)
+> if command -q cjc
+>     # Remove existing completions if any
+>     complete -c cjc --erase
+> 
+>     # Set up generic file completion for cjc (similar to _gnu_generic in bash/zsh)
+>     complete -c cjc -f -a "(ls)" -d "Cangjie compiler command"
+>     complete -c cjc -s h -l help -d "Show help"
+>     complete -c cjc -l version -d "Show version"
+>     complete -c cjc -s v -l verbose -d "Verbose output"
+>     complete -c cjc -s o -l output -r -d "Output file"
+> end
+> 
+> if command -q cjc-frontend
+>     # Remove existing completions if any
+>     complete -c cjc-frontend --erase
+> 
+>     # Set up generic file completion for cjc-frontend
+>     complete -c cjc-frontend -f -a "(ls)" -d "Cangjie frontend command"
+>     complete -c cjc-frontend -s h -l help -d "Show help"
+>     complete -c cjc-frontend -l version -d "Show version"
+>     complete -c cjc-frontend -s v -l verbose -d "Verbose output"
+>     complete -c cjc-frontend -s o -l output -r -d "Output file"
+> end
+> 
+> # Clean up temporary variables
+> set -e hw_arch
+> set -e script_dir
+> 
+> echo "Cangjie environment set for Fish shell"
+> echo "CANGJIE_HOME = $CANGJIE_HOME"
+> echo "Auto-completion enabled for cjc and cjc-frontend"
+> ```
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20251021215658432.webp)
 

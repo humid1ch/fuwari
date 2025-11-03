@@ -40,17 +40,15 @@ tags:
 
 即, 在 `/etc/default/grub` 文件的 `GRUB_CMDLINE_LINUX_DEFAULT` 行的值中, 添加 `i8042.nopnp=1 i8042.reset i8042.aux=1`
 
-:::note
-
-参数说明:
-
- - i8042.aux=1 → 强制启用 PS/2 AUX 端口(TrackPoint 所在)
-
- - i8042.reset → 重置 PS/2 控制器
-
- - i8042.nopnp=1 → 忽略 BIOS PnP 信息(避免冲突)
-
-:::
+> [!NOTE]
+> 
+> 参数说明:
+> 
+>  - i8042.aux=1 → 强制启用 PS/2 AUX 端口(TrackPoint 所在)
+> 
+>  - i8042.reset → 重置 PS/2 控制器
+> 
+>  - i8042.nopnp=1 → 忽略 BIOS PnP 信息(避免冲突)
 
 修改完之后, 执行:
 
