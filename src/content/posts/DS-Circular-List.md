@@ -53,7 +53,7 @@ tags:
 > >
 > > 由于该列表 `有两个中间结点` , 值分别为 `3` 和 `4`, 我们 `返回第二个结点`
 >
-> 原题链接:  [Leetcode - 876. 链表的中间结点](https://leetcode-cn.com/problems/middle-of-the-linked-list/)
+> 原题链接:  [Leetcode - 876. 链表的中间结点](https://leetcode-cn.com/problems/middle-of-the-linked-list/) 
 
 这一题的解法, 就需要使用到 `快慢指针` 的思路
 
@@ -110,7 +110,7 @@ struct ListNode* middleNode(struct ListNode* head)
 > >
 > > 返回值: `{}`
 >
-> 原题链接: [Nowcoder - JZ22 链表中倒数最后k个结点](https://www.nowcoder.com/practice/886370fe658f41b498d40fb34ae76ff9)
+> 原题链接: [Nowcoder - JZ22 链表中倒数最后k个结点](https://www.nowcoder.com/practice/886370fe658f41b498d40fb34ae76ff9) 
 
 本题的思路也是使用快慢指针, 但是与上一题不同的是, 本题是`先走为快指针 与 后走为慢指针`
 
@@ -202,7 +202,7 @@ struct ListNode* FindKthToTail(struct ListNode* pHead, int k )
 > >
 > > 解释: `链表中没有环`
 >
-> 原题链接: [Leetcode - 141. 环形链表](https://leetcode-cn.com/problems/linked-list-cycle/)
+> 原题链接: [Leetcode - 141. 环形链表](https://leetcode-cn.com/problems/linked-list-cycle/) 
 
 本题的思路也非常简单:
 
@@ -459,7 +459,7 @@ OK, 带环链表的题做出来了
 > >
 > > 解释: `链表中没有环`
 >
-> 原题链接: [Leetcode - 142. 环形链表 II](https://leetcode-cn.com/problems/linked-list-cycle-ii/)
+> 原题链接: [Leetcode - 142. 环形链表 II](https://leetcode-cn.com/problems/linked-list-cycle-ii/) 
 
 代码实现:
 

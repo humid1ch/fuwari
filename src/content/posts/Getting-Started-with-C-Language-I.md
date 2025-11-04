@@ -91,7 +91,7 @@ tags:
 >
 > 前一篇文章详细介绍了 C 语言环境的搭建, 以及最基本的使用, 在正式阅读下面内容之前, 可以先阅读前一篇文章
 >
-> [认识 C 语言之前的准备: 环境搭建](https://blog.humid1ch.cn/posts/getting-started-with-c-language-before)
+> [认识 C 语言之前的准备: 环境搭建](https://blog.humid1ch.cn/posts/getting-started-with-c-language-before) 
 
 ## 从打印`Hello World`开始
 

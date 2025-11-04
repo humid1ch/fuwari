@@ -13,13 +13,13 @@ tags:
 >
 > 阅读文档版本:
 >
-> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh) .html>)
 >
-> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html) 
 >
-> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用 [仓颉在线体验](https://cangjie-lang.cn/playground) 快速验证
 >
-> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+> 有条件当然可以直接 [配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3) 
 
 > [!WARNING]
 >
@@ -172,7 +172,7 @@ Cangjie 是怎样处理的呢?
 
 ##### 数值类型字面量
 
-详细的表述, 在[阅读仓颉文档的第一篇文章](https://blog.humid1ch.cn/posts/cangjie-docs-reading-i/#heading-5)中 有涉及仓颉中的整型字面量 和 浮点类型字面量
+详细的表述, 在 [阅读仓颉文档的第一篇文章](https://blog.humid1ch.cn/posts/cangjie-docs-reading-i/#heading-5) 中 有涉及仓颉中的整型字面量 和 浮点类型字面量
 
 > 浮点类型量中有几个特殊的值需要注意: 正无穷(`POSITIVE_INFINITY`), 负无穷(`NEGATIVE_INFINITY`), Not a Number(`NaN`), 正`0`(`+0.0`), 负`0`(`-0.0`)
 >
@@ -287,7 +287,7 @@ main() {
 
 `Unicode`字符集中, 除了基础的`ASCII`码符号, 还有中文和`emoji`表情等, 所以`Rune`占用的大小肯定不是 1 字节
 
-关于`Rune`字面量可以阅读[上一篇文章中相关内容](https://blog.humid1ch.cn/posts/cangjie-docs-reading-i/#heading-12)
+关于`Rune`字面量可以阅读 [上一篇文章中相关内容](https://blog.humid1ch.cn/posts/cangjie-docs-reading-i/#heading-12) 
 
 > `Rune`类型的字面量由一对单引号和字符组成, 如:
 >
@@ -438,7 +438,7 @@ main() {
 
 > 字符串字面量可以分为三类: 单行字符串字面量, 多行字符串字面量, 多行原始字符串字面量
 
-关于字符串字面量, [前一篇文章中的相关内容](https://blog.humid1ch.cn/posts/cangjie-docs-reading-i/#heading-8)已经阅读过了
+关于字符串字面量, [前一篇文章中的相关内容](https://blog.humid1ch.cn/posts/cangjie-docs-reading-i/#heading-8) 已经阅读过了
 
 ##### 插值字符串
 

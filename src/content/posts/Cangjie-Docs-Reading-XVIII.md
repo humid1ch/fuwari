@@ -13,13 +13,13 @@ tags:
 >
 > 阅读文档版本:
 >
-> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh) .html>)
 >
-> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html) 
 >
-> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用 [仓颉在线体验](https://cangjie-lang.cn/playground) 快速验证
 >
-> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+> 有条件当然可以直接 [配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3) 
 
 > [!WARNING]
 >
@@ -672,7 +672,7 @@ C++依靠`template`关键字创建模板, 实现泛型
 
 ### 泛型函数重载
 
-> 在仓颉编程语言中, 支持泛型函数之间的重载, 也支持泛型函数与非泛型函数之间的重载, 重载的定义详见[函数重载](https://blog.humid1ch.cn/posts/cangjie-docs-reading-xi/#heading-3)
+> 在仓颉编程语言中, 支持泛型函数之间的重载, 也支持泛型函数与非泛型函数之间的重载, 重载的定义详见 [函数重载](https://blog.humid1ch.cn/posts/cangjie-docs-reading-xi/#heading-3) 
 
 > 函数调用时, 重载的处理过程如下:
 >

@@ -1,5 +1,7 @@
 ---
 import { commentConfig } from "@/config";
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
 
 interface Props {
     path: string;
@@ -9,7 +11,10 @@ interface Props {
 const walineConfigJson = JSON.stringify(commentConfig.waline);
 ---
 <div class="relative w-full mb-8 mt-8">
+    <!-- <h2 id="comments" tabindex="-1" style="font-size: 1.5em; margin-bottom: 1em; line-height: 1.3333333; color: var(--waline-black); font-weight: 700;">{i18n(I18nKey.comments)}</h2> -->
+  <h2 id="comments" tabindex="-1"></h2>
   <div id="waline" data-waline-config={walineConfigJson}></div>
+
 </div>
 
 <link rel="stylesheet" href="/waline_css/waline.css" />
@@ -21,6 +26,9 @@ const walineConfigJson = JSON.stringify(commentConfig.waline);
 
     // 挂载 Waline 的函数
     const mountWaline = () => {
+      // 先设置 data-path 为当前路径
+      document.getElementById('waline-pageview').dataset.path = location.pathname;
+
       const el = document.querySelector('#waline');
       if (!el || !document.body.contains(el)) return;
 

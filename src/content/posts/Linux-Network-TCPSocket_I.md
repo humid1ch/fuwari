@@ -1430,7 +1430,7 @@ int main(int argc, char* argv[]) {
 
    这里构造任务对象时, 第四个参数使用了`std::bind()`C++标准库函数.
 
-   此函数在博主[另一篇文章](https://blog.humid1ch.cn/posts/C++11-Characteristic_II)有过介绍, 本篇文章就不赘述了
+   此函数在博主 [另一篇文章](https://blog.humid1ch.cn/posts/C++11-Characteristic_II) 有过介绍, 本篇文章就不赘述了
 
    使用`std::bind()`原因是, 服务函数`low2upService()`是类内函数, 不通过类对象是无法正常调用的.
 

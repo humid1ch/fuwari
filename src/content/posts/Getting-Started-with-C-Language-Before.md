@@ -26,7 +26,7 @@ tags:
 >
 > 搭建过程中所需要用到的工具, 已打包好放在此处, 请下载使用
 >
-> [👉 点这里](https://humid1ch.lanzoul.com/iFsck2sk56uh)
+> [👉 点这里](https://humid1ch.lanzoul.com/iFsck2sk56uh) 
 
 > [!WARNING]
 >
@@ -52,7 +52,7 @@ tags:
 
 > 如果你的列表中没有`Hyper-V`的相关选项, 请参照下面的步骤执行
 >
-> 如果上面的步骤已经完成, 可以直接跳到[👉 下一部分](https://blog.humid1ch.cn/posts/getting-started-with-c-language-before/#heading-2)
+> 如果上面的步骤已经完成, 可以直接跳到 [👉 下一部分](https://blog.humid1ch.cn/posts/getting-started-with-c-language-before/#heading-2) 
 
 ---
 
@@ -86,7 +86,7 @@ tags:
 
 5. 等待运行结束, 并根据提示输入`'Y'`重启系统
 
-6. 系统重启完成之后, 回到文章开头执行开启`Hyper-V`的相关操作: [👉 指路](https://blog.humid1ch.cn/posts/getting-started-with-c-language-before/#heading-0)
+6. 系统重启完成之后, 回到文章开头执行开启`Hyper-V`的相关操作: [👉 指路](https://blog.humid1ch.cn/posts/getting-started-with-c-language-before/#heading-0) 
 
 ## 配置
 
@@ -266,7 +266,7 @@ $ pwd
 
 > `win32yank.exe`, 提供 `nvim`与`Windows`互通剪切板 的功能
 >
-> 博主提供的是`x64`版本的, 如果需要`32`位的, 可以自行去[win32yank - Github](https://github.com/equalsraf/win32yank/releases/tag/v0.1.1)下载
+> 博主提供的是`x64`版本的, 如果需要`32`位的, 可以自行去 [win32yank - Github](https://github.com/equalsraf/win32yank/releases/tag/v0.1.1) 下载
 
 #### `zsh`
 

@@ -33,7 +33,7 @@ tags:
 
 > 这是搭建环境所需的软件包的整合, 不想在Linux中输指令下载的话, 可以先下载再通过Xftp传到Linux中:
 >
-> [CentOS7.6从零搭建C/C++开发环境所需资源包](https://download.csdn.net/download/dxyt2002/87590116)
+> [CentOS7.6从零搭建C/C++开发环境所需资源包](https://download.csdn.net/download/dxyt2002/87590116) 
 
 以下安装软件在root用户进行
 

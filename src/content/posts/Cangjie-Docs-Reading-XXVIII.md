@@ -13,13 +13,13 @@ tags:
 >
 > 阅读文档版本:
 >
-> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh) .html>)
 >
-> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html) 
 >
-> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用 [仓颉在线体验](https://cangjie-lang.cn/playground) 快速验证
 >
-> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+> 有条件当然可以直接 [配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3) 
 
 > [!WARNING]
 >
@@ -122,11 +122,11 @@ tags:
 >
 > 更多`Linux`发行版的依赖安装命令可以参见附录`Linux`版本工具链的支持与安装章节
 >
-> 此外, 仓颉工具链还依赖`OpenSSL 3`组件, 由于该组件可能无法从以上发行版的默认软件源直接安装, 因此需要自行手动安装, 安装方式请参见附录[`Linux`版本工具链的支持与安装](https://cangjie-lang.cn/docs?url=%2F1.0.3%2Fuser_manual%2Fsource_zh_cn%2FAppendix%2Flinux_toolchain_install.html)章节
+> 此外, 仓颉工具链还依赖`OpenSSL 3`组件, 由于该组件可能无法从以上发行版的默认软件源直接安装, 因此需要自行手动安装, 安装方式请参见附录 [`Linux`版本工具链的支持与安装](https://cangjie-lang.cn/docs?url=%2F1.0.3%2Fuser_manual%2Fsource_zh_cn%2FAppendix%2Flinux_toolchain_install.html) 章节
 
 博主之前写了一篇文章, 是为 C/C++搭建`WSL`环境, 系统是`openEuler 22.04`, 如果你手上当前没有可用的`Linux`系统, 可以去阅读一下 跟着部署一下`WSL`环境
 
-[接触 C 语言之前的准备: 环境搭建](https://blog.humid1ch.cn/posts/getting-started-with-c-language-before)
+ [接触 C 语言之前的准备: 环境搭建](https://blog.humid1ch.cn/posts/getting-started-with-c-language-before) 
 
 当然, 如果嫌麻烦可以跟着文档在`Windows`下配置环境
 
@@ -146,7 +146,7 @@ tags:
 
 ##### 安装指导
 
-> 首先请前往[仓颉官网](https://cangjie-lang.cn/download/1.0.3), 下载适配平台架构的安装包:
+> 首先请前往 [仓颉官网](https://cangjie-lang.cn/download/1.0.3) , 下载适配平台架构的安装包:
 >
 > - `cangjie-sdk-linux-x64-x.y.z.tar.gz`: 适用于`x86_64`架构`Linux`系统的仓颉工具链
 >

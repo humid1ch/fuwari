@@ -13,13 +13,13 @@ tags:
 >
 > 阅读文档版本:
 >
-> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh) .html>)
 >
-> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html) 
 >
-> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用 [仓颉在线体验](https://cangjie-lang.cn/playground) 快速验证
 >
-> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+> 有条件当然可以直接 [配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3) 
 
 > [!WARNING]
 >
@@ -243,10 +243,10 @@ C++与仓颉都拥有的赋值运算符, 使用上大致都相同, 但`&&=`和`|
 >
 > 语义上, *左值表达式*只能是如下形式的表达式:
 >
-> 1. `identifier`表示的变量(参见 [变量名和函数名](https://blog.humid1ch.cn/posts/cangjie-docs-reading-vi/#heading-2))
+> 1. `identifier`表示的变量(参见 [变量名和函数名](https://blog.humid1ch.cn/posts/cangjie-docs-reading-vi/#heading-2) )
 > 2. 通配符`_`, 意味着忽略`=`右侧表达式的求值结果(复合赋值表达式禁止使用通配符)
-> 3. 成员访问表达式`e1.a`或者`e2?.a`(参见[成员访问表达式](https://blog.humid1ch.cn/posts/cangjie-docs-reading-vii/#heading-18))
-> 4. 索引访问表达式`e1[a]`或者`e2?[a]`(参见[索引访问表达式](https://blog.humid1ch.cn/posts/cangjie-docs-reading-vii/#heading-20))
+> 3. 成员访问表达式`e1.a`或者`e2?.a`(参见 [成员访问表达式](https://blog.humid1ch.cn/posts/cangjie-docs-reading-vii/#heading-18) )
+> 4. 索引访问表达式`e1[a]`或者`e2?[a]`(参见 [索引访问表达式](https://blog.humid1ch.cn/posts/cangjie-docs-reading-vii/#heading-20) )
 >
 > > 注: 其中`e1`和`e2`必须是满足`leftAuxExpression`语法的表达式
 >
@@ -450,7 +450,7 @@ C++与仓颉都拥有的赋值运算符, 使用上大致都相同, 但`&&=`和`|
 > | `&&=`   |        |                | `leftValue &&= expr`   |                                                                                |
 > | `\|\|=` |        |                | `leftValue \|\|= expr` |                                                                                |
 >
-> > 注:`?`和`.`、`()`、`{}`、`[]`一起使用时, 是一种语法糖形式, 不会严格按照它们固有的优先级和结合性进行求值, 详见[问号操作符](https://blog.humid1ch.cn/posts/cangjie-docs-reading-vii/#heading-21)
+> > 注:`?`和`.`、`()`、`{}`、`[]`一起使用时, 是一种语法糖形式, 不会严格按照它们固有的优先级和结合性进行求值, 详见 [问号操作符](https://blog.humid1ch.cn/posts/cangjie-docs-reading-vii/#heading-21) 
 
 ### 表达式求值顺序
 

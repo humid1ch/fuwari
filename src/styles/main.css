@@ -101,6 +101,8 @@ body {
   .btn-card {
     @apply transition flex items-center justify-center bg-[var(--card-bg)] hover:bg-[var(--btn-card-bg-hover)]
         active:bg-[var(--btn-card-bg-active)];
+
+    backdrop-filter: blur(11px);
   }
   .btn-card.disabled {
     @apply pointer-events-none text-black/10 dark:text-white/10;
