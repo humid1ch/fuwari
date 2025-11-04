@@ -270,7 +270,7 @@ int main() {
 
 不过本篇文章不做介绍:
 
-[C++智能指针原理分析 介绍: RAII 思想、智能指针原理、unique_ptr、shared_ptr、weak_ptr 分析及模拟、与 boost 库中智能指针的关系...](https://blog.humid1ch.cn/posts/C++-Smart-Pointer)
+ [C++智能指针原理分析 介绍: RAII 思想、智能指针原理、unique_ptr、shared_ptr、weak_ptr 分析及模拟、与 boost 库中智能指针的关系...](https://blog.humid1ch.cn/posts/C++-Smart-Pointer) 
 
 ## STL 新容器
 
@@ -294,7 +294,7 @@ int main() {
 
 文章篇幅有限, 详情请阅读单独的文章:
 
-[C++11 新特性--右值引用的深入分析: 右值引用、万能引用、引用折叠、完美转发、移动语义...](https://blog.humid1ch.cn/posts/C++11-Characteristic_RvalueRef)
+ [C++11 新特性--右值引用的深入分析: 右值引用、万能引用、引用折叠、完美转发、移动语义...](https://blog.humid1ch.cn/posts/C++11-Characteristic_RvalueRef) 
 
 ## 新的类功能
 

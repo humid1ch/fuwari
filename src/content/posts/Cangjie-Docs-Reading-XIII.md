@@ -13,13 +13,13 @@ tags:
 >
 > 阅读文档版本:
 >
-> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh) .html>)
 >
-> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html) 
 >
-> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用 [仓颉在线体验](https://cangjie-lang.cn/playground) 快速验证
 >
-> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+> 有条件当然可以直接 [配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3) 
 
 > [!WARNING]
 >
@@ -121,7 +121,7 @@ tags:
 >
 > 1. **修饰符:** 可选
 >
->    主构造函数可以使用`public`、`protected`、`private`其中之一修饰, 都不使用是包内可见; 详见[访问修饰符](https://blog.humid1ch.cn/posts/cangjie-docs-reading-v/#heading-17)
+>    主构造函数可以使用`public`、`protected`、`private`其中之一修饰, 都不使用是包内可见; 详见 [访问修饰符](https://blog.humid1ch.cn/posts/cangjie-docs-reading-v/#heading-17) 
 >
 > 2. **主构造函数名:** 与类型名一致
 >
@@ -291,13 +291,13 @@ tags:
 >   ;
 > ```
 >
-> 可以在`init`前添加访问修饰符来限制该构造函数的可访问范围: 详见[访问修饰符](https://blog.humid1ch.cn/posts/cangjie-docs-reading-v/#heading-17)
+> 可以在`init`前添加访问修饰符来限制该构造函数的可访问范围: 详见 [访问修饰符](https://blog.humid1ch.cn/posts/cangjie-docs-reading-v/#heading-17) 
 >
 > 当构造一个类的对象时, 实际上会调用此类的构造函数, 如果没有参数类型匹配且可访问的构造函数, 则会编译报错
 >
 > 在一个类中, 用户可以为这个类提供多个`init`构造函数, 这些构造函数必须符合函数重载的要求
 >
-> 关于函数重载的详细描述, 请参见[函数重载](https://blog.humid1ch.cn/posts/cangjie-docs-reading-xi/#heading-3)
+> 关于函数重载的详细描述, 请参见 [函数重载](https://blog.humid1ch.cn/posts/cangjie-docs-reading-xi/#heading-3) 
 >
 > ```cangjie
 > class C {

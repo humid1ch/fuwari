@@ -15,11 +15,11 @@ tags:
 > 
 > 语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
 > 
-> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html) 
 > 
-> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用 [仓颉在线体验](https://cangjie-lang.cn/playground) 快速验证
 > 
-> 有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+> 有条件当然可以直接 [配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3) 
 
 > [!WARNING]
 > 
@@ -47,7 +47,7 @@ tags:
 
 而开发指南中, 关于标识符做了一些更准确的补充:
 
-> 仓颉语言使用 Unicode 标准 15.0.0, 在 Unicode 标准中,`XID_Start`和`XID_Continue`属性用于标记可以作为 Unicode 标识符 (Identifier) 的起始字符和后续字符, 其详细定义请参见 [Unicode 标准文档](https://www.unicode.org/reports/tr31/tr31-37.html)
+> 仓颉语言使用 Unicode 标准 15.0.0, 在 Unicode 标准中,`XID_Start`和`XID_Continue`属性用于标记可以作为 Unicode 标识符 (Identifier) 的起始字符和后续字符, 其详细定义请参见 [Unicode 标准文档](https://www.unicode.org/reports/tr31/tr31-37.html) 
 >
 > 其中,`XID_Start`包含中文和英文等字符,`XID_Continue`包含中文、英文和阿拉伯数字等字符
 >

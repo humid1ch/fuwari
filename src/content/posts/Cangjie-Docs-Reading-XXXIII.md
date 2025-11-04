@@ -15,11 +15,11 @@ tags:
 > 
 > 语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
 > 
-> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html) 
 > 
-> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用 [仓颉在线体验](https://cangjie-lang.cn/playground) 快速验证
 > 
-> 有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+> 有条件当然可以直接 [配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3) 
 
 > [!WARNING]
 > 
@@ -144,7 +144,7 @@ tags:
 >     Cangjie Lang'''
 > ```
 >
-> 多行原始字符串字面量以一个或多个井号(`#`)和一个单引号(`'`)或双引号(`"`)开头, 后跟任意数量的合法字符, 直到出现与字符串开头相同的引号和与字符串开头相同数量的井号为止。在当前文件结束之前, 如果还没遇到匹配的双引号和相同个数的井号, 则编译报错
+> 多行原始字符串字面量以一个或多个井号(`#`)和一个单引号(`'`)或双引号(`"`)开头, 后跟任意数量的合法字符, 直到出现与字符串开头相同的引号和与字符串开头相同数量的井号为止. 在当前文件结束之前, 如果还没遇到匹配的双引号和相同个数的井号, 则编译报错
 >
 > 与多行字符串字面量一样, 原始多行字符串字面量**可以跨越多行**
 >

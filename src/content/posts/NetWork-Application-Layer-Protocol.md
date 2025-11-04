@@ -311,7 +311,7 @@ static response calculator(const request& req) {
             resp.set_exitCode(-2); // 模零错误
         }
         else {
-            resp.set_result(opFunctions[op](x, y));
+            resp.set_result(opFunctions [op](x, y) );
         }
     }
 
@@ -1451,7 +1451,7 @@ static response calculator(const request& req) {
             resp.set_exitCode(-2); // 模零错误
         }
         else {
-            resp.set_result(opFunctions[op](x, y));
+            resp.set_result(opFunctions [op](x, y) );
         }
     }
 

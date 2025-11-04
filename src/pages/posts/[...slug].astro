@@ -24,7 +24,20 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
+const { Content, headings: originalHeadings } = await entry.render();
+
+const commentHeading = {
+  depth: 2,
+  text: i18n(I18nKey.comments), // 显示的纯文本
+  slug: "comments",             // 用于 URL 锚点，通常与 id 一致
+  value: i18n(I18nKey.comments), // 可选，某些系统用 value
+  data: {
+    hProperties: {
+      id: "comments",
+    },
+  },
+};
+const finalHeadings = [...originalHeadings, commentHeading];
 
 const { remarkPluginFrontmatter } = await entry.render();
 
@@ -53,7 +66,7 @@ const jsonLd = {
     description={entry.data.description}
     lang={entry.data.lang}
     setOGTypeArticle={true}
-    headings={headings}
+    headings={finalHeadings}
 >
     <script
         is:inline
@@ -132,6 +145,7 @@ const jsonLd = {
                     updated={entry.data.updated}
                     tags={entry.data.tags}
                     category={entry.data.category}
+                    hidePageview={false}
                 />
                 {
                     !entry.data.image && (
@@ -224,56 +238,4 @@ const jsonLd = {
 
     <Comment post={entry} />
 
-    <!-- <script>
-        function initInlineCodeCopy() {
-            document
-                .querySelectorAll("code:not(pre code)")
-                .forEach((element) => {
-                    element.addEventListener("click", async () => {
-                        if (!(element instanceof HTMLElement)) return;
-
-                        // 检查是否正在处理中
-                        if (element.dataset.copying === "true") {
-                            return; // 直接忽略后续点击
-                        }
-
-                        const text = element.textContent || "";
-                        try {
-                            element.dataset.copying = "true"; // 标记为正在复制
-                            await navigator.clipboard.writeText(text);
-                            const originalText = element.textContent;
-                            element.textContent = "已复制!";
-
-                            setTimeout(() => {
-                                element.textContent = originalText;
-                                element.dataset.copying = "false"; // 恢复状态
-                            }, 1500);
-                        } catch (err) {
-                            console.error("复制失败:", err);
-                            element.dataset.copying = "false"; // 出错时也要恢复状态
-                        }
-                    });
-                });
-        }
-
-        function initCodeLineHighlight() {
-            document.querySelectorAll(".ec-line").forEach((line) => {
-                line.addEventListener("mousedown", () => {
-                    document
-                        .querySelectorAll(".ec-line.active")
-                        .forEach((el) => el.classList.remove("active"));
-                    line.classList.add("active");
-                });
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            initInlineCodeCopy();
-            initCodeLineHighlight();
-        });
-        document.addEventListener("astro:page-load", () => {
-            initInlineCodeCopy();
-            initCodeLineHighlight();
-        });
-    </script> -->
 </MainGridLayout>

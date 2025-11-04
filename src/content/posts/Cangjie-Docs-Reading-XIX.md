@@ -13,13 +13,13 @@ tags:
 >
 > 阅读文档版本:
 >
-> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh) .html>)
 >
-> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html) 
 >
-> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用 [仓颉在线体验](https://cangjie-lang.cn/playground) 快速验证
 >
-> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+> 有条件当然可以直接 [配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3) 
 
 > [!WARNING]
 >
@@ -35,7 +35,7 @@ tags:
 
 > 在仓颉编程语言中, 如果一个作用域中, 同一个函数名对应多个参数类型不完全相同的函数定义, 这种现象称为函数重载
 >
-> 函数重载定义详见[函数重载定义](https://blog.humid1ch.cn/posts/cangjie-docs-reading-xi/#heading-4)
+> 函数重载定义详见 [函数重载定义](https://blog.humid1ch.cn/posts/cangjie-docs-reading-xi/#heading-4) 
 >
 > 需要注意的是:
 >
@@ -182,7 +182,7 @@ tags:
 >
 >       对于泛型函数 `f`, 进入可见函数集的可能是 部分实例化后的泛型函数 或是 完全实例化的函数
 >
->       具体是哪种形式进入可见函数集, 由调用表达式的形式决定(详见, [泛型函数重载](https://blog.humid1ch.cn/posts/cangjie-docs-reading-xviii/#heading-25))
+>       具体是哪种形式进入可见函数集, 由调用表达式的形式决定(详见, [泛型函数重载](https://blog.humid1ch.cn/posts/cangjie-docs-reading-xviii/#heading-25) )
 
 这一部分感觉暂时不太需要深入了解, 感觉是在描述一些可调用函数的一些情况, 这些具体在开发时可能会有一个更方便深入的了解
 
@@ -190,7 +190,7 @@ tags:
 
 ##### 类型检查
 
-> 对于可见函数集中的函数进行类型检查, 只有通过[函数调用类型检查](https://blog.humid1ch.cn/posts/cangjie-docs-reading-x/#heading-18)的函数才能进入候选集
+> 对于可见函数集中的函数进行类型检查, 只有通过 [函数调用类型检查](https://blog.humid1ch.cn/posts/cangjie-docs-reading-x/#heading-18) 的函数才能进入候选集
 >
 > ```cangjie
 > open class Base {}

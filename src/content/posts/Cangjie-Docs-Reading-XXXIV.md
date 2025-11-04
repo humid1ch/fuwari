@@ -13,13 +13,13 @@ tags:
 >
 > 阅读文档版本:
 >
-> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh) .html>)
 >
-> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html) 
 >
-> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用 [仓颉在线体验](https://cangjie-lang.cn/playground) 快速验证
 >
-> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+> 有条件当然可以直接 [配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3) 
 
 > [!WARNING]
 >
@@ -31,7 +31,7 @@ tags:
 >
 > 在阅读仓颉编程语言的开发指南之前, 已经大概阅读了一遍 仓颉编程语言的语言规约，已经对仓颉编程语言有了一个大概的了解
 >
-> 所以在阅读开发指南时，不会对类似：类、函数、结构体、接口等解释起来较为复杂名称 做出解释
+> 所以在阅读开发指南时，不会对类似: 类、函数、结构体、接口等解释起来较为复杂名称 做出解释
 
 > 此样式内容, 表示文档原文内容
 
@@ -39,17 +39,17 @@ tags:
 
 ### 元组类型
 
-> 元组（`Tuple`）可以将多个不同的类型组合在一起，成为一个新的类型
+> 元组(`Tuple`)可以将多个不同的类型组合在一起，成为一个新的类型
 >
-> 元组类型使用 (`T1, T2, ..., TN`) 表示，其中 `T1` 到 `TN` 可以是任意类型，不同类型间使用逗号（`,`）连接
+> 元组类型使用 (`T1, T2, ..., TN`) 表示，其中 `T1` 到 `TN` 可以是任意类型，不同类型间使用逗号(`,`)连接
 >
 > 元组至少是`二元`，例如，`(Int64, Float64)` 表示一个二元组类型，`(Int64, Float64, String)` 表示一个三元组类型
 >
 > 元组的长度是固定的，即一旦定义了一个元组类型的实例，它的长度不能再被更改
 >
-> 元组类型是**不可变类型**，即一旦定义了一个元组类型的实例，它的内容（即单个元素）不能再被更新
+> 元组类型是**不可变类型**，即一旦定义了一个元组类型的实例，它的内容(即单个元素)不能再被更新
 >
-> 但整个元组可被覆盖替换，例如：
+> 但整个元组可被覆盖替换，例如: 
 >
 > ```cangjie
 > let tuple1 = (8, false)
@@ -79,7 +79,7 @@ tags:
 
 > 元组类型的字面量使用 `(e1, e2, ..., eN)` 表示，其中 `e1` 到 `eN` 是表达式，多个表达式之间使用逗号分隔
 >
-> 下面的例子中，分别定义了一个 `(Int64, Float64)` 类型的变量 `x`，以及一个 `(Int64, Float64, String)` 类型的变量 `y`，并且使用元组类型的字面量为它们定义了初值：
+> 下面的例子中，分别定义了一个 `(Int64, Float64)` 类型的变量 `x`，以及一个 `(Int64, Float64, String)` 类型的变量 `y`，并且使用元组类型的字面量为它们定义了初值: 
 >
 > ```cangjie
 > let x: (Int64, Float64) = (3, 3.141592)
@@ -98,14 +98,14 @@ tags:
 > }
 > ```
 >
-> 编译并执行上述代码，输出结果为：
+> 编译并执行上述代码，输出结果为: 
 >
 > ```text
 > 3.140000
 > PI
 > ```
 >
-> 在赋值表达式中，可使用元组进行多赋值，参见[赋值操作符](https://blog.humid1ch.cn/posts/cangjie-docs-reading-xxxi/#heading-2)章节
+> 在赋值表达式中，可使用元组进行多赋值，参见 [赋值操作符](https://blog.humid1ch.cn/posts/cangjie-docs-reading-xxxi/#heading-2) 章节
 
 元组的类型是`(T1, T2, T3, ..., TN)`, 元组字面量也很简单: `(expr1, expr2, expr3, ..., exprN)`
 
@@ -278,7 +278,7 @@ println()
 > }
 > ```
 >
-> 编译并执行上面的代码，会输出：
+> 编译并执行上面的代码，会输出: 
 >
 > ```text
 > The element is 0
@@ -299,17 +299,17 @@ println()
 > }
 > ```
 >
-> 编译并执行上面的代码，会输出：
+> 编译并执行上面的代码，会输出: 
 >
 > ```text
 > The size of array is 3
 > ```
 >
-> 当想访问单个指定位置的元素时，可以使用下标语法访问（下标的类型必须是 `Int64`）
+> 当想访问单个指定位置的元素时，可以使用下标语法访问(下标的类型必须是 `Int64`)
 >
 > 非空 `Array` 的第一个元素总是从位置 `0` 开始的
 >
-> 可以从 `0` 开始访问 `Array` 的任意一个元素，直到最后一个位置（`Array` 的 `size - 1`）
+> 可以从 `0` 开始访问 `Array` 的任意一个元素，直到最后一个位置(`Array` 的 `size - 1`)
 >
 > 索引值不能使用负数或者大于等于 `size`，当编译器能检查出索引值非法时，会在编译时报错，否则会在运行时抛异常
 >
@@ -347,7 +347,7 @@ println()
 >
 > 当 `Range` 字面量在下标语法中使用时，可以省略 `start` 或 `end`
 >
-> 当省略 `start` 时，`Range` 会从 `0` 开始；当省略 `end` 时，`Range` 的 `end` 会延续到最后一位
+> 当省略 `start` 时，`Range` 会从 `0` 开始;当省略 `end` 时，`Range` 的 `end` 会延续到最后一位
 >
 > ```cangjie
 > let arr1 = [0, 1, 2, 3, 4, 5, 6]
@@ -397,7 +397,7 @@ println()
 > }
 > ```
 >
-> 编译并执行上面的代码，会输出：
+> 编译并执行上面的代码，会输出: 
 >
 > ```text
 > The first element is 3
@@ -431,16 +431,16 @@ println()
 >
 > 但是需要注意的是，由于值类型本身在传递和赋值时的拷贝，会产生额外的性能开销，因此建议不要在性能敏感场景使用较大长度的 `VArray`
 >
-> 值类型和引用类型的特点请参见[值类型和引用类型变量](https://blog.humid1ch.cn/posts/cangjie-docs-reading-xxix/#heading-5)
+> 值类型和引用类型的特点请参见 [值类型和引用类型变量](https://blog.humid1ch.cn/posts/cangjie-docs-reading-xxix/#heading-5) 
 >
 > ```cangjie
 > type varr1 = VArray<Int64, $3>        // Ok
 > type varr2 = VArray                   // Error
 > ```
 >
-> > 注意：
+> > 注意: 
 > >
-> > 由于运行时后端限制，当前 `VArray<T, $N>` 的元素类型 `T` 或 `T` 的成员不能包含引用类型、枚举类型、`Lambda` 表达式（`CFunc` 除外）以及未实例化的泛型类型
+> > 由于运行时后端限制，当前 `VArray<T, $N>` 的元素类型 `T` 或 `T` 的成员不能包含引用类型、枚举类型、`Lambda` 表达式(`CFunc` 除外)以及未实例化的泛型类型
 
 仓颉中除了 **引用类型的数组`Array`** 之外, 还有一个 **值类型数组`VArray<T, $N>`**
 
@@ -454,13 +454,13 @@ println()
 
 `VArray`是值类型的, 在对其进行传值或复制时, 会**发生拷贝**
 
-> `VArray` 可以由一个数组的字面量来进行初始化，左值 `a` 必须标识出 `VArray` 的实例化类型：
+> `VArray` 可以由一个数组的字面量来进行初始化，左值 `a` 必须标识出 `VArray` 的实例化类型: 
 >
 > ```cangjie
 > var a: VArray<Int64, $3> = [1, 2, 3]
 > ```
 >
-> 同时，它拥有两个构造函数：
+> 同时，它拥有两个构造函数: 
 >
 > ```cangjie
 > // VArray<T, $N>(initElement: (Int64) -> T)
@@ -469,9 +469,9 @@ println()
 > let c = VArray<Int64, $5>(repeat: 0)              // [0, 0, 0, 0, 0]
 > ```
 >
-> 除此之外，`VArray<T, $N>` 类型提供了两个成员方法：
+> 除此之外，`VArray<T, $N>` 类型提供了两个成员方法: 
 >
-> - 用于下标访问和修改的 `[]` 操作符方法：
+> - 用于下标访问和修改的 `[]` 操作符方法: 
 >
 >   ```cangjie
 >   var a: VArray<Int64, $3> = [1, 2, 3]
@@ -481,7 +481,7 @@ println()
 >
 >   下标访问的下标类型必须为 `Int64`
 >
-> - 用于获取 `VArray` 长度的 `size` 成员：
+> - 用于获取 `VArray` 长度的 `size` 成员: 
 >
 >   ```cangjie
 >   var a: VArray<Int64, $3> = [1, 2, 3]

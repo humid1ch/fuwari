@@ -13,13 +13,13 @@ tags:
 >
 > 阅读文档版本:
 >
-> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh) .html>)
 >
-> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html) 
 >
-> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用 [仓颉在线体验](https://cangjie-lang.cn/playground) 快速验证
 >
-> 有条件当然可以直接[配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+> 有条件当然可以直接 [配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3) 
 
 > [!WARNING]
 >
@@ -90,7 +90,7 @@ tags:
 >     ;
 > ```
 >
-> 上述语法定义中, 关键字`for`之后只能是那些一定或可能为 _irrefutable_ 的 pattern(见 [模式的分类](https://blog.humid1ch.cn//blog/cangjie-docs-reading-vi#heading-14))
+> 上述语法定义中, 关键字`for`之后只能是那些一定或可能为 _irrefutable_ 的 pattern(见 [模式的分类](https://blog.humid1ch.cn//blog/cangjie-docs-reading-vi#heading-14) )
 >
 > 在语义检查阶段, 会检查`for`之后的 pattern 是否真的是 _irrefutable_, 如果不是 _irrefutable_ pattern, 则编译报错
 >
@@ -208,7 +208,7 @@ pattern 匹配的是`expreesion`的迭代器元素, 循环体执行完, 自动�
 >
 > `let`之后的 pattern 支持常量模式、通配符模式、绑定模式、`Tuple`模式、`enum`模式
 
-`while-let`与之前的`if-let`是类似的(见[条件表达式](https://blog.humid1ch.cn/posts/cangjie-docs-reading-vi/#heading-4))
+`while-let`与之前的`if-let`是类似的(见 [条件表达式](https://blog.humid1ch.cn/posts/cangjie-docs-reading-vi/#heading-4) )
 
 #### `do-while`表达式
 
@@ -481,7 +481,7 @@ pattern 匹配的是`expreesion`的迭代器元素, 循环体执行完, 自动�
 
 ### 数值类型转化表达式
 
-> 数值类型转换表达式用于实现数值类型间的转换, 它的值是类型转换后的值, 它的类型是转换到的目标类型(但原表达式的类型不受目标类型影响), 详细的转换规则可参见 [类型转换](https://blog.humid1ch.cn/posts/cangjie-docs-reading-iv/#heading-1)
+> 数值类型转换表达式用于实现数值类型间的转换, 它的值是类型转换后的值, 它的类型是转换到的目标类型(但原表达式的类型不受目标类型影响), 详细的转换规则可参见 [类型转换](https://blog.humid1ch.cn/posts/cangjie-docs-reading-iv/#heading-1) 
 >
 > 数值类型转换表达式的语法定义为:
 >
@@ -702,7 +702,7 @@ C/C++中因为存在值和指针, 所以有两种访问成员的方式`.`和`->`
 >     ;
 > ```
 >
-> 索引访问表达式用于那些支持索引访问的类型(包括`Array`类型和`Tuple`类型)通过下标来访问其具体位置的元素, 详见第 2 章中关于[`Array`类型](https://blog.humid1ch.cn/posts/cangjie-docs-reading-iii/#heading-3)和[`Tuple`类型](https://blog.humid1ch.cn/posts/cangjie-docs-reading-ii/#heading-13)的介绍
+> 索引访问表达式用于那些支持索引访问的类型(包括`Array`类型和`Tuple`类型)通过下标来访问其具体位置的元素, 详见第 2 章中关于 [`Array`类型](https://blog.humid1ch.cn/posts/cangjie-docs-reading-iii/#heading-3) 和 [`Tuple`类型](https://blog.humid1ch.cn/posts/cangjie-docs-reading-ii/#heading-13) 的介绍
 >
 > 对于索引访问表达式`e[a]`(假设`e`的类型是`T`):
 >

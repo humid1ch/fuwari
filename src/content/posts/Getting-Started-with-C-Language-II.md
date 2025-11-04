@@ -13,7 +13,7 @@ tags:
 >
 > 如果你从未接触过 C 语言, 那么我建议你先阅读前面的文章:
 >
-> [📌 从零开始接触 C 语言](https://blog.humid1ch.cn/posts/tag/从零开始接触C语言)
+> [📌 从零开始接触 C 语言](https://blog.humid1ch.cn/posts/tag/从零开始接触C语言) 
 
 ## 数据类型 和 变量
 

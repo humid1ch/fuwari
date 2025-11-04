@@ -15,11 +15,11 @@ tags:
 > 
 > 语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
 > 
-> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html) 
 > 
-> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用[仓颉在线体验](https://cangjie-lang.cn/playground)快速验证
+> 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用 [仓颉在线体验](https://cangjie-lang.cn/playground) 快速验证
 > 
-> 有条件当然可以直接[配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
+> 有条件当然可以直接 [配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3) 
 
 > [!WARNING]
 > 
@@ -431,7 +431,7 @@ f16 | f32 | f64
 // 字符字面量
 // 普通字符
 'A'
-// 转义字符：
+// 转义字符: 
 '\n'
 '\u{1F600}'
 '\''
@@ -859,7 +859,7 @@ interfaceModifier
 
 ```cangjie
 internal interface SimpleInterface {
-    // 抽象方法（无实现）
+    // 抽象方法(无实现)
     func doSomething(): Unit
 
     // 带默认实现的方法
@@ -867,7 +867,7 @@ internal interface SimpleInterface {
         println(message)
     }
 
-    // 属性（只有getter）
+    // 属性(只有getter)
     prop count: Int64
 }
 ```
@@ -1126,7 +1126,7 @@ internal struct Point {
     // 成员变量
     var y: Int64
 
-    // 主构造函数（简化成员变量初始化）
+    // 主构造函数(简化成员变量初始化)
     public Point(y: Int64, var x: Int64) {
         this.x = x
         this.y = y

@@ -1,6 +1,7 @@
 :root {
   --waline-font-size: 1rem;
   --waline-white: #fff;
+  --waline-black: #000;
   --waline-light-grey: #999;
   --waline-dark-grey: #666;
   --waline-theme-color: var(--primary);
@@ -953,6 +954,10 @@
   padding: 0.375em;
 }
 
+.wl-meta-head .wl-count {
+  color: var(--waline-black);
+}
+
 .wl-sort {
   margin: 0;
   list-style-type: none;
@@ -989,6 +994,7 @@
   margin: 16px auto;
   font-weight: bold;
   font-size: 18px;
+  color: var(--waline-black);
 }
 
 .wl-reaction-list {
