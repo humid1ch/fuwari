@@ -99,7 +99,7 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 
 export const commentConfig: CommentConfig = {
   waline: {
-    serverURL: "https://walinetalk-tau.vercel.app",
+    serverURL: "https://waline.humid1ch.cn",
     lang: "zh",
     dark: "html.dark",
     emoji: ["https://unpkg.com/@waline/emojis@1.2.0/bmoji"],
