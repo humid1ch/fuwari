@@ -51,7 +51,7 @@ const cangjieGrammar = {
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://blog.humid1ch.cn/",
+  site: "https://www.humid1ch.cn/",
   base: "/",
   trailingSlash: "always",
 
