@@ -1,34 +1,34 @@
 ---
-title: '仓颉文档阅读-开发指南IV: 函数(III) - 嵌套函数、Lambda表达式 以及 闭包'
+title: "仓颉文档阅读-开发指南IV: 函数(III) - 嵌套函数、Lambda表达式 以及 闭包"
 published: 2025-11-04 15:29:32
-description: '仓颉文档阅读的开发指南部分, 本篇文章介绍仓颉语言的函数相关内容'
-image: 'https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp'
-tags: ['开发语言', '仓颉']
+description: "仓颉文档阅读的开发指南部分, 本篇文章介绍仓颉语言的函数相关内容"
+image: "https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp"
+tags: ["开发语言", "仓颉"]
 category: Blogs
 ---
 
 > [!NOTE]
-> 
+>
 > 阅读文档版本:
-> 
-> 语言规约 [Cangjie-0.53.18-Spec](https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html)
-> 
-> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html) 
-> 
+>
+> 语言规约 [Cangjie-0.53.18-Spec](<https://cangjie-lang.cn/docs?url=/0.53.18/Spec/source_zh_cn/Chapter_01_Lexical_Structure(zh).html>)
+>
+> 具体开发指南 [Cangjie-LTS-1.0.3](https://cangjie-lang.cn/docs?url=/1.0.3/index.html)
+>
 > 在阅读 了解仓颉的语言规约时, 难免会涉及到一些仓颉的示例代码, 但 我们对仓颉并不熟悉, 所以可以用 [仓颉在线体验](https://cangjie-lang.cn/playground) 快速验证
-> 
-> 有条件当然可以直接 [配置Canjie-SDK](https://cangjie-lang.cn/download/1.0.3) 
+>
+> 有条件当然可以直接 [配置 Canjie-SDK](https://cangjie-lang.cn/download/1.0.3)
 
 > [!WARNING]
-> 
-> 博主在此之前, 基本只接触过C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与C/C++中的相似概念作类比, 见谅
-> 
+>
+> 博主在此之前, 基本只接触过 C/C++语言, 对大多现代语言都没有了解, 所以在阅读过程中遇到相似的概念, 难免会与 C/C++中的相似概念作类比, 见谅
+>
 > 且, 本系列是文档阅读, 而不是仓颉的零基础教学, 所以如果要跟着阅读的话最好有一门编程语言的开发经验
 
 > [!WARNING]
-> 
+>
 > 在阅读仓颉编程语言的开发指南之前, 已经大概阅读了一遍 仓颉编程语言的语言规约，已经对仓颉编程语言有了一个大概的了解
-> 
+>
 > 所以在阅读开发指南时，不会对类似: 类、函数、结构体、接口等解释起来较为复杂名称 做出解释
 
 > 此样式内容, 表示文档原文内容
@@ -38,31 +38,31 @@ category: Blogs
 ### 嵌套函数
 
 > 定义在源文件顶层的函数被称为**全局函数**
-> 
+>
 > 定义在函数体内的函数被称为**嵌套函数**
-> 
+>
 > 示例，函数 `foo` 内定义了一个嵌套函数 `nestAdd`，可以在 `foo` 内调用该嵌套函数 `nestAdd`，也可以将嵌套函数 `nestAdd` 作为返回值返回，在 `foo` 外对其进行调用：
-> 
+>
 > ```cangjie
 > func foo() {
 >     func nestAdd(a: Int64, b: Int64) {
 >         a + b + 3
 >     }
-> 
+>
 >     println(nestAdd(1, 2))  // 6
-> 
+>
 >     return nestAdd
 > }
-> 
+>
 > main() {
 >     let f = foo()
 >     let x = f(1, 2)
 >     println("result: ${x}")
 > }
 > ```
-> 
+>
 > 程序会输出：
-> 
+>
 > ```text
 > 6
 > result: 6
@@ -79,26 +79,26 @@ category: Blogs
 #### `Lambda`表达式定义
 
 > `Lambda` 表达式是一种**匿名函数（即没有函数名的函数）**, 其核心设计目的是在程序中快速定义简短的函数逻辑，无需显式声明函数名称
-> 
+>
 > 这一概念起源于数学中的 `λ` 演算（`lambda calculus`），后被引入多种编程语言（如`C++`、`Python`、`C#`等），用于简化代码并提升灵活性
-> 
+>
 > 仓颉编程语言中也引入了 `Lambda` 表达式，具体使用介绍将在本小节展开介绍
-> 
+>
 > `Lambda` 表达式的语法为如下形式： `{ p1: T1, ..., pn: Tn => expressions | declarations }`
-> 
+>
 > 其中:
-> 
+>
 > **`=>` 之前为参数列表**，多个参数之间使用 `,` 分隔，每个参数名和参数类型之间使用 `:` 分隔
-> 
+>
 > **`=>` 之前也可以没有参数**
-> 
+>
 > **`=>` 之后为 `Lambda` 表达式体**，是一组表达式或声明序列
-> 
+>
 > `Lambda` 表达式的参数名的作用域与函数的相同，为 `Lambda` 表达式的函数体部分，其作用域级别可视为与 `Lambda` 表达式的函数体内定义的变量等同
-> 
+>
 > ```cangjie
 > let f1 = { a: Int64, b: Int64 => a + b }
-> 
+>
 > var display = { =>                          // 无参数 lambda 表达式
 >     println("Hello")
 >     println("World")
@@ -120,14 +120,14 @@ category: Blogs
 一组声明或表达式序列, 在`lambda`表达式中 不用`{}`包裹 也是被看作一个整体的, 所以可以随意按合法语法换行
 
 > `lambda`表达式的参数, 也可以在`lambda`表达式函数体内使用
-> 
+>
 > `Lambda` 表达式不管有没有参数，**都不可以省略 `=>`，除非其作为尾随 `lambda`**
-> 
+>
 > 例如：
-> 
+>
 > ```cangjie
 > var display = { => println("Hello") }
-> 
+>
 > func f2(lam: () -> Unit) {}
 > let f2Res = f2 { println("World") }             // OK, 省略 =>
 > ```
@@ -137,55 +137,55 @@ category: Blogs
 不过, 也只有在`lambda`参数为空时, 尾随`lambda`的`=>`可以省略
 
 > [!TIP]
-> 
+>
 > **尾随`lambda`**
-> 
+>
 > `lambda`表达式作为函数的最后一个参数, 可以以**尾随`lambda`**形式传参
-> 
+>
 > 即, 当函数的最后一个形参是函数类型时, 调用时最后一个参数要传入`lambda`表达式时, 可以使用尾随`lambda`的形式
-> 
+>
 > 尾随`lambda`形式, 不是将`lambda`表达式传入函数的参数列表中, 而是在函数调用时将`lambda`表达式声明在函数调用之后:
-> 
+>
 > 举个例子:
-> 
+>
 > ```cangjie
 > func function(param: Int64, lam: (Int64, String) -> Unit) {
 >     lam(param, "Cangjie")
 > }
-> 
+>
 > main() {
 >     // 正常传参
 >     function(10, {
 >         param1: Int64, param2: String => println("result: ${param1 * param2.size}")
 >     })
-> 
+>
 >     // 尾随lambda
 >     function(10) {
 >         param1: Int64, param2: String => println("result: ${param1 * param2.size}")
 >     }
 > }
 > ```
-> 
+>
 > 这两种调用方式都是可以的, 一个`lambda`表达式正常作为实参传入, 一个以尾随`lambda`的形式传入
 
 > **`Lambda` 表达式中参数的类型标注可缺省**
-> 
+>
 > **以下情形**中, 若参数类型省略，编译器会尝试进行类型推断，当编译器无法推断出类型时会编译报错：
-> 
+>
 > - `Lambda` 表达式 赋值给变量 时，其参数类型根据变量类型推断
-> 
+>
 > - `Lambda` 表达式 作为 函数调用表达式的实参 使用时，其参数类型根据函数的形参类型推断
-> 
+>
 > ```cangjie
 > // 参数类型由变量 sum1 的类型推断得出
 > var sum1: (Int64, Int64) -> Int64 = { a, b => a + b }
-> 
+>
 > var sum2: (Int64, Int64) -> Int64 = { a: Int64, b => a + b }
-> 
+>
 > func f(a1: (Int64) -> Int64): Int64 {
 >     a1(1)
 > }
-> 
+>
 > main(): Int64 {
 >     // lambda 的参数类型是从函数 f 的类型推断出来的
 >     f({ a2 => a2 + 10 })
@@ -199,48 +199,48 @@ category: Blogs
 比如, 给变量赋值时, 根据变量声明类型进行推断; 作为实参传入参数形参时, 根据形参类型进行推断
 
 > `Lambda` 表达式中**不支持声明返回类型**，其返回类型总是从上下文中推断出来，若无法推断则报错
-> 
+>
 > - 若上下文**明确指定了 `Lambda` 表达式的返回类型**，则其返回类型为上下文指定的类型
-> 
->     - `Lambda` 表达式**赋值给变量**时，其返回类型根据 变量类型 推断返回类型：
-> 
->         ```cangjie
->         let f: () -> Unit = { ... }
->         ```
-> 
->     - `Lambda` 表达式**作为参数使用**时，其返回类型根据 使用处所在的函数调用的形参类型 推断：
-> 
->         ```cangjie
->         func f(a1: (Int64) -> Int64): Int64 {
->             a1(1)
->         }
->         
->         main(): Int64 {
->             f({ a2: Int64 => a2 + 10 })
->         }
->         ```
-> 
->     - `Lambda` 表达式**作为返回值**使用时，其返回类型根据 使用处所在函数的返回类型 推断：
-> 
->         ```cangjie
->         func f(): (Int64) -> Int64 {
->             { a: Int64 => a }
->         }
->         ```
-> 
+>
+>   - `Lambda` 表达式**赋值给变量**时，其返回类型根据 变量类型 推断返回类型：
+>
+>     ```cangjie
+>     let f: () -> Unit = { ... }
+>     ```
+>
+>   - `Lambda` 表达式**作为参数使用**时，其返回类型根据 使用处所在的函数调用的形参类型 推断：
+>
+>     ```cangjie
+>     func f(a1: (Int64) -> Int64): Int64 {
+>         a1(1)
+>     }
+>
+>     main(): Int64 {
+>         f({ a2: Int64 => a2 + 10 })
+>     }
+>     ```
+>
+>   - `Lambda` 表达式**作为返回值**使用时，其返回类型根据 使用处所在函数的返回类型 推断：
+>
+>     ```cangjie
+>     func f(): (Int64) -> Int64 {
+>         { a: Int64 => a }
+>     }
+>     ```
+>
 > - 若上下文中类型未明确，与推导函数的返回值类型类似，编译器会根据 `Lambda` 表达式体中所有 `return` 表达式 `return xxx` 中 `xxx` 的类型，以及 `Lambda` 表达式体的类型，来共同推导出 `Lambda` 表达式的返回类型
-> 
->     - `=>` 右侧的内容与普通函数体的规则一样，返回类型为 `Int64`:
-> 
->         ```cangjie
->         let sum1 = { a: Int64, b: Int64 => a + b }
->         ```
-> 
->     - `=>` 的右侧为空，返回类型为 `Unit`:
-> 
->         ```cangjie
->         let f = { => }
->         ```
+>
+>   - `=>` 右侧的内容与普通函数体的规则一样，返回类型为 `Int64`:
+>
+>     ```cangjie
+>     let sum1 = { a: Int64, b: Int64 => a + b }
+>     ```
+>
+>   - `=>` 的右侧为空，返回类型为 `Unit`:
+>
+>     ```cangjie
+>     let f = { => }
+>     ```
 
 仓颉`ladmbda`的参数类型 是可缺省的
 
@@ -255,14 +255,14 @@ category: Blogs
 #### `Lambda` 表达式调用
 
 > `Lambda` 表达式支持立即调用，例如：
-> 
+>
 > ```cangjie
 > let r1 = { a: Int64, b: Int64 => a + b }(1, 2)      // r1 = 3
 > let r2 = { => 123 }()                               // r2 = 123
 > ```
-> 
+>
 > `Lambda` 表达式也可以赋值给一个变量，使用变量名进行调用，例如：
-> 
+>
 > ```cangjie
 > func f() {
 >     var g = { x: Int64 => println("x = ${x}") }
@@ -272,184 +272,230 @@ category: Blogs
 
 其实调用在上面了解定义时, 就已经见过了
 
-### 闭包 **
+### 闭包 \*\*
 
 > **一个函数或`lambda`从定义它的静态作用域中捕获了变量，函数或 `lambda` 和捕获的变量一起被称为一个闭包，这样即使脱离了闭包定义所在的作用域，闭包也能正常运行**
 
-闭包, 我个人理解就是: 
+闭包, 我个人理解就是:
 
 1. 闭包形成:
-    
-    如果一个函数/`lambda`, 捕获了**定义时** 函数/`lambda`外部的非全局或静态变量时, 此函数和其捕获的变量, 形成一个闭包
 
-    闭包形成之后, 闭包封闭、包装, **将捕获的变量"包装"到函数/`lambda`内部, 不再直接依赖外部变量**
+   如果一个函数/`lambda`, 捕获了**定义时** 函数/`lambda`外部的非全局或静态变量时, 此函数和其捕获的变量, 形成一个闭包
 
-    但, 这里的"包装"形式 针对不同的类型也是有区别的: **`var`或`let`变量有区别, 值类型和引用类型变量也有区别**
+   闭包形成之后, 闭包封闭、包装, **将捕获的变量"包装"到函数/`lambda`内部, 不再直接依赖外部变量**
+
+   但, 这里的"包装"形式 针对不同的类型也是有区别的: **`var`或`let`变量有区别, 值类型和引用类型变量也有区别**
 
 2. 闭包调用
 
-    闭包可以直接像函数一样调用, 非特殊通常情况下也**可以作为一等公民使用**
+   闭包可以直接像函数一样调用, 非特殊通常情况下也**可以作为一等公民使用**
 
-    而且, 调用时能够访问到捕获的变量, 即使 **闭包调用时的作用域 已经不在 被捕获变量 定义时的有效作用域**
+   而且, 调用时能够访问到捕获的变量, 即使 **闭包调用时的作用域 已经不在 被捕获变量 定义时的有效作用域**
 
-函数或 `lambda` 的定义中对于以下几种变量的访问，称为**变量捕获**：
+> 函数或 `lambda` 的定义中对于以下几种变量的访问，称为**变量捕获**：
+>
+> - 函数的参数缺省值中 访问了 本函数之外定义的局部变量
+>
+> - 函数或`lambda`内 访问了 本函数或本 `lambda` 之外定义的局部变量
+>
+> - `class/struct`内定义的不是成员函数的函数或 `lambda` 访问了实例成员变量或 `this`
+>
+> 以下情形的变量访问**不是变量捕获**：
+>
+> - 对定义在本函数或本 `lambda` 内的局部变量的访问
+>
+> - 对本函数或本 `lambda` 的形参的访问
+>
+> - 对全局变量和静态成员变量的访问
+>
+> - 对实例成员变量在实例成员函数或属性中的访问
+>
+>   由于实例成员函数或属性将 `this` 作为参数传入，在实例成员函数或属性内通过 `this` 访问所有实例成员变量
+>
+> **变量的捕获发生在闭包定义时**，因此变量捕获有以下规则：
+>
+> - 被捕获的变量**必须在闭包定义时可见**，否则编译报错
+>
+> - 被捕获的变量**必须在闭包定义时已经完成初始化**，否则编译报错
 
-- 函数的参数缺省值中访问了本函数之外定义的局部变量
+仓颉中, 捕获变量动作发生在闭包定义时
 
-- 函数或 `lambda` 内访问了本函数或本 `lambda` 之外定义的局部变量
+且仓颉闭包中使用到的外部变量, 会被自动捕获
 
-- `class/struct` 内定义的不是成员函数的函数或 `lambda` 访问了实例成员变量或 `this`
+并不是 所有变量在闭包访问都属于变量捕获
 
-以下情形的变量访问**不是变量捕获**：
+变量捕获只针对 非本函数/本`lambda`的局部变量, 以及成员变量或`this`
 
-- 对定义在本函数或本 `lambda` 内的局部变量的访问
+静态变量或全局变量的访问, 不属于变量捕获, 对本身形参的访问就更不属于了
 
-- 对本函数或本 `lambda` 的形参的访问
+具体下面有所展示
 
-- 对全局变量和静态成员变量的访问
+> 示例 1：闭包 `add`，**捕获了`let`声明的局部变量`num`**，之后通过返回值返回到 `num` 定义的作用域之外，调用 `add` 时仍可正常访问 `num`
+>
+> ```cangjie
+> func returnAddNum(): (Int64) -> Int64 {
+>     let num: Int64 = 10
+>
+>     func add(a: Int64) {
+>         return a + num
+>     }
+>     add
+> }
+>
+> main() {
+>     let f = returnAddNum()
+>     println(f(10))
+> }
+> ```
+>
+> 程序输出的结果为：
+>
+> ```text
+> 20
+> ```
 
-- 对实例成员变量在实例成员函数或属性中的访问
+此例中, 嵌套函数`add` 捕获了 外层函数中`let`声明的局部变量`num`, 形成闭包
 
-    由于实例成员函数或属性将 `this` 作为参数传入，在实例成员函数或属性内通过 `this` 访问所有实例成员变量
+变量`num`被"包装"到`add`中, `add`作为一等公民返回
 
-**变量的捕获发生在闭包定义时**，因此变量捕获有以下规则：
+> 示例 2：捕获的变量**必须在闭包定义时可见**
+>
+> ```cangjie
+> func f() {
+>     let x = 99
+>     func f1() {
+>         println(x)
+>     }
+>     let f2 = { =>
+>         println(y)            // Error, 无法捕获尚未定义的'y'
+>     }
+>     let y = 88
+>     f1()                      // Print 99
+>     f2()
+> }
+> ```
+>
+> 示例 3：捕获的变量**必须在闭包定义前完成初始化**
+>
+> ```cangjie
+> func f() {
+>     let x: Int64
+>     func f1() {
+>         println(x)            // Error, x 还未初始化
+>     }
+>     x = 99
+>     f1()
+> }
+> ```
 
-- 被捕获的变量**必须在闭包定义时可见**，否则编译报错
+仓颉捕获变量, **只能捕获可见的变量, 且只能捕获已经初始化的变量**, 否则编译错误
 
-- 被捕获的变量**必须在闭包定义时已经完成初始化**，否则编译报错
+> 如果捕获的变量是引用类型，可修改其可变实例成员变量的值
+>
+> ```cangjie
+> class C {
+>     public var num: Int64 = 0
+> }
+>
+> func returnIncrementer(): () -> Unit {
+>     let c: C = C()
+>
+>     func incrementer() {
+>         c.num++
+>     }
+>
+>     incrementer
+> }
+>
+> main() {
+>     let f = returnIncrementer()
+>     f()                           // c.num 增加 1
+> }
+> ```
 
-示例 1：闭包 add，捕获了 let 声明的局部变量 num，之后通过返回值返回到 num 定义的作用域之外，调用 add 时仍可正常访问 num。
+仓颉中, 闭包捕获引用类型变量, 可以通过捕获的变量**修改原实例的成员变量**
 
-func returnAddNum(): (Int64) -> Int64 {
-    let num: Int64 = 10
+> 为了防止捕获了`var`声明变量的闭包逃逸，这类闭包**只能被调用**，**不能作为一等公民使用**，包括**不能赋值给变量**，**不能作为实参或返回值使用**，**不能直接将闭包的名字作为表达式使用**
+>
+> ```cangjie
+> func f() {
+>     var x = 1
+>     let y = 2
+>
+>     func g() {
+>         println(x)            // OK, 捕获一个可变变量
+>     }
+>     let b = g                 // Error, g 不能赋值给变量
+>
+>     g                         // Error, g 不能用作表达式
+>     g()                       // OK, g 可以被调用
+>
+>     g                         // Error, g 不能用作返回值
+> }
+> ```
 
-    func add(a: Int64) {
-        return a + num
-    }
-    add
-}
+仓颉规定, **`var`声明的变量被捕获之后, 闭包只能被调用, 不能作为一等公民使用**
 
-main() {
-    let f = returnAddNum()
-    println(f(10))
-}
+主要是为了防止引用类型变量的闭包逃逸
 
-程序输出的结果为：
+值类型变量被捕获之后, 闭包中拥有的是变量的副本
 
-20
+但引用类型变量被捕获则不同, 引用类型变量被捕获捕获的就是原引用类型变量, 你是可以对原实例的成员做出修改的
 
-示例 2：捕获的变量必须在闭包定义时可见。
-
-func f() {
-    let x = 99
-    func f1() {
-        println(x)
-    }
-    let f2 = { =>
-        println(y)      // Error, cannot capture 'y' which is not defined yet
-    }
-    let y = 88
-    f1()     // Print 99
-    f2()
-}
-
-示例 3：捕获的变量必须在闭包定义前完成初始化。
-
-func f() {
-    let x: Int64
-    func f1() {
-        println(x)     // Error, x is not initialized yet
-    }
-    x = 99
-    f1()
-}
-
-如果捕获的变量是引用类型，可修改其可变实例成员变量的值。
-
-class C {
-    public var num: Int64 = 0
-}
-
-func returnIncrementer(): () -> Unit {
-    let c: C = C()
-
-    func incrementer() {
-        c.num++
-    }
-
-    incrementer
-}
-
-main() {
-    let f = returnIncrementer()
-    f()     // c.num increases by 1
-}
-
-为了防止捕获了 var 声明变量的闭包逃逸，这类闭包只能被调用，不能作为一等公民使用，包括不能赋值给变量，不能作为实参或返回值使用，不能直接将闭包的名字作为表达式使用。
-
-func f() {
-    var x = 1
-    let y = 2
-
-    func g() {
-        println(x)  // OK, captured a mutable variable
-    }
-    let b = g  // Error, g cannot be assigned to a variable
-
-    g  // Error, g cannot be used as an expression
-    g()  // OK, g can be invoked
-
-    g  // Error, g cannot be used as a return value
-}
-
-需要注意的是，捕获具有传递性。如果一个函数 f 调用了捕获 var 变量的函数 g，且 g 捕获的 var 变量不在函数 f 内定义，那么函数 f 同样捕获了 var 变量，此时，f 也不能作为一等公民使用。
-
-以下示例中，g 捕获了 var 声明的变量 x，f 调用了 g，且 g 捕获的 x 不在 f 内定义，f 同样不能作为一等公民使用：
-
-func h(){
-    var x = 1
-
-    func g() {  x }   // captured a mutable variable
-
-    func f() {
-        g()      // invoked g
-    }
-    return f // Error
-}
-
-以下示例中，g 捕获了 var 声明的变量 x，f 调用了 g。但 g 捕获的 x 在 f 内定义，f 没有捕获其他 var 声明的变量。因此，f 仍作为一等公民使用：
-
-func h(){
-    func f() {
-        var x = 1
-        func g() { x }   // captured a mutable variable
-
-        g()
-    }
-    return f // Ok
-}
-
-静态成员变量和全局变量的访问，不属于变量捕获，因此访问了 var 修饰的全局变量、静态成员变量的函数或 lambda 仍可作为一等公民使用。
-
-class C {
-    static public var a: Int32 = 0
-    static public func foo() {
-        a++       // OK
-        return a
-    }
-}
-
-var globalV1 = 0
-
-func countGlobalV1() {
-    globalV1++
-    C.a = 99
-    let g = C.foo  // OK
-}
-
-func g(){
-    let f = countGlobalV1 // OK
-    f()
-}
-
-
+> 需要注意的是，捕获具有传递性
+>
+> 如果一个函数 `f` 调用了捕获 `var` 变量的函数 `g`，且 `g` 捕获的 `var` 变量不在函数 `f` 内定义，那么函数 `f` 同样捕获了 `var` 变量，此时，`f` 也不能作为一等公民使用
+>
+> 以下示例中，`g` 捕获了 `var` 声明的变量 `x`，`f` 调用了 `g`，且 `g` 捕获的 `x` 不在 `f` 内定义，`f` 同样不能作为一等公民使用：
+>
+> ```cangjie
+> func h(){
+>     var x = 1
+>
+>     func g() {  x }   // 捕获一个可变变量
+>
+>     func f() {
+>         g()      // 调用 g
+>     }
+>     return f // Error
+> }
+> ```
+>
+> 以下示例中，g 捕获了 var 声明的变量 x，f 调用了 g。但 g 捕获的 x 在 f 内定义，f 没有捕获其他 var 声明的变量。因此，f 仍作为一等公民使用：
+>
+> ```cangjie
+> func h(){
+>     func f() {
+>         var x = 1
+>         func g() { x }   // 捕获一个可变变量
+>
+>         g()
+>     }
+>     return f // Ok
+> }
+> ```
+>
+> 静态成员变量和全局变量的访问，不属于变量捕获，因此访问了 var 修饰的全局变量、静态成员变量的函数或 lambda 仍可作为一等公民使用。
+>
+> ```cangjie
+> class C {
+>     static public var a: Int32 = 0
+>     static public func foo() {
+>         a++       // OK
+>         return a
+>     }
+> }
+>
+> var globalV1 = 0
+>
+> func countGlobalV1() {
+>     globalV1++
+>     C.a = 99
+>     let g = C.foo  // OK
+> }
+>
+> func g(){
+>     let f = countGlobalV1 // OK
+>     f()
+> }
+> ```
