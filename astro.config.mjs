@@ -101,7 +101,7 @@ export default defineConfig({
         codeBackground: "var(--codeblock-bg)",
         borderRadius: "0.75rem",
         borderColor: "none",
-        codeFontSize: "0.925rem",
+        codeFontSize: "0.9rem",
         codeFontFamily: "'Maple Mono Normal Medium'",
         codeLineHeight: "1.41414rem",
         frames: {

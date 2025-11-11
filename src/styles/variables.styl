@@ -32,7 +32,8 @@ define({
   --card-bg-trans50: white(0.5) unquote('oklch(0.23 0.015 var(--hue) / 0.5)')
   --card-bg-trans40: white(0.4) unquote('oklch(0.23 0.015 var(--hue) / 0.4)')
   --card-bg-trans30: white(0.3) unquote('oklch(0.23 0.015 var(--hue) / 0.3)')
-  --card-bg: var(--card-bg-trans50)
+  --card-bg-trans65_70: white(0.65) unquote('oklch(0.23 0.015 var(--hue) / 0.7)')
+  --card-bg: var(--card-bg-trans65_70)
 
   --blockquote-bg: unquote('oklch(0.95 0.01 var(--hue) / 0.5)') unquote('oklch(0.16 0.014 var(--hue) / 0.5)')
 
@@ -72,7 +73,8 @@ define({
   --btn-plain-bg-hover-trans50: unquote('oklch(0.95 0.025 var(--hue) / 0.5)') unquote('oklch(0.30 0.035 var(--hue) / 0.5)')
   --btn-plain-bg-hover-trans40: unquote('oklch(0.95 0.025 var(--hue) / 0.4)') unquote('oklch(0.30 0.035 var(--hue) / 0.4)')
   --btn-plain-bg-hover-trans30: unquote('oklch(0.95 0.025 var(--hue) / 0.3)') unquote('oklch(0.30 0.035 var(--hue) / 0.3)')
-  --btn-plain-bg-hover: var(--btn-plain-bg-hover-trans50)
+  --btn-plain-bg-hover-trans65_70: unquote('oklch(0.95 0.025 var(--hue) / 0.65)') unquote('oklch(0.30 0.035 var(--hue) / 0.7)')
+  --btn-plain-bg-hover: var(--btn-plain-bg-hover-trans65_70)
 
   --btn-plain-bg-active-notrans: oklch(0.98 0.01 var(--hue)) oklch(0.27 0.025 var(--hue))
   --btn-plain-bg-active-trans80: unquote('oklch(0.98 0.01 var(--hue) / 0.8)') unquote('oklch(0.27 0.025 var(--hue) / 0.8)')
@@ -81,7 +83,8 @@ define({
   --btn-plain-bg-active-trans50: unquote('oklch(0.98 0.01 var(--hue) / 0.5)') unquote('oklch(0.27 0.025 var(--hue) / 0.5)')
   --btn-plain-bg-active-trans40: unquote('oklch(0.98 0.01 var(--hue) / 0.4)') unquote('oklch(0.27 0.025 var(--hue) / 0.4)')
   --btn-plain-bg-active-trans30: unquote('oklch(0.98 0.01 var(--hue) / 0.3)') unquote('oklch(0.27 0.025 var(--hue) / 0.3)')
-  --btn-plain-bg-active: var(--btn-plain-bg-active-trans50)
+  --btn-plain-bg-active-trans65_70: unquote('oklch(0.98 0.01 var(--hue) / 0.65)') unquote('oklch(0.27 0.025 var(--hue) / 0.7)')
+  --btn-plain-bg-active: var(--btn-plain-bg-active-trans65_70)
 
   --btn-card-bg-hover-notrans: oklch(0.98 0.005 var(--hue)) oklch(0.3 0.03 var(--hue))
   --btn-card-bg-hover-trans80: unquote('oklch(0.98 0.005 var(--hue) / 0.8)') unquote('oklch(0.3 0.03 var(--hue) / 0.8)')
@@ -134,7 +137,8 @@ define({
   --float-panel-bg-trans50: white(0.5) unquote('oklch(0.19 0.015 var(--hue) / 0.5)')
   --float-panel-bg-trans40: white(0.4) unquote('oklch(0.19 0.015 var(--hue) / 0.4)')
   --float-panel-bg-trans30: white(0.3) unquote('oklch(0.19 0.015 var(--hue) / 0.3)')
-  --float-panel-bg: var(--float-panel-bg-trans70)
+  --float-panel-bg-trans65_70: white(0.65) unquote('oklch(0.19 0.015 var(--hue) / 0.7)')
+  --float-panel-bg: var(--float-panel-bg-trans65_70)
 
   --scrollbar-bg-light: black(0.4)
   --scrollbar-bg-hover-light: black(0.5)
@@ -159,11 +163,11 @@ define({
   --admonitions-color-warning: oklch(0.7 0.14 60) oklch(0.75 0.14 60)
   --admonitions-color-caution: oklch(0.6 0.2 25) oklch(0.65 0.2 25)
 
-  --admonitions-bg-color-tip: unquote('oklch(0.7 0.14 180 / 0.12)') unquote('oklch(0.75 0.14 180 / 0.12)')
-  --admonitions-bg-color-note: unquote('oklch(0.7 0.14 250 / 0.12)') unquote('oklch(0.75 0.14 250 / 0.12)')
-  --admonitions-bg-color-important: unquote('oklch(0.7 0.14 310 / 0.12)') unquote('oklch(0.75 0.14 310 / 0.12)')
-  --admonitions-bg-color-warning: unquote('oklch(0.7 0.14 60 / 0.12)') unquote('oklch(0.75 0.14 60 / 0.12)')
-  --admonitions-bg-color-caution: unquote('oklch(0.6 0.2 25 / 0.12)') unquote('oklch(0.65 0.2 25 / 0.12)')
+  --admonitions-bg-color-tip: unquote('oklch(0.7 0.14 180 / 0.24)') unquote('oklch(0.75 0.14 180 / 0.24)')
+  --admonitions-bg-color-note: unquote('oklch(0.7 0.14 250 / 0.24)') unquote('oklch(0.75 0.14 250 / 0.24)')
+  --admonitions-bg-color-important: unquote('oklch(0.7 0.14 310 / 0.24)') unquote('oklch(0.75 0.14 310 / 0.24)')
+  --admonitions-bg-color-warning: unquote('oklch(0.7 0.14 60 / 0.24)') unquote('oklch(0.75 0.14 60 / 0.24)')
+  --admonitions-bg-color-caution: unquote('oklch(0.6 0.2 25 / 0.24)') unquote('oklch(0.65 0.2 25 / 0.24)')
 
   --toc-badge-bg-notrans: oklch(0.89 0.050 var(--hue)) var(--btn-regular-bg)
   --toc-badge-bg-trans80: unquote('oklch(0.89 0.050 var(--hue) / 0.8)') var(--btn-regular-bg-trans80)
@@ -181,7 +185,8 @@ define({
   --toc-btn-hover-trans50: unquote('oklch(0.926 0.015 var(--hue) / 0.5)') unquote('oklch(0.22 0.02 var(--hue) / 0.5)')
   --toc-btn-hover-trans40: unquote('oklch(0.926 0.015 var(--hue) / 0.4)') unquote('oklch(0.22 0.02 var(--hue) / 0.4)')
   --toc-btn-hover-trans30: unquote('oklch(0.926 0.015 var(--hue) / 0.3)') unquote('oklch(0.22 0.02 var(--hue) / 0.3)')
-  --toc-btn-hover: var(--toc-btn-hover-trans70)
+  --toc-btn-hover-trans65_70: unquote('oklch(0.926 0.015 var(--hue) / 0.65)') unquote('oklch(0.22 0.02 var(--hue) / 0.7)')
+  --toc-btn-hover: var(--toc-btn-hover-trans65_70)
 
   --toc-btn-active-notrans: oklch(0.90 0.015 var(--hue)) oklch(0.25 0.02 var(--hue))
   --toc-btn-active-trans80: unquote('oklch(0.90 0.015 var(--hue) / 0.8)') unquote('oklch(0.25 0.02 var(--hue) / 0.8)')
@@ -207,17 +212,17 @@ define({
 /* 手机端：无透明或微透明 */
 @media (max-width: 768px)
   :root
-    --card-bg: var(--card-bg-trans80)
-    --btn-plain-bg-hover: var(--btn-plain-bg-hover-trans80)
-    --btn-plain-bg-active: var(--btn-plain-bg-active-trans80)
-    --float-panel-bg: var(--float-panel-bg-trans80)
-    --toc-btn-hover: var(--toc-btn-hover-trans80)
+    --card-bg: var(--card-bg-trans65_70)
+    --btn-plain-bg-hover: var(--btn-plain-bg-hover-trans65_70)
+    --btn-plain-bg-active: var(--btn-plain-bg-active-trans65_70)
+    --float-panel-bg: var(--float-panel-bg-trans65_70)
+    --toc-btn-hover: var(--toc-btn-hover-trans65_70)
 
 /* 手机端：无透明或微透明 */
 @media (min-width: 769px) and (max-width: 1024px)
   :root
-    --card-bg: var(--card-bg-trans80)
-    --btn-plain-bg-hover: var(--btn-plain-bg-hover-trans80)
-    --btn-plain-bg-active: var(--btn-plain-bg-active-trans80)
-    --float-panel-bg: var(--float-panel-bg-trans80)
-    --toc-btn-hover: var(--toc-btn-hover-trans80)
+    --card-bg: var(--card-bg-trans65_70)
+    --btn-plain-bg-hover: var(--btn-plain-bg-hover-trans65_70)
+    --btn-plain-bg-active: var(--btn-plain-bg-active-trans65_70)
+    --float-panel-bg: var(--float-panel-bg-trans65_70)
+    --toc-btn-hover: var(--toc-btn-hover-trans65_70)

@@ -189,5 +189,7 @@
 
 #toc-inner-wrapper {
   background-color: var(--card-bg);
-  backdrop-filter: blur(11px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
 }

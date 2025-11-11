@@ -4,10 +4,10 @@
 import { definePlugin } from "@expressive-code/core";
 
 export function pluginLanguageBadge() {
-	return definePlugin({
-		name: "Language Badge",
-		// @ts-expect-error
-		baseStyles: ({ _cssVar }) => `
+  return definePlugin({
+    name: "Language Badge",
+    // @ts-expect-error
+    baseStyles: ({ _cssVar }) => `
       [data-language]::before {
         position: absolute;
         z-index: 2;
@@ -29,7 +29,7 @@ export function pluginLanguageBadge() {
       .frame:not(.has-title):not(.is-terminal) {
         @media (hover: none) {
           & [data-language]::before {
-            opacity: 1;
+            opacity: 0.6;
             margin-right: 3rem;
           }
           & [data-language]:active::before {
@@ -38,7 +38,7 @@ export function pluginLanguageBadge() {
         }
         @media (hover: hover) {
           & [data-language]::before {
-            opacity: 1;
+            opacity: 0.6;
           }
           &:hover [data-language]::before {
             opacity: 0;
@@ -46,5 +46,5 @@ export function pluginLanguageBadge() {
         }
       }
     `,
-	});
+  });
 }
