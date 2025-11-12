@@ -150,12 +150,15 @@
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
     background-color: var(--blockquote-bg);
+    border: 1px solid var(--blockquote-bg) !important;
+    box-shadow: 0 4px 24px var(--shadow-color);
 
     &:before {
       /*@apply content-[''] absolute block transition bg-[var(--btn-regular-bg-hover)] h-full w-1 rounded-full;*/
       @apply content-[''] absolute block transition bg-[var(--primary)] h-full w-1 rounded-full;
       height: unset !important;
-      left: -0.22rem;
+      /*left: -0.22rem;*/
+      left: -0.05rem;
       top: 0.7rem;
       bottom: 0.7rem;
     }
@@ -191,5 +194,5 @@
   background-color: var(--card-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 24px var(--shadow-color);
 }
