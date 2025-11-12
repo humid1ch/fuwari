@@ -39,6 +39,10 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 const mainPanelTop = siteConfig.banner.enable
 	? `calc(${BANNER_HEIGHT}vh - ${MAIN_PANEL_OVERLAPS_BANNER_HEIGHT}rem)`
 	: "5.5rem";
+
+const url = new URL(Astro.request.url);
+const pathname = url.pathname; // 获取当前路径
+const isPostPage = pathname.startsWith('/posts/');
 ---
 
 <Layout title={title} banner={banner} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle}>
@@ -63,7 +67,7 @@ const mainPanelTop = siteConfig.banner.enable
 <div class="absolute w-full z-30 pointer-events-none" style={`top: ${mainPanelTop}`}>
     <!-- The pointer-events-none here prevent blocking the click event of the TOC -->
     <div class="relative max-w-[var(--page-width)] mx-auto pointer-events-auto">
-        <div id="main-grid" class="transition duration-700 w-full left-0 right-0 grid grid-cols-[17.5rem_auto] grid-rows-[auto_1fr_auto] lg:grid-rows-[auto]
+        <div id="main-grid" class="transition duration-700 w-full left-0 right-0 grid grid-cols-[15rem_auto] grid-rows-[auto_1fr_auto] lg:grid-rows-[auto]
     mx-auto gap-4 px-0 md:px-4"
         >
             <!-- Banner image credit -->
@@ -80,7 +84,7 @@ const mainPanelTop = siteConfig.banner.enable
             </a>}
 
 
-            <SideBar class="mb-4 row-start-2 row-end-3 col-span-2 lg:row-start-1 lg:row-end-2 lg:col-span-1 lg:max-w-[17.5rem] onload-animation" headings={headings}></SideBar>
+            <SideBar class="mb-4 row-start-2 row-end-3 col-span-2 lg:row-start-1 lg:row-end-2 lg:col-span-1 lg:max-w-[15rem] onload-animation" headings={headings}></SideBar>
 
             <main id="swup-container" class="transition-swup-fade col-span-2 lg:col-span-1 overflow-hidden">
                 <div id="content-wrapper" class="onload-animation">
@@ -125,6 +129,7 @@ const mainPanelTop = siteConfig.banner.enable
 </Layout>
 
 <script is:inline>
+
 (function() {
   // 防止重复初始化整个逻辑
   if (window._decoShapesInitialized) return;
@@ -267,4 +272,17 @@ document.addEventListener("DOMContentLoaded", () => {
     initCodeLineHighlight();
 });
 // astro:page-load 通常不需要，除非你做 SPA 导航且需要重置状态
+</script>
+
+<script is:inline>
+  const tocWrapper = document.getElementById('toc-inner-wrapper');
+  function updateTOCVisibility() {
+    const isPost = location.pathname.startsWith('/posts/');
+    tocWrapper.classList.toggle('hidden', !isPost);
+  }
+  updateTOCVisibility();
+
+  document.addEventListener('DOMContentLoaded', updateTOCVisibility);
+  // Swup 切换时重新判断
+  document.addEventListener('astro:page-load', updateTOCVisibility);
 </script>
