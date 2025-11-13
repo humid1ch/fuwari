@@ -188,11 +188,8 @@
   .expressive-code .ec-line .code {
     padding-left: 0.5rem;
   }
-}
 
-#toc-inner-wrapper {
-  background-color: var(--card-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 4px 24px var(--shadow-color);
+  li {
+    margin-left: 0.5rem;
+  }
 }

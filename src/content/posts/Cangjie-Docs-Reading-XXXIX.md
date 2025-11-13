@@ -35,9 +35,9 @@ category: Blogs
 
 ## 函数
 
-语法糖的意思是 更友好的相关语法使用方式
-
 ### 函数调用语法糖
+
+语法糖的意思是 更友好的相关语法使用方式
 
 #### 尾随`lambda`
 
@@ -126,7 +126,7 @@ category: Blogs
 > let res = arr |> inc |> sum                 // res = 12
 > ```
 
-**`|>(pipeline)`是单参数函数调用的语法糖**
+**`|>(pipeline)`是函数调用的语法糖**
 
 `e1 |> e2`, 就表示 将`e1`作为`e2`的实参调用`e2`, 表达式的结果就是`e2`调用的返回值
 
@@ -140,7 +140,7 @@ category: Blogs
 > 
 > `composition` 表达式语法为 `f ~> g`，等价于 `{ x => g(f(x)) }`
 > 
-> 其中 `f`，`g` 均为只有一个参数的函数类型的表达式
+> 其中 `f`，`g` 均为**只有一个参数的函数类型的表达式**
 > 
 > `f` 和 `g` 组合，则要求 `f(x)` 的返回类型是 `g(...)` 的参数类型的子类型
 > 
@@ -154,7 +154,7 @@ category: Blogs
 >     x
 > }
 > 
-> var fg = f ~> g // The same as { x: Int64 => g(f(x)) }
+> var fg = f ~> g                           // 等价于 { x: Int64 => g(f(x)) }
 > ```
 > 
 > 示例 2：
@@ -164,7 +164,7 @@ category: Blogs
 >     Float64(x)
 > }
 > 
-> let lambdaComp = ({x: Int64 => x}) ~> f // The same as { x: Int64 => f({x: Int64 => x}(x)) }
+> let lambdaComp = ({x: Int64 => x}) ~> f   // 等价于 { x: Int64 => f({x: Int64 => x}(x)) }
 > ```
 > 
 > 示例 3：
@@ -172,21 +172,29 @@ category: Blogs
 > ```cangjie
 > func h1<T>(x: T): T { x }
 > func h2<T>(x: T): T { x }
-> var hh = h1<Int64> ~> h2<Int64> // The same as { x: Int64 => h2<Int64>(h1<Int64>(x)) }
+> var hh = h1<Int64> ~> h2<Int64>           // 等价于 { x: Int64 => h2<Int64>(h1<Int64>(x)) }
 > ```
 > 
 > > 注意：
 > > 
-> > 表达式 `f ~> g` 中，会先对 `f` 求值，然后对 `g` 求值，最后才会进行函数的组合
-> 
-> 另外，流操作符**不能与无默认值的命名形参函数直接一同使用**，这是因为无默认值的命名形参函数必须给出命名实参才可以调用
+> > 表达式 `f ~> g` 中，会**先对 `f` 求值，然后对 `g` 求值**，最后才会进行函数的组合
+
+`|>(pipeline)`是函数调用的语法糖, 表达式的值 是**最终函数调用的返回值**
+
+与`|>(pipeline)`不同, `~>(composition)`表达式是**单参函数按顺序调用组合**的语法糖, 最终可以等价于一个`lambda`, 即 表达式的值 其实是**一个符合语义的`lambda`**
+
+`左函数 ~> 右函数`, 会先对左函数求值, 并作为右函数的参数
+
+##### `|>(pipeline)`注意事项
+
+> 另外，流操作符不能与 **无默认值的命名形参函数**，直接一同使用, 这是因为无默认值的命名形参函数必须给出命名实参才可以调用
 > 
 > 例如：
 > 
 > ```cangjie
 > func f(a!: Int64): Unit {}
 > 
-> var a = 1 |> f  // Error
+> var a = 1 |> f                            // Error
 > ```
 > 
 > 如果需要使用，开发者可以通过 `lambda` 表达式传入 `f` 函数的命名实参：
@@ -194,7 +202,7 @@ category: Blogs
 > ```cangjie
 > func f(a!: Int64): Unit {}
 > 
-> var x = 1 |>  { x: Int64 => f(a: x) } // Ok
+> var x = 1 |>  { x: Int64 => f(a: x) }     // Ok
 > ```
 > 
 > 由于相同的原因，当 `f` 的参数有默认值时，直接与流运算符一起使用也是错误的，例如：
@@ -202,7 +210,7 @@ category: Blogs
 > ```cangjie
 > func f(a!: Int64 = 2): Unit {}
 > 
-> var a = 1 |> f // Error
+> var a = 1 |> f                            // Error
 > ```
 > 
 > 但是当命名形参都存在默认值时，不需要给出命名实参也可以调用该函数，函数仅需要传入非命名形参，那么这种函数是可以同流运算符一起使用的，例如：
@@ -210,7 +218,7 @@ category: Blogs
 > ```cangjie
 > func f(a: Int64, b!: Int64 = 2): Unit {}
 > 
-> var a = 1 |> f  // Ok
+> var a = 1 |> f                            // Ok
 > ```
 > 
 > 当然，如果想要在调用 `f` 时，为参数 `b` 传入其他参数，那么也需要借助 `lambda` 表达式：
@@ -218,5 +226,139 @@ category: Blogs
 > ```cangjie
 > func f(a: Int64, b!: Int64 = 2): Unit {}
 > 
-> var a = 1 |> {x: Int64 => f(x,  b: 3)}  // Ok
+> var a = 1 |> {x: Int64 => f(x,  b: 3)}    // Ok
 > ```
+
+`|>(pipeline)`可以与非单参函数一起使用, 但是 如果直接使用必须要保证:
+
+1. 允许只显式传入一个参数进行调用
+
+    因为, `|>(pipeline)`进行函数调用只能传入一个参数
+
+2. 需要显示传入的参数, 不能是命名参数
+
+    因为, 命名参数无论是否存在默认值, 如果需要显式传入实参, 那么**必须显式命名**
+
+当然, 可以通过单参`lambda`, 然后在`lambda`体内 显式传参调用, 实现间接使用`|>`
+
+### 变长参数
+
+> 变长参数是一种特殊的函数调用语法糖
+> 
+> 当**形参最后一个非命名参数是 `Array` 类型**时，实参中对应位置可以直接传入参数序列代替 `Array` 字面量（参数个数可以是 `0` 个或多个）
+> 
+> 示例如下：
+> 
+> ```cangjie
+> func sum(arr: Array<Int64>) {
+>     var total = 0
+>     for (x in arr) {
+>         total += x
+>     }
+>     return total
+> }
+> 
+> main() {
+>     println(sum())
+>     println(sum(1, 2, 3))
+> }
+> ```
+> 
+> 程序输出：
+> 
+> ```text
+> 0
+> 6
+> ```
+> 
+> 需要注意，**只有最后一个非命名参数可以作为变长参数**，命名参数不能使用这个语法糖
+> 
+> ```cangjie
+> func length(arr!: Array<Int64>) {
+>     return arr.size
+> }
+> 
+> main() {
+>     println(length())                 // Error, 预期 1 个参数，找到 0 个参数
+>     println(length(1, 2, 3))          // Error, 预期 1 个参数，找到 3 个参数
+> }
+> ```
+
+仓颉函数也可以拥有变长参数, 即 **当且仅当函数的最后一个形参是 非命名的`Array`类型 时**
+
+仓颉函数的变长参数可以是`0`个参数, 当然也可以更多
+
+> 变长参数可以出现在全局函数、静态成员函数、实例成员函数、局部函数、构造函数、函数变量、`lambda`、函数调用操作符重载、索引操作符重载的调用处
+> 
+> 不支持其他操作符重载、`composition`、`pipeline` 这几种调用方式
+> 
+> 示例如下：
+> 
+> ```cangjie
+> class Counter {
+>     var total = 0
+>     init(data: Array<Int64>) { total = data.size }
+>     operator func ()(data: Array<Int64>) { total += data.size }
+> }
+> 
+> main() {
+>     let counter = Counter(1, 2)
+>     println(counter.total)
+>     counter(3, 4, 5)
+>     println(counter.total)
+> }
+> ```
+> 
+> 程序输出：
+> 
+> ```text
+> 2
+> 5
+> ```
+> 
+> **函数重载决议总是会优先考虑不使用变长参数就能匹配的函数**，只有在所有函数都不能匹配，才尝试使用变长参数解析
+> 
+> 示例如下：
+> 
+> ```cangjie
+> func f<T>(x: T) where T <: ToString {
+>     println("item: ${x}")
+> }
+> 
+> func f(arr: Array<Int64>) {
+>     println("array: ${arr}")
+> }
+> 
+> main() {
+>     f()
+>     f(1)
+>     f(1, 2)
+> }
+> ```
+> 
+> 程序输出：
+> 
+> ```text
+> array: []
+> item: 1
+> array: [1, 2]
+> ```
+> 
+> 当编译器无法决议时会报错：
+> 
+> ```cangjie
+> func f(arr: Array<Int64>) { arr.size }
+> func f(first: Int64, arr: Array<Int64>) { first + arr.size }
+> 
+> main() {
+>     println(f(1, 2, 3))                                       // Error
+> }
+> ```
+
+仓颉函数的变长参数是一种语法糖, 正常调用的话, 最后一个参数应该传入`Array`实例
+
+函数变长参数调用, 只是`Array`实例 以 传入多个相同类型实参的形式 调用
+
+所以, 变长参数可能与重载函数存在一定的冲突
+
+仓颉规定 **函数重载决议总是会优先考虑不使用变长参数就能匹配的函数**，只有在所有函数都不能匹配，才尝试使用变长参数解析
