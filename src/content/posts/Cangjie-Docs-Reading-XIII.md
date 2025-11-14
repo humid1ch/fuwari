@@ -139,7 +139,7 @@ tags:
 >
 >    - 成员变量形参的语法和成员变量定义语法一致, 此外, 和普通形参一样支持使用`!`来标注是否为命名形参
 >
->    - 成员变量形参的修饰符有:`public`,`protected`,`private`
+>    - 成员变量形参的修饰符有: `public`,`protected`,`private`
 >
 >    - 成员变量形参只允许实例成员变量, 即不允许使用`static`修饰
 >
@@ -799,7 +799,7 @@ tags:
 >   }
 >   ```
 
-仓颉的成员函数修饰符有这几个:` open``override``static``redef `
+仓颉的成员函数修饰符有这几个: ` open``override``static``redef `
 
 `override`和`static`不用过多理解,`override`只是用来表示此函数是被重写的(不具有`open`语义),`static`表示此函数是一个静态函数
 
@@ -899,7 +899,7 @@ tags:
 >
 > 创建`class`实例的方式按照**是否包含类型变元**可分为两种:
 >
-> 1. 创建非泛型`class`的实例:`ClassName(arguments)`
+> 1. 创建非泛型`class`的实例: `ClassName(arguments)`
 >
 >    其中`ClassName`为`class`类型的名字,`arguments`为实参列表
 >
@@ -926,7 +926,7 @@ tags:
 >    }
 >    ```
 >
-> 2. 创建泛型`class`的实例:`ClassName<Type1, Type2, ... , TypeK>(arguments)`
+> 2. 创建泛型`class`的实例: `ClassName<Type1, Type2, ... , TypeK>(arguments)`
 >
 >    与创建非泛型`class`的实例的差别仅在于需要**对泛型参数进行实例化**, 泛型实参可以显式指定, 也可以省略(此时由编译器根据程序上下文推断出具体的类型)
 >

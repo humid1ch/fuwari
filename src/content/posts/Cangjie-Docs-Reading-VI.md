@@ -640,7 +640,7 @@ C++直到现在也没有完善的模式匹配语法, 只有一个类似的只能
 >
 > 对于类型模式`varBindingPattern : type`(或`wildcardPattern : type`)
 >
-> 首先判断要匹配的值的运行时类型是否是`:`右侧`type`定义的类型或它的子类, 若类型匹配成功则将值的类型转换为`type`定义的类型, 然后将新类型的值与`:`左侧的`varBindingPattern`进行绑定(对于`wildcardPattern : type`, 不存在绑定)
+> 首先判断要匹配的值的运行时类型是否是`: `右侧`type`定义的类型或它的子类, 若类型匹配成功则将值的类型转换为`type`定义的类型, 然后将新类型的值与`: `左侧的`varBindingPattern`进行绑定(对于`wildcardPattern : type`, 不存在绑定)
 >
 > 只有类型匹配, 才算成功匹配, 否则匹配失败, 因此, `varBindingPattern : type`(或`wildcardPattern : type`)可以同时实现`type test`和`type cast`
 >

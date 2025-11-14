@@ -36,27 +36,10 @@ body {
   }
   .card-base {
     @apply rounded-[var(--radius-large)] overflow-hidden bg-[var(--card-bg)] transition;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid var(--border-color) !important;
-    box-shadow: 0 4px 24px var(--shadow-color) !important;
 
     .text-3xl {
       font-size: 1.6rem;
     }
-  }
-  #navbar .card-base {
-    @apply bg-[var(card-bg)];
-    border: 1px solid var(--border-color) !important;
-    box-shadow: 0 4px 24px var(--shadow-color) !important;
-  }
-
-  .back-to-top-btn,
-  .float-panel {
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid var(--border-color) !important;
-    box-shadow: 0 4px 24px var(--shadow-color) !important;
   }
 
   h1,
@@ -107,11 +90,6 @@ body {
   .btn-card {
     @apply transition flex items-center justify-center bg-[var(--card-bg)] hover:bg-[var(--btn-card-bg-hover)]
         active:bg-[var(--btn-card-bg-active)];
-
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border-color) !important;
-    box-shadow: 0 4px 24px var(--shadow-color) !important;
   }
   .btn-card.disabled {
     @apply pointer-events-none text-black/10 dark:text-white/10;
@@ -259,4 +237,19 @@ body {
 .prose th[align="right"],
 .prose td[align="right"] {
   text-align: end !important;
+}
+
+.card-base,
+.back-to-top-btn,
+.float-panel,
+.btn-card,
+#toc-inner-wrapper {
+  -webkit-backdrop-filter: blur(20px) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 4px 24px var(--shadow-color) !important;
+}
+
+#toc-inner-wrapper {
+  background-color: var(--card-bg) !important;
 }

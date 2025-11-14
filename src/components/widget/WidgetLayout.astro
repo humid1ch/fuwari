@@ -24,7 +24,11 @@ const className = Astro.props.class;
     {isCollapsed && <div class="expand-btn px-4 -mb-2">
         <button class="btn-plain rounded-lg w-full h-9">
             <div class="text-[var(--primary)] flex items-center justify-center gap-2 -translate-x-2">
-                <Icon name="material-symbols:more-horiz" class="text-[1.75rem]"></Icon> {i18n(I18nKey.more)}
+                <!-- 默认“更多”图标 -->
+                <Icon name="material-symbols:more-horiz" class="text-[1.75rem] more-icon"></Icon>
+                <!-- 展开后的“收起”图标，初始隐藏 -->
+                <Icon name="material-symbols:expand-less" class="text-[1.75rem] collapse-icon hidden"></Icon>
+                <span class="text">{i18n(I18nKey.more)}</span>
             </div>
         </button>
     </div>}
@@ -33,28 +37,54 @@ const className = Astro.props.class;
 <style define:vars={{ collapsedHeight }}>
     .collapsed {
         height: var(--collapsedHeight);
+        overflow: hidden;
+        transition: height 0.3s ease;
     }
 </style>
 
 <script>
-    class WidgetLayout extends HTMLElement {
-        constructor() {
-            super();
+class WidgetLayout extends HTMLElement {
+    constructor() {
+        super();
 
-            if (this.dataset.isCollapsed !== "true")
-                return;
+        const id = this.dataset.id;
+        const btn = this.querySelector('.expand-btn');
 
-            const id = this.dataset.id;
-            const btn = this.querySelector('.expand-btn');
-            const wrapper = this.querySelector(`#${id}`)
-            btn!.addEventListener('click', () => {
-                wrapper!.classList.remove('collapsed');
-                btn!.classList.add('hidden');
-            })
+        if (!btn)
+            return
+
+        const wrapper = this.querySelector(`#${id}`);
+        const moreIcon = btn!.querySelector('.more-icon');
+        const collapseIcon = btn!.querySelector('.collapse-icon');
+        const textSpan = btn!.querySelector('.text');
+
+        // 确保初始状态 collapsed
+        if (this.dataset.isCollapsed === "true") {
+            wrapper!.classList.add('collapsed');
         }
-    }
 
-    if (!customElements.get("widget-layout")) {
-        customElements.define("widget-layout", WidgetLayout);
+        btn!.addEventListener('click', () => {
+            const isCollapsed = wrapper!.classList.contains('collapsed');
+            if (isCollapsed) {
+                // 展开
+                wrapper!.classList.remove('collapsed');
+                textSpan!.textContent = '收起';
+                btn!.style.marginTop = '0.5rem';
+                moreIcon!.classList.add('hidden');
+                collapseIcon!.classList.remove('hidden');
+            } else {
+                // 收起
+                wrapper!.classList.add('collapsed');
+                textSpan!.textContent = '更多';
+                btn!.style.marginTop = '';
+                moreIcon!.classList.remove('hidden');
+                collapseIcon!.classList.add('hidden');
+            }
+        });
     }
+}
+
+if (!customElements.get("widget-layout")) {
+    customElements.define("widget-layout", WidgetLayout);
+}
 </script>

@@ -418,7 +418,7 @@ int main(int argc, char* argv[]) {
 
 上面介绍了直接使用`setsid()`设置守护进程
 
-另外, Linux 操作系统还提供了另外的系统调用:`daemon()`
+另外, Linux 操作系统还提供了另外的系统调用: `daemon()`
 
 `daemon()`可以一键完成`fork()`、`setsid()`以及重定向文件描述符的操作
 

@@ -111,7 +111,7 @@ tags:
 
 ![|large](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722160538842.webp)
 
-在Linux操作系统中经常使用的命令用不了了, 命令行会提示:`command not found`, 这是为什么?
+在Linux操作系统中经常使用的命令用不了了, 命令行会提示: `command not found`, 这是为什么?
 
 当再次执行`echo $PATH`查看PATH的内容时:
 

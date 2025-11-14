@@ -579,7 +579,7 @@ TCP 客户端前面的实现 与 UDP 客户端前面的实现 步骤相同:
 
 之后, TCP 客户端需要向 TCP 服务器发送连接请求, 只有在连接成功之后 才能进行通信.
 
-连接请求的接口是:`connect()`
+连接请求的接口是: `connect()`
 
 ![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250722161213166.webp)
 

@@ -39,7 +39,7 @@ tags:
 >
 > **名字**必须是一个合法的 [标识符](https://blog.humid1ch.cn/posts/cangjie-docs-reading-i/#heading-1) 
 >
-> 仓颉编程语言的关键字、变量、函数、类型(包括:`class`、`interface`、`struct`、`enum`、`type alias`)、泛型参数、`package`名、`module`名共用同一个**命名空间**, 即, 在同一个`scope`声明或定义的实体, 不允许同名(除了构成重载的名字)
+> 仓颉编程语言的关键字、变量、函数、类型(包括: `class`、`interface`、`struct`、`enum`、`type alias`)、泛型参数、`package`名、`module`名共用同一个**命名空间**, 即, 在同一个`scope`声明或定义的实体, 不允许同名(除了构成重载的名字)
 >
 > 不同`scope`声明或定义的实体允许同名, 但可能产生`shadow`
 >
@@ -163,13 +163,13 @@ tags:
 
 #### 作用域类型
 
-> 根据名字引入的位置分为三种:`top-level`, `local-level`, `类型内部`, 这三种类型的`scope`原则各有不同
+> 根据名字引入的位置分为三种: `top-level`, `local-level`, `类型内部`, 这三种类型的`scope`原则各有不同
 
 ##### `Top-level`
 
 > `Top-level`引入的名字遵守如下作用域原则:
 >
-> - `Top-level`函数、类型, 其作用域为整个`package`, 名字对整个`package`可见, 其中类型包括:`class`、`interface`、`enum`、`struct`、`type`引入的名字
+> - `Top-level`函数、类型, 其作用域为整个`package`, 名字对整个`package`可见, 其中类型包括: `class`、`interface`、`enum`、`struct`、`type`引入的名字
 >
 > - `Top-level`变量, 即由`let`, `var`和`const`引入的名字, 其作用域为从定义(包括赋初值)完成之后开始, 不包括从本文件开头到变量声明之间的区间, 名字对`package`的其它文件可见
 >
@@ -521,10 +521,10 @@ C/C++无论是函数、类型和变量, 都需要"先声明"再使用, 这里的
 >
 > 1. 修饰符
 >
->    - `top-level`变量的修饰符包括:`public`, `protected`, `private`, `internal`
+>    - `top-level`变量的修饰符包括: `public`, `protected`, `private`, `internal`
 >    - **局部变量不能用修饰符修饰**
->    - `class`类型的成员变量的修饰符包括:`public`, `protected`, `private`, `internal`, `static`
->    - `struct`类型的成员变量的修饰符包括:`public`, `private`, `internal`, `static`
+>    - `class`类型的成员变量的修饰符包括: `public`, `protected`, `private`, `internal`, `static`
+>    - `struct`类型的成员变量的修饰符包括: `public`, `private`, `internal`, `static`
 >
 > 2. 关键字`let/var/const`
 >
@@ -552,11 +552,11 @@ C/C++无论是函数、类型和变量, 都需要"先声明"再使用, 这里的
 
 `patternsMaybeIrrefutable`应该是变量名的模式, `irrefutable`是不可辩驳的意思, 意思应该是没有歧义
 
-`wildcardPattern`通配符模式, 意思是, 定义时变量名可以是通配符? 应该是解构某些数据时, 忽略数据用的:`let _ = "ignore data"`
+`wildcardPattern`通配符模式, 意思是, 定义时变量名可以是通配符? 应该是解构某些数据时, 忽略数据用的: `let _ = "ignore data"`
 
-`varBindingPattern`变量绑定模式, 应该就是普通的变量:`let val: Int64 = 30`
+`varBindingPattern`变量绑定模式, 应该就是普通的变量: `let val: Int64 = 30`
 
-`tuplePattern`元组模式, 解构元组时用的:`let (_, val) = ("ignore data", 30)`
+`tuplePattern`元组模式, 解构元组时用的: `let (_, val) = ("ignore data", 30)`
 
 `enumPattern`是枚举模式, 暂时想不出什么作用?
 

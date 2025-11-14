@@ -91,7 +91,7 @@ tags:
 
 但`Rune`可表示字符的范围, 要比C/C++中的`char`要大多了, 所以整型到`Rune`的转换才要限制
 
-> 为了保证类型安全, 仓颉编程语言不支持数值类型之间的隐式类型转换(数值字面量的类型由上下文推断得到, 这种情形并不是隐式类型转换), 要实现一种数值类型到另外一种数值类型的转换, 必须使用显式的方式:`NumericType(expr)`, 表示将`expr`的类型强制转换为`NumericType`类型(`NumericType`表示任意一种数值类型), 如转换成功, 会返回一个新的从`expr`构造而来的类型为`NumericType`的值
+> 为了保证类型安全, 仓颉编程语言不支持数值类型之间的隐式类型转换(数值字面量的类型由上下文推断得到, 这种情形并不是隐式类型转换), 要实现一种数值类型到另外一种数值类型的转换, 必须使用显式的方式: `NumericType(expr)`, 表示将`expr`的类型强制转换为`NumericType`类型(`NumericType`表示任意一种数值类型), 如转换成功, 会返回一个新的从`expr`构造而来的类型为`NumericType`的值
 >
 > 数值类型转换的语法定义为:
 >
@@ -274,7 +274,7 @@ tags:
 
 #### `class/interface`之间的类型转换
 
-> 对于一个`class/interface`类型的实例`obj`, 如果需要将它的(静态)类型转换到另一个`class/interface`类型`TargetType`, 可使用:`obj as TargetType`
+> 对于一个`class/interface`类型的实例`obj`, 如果需要将它的(静态)类型转换到另一个`class/interface`类型`TargetType`, 可使用: `obj as TargetType`
 >
 > 关于`as`操作符的使用, 以及`class/interface`之间的类型转换规则, 参见[as 操作符]
 

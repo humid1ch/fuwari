@@ -365,8 +365,8 @@ tags:
 >
 > ```cangjie
 > main(): Int64 {
->     3 < 4 < 5      // error:`<`is non-associative
->     3 == 3 != 4    // error:`==`and`!=`are non-associative
+>     3 < 4 < 5      // error: `<`is non-associative
+>     3 == 3 != 4    // error: `==`and`!=`are non-associative
 >     return 0
 > }
 > ```
@@ -444,7 +444,7 @@ tags:
 > }
 > ```
 
-仓颉提供了`is`操作符, 可以用于判断变量是否是某个类型:`value is Type`, 如果`value`是`Type`的子类型, 表达式值也会为`true`
+仓颉提供了`is`操作符, 可以用于判断变量是否是某个类型: `value is Type`, 如果`value`是`Type`的子类型, 表达式值也会为`true`
 
 此为`type test`表达式
 

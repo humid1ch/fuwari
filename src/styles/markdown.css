@@ -146,7 +146,9 @@
     @apply not-italic border-transparent relative;
     font-weight: inherit;
     font-size: 0.95rem;
-    border-radius: calc(var(--ec-brdRad) + var(--ec-brdWd));
+    border-radius: calc(
+      var(--ec-brdRad, 0.75rem) + var(--ec-brdWd, 1.5px)
+    ); /*--ec-brdRad和 --ec-brdWd 来自于expressive-code相关css中, 如果页面没有大代码块, 默认不存在, 所以设置等效回退值*/
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
     background-color: var(--blockquote-bg);
@@ -188,11 +190,8 @@
   .expressive-code .ec-line .code {
     padding-left: 0.5rem;
   }
-}
 
-#toc-inner-wrapper {
-  background-color: var(--card-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 4px 24px var(--shadow-color);
+  li {
+    margin-left: 0.5rem;
+  }
 }
