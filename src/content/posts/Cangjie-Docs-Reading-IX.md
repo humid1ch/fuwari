@@ -96,7 +96,7 @@ C++中也存在流, 只不过与仓颉中的流 好像并不是同一种东西?
 >         b = 0
 >     }
 >     init(x: Int32, y: Int32) {
->         x |> init // error:`init`is not a valid expression
+>         x |> init // error: `init`is not a valid expression
 >         b = y
 >     }
 > }
@@ -187,7 +187,7 @@ C++中也存在流, 只不过与仓颉中的流 好像并不是同一种东西?
 >     ;
 >
 > tupleLeftValueExpression
->     :`(`(leftValueExpression | tupleLeftValueExpression) (`, `(leftValueExpression | tupleLeftValueExpression))+`, `?`)`
+>     : `(`(leftValueExpression | tupleLeftValueExpression) (`, `(leftValueExpression | tupleLeftValueExpression))+`, `?`)`
 >     ;
 >
 > leftValueExpression
@@ -450,7 +450,7 @@ C++与仓颉都拥有的赋值运算符, 使用上大致都相同, 但`&&=`和`|
 > | `&&=`   |        |                | `leftValue &&= expr`   |                                                                                |
 > | `\|\|=` |        |                | `leftValue \|\|= expr` |                                                                                |
 >
-> > 注:`?`和`.`、`()`、`{}`、`[]`一起使用时, 是一种语法糖形式, 不会严格按照它们固有的优先级和结合性进行求值, 详见 [问号操作符](https://blog.humid1ch.cn/posts/cangjie-docs-reading-vii/#heading-21) 
+> > 注: `?`和`.`、`()`、`{}`、`[]`一起使用时, 是一种语法糖形式, 不会严格按照它们固有的优先级和结合性进行求值, 详见 [问号操作符](https://blog.humid1ch.cn/posts/cangjie-docs-reading-vii/#heading-21) 
 
 ### 表达式求值顺序
 

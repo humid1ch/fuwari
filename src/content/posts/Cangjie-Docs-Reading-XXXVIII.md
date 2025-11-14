@@ -84,7 +84,7 @@ category: Blogs
 >
 > 仓颉编程语言中也引入了`Lambda`表达式, 具体使用介绍将在本小节展开介绍
 >
-> `Lambda`表达式的语法为如下形式:`{ p1: T1, ..., pn: Tn => expressions | declarations }`
+> `Lambda`表达式的语法为如下形式: `{ p1: T1, ..., pn: Tn => expressions | declarations }`
 >
 > 其中:
 >

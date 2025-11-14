@@ -156,7 +156,7 @@ tags:
 
 下载完成之后, 如果你是`WSL`, 那么还需要将下载好的文件移到`WSL`系统中:
 
-在`Windows`上下载完成之后, 找到你的文件路径, 例如:`"C:\Users\humid1ch\Downloads\cangjie-sdk-linux-x64-1.0.3.tar.gz"`
+在`Windows`上下载完成之后, 找到你的文件路径, 例如: `"C:\Users\humid1ch\Downloads\cangjie-sdk-linux-x64-1.0.3.tar.gz"`
 
 然后启动你的`WSL`, 可以将工具链压缩包复制到`Linux`的目标路径下:
 

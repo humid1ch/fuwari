@@ -117,7 +117,7 @@ tags:
 
 实际的初始化操作, 就是调用函数传入索引, 返回目标索引获取的`T`类型数据作为`Array`中目标索引的初始值
 
-仓颉中的数组字面量格式为:`[elem1, elem2, ...]`, 也可以用来创建`Array`实例
+仓颉中的数组字面量格式为: `[elem1, elem2, ...]`, 也可以用来创建`Array`实例
 
 ##### 访问`Array`中的元素
 
@@ -146,7 +146,7 @@ tags:
 > }
 > ```
 
-仓颉中`Array`元素的访问也比较简单:`[]`下标索引 和`for-in`迭代
+仓颉中`Array`元素的访问也比较简单: `[]`下标索引 和`for-in`迭代
 
 ##### 访问`Array`的大小
 
@@ -604,7 +604,7 @@ main() {
 >
 >     如果有初始值, 初始值表达式中仅可以引用定义在它之前的已经初始化的成员变量, 以及`struct`中的静态成员函数
 
-从定义语法来看:`variableModifier`变量修饰词, `NL`换行, `(LET | VAR)`修饰词, `patternsMaybeIrrefutable`可选模式
+从定义语法来看: `variableModifier`变量修饰词, `NL`换行, `(LET | VAR)`修饰词, `patternsMaybeIrrefutable`可选模式
 
 应该这样定义:
 
@@ -687,7 +687,7 @@ main() {
 >
 >     - 成员变量形参的 **语法和成员变量定义语法一致**, 此外, 和普通形参一样支持使用`!`来标注是否为命名形参
 >
->     - 成员变量形参的 修饰符有:`public`, `private`, `protected`, `internal`
+>     - 成员变量形参的 修饰符有: `public`, `private`, `protected`, `internal`
 >
 >     - 成员变量形参 **只允许非静态成员变量**, 即不允许使用`static`修饰
 >
@@ -872,7 +872,7 @@ struct B<X,Y> {
 >
 > `struct`实例的定义方式按照是否包含类型变元可分为两种:
 >
-> 1. 定义非泛型`struct`的实例:`StructName(arguments)`
+> 1. 定义非泛型`struct`的实例: `StructName(arguments)`
 >
 >     其中`StructName`为`struct`类型的名字, `arguments`为实参列表
 >
@@ -885,7 +885,7 @@ struct B<X,Y> {
 >     let newRectangle1_2 = Rectangle1(300)         // Invoke the second custom constructor
 >     ```
 >
-> 2. 定义泛型`struct`的实例:`StructName<Type1, Type2, ... , TypeK>(labelValue1, labelValue2, ... , labelValueN)`
+> 2. 定义泛型`struct`的实例: `StructName<Type1, Type2, ... , TypeK>(labelValue1, labelValue2, ... , labelValueN)`
 >
 >     与定义非泛型`struct`的实例的差别仅在于需要对泛型参数进行实例化
 >

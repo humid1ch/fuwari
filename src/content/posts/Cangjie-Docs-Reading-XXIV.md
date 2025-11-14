@@ -115,7 +115,7 @@ tags:
 quote ( 任意的合法仓颉表达式(包括代码插值、宏调用表达式) 或 任意合法的Token )
 ```
 
-关于这个合法的`Token`, 好像只要是文档中列出来的都可以:`quote (.)``quote (,)``quote ([)`等甚至都是合法的
+关于这个合法的`Token`, 好像只要是文档中列出来的都可以: `quote (.)``quote (,)``quote ([)`等甚至都是合法的
 
 具体要用到, 才更能深入了解
 
@@ -334,7 +334,7 @@ quote ( 任意的合法仓颉表达式(包括代码插值、宏调用表达式) 
 >
 > 下面是无属性宏的示例
 >
-> 它包含了宏定义具备的所有要素:`public`表示对包外部可见;`macro`关键字;`foo`是宏的标识符; 形参`x`和它的类型`Tokens`; 返回值和输入同值、同类型
+> 它包含了宏定义具备的所有要素: `public`表示对包外部可见;`macro`关键字;`foo`是宏的标识符; 形参`x`和它的类型`Tokens`; 返回值和输入同值、同类型
 >
 > ```cangjie
 > public macro foo(x: Tokens): Tokens { x }
@@ -764,7 +764,7 @@ C/C++中的宏, 就只是文本替换
 >
 >     不支持宏的循环依赖导入
 >
->     例如下面的用法是非法的:`pkgA`导入`pkgB`, `pkgB`又导入`pkgA`, 存在循环依赖导入
+>     例如下面的用法是非法的: `pkgA`导入`pkgB`, `pkgB`又导入`pkgA`, 存在循环依赖导入
 >
 >     ```cangjie
 >     // ======= file A.cj
@@ -912,7 +912,7 @@ C/C++中的宏, 就只是文本替换
 
 ###### 编译器内置条件变量
 
-> 编译器为条件编译提供了**五个内置条件变量:`os`、`backend`、`cjc_version`、`debug`和`test`** 用于获取当前构建环境中对应的值, 内置条件变量支持比较运算和逻辑运算
+> 编译器为条件编译提供了**五个内置条件变量: `os`、`backend`、`cjc_version`、`debug`和`test`** 用于获取当前构建环境中对应的值, 内置条件变量支持比较运算和逻辑运算
 >
 > 其中, `os`、`backend`和`cjc_version`三个变量支持比较运算, 在比较运算中条件变量只能作为二元操作符的左操作数, 二元操作符的右操作数必须是一个`String`类型的字面量值; 逻辑运算仅适用于条件变量`debug`和`test`
 >
@@ -947,7 +947,7 @@ C/C++中的宏, 就只是文本替换
 >
 >     如果想为`cjnative`后端编译代码, 可以将`backend`与字面量值`"cjnative"`进行比较判断
 >
->     支持的后端有:`cjnative`、`cjnative-x86`、`cjnative-x86_64`、`cjnative-arm`、`cjnative-aarch64`、`cjvm`、`cjvm-x86`、`cjvm-x86_64`、`cjvm-arm`、`cjvm-aarch64`
+>     支持的后端有: `cjnative`、`cjnative-x86`、`cjnative-x86_64`、`cjnative-arm`、`cjnative-aarch64`、`cjvm`、`cjvm-x86`、`cjvm-x86_64`、`cjvm-arm`、`cjvm-aarch64`
 >
 >     ```cangjie
 >     @When[backend == "cjnative"]

@@ -74,7 +74,7 @@ tags:
 
 只知道, 它可以限制一些功能的实现等
 
-仓颉中, **注解和宏调用使用同一种语法:`@标识符[参数列表]`**
+仓颉中, **注解和宏调用使用同一种语法: `@标识符[参数列表]`**
 
 ### 自定义注解
 
@@ -203,4 +203,4 @@ tags:
 
 自定义注解, 可以在定义时通过在参数列表中设置`参数target`的值, 来限制此注解的使用位置
 
-即:`@Annotation[target: [Array<AnnotationKind>]]`, `AnnotationKind`是仓颉内置的一个枚举类型
+即: `@Annotation[target: [Array<AnnotationKind>]]`, `AnnotationKind`是仓颉内置的一个枚举类型
