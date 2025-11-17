@@ -59,7 +59,7 @@ category: Blogs
 > 
 > 上例中定义了名为`Rectangle`的`struct`类型, 它有两个`Int64`类型的成员变量`width`和`height`, 一个有两个`Int64`类型参数的构造函数(使用关键字`init`定义, 函数体中通常是对成员变量的初始化), 以及一个成员函数`area`(返回`width`和`height`的乘积)
 > 
-> > 注意：
+> > 注意: 
 > > 
 > > `struct`只能定义在源文件的顶层作用域
 
@@ -79,7 +79,7 @@ struct Ident {}
 > 
 > 二者访问上的区别在于实例成员变量只能通过`struct`实例(说`a`是`T`类型的实例, 指的是`a`是一个`T`类型的值)访问, 静态成员变量只能通过`struct`类型名访问
 > 
-> 实例成员变量定义时可以不设置初值(但必须标注类型, 如上例中的`width`和`height`), 也可以设置初值, 例如：
+> 实例成员变量定义时可以不设置初值(但必须标注类型, 如上例中的`width`和`height`), 也可以设置初值, 例如: 
 > 
 > ```cangjie
 > struct Rectangle {
@@ -129,7 +129,7 @@ struct Ident {}
 
 #### `struct`构造函数
 
-> `struct`支持两类构造函数：普通构造函数和主构造函数
+> `struct`支持两类构造函数: 普通构造函数和主构造函数
 > 
 > 普通构造函数以关键字`init`开头, 后跟参数列表和函数体
 > 
@@ -180,9 +180,9 @@ struct Ident {}
 
 > 除了可以定义若干普通的以`init`为名字的构造函数外, `struct`内还可以定义**最多一个主构造函数**
 > 
-> **主构造函数的名字和`struct`类型名相同**, 它的参数列表中可以有两种形式的形参：普通形参和**成员变量形参**(需要在参数名前加上`let`或`var`), 成员变量形参同时扮演定义成员变量和构造函数参数的功能
+> **主构造函数的名字和`struct`类型名相同**, 它的参数列表中可以有两种形式的形参: 普通形参和**成员变量形参**(需要在参数名前加上`let`或`var`), 成员变量形参同时扮演定义成员变量和构造函数参数的功能
 > 
-> 使用主构造函数通常可以简化`struct`的定义, 例如, 上述包含一个`init`构造函数的`Rectangle`可以简化为如下定义：
+> 使用主构造函数通常可以简化`struct`的定义, 例如, 上述包含一个`init`构造函数的`Rectangle`可以简化为如下定义: 
 > 
 > ```cangjie
 > struct Rectangle {
@@ -190,7 +190,7 @@ struct Ident {}
 > }
 > ```
 > 
-> 主构造函数的参数列表中也可以定义普通形参, 例如：
+> 主构造函数的参数列表中也可以定义普通形参, 例如: 
 > 
 > ```cangjie
 > struct Rectangle {
@@ -216,7 +216,7 @@ struct Ident {}
 
 > 如果`struct`定义中不存在自定义构造函数(包括主构造函数), 并且所有实例成员变量都有初始值, 则会自动为其生成一个无参构造函数(调用此无参构造函数会创建一个所有实例成员变量的值均等于其初值的对象); 否则, 不会自动生成此无参构造函数
 > 
-> 例如, 对于如下`struct`定义, 注释中给出了自动生成的无参构造函数：
+> 例如, 对于如下`struct`定义, 注释中给出了自动生成的无参构造函数: 
 > 
 > ```cangjie
 > struct Rectangle {
@@ -235,7 +235,7 @@ struct Ident {}
 
 #### `struct`成员函数
 
-> `struct`成员函数分为**实例成员函数**和**静态成员函数**(使用`static`修饰符修饰), 二者的区别在于：
+> `struct`成员函数分为**实例成员函数**和**静态成员函数**(使用`static`修饰符修饰), 二者的区别在于: 
 > 
 > **实例成员函数只能通过`struct`实例访问, 静态成员函数只能通过`struct`类型名访问**
 > 
@@ -258,7 +258,7 @@ struct Ident {}
 > }
 > ```
 > 
-> 实例成员函数中可以通过`this`访问实例成员变量, 例如：
+> 实例成员函数中可以通过`this`访问实例成员变量, 例如: 
 > 
 > ```cangjie
 > struct Rectangle {
@@ -277,7 +277,7 @@ struct Ident {}
 
 #### `struct`成员的访问修饰符
 
-> `struct`的成员(包括成员变量、成员属性、构造函数、成员函数、操作符函数(详见[操作符重载](https://www.humid1ch.cn/posts/cangjie-docs-reading-xxxx/#操作符重载)章节))用`4`种访问修饰符修饰：`private`、`internal`、`protected`和`public`, 缺省的修饰符是`internal`
+> `struct`的成员(包括成员变量、成员属性、构造函数、成员函数、操作符函数(详见[操作符重载](https://www.humid1ch.cn/posts/cangjie-docs-reading-xxxx/#操作符重载)章节))用`4`种访问修饰符修饰: `private`、`internal`、`protected`和`public`, 缺省的修饰符是`internal`
 > 
 > - `private`表示在`struct`定义内可见
 > 
@@ -341,7 +341,7 @@ struct Ident {}
 
 > 递归和互递归定义的`struct`均是非法的
 > 
-> 例如：
+> 例如: 
 > 
 > ```cangjie
 > struct R1 {                   // Error, 'R1' 递归引用自身
@@ -391,7 +391,7 @@ struct Ident {}
 
 > 如果希望通过`struct`实例去修改成员变量的值, 需要将`struct`类型的变量定义为**可变变量**, 并且被修改的成员变量也必须是可变成员变量(使用`var`定义)
 > 
-> 举例如下：
+> 举例如下: 
 > 
 > ```cangjie
 > struct Rectangle {
@@ -528,7 +528,7 @@ test2: ref.num: 40, num: 20
 > 
 > 在`mut`函数内部, `this`的语义是特殊的, 这种`this`拥有原地修改字段的能力
 > 
-> > 注意：
+> > 注意: 
 > > 
 > > 只允许在`interface`、`struct`和`struct`的扩展内定义`mut`函数(`class`是引用类型, 实例成员函数不需要加`mut`也可以修改实例成员变量, 所以禁止在`class`中定义`mut`函数)
 
@@ -572,7 +572,7 @@ test2: ref.num: 40, num: 20
 > 
 > `mut`函数中的`lambda`或嵌套函数, 不能对`struct`的实例成员变量进行捕获
 > 
-> 示例：
+> 示例: 
 > 
 > ```cangjie
 > struct Foo {
@@ -604,7 +604,7 @@ test2: ref.num: 40, num: 20
 > 
 > `struct`以外的类型实现`interface`的函数时不能使用`mut`修饰
 > 
-> 示例：
+> 示例: 
 > 
 > ```cangjie
 > interface I {
@@ -636,7 +636,7 @@ test2: ref.num: 40, num: 20
 
 > 当`struct`的实例赋值给`interface`类型时是拷贝语义, 因此`interface`的`mut`函数并不能修改`struct`实例的值
 > 
-> 示例：
+> 示例: 
 > 
 > ```cangjie
 > interface I {
@@ -656,7 +656,7 @@ test2: ref.num: 40, num: 20
 > }
 > ```
 > 
-> 程序输出结果为：
+> 程序输出结果为: 
 > 
 > ```text
 > 0
@@ -670,7 +670,7 @@ test2: ref.num: 40, num: 20
 
 > 因为`struct`是值类型, 所以如果一个变量是`struct`类型且使用`let`声明, 那么不能通过这个变量访问该类型的`mut`函数
 > 
-> 示例：
+> 示例: 
 > 
 > ```cangjie
 > interface I {
@@ -696,7 +696,7 @@ test2: ref.num: 40, num: 20
 
 > 为避免逃逸, 如果一个变量的类型是`struct`类型, 那么这个变量不能将该类型使用`mut`修饰的函数作为一等公民来使用, 只能调用这些`mut`函数
 > 
-> 示例：
+> 示例: 
 > 
 > ```cangjie
 > interface I {
@@ -723,7 +723,7 @@ test2: ref.num: 40, num: 20
 
 > 为避免逃逸, 非`mut`的实例成员函数(包括`lambda`表达式)不能直接访问所在类型的`mut`函数, 反之可以
 > 
-> 示例：
+> 示例: 
 > 
 > ```cangjie
 > struct Foo {
