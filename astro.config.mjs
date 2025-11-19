@@ -28,7 +28,8 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import vercel from "@astrojs/vercel";
+// import vercel from "@astrojs/vercel";
+import cloudflare from "@astrojs/cloudflare";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -205,5 +206,7 @@ export default defineConfig({
     },
   },
 
-  adapter: vercel(),
+  // adapter: vercel(),
+  output: "static",
+  adapter: cloudflare(),
 });
