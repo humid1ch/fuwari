@@ -182,9 +182,12 @@ onDestroy(() => {
         on:focus={() => search(keywordDesktop, true)}
         on:blur={() => {
             // 失焦时如果结果为空则隐藏面板
-            if (!result.length) {
-                setPanelVisibility(false, true);
-            }
+            // if (!result.length) {
+            //     setPanelVisibility(false, true);
+            // }
+
+            // 失焦时 总是隐藏面板
+            setPanelVisibility(false, true);
         }}
         class="transition-all pl-10 text-sm bg-transparent outline-0
          h-full w-40 active:w-60 focus:w-60 text-black/50 dark:text-white/50"
