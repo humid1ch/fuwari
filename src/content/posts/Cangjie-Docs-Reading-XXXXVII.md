@@ -5,7 +5,6 @@ description: '仓颉文档阅读的开发指南部分, 本篇文章介绍仓颉�
 image: 'https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250929154944807.webp'
 tags: ["开发语言", "仓颉"]
 category: Blogs
-draft: true
 ---
 
 > [!NOTE]
