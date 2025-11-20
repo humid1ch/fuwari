@@ -204,6 +204,9 @@ export default defineConfig({
         },
       },
     },
+    ssr: {
+      external: ["node:path", "node:fs", "node:url"], // 根据需要添加其他 node 模块
+    },
   },
 
   // adapter: vercel(),

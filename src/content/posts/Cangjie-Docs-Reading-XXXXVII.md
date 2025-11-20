@@ -37,33 +37,33 @@ category: Blogs
 
 ### 类
 
-> `class` 类型是面向对象编程中的经典概念，仓颉中同样支持使用 `class` 来实现面向对象编程
+> `class`类型是面向对象编程中的经典概念, 仓颉中同样支持使用`class`来实现面向对象编程
 > 
-> `class` 与 `struct` 的主要区别在于：`class` 是引用类型，`struct` 是值类型，它们在赋值或传参时行为是不同的
+> `class`与`struct`的主要区别在于, `class`是引用类型, `struct`是值类型, 它们在赋值或传参时行为是不同的
 > 
-> **`class` 之间可以继承，但 `struct` 之间不能继承**
+> **`class`之间可以继承, 但`struct`之间不能继承**
 > 
-> 本节依次介绍如何定义 `class` 类型，如何创建对象，以及 `class` 的继承
+> 本节依次介绍如何定义`class`类型, 如何创建对象, 以及`class`的继承
 
-### `This` 类型
+### `This`类型
 
-> 在类内部，支持 `This` 类型占位符，代指当前类的类型
+> 在类内部, 支持`This`类型占位符, 代指当前类的类型
 > 
 > 它**只能被作为实例成员函数的返回类型**来使用
 > 
-> 当使用子类对象调用在父类中定义的返回 `This` 类型的函数时，该函数调用的类型会被识别为子类类型，而非定义所在的父类类型
+> 当使用子类对象调用在父类中定义的返回`This`类型的函数时, 该函数调用的类型会被识别为子类类型, 而非定义所在的父类类型
 > 
-> 如果实例成员函数没有声明返回类型，并且只存在返回`This`类型表达式时，当前函数的返回类型会推断为 `This`
+> 如果实例成员函数没有声明返回类型, 并且只存在返回`This`类型表达式时, 当前函数的返回类型会推断为`This`
 > 
-> 示例如下：
+> 示例如下: 
 > 
 > ```cangjie
 > open class C1 {
->     func f(): This {                      // 函数类型是 `() -> C1`
+>     func f(): This {                      // 函数类型是`() -> C1`
 >         return this
 >     }
 > 
->     func f2() {                           // 函数类型是 `() -> C1`
+>     func f2() {                           // 函数类型是`() -> C1`
 >         return this
 >     }
 > 
@@ -72,7 +72,7 @@ category: Blogs
 >     }
 > }
 > class C2 <: C1 {
->     // 成员函数 f 是从 C1 继承的，现在 此函数的类型是`() -> C2`
+>     // 成员函数 f 是从 C1 继承的, 现在 此函数的类型是`() -> C2`
 >     public override func f3(): This {     // Ok
 >         return this
 >     }
@@ -127,13 +127,13 @@ Main.C2
 
 ### 创建对象
 
-> 定义了 `class` 类型后，即可通过调用其构造函数来创建对象（通过 `class` 类型名调用构造函数）
+> 定义了`class`类型后, 即可通过调用其构造函数来创建对象(通过`class`类型名调用构造函数)
 > 
-> 例如，下例中通过 `Rectangle(10, 20)` 创建 `Rectangle` 类型的对象并赋值给变量 `r`
+> 例如, 下例中通过`Rectangle(10, 20)`创建`Rectangle`类型的对象并赋值给变量`r`
 > 
-> 创建对象之后，可以通过对象访问(`public` 修饰的）实例成员变量和实例成员函数
+> 创建对象之后, 可以通过对象访问(`public`修饰的)实例成员变量和实例成员函数
 > 
-> 例如，下例中通过 `r.width` 和 `r.height` 可分别访问 `r` 中 `width` 和 `height` 的值，通过 `r.area()` 可以调用成员函数 `area`
+> 例如, 下例中通过`r.width`和`r.height`可分别访问`r`中`width`和`height`的值, 通过`r.area()`可以调用成员函数`area`
 > 
 > ```cangjie
 > class Rectangle {
@@ -155,9 +155,9 @@ Main.C2
 > let a = r.area()          // a = 200
 > ```
 > 
-> 如果希望通过对象去修改成员变量的值（不鼓励这种方式，最好还是通过成员函数去修改），需要将 `class` 类型中的成员变量定义为可变成员变量（即使用 `var` 定义）
+> 如果希望通过对象去修改成员变量的值(不鼓励这种方式, 最好还是通过成员函数去修改), 需要将`class`类型中的成员变量定义为可变成员变量(即使用`var`定义)
 > 
-> 举例如下：
+> 举例如下: 
 > 
 > ```cangjie
 > class Rectangle {
@@ -182,15 +182,15 @@ Main.C2
 > }
 > ```
 
-`class`对象(实例)的创建, 很简单, 即 使用类名调用构造函数: `类名(参数列表)`
+`class`对象(实例)的创建, 很简单, 即 使用类名调用构造函数, `类名(参数列表)`
 
 创建完成之后, 就可以通过实例访问可访问的成员变量、成员函数
 
 使用`var`定义的成员变量可以被修改, 但 仓颉不建议直接通过实例修改成员变量的值, 最好还是通过成员函数来修改
 
-> 不同于 `struct`，对象在赋值或传参时，不会将对象进行复制，多个变量指向的是同一个对象，通过一个变量去修改对象中成员的值，其他变量中对应的成员变量也会被修改
+> 不同于`struct`, 对象在赋值或传参时, 不会将对象进行复制, 多个变量指向的是同一个对象, 通过一个变量去修改对象中成员的值, 其他变量中对应的成员变量也会被修改
 > 
-> 以赋值为例，下面的例子中，将 `r1` 赋值给 `r2` 之后，修改 `r1` 的 `width` 和 `height` 的值，`r2` 的 `width` 和 `height` 值也同样会被修改
+> 以赋值为例, 下面的例子中, 将`r1`赋值给`r2`之后, 修改`r1`的`width`和`height`的值, `r2`的`width`和`height`值也同样会被修改
 > 
 > ```cangjie
 > class Rectangle {
@@ -238,25 +238,25 @@ Main.C2
 
 **变量和实例是两个有关联的东西**, 变量也可以重新修改指向, 可以类比一下C/C++的指针, 但又有很大不同
 
-### `class` 的继承
+### `class`的继承
 
-> 像大多数支持 `class` 的编程语言一样，仓颉中的`class`同样**支持继承**
+> 像大多数支持`class`的编程语言一样, 仓颉中的`class`同样**支持继承**
 > 
-> 如果类 `B` 继承自类 `A`，则称 `A` 为父类，`B` 为子类
+> 如果类`B`继承自类`A`, 则称`A`为父类, `B`为子类
 > 
 > 子类将继承父类中 除`private`成员和构造函数以外 的所有成员
 > 
-> **抽象类总是可被继承的**，故抽象类定义时的 `open` 修饰符是可选的，也可以使用 **`sealed`修饰符修饰抽象类**，表示该抽象类**只能在本包被继承**
+> **抽象类总是可被继承的**, 故抽象类定义时的`open`修饰符是可选的, 也可以使用 **`sealed`修饰符修饰抽象类**, 表示该抽象类**只能在本包被继承**
 > 
-> 但非抽象的类可被继承是有条件的：定义时必须使用修饰符 `open` 修饰
+> 但非抽象的类可被继承是有条件的: 定义时必须使用修饰符`open`修饰
 > 
-> 当带 `open` 修饰的实例成员被 `class` 继承时，该 `open` 的修饰符也会被继承
+> 当带`open`修饰的实例成员被`class`继承时, 该`open`的修饰符也会被继承
 > 
-> 当非 `open` 修饰的类中存在 `open` 修饰的成员时，编译器会给出告警
+> 当非`open`修饰的类中存在`open`修饰的成员时, 编译器会给出告警
 > 
-> 可以在子类定义处通过 `<:` 指定其继承的父类，但要求父类必须是可继承的
+> 可以在子类定义处通过`<:`指定其继承的父类, 但要求父类必须是可继承的
 > 
-> 例如，下面的例子中，`class A` 使用 `open` 修饰，是可以被类 `B` 继承的，但是因为类 `B` 是不可继承的，所以 `C` 在继承 `B` 的时候会报错
+> 例如, 下面的例子中, `class A`使用`open`修饰, 是可以被类`B`继承的, 但是因为类`B`是不可继承的, 所以`C`在继承`B`的时候会报错
 > 
 > ```cangjie
 > open class A {
@@ -272,7 +272,7 @@ Main.C2
 > }
 > ```
 > 
-> **`class`仅支持单继承**，因此下面这样一个类继承两个类的代码是不合法的（**`&`是类实现多个接口时的语法**，详见 [接口]() ）
+> **`class`仅支持单继承**, 因此下面这样一个类继承两个类的代码是不合法的(**`&`是类实现多个接口时的语法**, 详见 [接口]() )
 > 
 > ```cangjie
 > open class A {
@@ -316,15 +316,15 @@ class ClassSuper <: ClassBase {}
 
 抽象类还可以使用`sealed`修饰, 以此限制此抽象类只能在本包中被继承
 
-> 因为类是单继承的，所以任何类都最多只能有一个直接父类
+> 因为类是单继承的, 所以任何类都最多只能有一个直接父类
 > 
-> 对于定义时指定了父类的`class`，它的直接父类就是定义时指定的类，对于定义时未指定父类的 `class`，它的直接父类是 `Object` 类型
+> 对于定义时指定了父类的`class`, 它的直接父类就是定义时指定的类, 对于定义时未指定父类的`class`, 它的直接父类是`Object`类型
 > 
-> **`Object`是所有类的父类**（注意，`Object` 没有直接父类，并且 `Object` 中不包含任何成员）
+> **`Object`是所有类的父类**(注意, `Object`没有直接父类, 并且`Object`中不包含任何成员)
 > 
-> 因为子类是继承自父类的，所以**子类的对象天然可以当做父类的对象使用**，但是反之不然
+> 因为子类是继承自父类的, 所以**子类的对象天然可以当做父类的对象使用**, 但是反之不然
 > 
-> 例如，下例中 `B` 是 `A` 的子类，那么 `B` 类型的对象可以赋值给 `A` 类型的变量，但是 `A` 类型的对象不能赋值给 `B` 类型的变量
+> 例如, 下例中`B`是`A`的子类, 那么`B`类型的对象可以赋值给`A`类型的变量, 但是`A`类型的对象不能赋值给`B`类型的变量
 > 
 > ```cangjie
 > open class A {
@@ -360,20 +360,20 @@ class ClassSuper <: ClassBase {}
 
 所以, 子类对象能够赋值给父类变量, 但反之的不行
 
-> 抽象类可以使用 **`sealed`修饰符**，表示被修饰的类定义 **只能在本定义所在的包内被其他类继承**
+> 抽象类可以使用 **`sealed`修饰符**, 表示被修饰的类定义 **只能在本定义所在的包内被其他类继承**
 > 
-> `sealed`已经蕴含了`public/open`的语义，因此定义`sealed abstract class`时若提供`public/open`修饰符，编译器将会告警
+> `sealed`已经蕴含了`public/open`的语义, 因此定义`sealed abstract class`时若提供`public/open`修饰符, 编译器将会告警
 > 
-> `sealed`的子类可以不是`sealed`类，仍可被 `open/sealed` 修饰，或不使用任何继承性修饰符
+> `sealed`的子类可以不是`sealed`类, 仍可被`open/sealed`修饰, 或不使用任何继承性修饰符
 > 
-> 若 `sealed` 类的子类被 `open` 修饰，则其子类可在包外被继承
+> 若`sealed`类的子类被`open`修饰, 则其子类可在包外被继承
 > 
-> `sealed` 的子类可以 不被 `public` 修饰(注意, 不是 不可以, 而是 可以不)
+> `sealed`的子类可以 不被`public`修饰(注意, 不是 不可以, 而是 可以不)
 > 
 > ```cangjie
 > package A
-> public sealed abstract class C1 {}                // Warning, 冗余修饰符，'sealed' 已存在 'public' 语义
-> sealed open abstract class C2 {}                  // Warning, 冗余修饰符，'sealed' 已存在 'open' 语义
+> public sealed abstract class C1 {}                // Warning, 冗余修饰符, 'sealed' 已存在 'public' 语义
+> sealed open abstract class C2 {}                  // Warning, 冗余修饰符, 'sealed' 已存在 'open' 语义
 > sealed abstract class C3 {}                       // OK, 使用 'sealed' 时, 'public' 是可选的
 > 
 > class S1 <: C1 {}                                 // OK
@@ -399,193 +399,229 @@ class ClassSuper <: ClassBase {}
 
 #### 父类构造函数调用
 
-子类的 `init` 构造函数可以使用 `super(args)` 的形式调用父类构造函数，或使用 `this(args)` 的形式调用本类其他构造函数，但两者之间只能调用一个
+> 子类的`init`构造函数可以使用`super(args)`的形式调用父类构造函数, 或使用`this(args)`的形式调用本类其他构造函数, 但**两者之间只能调用一个**
+> 
+> 如果调用, **必须在构造函数体内的第一个表达式处**, 在此之前不能有任何表达式或声明
+> 
+> ```cangjie
+> open class A {
+>     A(let a: Int64) {}
+> }
+> 
+> class B <: A {
+>     let b: Int64
+>     init(b: Int64) {
+>         super(30)
+>         this.b = b
+>     }
+> 
+>     init() {
+>         this(20)
+>     }
+> }
+> ```
+> 
+> 子类的**主构造函数中**, 可以使用`super(args)`的形式调用父类构造函数, 但**不能使用`this(args)`的形式调用本类其他构造函数**
+> 
+> 如果子类的构造函数 没有显式调用父类构造函数, 也没有显式调用其他构造函数, 编译器会在该构造函数体的开始处**插入直接父类的无参构造函数的调用**
+> 
+> 如果此时父类没有无参构造函数, 则会编译报错
+> 
+> ```cangjie
+> open class A {
+>     let a: Int64
+>     init() {
+>         a = 100
+>     }
+> }
+> 
+> open class B <: A {
+>     let b: Int64
+>     init(b: Int64) {
+>         // OK, `super()`被编译器自动添加
+>         this.b = b
+>     }
+> }
+> 
+> open class C <: B {
+>     let c: Int64
+>     init(c: Int64) {  // Error, 父类没有无参构造函数
+>         this.c = c
+>     }
+> }
+> ```
 
-如果调用，**必须在构造函数体内的第一个表达式处**，在此之前不能有任何表达式或声明
+**子类构造函数**中, 可以**通过`super(参数)`显式调用父类构造函数**, 但只能作为构造函数的第一个表达式被调用
 
-```cangjie
-open class A {
-    A(let a: Int64) {}
-}
+**类的非主构造函数**中, 也可以**通过`this(参数)`显式调用本类的其他构造函数**, 同样也只能作为构造函数的第一个表达式被调用
 
-class B <: A {
-    let b: Int64
-    init(b: Int64) {
-        super(30)
-        this.b = b
-    }
-
-    init() {
-        this(20)
-    }
-}
-```
-
-子类的主构造函数中，可以使用 `super(args)` 的形式调用父类构造函数，但不能使用 `this(args)` 的形式调用本类其他构造函数
-
-如果子类的构造函数没有显式调用父类构造函数，也没有显式调用其他构造函数，编译器会在该构造函数体的开始处插入直接父类的无参构造函数的调用
-
-如果此时父类没有无参构造函数，则会编译报错
-
-```cangjie
-open class A {
-    let a: Int64
-    init() {
-        a = 100
-    }
-}
-
-open class B <: A {
-    let b: Int64
-    init(b: Int64) {
-        // OK, `super()` added by compiler
-        this.b = b
-    }
-}
-
-open class C <: B {
-    let c: Int64
-    init(c: Int64) {  // Error, there is no non-parameter constructor in super class
-        this.c = c
-    }
-}
-```
+如果子类构造函数中没有显式调用父类构造函数, 那么编译器会尝试自动插入父类无参构造函数, 如果父类没有无参构造函数, 则会编译报错
 
 #### 覆盖和重定义
 
-子类中可以覆盖（`override`）父类中的同名非抽象实例成员函数，即在子类中为父类中的某个实例成员函数定义新的实现
+> 子类中可以覆盖(`override`)父类中的同名**非抽象实例成员函数**, 即在子类中为父类中的某个实例成员函数定义新的实现
+> 
+> 覆盖时, 要求父类中的**成员函数使用`open`修饰**, 子类中的同名函数使用`override`修饰, 其中`override`是可选的
+> 
+> 例如, 下面的例子中, 子类`B`中的函数`f`覆盖了父类`A`中的函数`f`
+> 
+> ```cangjie
+> open class A {
+>     public open func f(): Unit {
+>         println("I am superclass")
+>     }
+> }
+> 
+> class B <: A {
+>     public override func f(): Unit {
+>         println("I am subclass")
+>     }
+> }
+> 
+> main() {
+>     let a: A = A()
+>     let b: A = B()
+>     a.f()
+>     b.f()
+> }
+> ```
+> 
+> 对于被覆盖的函数, 调用时将**根据变量的运行时类型(由实际赋给该变量的对象决定)确定调用的版本(即所谓的动态派发)**
+> 
+> 例如, 上例中`a`的运行时类型是`A`, 因此`a.f()`调用的是父类`A`中的函数`f`
+> 
+> `b`的运行时类型是`B`(编译时类型是`A`), 因此`b.f()`调用的是子类`B`中的函数`f`
+> 
+> 所以程序会输出: 
+> 
+> ```text
+> I am superclass
+> I am subclass
+> ```
 
-覆盖时，要求父类中的成员函数使用 `open` 修饰，子类中的同名函数使用 `override` 修饰，其中 `override` 是可选的
+仓颉中, 父类的非抽象实例成员函数, 如果**被`open`修饰**, 那么子类就可以实现**同名、同形参列表、同返回值类型**的函数, 以**覆盖**父类实例成员函数
 
-例如，下面的例子中，子类 `B` 中的函数 `f`覆盖了父类 `A` 中的函数 `f`
+可以类比C++中虚函数的重写
 
-```cangjie
-open class A {
-    public open func f(): Unit {
-        println("I am superclass")
-    }
-}
+是一种实现动态多态的机制:
 
-class B <: A {
-    public override func f(): Unit {
-        println("I am subclass")
-    }
-}
+存在, 子类实例成员函数 覆盖 父类实例成员函数时, 如果将**子类对象赋值给父类变量**, 通过父类变量调用同名函数, 将会执行子类对应的实例成员函数
 
-main() {
-    let a: A = A()
-    let b: A = B()
-    a.f()
-    b.f()
-}
-```
+> 对于**静态函数**, 子类中可以**重定义**父类中的同名非抽象静态函数, 即 在子类中为父类中的某个静态函数定义新的实现
+> 
+> 重定义时, 要求子类中的同名静态函数使用`redef`修饰, 其中`redef`是可选的
+> 
+> 例如, 下面的例子中, 子类`D`中的函数`foo`重定义了父类`C`中的函数`foo`
+> 
+> ```cangjie
+> open class C {
+>     public static func foo(): Unit {
+>         println("I am class C")
+>     }
+> }
+> 
+> class D <: C {
+>     public redef static func foo(): Unit {
+>         println("I am class D")
+>     }
+> }
+> 
+> main() {
+>     C.foo()
+>     D.foo()
+> }
+> ```
+> 
+> 对于被重定义的函数, 调用时将根据`class`的类型决定调用的版本
+> 
+> 例如, 上例中`C.foo()`调用的是父类`C`中的函数`foo`, `D.foo()`调用的是子类`D`中的函数`foo`
+> 
+> ```text
+> I am class C
+> I am class D
+> ```
 
-对于被覆盖的函数，调用时将根据变量的运行时类型（由实际赋给该变量的对象决定）确定调用的版本（即所谓的动态派发）
+仓颉中, 允许静态成员函数的重定义(重新定义, 而非重复定义)
 
-例如，上例中 `a` 的运行时类型是 `A`，因此 `a.f()` 调用的是父类 `A` 中的函数 `f`
+如果父类存在静态成员函数, 那么子类可以直接定义 同名、同形参列表、同返回值类型的静态函数, 此时 子类可以使用`redef`修饰此函数
 
-`b` 的运行时类型是 `B`（编译时类型是 `A`），因此 `b.f()` 调用的是子类 `B` 中的函数 `f`
+如果拥有继承关系的类 存在静态成员函数的重定义, 那么通过子类调用此函数, 就执行子类重定义的静态函数
 
-所以程序会输出：
+> 如果抽象函数或`open`修饰的函数有命名形参, 那么实现函数或`override`修饰的函数也需要保持同样的命名形参
+> 
+> ```cangjie
+> open class A {
+>     public open func f(a!: Int32): Int32 {
+>         a + 1
+>     }
+> }
+> 
+> class B <: A {
+>     public override func f(a!: Int32): Int32 { // Ok
+>         a + 2
+>     }
+> }
+> 
+> class C <: A {
+>     public override func f(b!: Int32): Int32 { // Error
+>         b + 3
+>     }
+> }
+> 
+> main() {
+>     B().f(a: 0)
+>     C().f(b: 0)
+> }
+> ```
+> 
+> 还需要注意的是, 当**实现或重定义的函数为泛型函数**时, 子类型函数的类型变元约束 需要比 父类型中对应函数**更宽松或相同**
+> 
+> ```cangjie
+> open class A {}
+> open class B <: A {}
+> open class C <: B {}
+> 
+> open class Base {
+>     public open func foo<T>(a: T): Unit where T <: B {}
+>     public open func bar<T>(a: T): Unit where T <: B {}
+>     public static func f<T>(a: T): Unit where T <: B {}
+>     public static func g<T>(): Unit where T <: B {}
+> }
+> 
+> class D <: Base {
+>     public override func foo<T>(a: T): Unit where T <: C {}       // Error, 更严格的约束
+>     public override func bar<T>(a: T): Unit where T <: C {}       // Error, 更严格的约束
+>     public redef static func f<T>(a: T): Unit where T <: C {}     // Error, 更严格的约束
+>     public redef static func g<T>(): Unit where T <: C {}         // Error, 更严格的约束
+> }
+> 
+> class E <: Base {
+>     public override func foo<T>(a: T): Unit where T <: A {}       // OK, 更宽松的约束
+>     public override func bar<V>(a: V): Unit where V <: A {}       // OK, 更宽松的约束, 泛型参数名 并不重要
+>     public redef static func f<T>(a: T): Unit where T <: A {}     // OK, 更宽松的约束
+>     public redef static func g<T>(): Unit where T <: A {}         // OK, 更宽松的约束
+> }
+> 
+> class F <: Base {
+>     public override func foo<T>(a: T): Unit where T <: B {}       // OK, 相同的约束
+>     public override func bar<V>(a: V): Unit where V <: B {}       // OK, 相同的约束
+>     public redef static func f<T>(a: T): Unit where T <: B {}     // OK, 相同的约束
+>     public redef static func g<T>(): Unit where T <: B {}         // OK, 相同的约束
+> }
+> ```
 
-```text
-I am superclass
-I am subclass
-```
+仓颉`class`中, 如果父类的成员函数存在命名形参, 那么子类实现、覆盖、重定义此成员函数时, 要保证**子类的命名形参 除类型外, 形参名也要与父类保持一致**
 
-对于静态函数，子类中可以重定义父类中的同名非抽象静态函数，即在子类中为父类中的某个静态函数定义新的实现
+如果子类要实现、覆盖、重定义的函数是**泛型函数**时, 如果父类对应函数存在类型变元约束, 那么子类的类型变元约束 需要**保持一致或更宽松**
 
-重定义时，要求子类中的同名静态函数使用 `redef` 修饰，其中 `redef` 是可选的
+保持一致很容易理解, 更宽松什么意思呢?
 
-例如，下面的例子中，子类 `D` 中的函数 `foo` 重定义了父类 `C` 中的函数 `foo`
+假设存在类`C <: B <: A`:
 
-```cangjie
-open class C {
-    public static func foo(): Unit {
-        println("I am class C")
-    }
-}
+如果父类成员函数的类型变元, 约束 目标类型需要为`B`或`B`的子类型
 
-class D <: C {
-    public redef static func foo(): Unit {
-        println("I am class D")
-    }
-}
+那么子类实现此成员函数时, 不能约束 目标类型需要为`C`或`C`的子类型
 
-main() {
-    C.foo()
-    D.foo()
-}
-```
+因为`C`是`B`的子类型, 如此约束 就是 更加严格的约束, 会导致 子类函数无法使用`B`类型调用, 而父类函数却可以使用`B`类型调用的情况
 
-对于被重定义的函数，调用时将根据 `class` 的类型决定调用的版本
-
-例如，上例中 `C.foo()` 调用的是父类 `C` 中的函数 `foo`，`D.foo()` 调用的是子类 `D` 中的函数 `foo`
-
-```text
-I am class C
-I am class D
-```
-
-如果抽象函数或 `open` 修饰的函数有命名形参，那么实现函数或 `override` 修饰的函数也需要保持同样的命名形参
-
-```cangjie
-open class A {
-    public open func f(a!: Int32): Int32 {
-        a + 1
-    }
-}
-
-class B <: A {
-    public override func f(a!: Int32): Int32 { // Ok
-        a + 2
-    }
-}
-
-class C <: A {
-    public override func f(b!: Int32): Int32 { // Error
-        b + 3
-    }
-}
-
-main() {
-    B().f(a: 0)
-    C().f(b: 0)
-}
-```
-
-还需要注意的是，当实现或重定义的函数为泛型函数时，子类型函数的类型变元约束需要比父类型中对应函数更宽松或相同
-
-```cangjie
-open class A {}
-open class B <: A {}
-open class C <: B {}
-
-open class Base {
-    public open func foo<T>(a: T): Unit where T <: B {}
-    public open func bar<T>(a: T): Unit where T <: B {}
-    public static func f<T>(a: T): Unit where T <: B {}
-    public static func g<T>(): Unit where T <: B {}
-}
-
-class D <: Base {
-    public override func foo<T>(a: T): Unit where T <: C {} // Error, stricter constraint
-    public override func bar<T>(a: T): Unit where T <: C {} // Error, stricter constraint
-    public redef static func f<T>(a: T): Unit where T <: C {} // Error, stricter constraint
-    public redef static func g<T>(): Unit where T <: C {} // Error, stricter constraint
-}
-
-class E <: Base {
-    public override func foo<T>(a: T): Unit where T <: A {} // OK: looser constraint
-    public override func bar<V>(a: V): Unit where V <: A {} // OK: looser constraint, names of generic parameters do not matter
-    public redef static func f<T>(a: T): Unit where T <: A {} // OK: looser constraint
-    public redef static func g<T>(): Unit where T <: A {} // OK: looser constraint
-}
-
-class F <: Base {
-    public override func foo<T>(a: T): Unit where T <: B {} // OK: same constraint
-    public override func bar<V>(a: V): Unit where V <: B {} // OK: same constraint
-    public redef static func f<T>(a: T): Unit where T <: B {} // OK: same constraint
-    public redef static func g<T>(): Unit where T <: B {} // OK: same constraint
-}
-```
+即, **不能使用父类目标约束类型的子类, 作为子类的目标约束类型**
