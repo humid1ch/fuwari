@@ -362,3 +362,90 @@ class Sample {
 抽象属性, 就是没有具体实现, 只有声明的属性
 
 可以在`interface`和抽象类中定义, 实现或继承的类型必须要实现
+
+同样的, 也需要与父类型中的属性声明保持一致, 即 类型一致, `mut`修饰一致
+
+#### 属性使用
+
+> 属性分为 **实例成员属性** 和 **静态成员属性**
+> 
+> 成员属性的使用和成员变量的使用方式一样，详见 [成员变量]() 章节
+> 
+> ```cangjie
+> class A {
+>     public prop x: Int64 {
+>         get() {
+>             123
+>         }
+>     }
+>     public static prop y: Int64 {
+>         get() {
+>             321
+>         }
+>     }
+> }
+> 
+> main() {
+>     var a = A()
+>     println(a.x)      // 123
+>     println(A.y)      // 321
+> }
+> ```
+> 
+> 结果为：
+> 
+> ```text
+> 123
+> 321
+> ```
+> 
+> **无`mut`修饰符**的属性类似 `let` 声明的变量，**不能被赋值**
+> 
+> ```cangjie
+> class A {
+>     private let value = 0
+>     public prop i: Int64 {
+>         get() {
+>             value
+>         }
+>     }
+> }
+> 
+> main() {
+>     var x = A()
+>     println(x.i)  // OK
+>     x.i = 1       // Error
+> }
+> ```
+> 
+> **带有`mut`修饰符**的属性类似`var`声明的变量，**可以取值也可以被赋值**
+> 
+> ```cangjie
+> class A {
+>     private var value: Int64 = 0
+>     public mut prop i: Int64 {
+>         get() {
+>             value
+>         }
+>         set(v) {
+>             value = v
+>         }
+>     }
+> }
+> 
+> main() {
+>     var x = A()
+>     println(x.i)  // OK
+>     x.i = 1       // OK
+> }
+> ```
+> 
+> ```text
+> 0
+> ```
+
+属性的使用与成员变量的使用方式是一样的
+
+只不过, 一般来说属性是为了操作成员变量的, 当然也可以不操作任何其他数据, 即固定返回等操作
+
+属性都可以取值, 但赋值操作需要属性被`mut`修饰
