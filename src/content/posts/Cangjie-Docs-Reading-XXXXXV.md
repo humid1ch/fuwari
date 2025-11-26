@@ -105,3 +105,45 @@ category: Blogs
 但扩展的成员可以使用 可访问性修饰符: `private`、`internal`、`protected`和`public`, 以及`static`和`mut`(仅`struct`)修饰
 
 同时, 扩展的成员不允许使用`open`、`override`和`redef`修饰, 即扩展不能被继承
+
+> [!TIP]
+> 
+> - `private`表示仅在当前扩展内可见
+> 
+>     即, 仅能在扩展定义时可访问
+> 
+> - `internal`表示仅当前包及子包(包括子包的子包)内可见
+> 
+>     即, 仅能在当前扩展定义所在包, 以及其子包内访问
+> 
+> - `protected`表示当前模块可见
+> 
+>     即, 与`internal`不同, 被`protected`修饰的成员, 可以在父包、当前包以及子包访问
+> 
+> - `public`表示模块内外均可见
+> 
+>     被`public`修饰的成员的访问, 只要可以见到, 不受任何限制
+
+#### 扩展的孤儿规则
+
+> 为一个其他`package`的类型实现另一个`package`的接口，可能造成理解上的困扰
+> 
+> 为了防止一个类型被意外实现不合适的接口，仓颉不允许定义孤儿扩展，即 既不与接口（包含接口继承链上的所有接口）定义在同一个包中，也不与被扩展类型定义在同一个包中的接口扩展
+> 
+> 如下代码所示，不能在 `package c` 中，为 `package a` 里的 `Foo` 实现 `package b` 里的 `Bar`
+> 
+> 只能在 `package a` 或者在 `package b` 中为 `Foo` 实现 `Bar`
+> 
+> ```cangjie
+> // package a
+> public class Foo {}
+> 
+> // package b
+> public interface Bar {}
+> 
+> // package c
+> import a.Foo
+> import b.Bar
+> 
+> extend Foo <: Bar {} // Error
+> ```

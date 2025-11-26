@@ -87,6 +87,7 @@ const search = async (keyword: string, isDesktop: boolean): Promise<void> => {
 };
 
 onMount(() => {
+
 	const initializeSearch = () => {
 		initialized = true;
 		pagefindLoaded =
@@ -123,6 +124,19 @@ onMount(() => {
 			}
 		}, 2000); // Adjust timeout as needed
 	}
+
+	const handleClearSearch = () => {
+      keywordDesktop = '';
+      keywordMobile = '';
+      result = [];
+      // 面板已在外部隐藏，这里可选是否再调 setPanelVisibility(false)
+    };
+
+    window.addEventListener('clear-search', handleClearSearch);
+
+    onDestroy(() => {
+      window.removeEventListener('clear-search', handleClearSearch);
+    });
 });
 
 $: if (initialized && keywordDesktop) {
