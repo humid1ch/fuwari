@@ -3,7 +3,7 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import Icon from "@iconify/svelte";
 import { url } from "@utils/url-utils.ts";
-import { onMount, onDestroy } from "svelte";
+import { onMount } from "svelte";
 import type { SearchResult } from "@/global";
 
 let keywordDesktop = "";
@@ -12,9 +12,6 @@ let result: SearchResult[] = [];
 let isSearching = false;
 let pagefindLoaded = false;
 let initialized = false;
-
-// 添加一个标志来控制是否在初始化时执行搜索
-let shouldSearchOnInit = false;
 
 const fakeResult: SearchResult[] = [
 	{
@@ -48,14 +45,6 @@ const setPanelVisibility = (show: boolean, isDesktop: boolean): void => {
 	} else {
 		panel.classList.add("float-panel-closed");
 	}
-};
-
-const clearSearch = () => {
-	keywordDesktop = "";
-	keywordMobile = "";
-	result = [];
-	setPanelVisibility(false, true);
-	setPanelVisibility(false, false);
 };
 
 const search = async (keyword: string, isDesktop: boolean): Promise<void> => {
@@ -98,9 +87,6 @@ const search = async (keyword: string, isDesktop: boolean): Promise<void> => {
 };
 
 onMount(() => {
-	// 页面加载时清除搜索结果，避免重新显示
-	clearSearch();
-
 	const initializeSearch = () => {
 		initialized = true;
 		pagefindLoaded =
@@ -108,10 +94,8 @@ onMount(() => {
 			!!window.pagefind &&
 			typeof window.pagefind.search === "function";
 		console.log("Pagefind status on init:", pagefindLoaded);
-
-		// 只有在用户主动输入后才执行搜索，而不是在初始化时
-		// if (keywordDesktop) search(keywordDesktop, true);
-		// if (keywordMobile) search(keywordMobile, false);
+		if (keywordDesktop) search(keywordDesktop, true);
+		if (keywordMobile) search(keywordMobile, false);
 	};
 
 	if (import.meta.env.DEV) {
@@ -141,33 +125,17 @@ onMount(() => {
 	}
 });
 
-// 修改响应式逻辑，只在关键词发生变化时搜索（而不是在初始化时）
-$: {
-	if (initialized && keywordDesktop) {
-		// 使用 setTimeout 确保在初始化完成后再执行搜索
-		setTimeout(() => {
-			if (keywordDesktop) {
-				search(keywordDesktop, true);
-			}
-		}, 0);
-	}
+$: if (initialized && keywordDesktop) {
+	(async () => {
+		await search(keywordDesktop, true);
+	})();
 }
 
-$: {
-	if (initialized && keywordMobile) {
-		setTimeout(() => {
-			if (keywordMobile) {
-				search(keywordMobile, false);
-			}
-		}, 0);
-	}
+$: if (initialized && keywordMobile) {
+	(async () => {
+		await search(keywordMobile, false);
+	})();
 }
-
-onDestroy(() => {
-	// 组件销毁时清理事件监听器
-	document.removeEventListener("pagefindready", () => {});
-	document.removeEventListener("pagefindloaderror", () => {});
-});
 </script>
 
 <!-- search bar for desktop view -->
@@ -176,20 +144,8 @@ onDestroy(() => {
       dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10
 ">
     <Icon icon="material-symbols:search" class="absolute text-[1.25rem] pointer-events-none ml-3 transition my-auto text-black/30 dark:text-white/30"></Icon>
-    <input
-        placeholder="{i18n(I18nKey.search)}"
-        bind:value={keywordDesktop}
-        on:focus={() => search(keywordDesktop, true)}
-        on:blur={() => {
-            // 失焦时如果结果为空则隐藏面板
-            // if (!result.length) {
-            //     setPanelVisibility(false, true);
-            // }
-
-            // 失焦时 总是隐藏面板
-            setPanelVisibility(false, true);
-        }}
-        class="transition-all pl-10 text-sm bg-transparent outline-0
+    <input placeholder="{i18n(I18nKey.search)}" bind:value={keywordDesktop} on:focus={() => search(keywordDesktop, true)}
+           class="transition-all pl-10 text-sm bg-transparent outline-0
          h-full w-40 active:w-60 focus:w-60 text-black/50 dark:text-white/50"
     >
 </div>
@@ -210,34 +166,25 @@ top-20 left-4 md:left-[unset] right-4 shadow-2xl rounded-2xl p-2">
       dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10
   ">
         <Icon icon="material-symbols:search" class="absolute text-[1.25rem] pointer-events-none ml-3 transition my-auto text-black/30 dark:text-white/30"></Icon>
-        <input
-            placeholder="Search"
-            bind:value={keywordMobile}
-            on:blur={() => {
-                if (!result.length) {
-                    setPanelVisibility(false, false);
-                }
-            }}
-            class="pl-10 absolute inset-0 text-sm bg-transparent outline-0
+        <input placeholder="Search" bind:value={keywordMobile}
+               class="pl-10 absolute inset-0 text-sm bg-transparent outline-0
                focus:w-60 text-black/50 dark:text-white/50"
         >
     </div>
 
     <!-- search results -->
-    {#if result.length > 0}
-        {#each result as item}
-            <a href={item.url}
-               class="transition search-result first-of-type:mt-2 lg:first-of-type:mt-0 group block
-           rounded-xl text-lg px-3 py-2 hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)]">
-                <div class="transition text-90 inline-flex font-bold group-hover:text-[var(--primary)]">
-                    {item.meta.title}<Icon icon="fa6-solid:chevron-right" class="transition text-[0.75rem] translate-x-1 my-auto text-[var(--primary)]"></Icon>
-                </div>
-                <div class="transition text-sm text-50">
-                    {@html item.excerpt}
-                </div>
-            </a>
-        {/each}
-    {/if}
+    {#each result as item}
+        <a href={item.url}
+           class="transition first-of-type:mt-2 lg:first-of-type:mt-0 group block
+       rounded-xl text-lg px-3 py-2 hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)]">
+            <div class="transition text-90 inline-flex font-bold group-hover:text-[var(--primary)]">
+                {item.meta.title}<Icon icon="fa6-solid:chevron-right" class="transition text-[0.75rem] translate-x-1 my-auto text-[var(--primary)]"></Icon>
+            </div>
+            <div class="transition text-sm text-50">
+                {@html item.excerpt}
+            </div>
+        </a>
+    {/each}
 </div>
 
 <style>

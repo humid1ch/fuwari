@@ -200,13 +200,13 @@ const isPostPage = pathname.startsWith('/posts/');
           } else if (shapeType === 1) {
             el.style.width = `${rand(20, 100)}px`;
             el.style.height = `${rand(20, 100)}px`;
-            el.style.borderRadius = '0';
+            el.style.borderRadius = `${rand(10, 30)}%`;
             el.style.clipPath = 'none';
           } else {
             const size = rand(30, 100);
             el.style.width = `${size}px`;
             el.style.height = `${size}px`;
-            el.style.borderRadius = '0';
+            el.style.borderRadius = `${rand(5, 20)}px`;
             el.style.clipPath = directions[rand(0, 3)];
           }
 
