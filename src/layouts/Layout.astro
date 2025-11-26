@@ -573,6 +573,12 @@ if (window.swup) {
 <script>
   // 全局关闭搜索面板
   const closeSearchPanel = () => {
+    // 👇 清空桌面和移动端的搜索输入框
+    const desktopInput = document.querySelector('#search-bar input') as HTMLInputElement;
+    const mobileInput = document.querySelector('#search-bar-inside input') as HTMLInputElement;
+
+    if (desktopInput) desktopInput.value = '';
+    if (mobileInput) mobileInput.value = '';
     const panel = document.getElementById('search-panel');
     if (panel) {
       panel.classList.add('float-panel-closed');
