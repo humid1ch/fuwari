@@ -569,3 +569,23 @@ if (window.swup) {
 	document.addEventListener("swup:enable", setup)
 }
 </script>
+
+<script>
+  // 全局关闭搜索面板
+  const closeSearchPanel = () => {
+    const panel = document.getElementById('search-panel');
+    if (panel) {
+      panel.classList.add('float-panel-closed');
+    }
+  };
+
+  // 初始页面加载（可选）
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', closeSearchPanel);
+  } else {
+    closeSearchPanel();
+  }
+
+  // 客户端导航时关闭
+  document.addEventListener('astro:page-load', closeSearchPanel);
+</script>

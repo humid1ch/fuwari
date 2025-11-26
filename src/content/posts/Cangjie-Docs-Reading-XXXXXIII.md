@@ -114,89 +114,301 @@ category: Blogs
 
 ### 类型别名
 
-当某个类型的名字比较复杂或者在特定场景中不够直观时，可以选择使用类型别名的方式为此类型设置一个别名
+> 当某个类型的名字比较复杂或者在特定场景中不够直观时，可以选择使用类型别名的方式为此类型设置一个别名
+> 
+> ```cangjie
+> type I64 = Int64
+> ```
+> 
+> 类型别名的定义以 **关键字`type`** 开头，接着是类型的别名（如上例中的 `I64`），然后是等号 `=`，最后是原类型（即被取别名的类型，如上例中的 `Int64`）
+> 
+> **只能在源文件顶层定义类型别名，并且原类型必须在别名定义处可见**
+> 
+> 例如，下例中 `Int64` 的别名定义在 `main` 中将报错，`LongNameClassB` 类型在为其定义别名时不可见，同样报错
+> 
+> ```cangjie
+> main() {
+>     type I64 = Int64          // Error, 类型别名只能在 源文件的顶层 定义
+> }
+> 
+> class LongNameClassA { }
+> type B = LongNameClassB       // Error, 'LongNameClassB' 类型没有被定义
+> ```
+> 
+> 一个（或多个）类型别名定义中**禁止出现（直接或间接的）循环引用**
+> 
+> ```cangjie
+> type A = (Int64, A)           // Error, 'A' 循环引用自己
+> type B = (Int64, C)           // Error, 'B' 和 'C' 相互循环引用
+> type C = (B, Int64)
+> ```
+> 
+> 类型别名并**不会定义一个新的类型**，它仅仅是为原类型定义了另外一个名字，它有如下几种使用场景：
+> 
+> 1. **作为类型使用**，例如：
+> 
+>     ```cangjie
+>     type A = B
+>     class B {}
+>     var a: A = B()            // 使用 类型别名A 作为类型 B
+>     ```
+> 
+> 2. 当类型别名实际指向的类型为`class`、`struct`时，可以 **作为构造器名称使用**：
+> 
+>     ```cangjie
+>     type A = B
+>     class B {}
+>     func foo() { A() }        // 使用 类型别名A 作为 B 的构造函数
+>     ```
+> 
+> 3. 当类型别名实际指向的类型为`class`、`interface`、`struct`时，可以 **作为访问内部静态成员变量或函数的类型名**：
+> 
+>     ```cangjie
+>     type A = B
+>     class B {
+>         static var b : Int32 = 0;
+>         static func foo() {}
+>     }
+>     func foo() {
+>         A.foo()               // 使用 类型别名A 访问 类B 的静态方法
+>         A.b
+>     }
+>     ```
+> 
+> 4. 当类型别名实际指向的类型为 `enum` 时，可以 **作为`enum`声明的构造器的类型名**：
+> 
+>     ```cangjie
+>     enum TimeUnit {
+>         Day | Month | Year
+>     }
+>     type Time = TimeUnit
+>     var a = Time.Day  
+>     var b = Time.Month        // 使用 类型别名Time 来访问 TimeUnit 中的构造函数
+>     ```
+> 
+> 需要注意的是，当前用户自定义的类型别名 **暂不支持在类型转换表达式中使用**，参考如下示例：
+> 
+> ```cangjie
+> type MyInt = Int32
+> MyInt(0)                      // Error, 没有匹配的函数用于 操作符'()' 函数调用
+> ```
+
+仓颉允许针对类型起别名， 可以类比C语言的`typedef`
+
+语法为:
 
 ```cangjie
-type I64 = Int64
+type 别名 = 实际类姓名
 ```
 
-类型别名的定义以关键字 `type` 开头，接着是类型的别名（如上例中的 `I64`），然后是等号 `=`，最后是原类型（即被取别名的类型，如上例中的 `Int64`）
+类型别名并不是定义一个新的类型, 而是为已有类型重新起一个名字
 
-**只能在源文件顶层定义类型别名，并且原类型必须在别名定义处可见**
+但, 类型别名只能在顶层作用域定义, 且 不能在类型转换表达式中使用
 
-例如，下例中 `Int64` 的别名定义在 `main` 中将报错，`LongNameClassB` 类型在为其定义别名时不可见，同样报错
+#### 泛型别名
 
-main() {
-    type I64 = Int64 // Error, type aliases can only be defined at the top level of the source file
-}
+> 类型别名也是**可以声明类型形参**的，但是不能对其形参使用 `where` 声明约束，对于泛型变元的约束会在后面给出解释
+> 
+> 当一个泛型类型的名称过长时，可以使用类型别名来为其声明一个更短的别名
+> 
+> 例如，有一个类型为 `RecordData` ，可以把他用类型别名简写为`RD`：
+> 
+> ```cangjie
+> struct RecordData<T> {
+>     var a: T
+>     public init(x: T){
+>         a = x
+>     }
+> }
+> 
+> type RD<T> = RecordData<T>
+> 
+> main(): Int64 {
+>     var struct1: RD<Int32> = RecordData<Int32>(2)
+>     return 1
+> }
+> ```
+> 
+> 在使用时就可以用 `RD<Int32>` 来代指 `RecordData<Int32>` 类型
 
-class LongNameClassA { }
-type B = LongNameClassB // Error, type 'LongNameClassB' is not defined
+仓颉类型别名可以声明类型形参, 也就意味着 也可以给泛型类型起别名, 被称为泛型别名
 
-一个（或多个）类型别名定义中禁止出现（直接或间接的）循环引用。
+但 **泛型别名不能使用泛型约束**
 
-type A = (Int64, A) // Error, 'A' refered itself
-type B = (Int64, C) // Error, 'B' and 'C' are circularly refered
-type C = (B, Int64)
+泛型别名的语法是:
 
-类型别名并不会定义一个新的类型，它仅仅是为原类型定义了另外一个名字，它有如下几种使用场景：
+```cangjie
+type 别名<类型形参列表> = 泛型类型<类型形参列表>
+```
 
-    作为类型使用，例如：
+泛型别名在使用上与泛型类型保持一致
 
-type A = B
-class B {}
-var a: A = B() // Use typealias A as type B
+### 泛型约束
 
-当类型别名实际指向的类型为 class、struct 时，可以作为构造器名称使用：
+> 泛型约束的作用是在`function`、`class`、`interface`、`struct`、`enum`声明时, **明确泛型形参所具备的操作与能力**
+> 
+> 只有声明了这些约束才能调用相应的成员函数
+> 
+> 在很多场景下泛型形参是需要加以约束的
+> 
+> 以 `id` 函数为例：
+> 
+> ```cangjie
+> func id<T>(a: T) {
+>     return a
+> }
+> ```
+> 
+> 开发者唯一能做的事情就是将函数形参`a`这个值返回，而不能进行 `a + 1`，`println("${a}")` 等操作，因为它可能是一个任意的类型，比如 `(Bool) -> Bool`，这样就无法与整数相加，同样因为是函数类型，也不能通过 `println` 函数来输出在命令行上
+> 
+> 而如果这一泛型形参上有了约束，那么就可以做更多操作了
+> 
+> 约束大致分为接口约束与 `class` 类型约束
+> 
+> 语法为在函数、类型的声明体之前使用 `where` 关键字来声明，对于声明的泛型形参 `T1`, `T2`，可以使用 `where T1 <: Interface`, `T2 <: Class` 这样的方式来声明泛型约束，同一个类型变元的多个约束可以使用 `&` 连接
+> 
+> 例如：`where T1 <: Interface1 & Interface2`
+> 
+> 仓颉中的 `println` 函数能接受类型为字符串的参数
+> 
+> 如果需要把一个泛型类型的变量转为字符串后打印在命令行上，可以对这个泛型类型变元加以约束，这个约束是 `core` 中定义的 `ToString` 接口，显然它是一个接口约束：
+> 
+> ```cangjie
+> package std.core              // `ToString` 被定义在`core`里
+> 
+> public interface ToString {
+>     func toString(): String
+> }
+> ```
+> 
+> 这样就可以利用这个约束，定义一个名为 `genericPrint` 的函数：
+> 
+> ```cangjie
+> func genericPrint<T>(a: T) where T <: ToString {
+>     println(a)
+> }
+> 
+> main() {
+>     genericPrint<Int64>(10)
+>     return 0
+> }
+> ```
+> 
+> 结果为：
+> 
+> ```text
+> 10
+> ```
+> 
+> 如果 `genericPrint` 函数的类型实参没有实现 `ToString` 接口，那么编译器会报错
+> 
+> 例如传入一个函数做为参数时：
+> 
+> ```cangjie
+> func genericPrint<T>(a: T) where T <: ToString {
+>     println(a)
+> }
+> 
+> main() {
+>     genericPrint<(Int64) -> Int64>({ i => 0 })
+>     return 0
+> }
+> ```
+> 
+> 如果对上面的文件进行编译，那么编译器会抛出 **泛型类型参数不满足约束的错误**
+> 
+> 因为 `genericPrint` 函数的泛型的类型实参不满足约束 `(Int64) -> Int64 <: ToString`
+> 
+> 除了上述通过接口来表示约束，还可以使用 `class` 类型来约束一个泛型类型变元
+> 
+> 例如：当要声明一个动物园类型 `Zoo<T>`，但是需要这里声明的类型形参 `T` 受到约束，这个约束就是 `T` 需要是动物类型 `Animal` 的子类型， `Animal` 类型中声明了 `run` 成员函数
+> 
+> 这里声明两个子类型 `Dog` 与 `Fox` 都实现了 `run` 成员函数，这样在 `Zoo<T>` 的类型中，就可以对于 `animals` 数组列表中存放的动物实例调用 `run` 成员函数：
+> 
+> ```cangjie
+> import std.collection.*
+> 
+> abstract class Animal {
+>     public func run(): String
+> }
+> 
+> class Dog <: Animal {
+>     public func run(): String {
+>         return "dog run"
+>     }
+> }
+> 
+> class Fox <: Animal {
+>     public func run(): String {
+>         return "fox run"
+>     }
+> }
+> 
+> class Zoo<T> where T <: Animal {
+>     var animals: ArrayList<Animal> = ArrayList<Animal>()
+>     public func addAnimal(a: T) {
+>         animals.add(a)
+>     }
+> 
+>     public func allAnimalRuns() {
+>         for(a in animals) {
+>             println(a.run())
+>         }
+>     }
+> }
+> 
+> main() {
+>     var zoo: Zoo<Animal> = Zoo<Animal>()
+>     zoo.addAnimal(Dog())
+>     zoo.addAnimal(Fox())
+>     zoo.allAnimalRuns()
+>     return 0
+> }
+> ```
+> 
+> 程序的输出为：
+> 
+> ```text
+> dog run
+> fox run
+> ```
+> 
+> > 注意：
+> > 
+> > 泛型变元的约束只能是具体的 `class` 类型或 `interface`，且变元如果存在多个 `class` 类型的上界时，它们必须在同一继承链路上
 
-type A = B
-class B {}
-func foo() { A() }  // Use type alias A as constructor of B
+仓颉泛型约束其实并不复杂:
 
-当类型别名实际指向的类型为 class、interface、struct 时，可以作为访问内部静态成员变量或函数的类型名：
+```cangjie
+class 类姓名<T> where T <: 目标约束类型 {}
 
-type A = B
-class B {
-    static var b : Int32 = 0;
-    static func foo() {}
-}
-func foo() {
-    A.foo() // Use A to access static method in class B
-    A.b
-}
+func 函数名<T>() where T <: 目标约束类型 {}
 
-当类型别名实际指向的类型为 enum 时，可以作为 enum 声明的构造器的类型名：
+// ...
+```
 
-    enum TimeUnit {
-        Day | Month | Year
-    }
-    type Time = TimeUnit
-    var a = Time.Day  
-    var b = Time.Month   // Use type alias Time to access constructors in TimeUnit
+泛型约束的语法, 就是在定义泛型时, 后接`where 目标类型变元 <: 目标约束类型`
 
-需要注意的是，当前用户自定义的类型别名暂不支持在类型转换表达式中使用，参考如下示例：
+泛型约束是为了:
 
-type MyInt = Int32
-MyInt(0)  // Error, no matching function for operator '()' function call
+1. 保证类型变元, 属于目标类型的子类型
 
-泛型别名
+    如此, 在 泛型类型、泛型函数体 内使用类型变元时, 就能访问目标类型的成员
 
-类型别名也是可以声明类型形参的，但是不能对其形参使用 where 声明约束，对于泛型变元的约束会在后面给出解释。
+    文档中举例子, `genericPrint<T>(a: T) where T <: ToString`
 
-当一个泛型类型的名称过长时，可以使用类型别名来为其声明一个更短的别名。例如，有一个类型为 RecordData ，可以把他用类型别名简写为 RD ：
+    此时, 在函数体内, 就能够通过`print`或`println`等函数, 直接打印形参`a`
 
-struct RecordData<T> {
-    var a: T
-    public init(x: T){
-        a = x
-    }
-}
+    因为泛型约束, 保证了`a`的类型实现了`ToString`接口, 所以可以直接调用`print`或`println`
 
-type RD<T> = RecordData<T>
+    否则, 就不能直接调用`print`或`println`打印
 
-main(): Int64 {
-    var struct1: RD<Int32> = RecordData<Int32>(2)
-    return 1
-}
+    约束其他类型时, 也是相同的作用
 
-在使用时就可以用 RD<Int32> 来代指 RecordData<Int32> 类型。
+    只要使用了泛型约束, **在泛型内 就能访问目标约束类型中的成员**
+
+2. 限制类型实参, 属于目标类型的子类
+
+    同样以`genericPrint`为例, 在调用`genericPrint`时, 必须保证调用时 类型实参实现了`ToString`接口
+
+    否则编译直接报错
