@@ -1,132 +1,242 @@
 ---
 draft: true
-title: "[C++] 类和对象(1): 认识类、封装特性、隐含的this指针..."
+title: "[C++] 类和对象(I): 认识类、封装特性、隐含的this指针..."
 published: 2022-06-18
 description: "C++ 中的类其实与 C语言 中的结构体类似. 不过, C++将C语言 中的 struct 进行了升级, 在C++中 struct 可以用来定义类"
-image: https://dxyt-july-image.oss-cn-beijing.aliyuncs.com/202306251806115.webp
+image: https://humid1ch.oss-cn-shanghai.aliyuncs.com/20251215224033316.webp
 category: Blogs
 tags:
   - C++
   - 类和对象
 ---
 
-# 一、类
+## 类
 
-C++ 中的类其实与 C 语言 中的结构体类似. 不过, C++ 将 C 语言 中的 `struct` 进行了升级, 在 C++中 `struct` 可以用来定义类
+在具体认识C++类之前, 可以先尝试理解一下 类
 
-C++ 升级了 `struct` , 使其定义的结构体:
+类, 是类别、分类的类, 而不是类型的类
 
-1. 结构体内部可以定义函数
-2. 结构体名可以直接作为类型使用
+如果存在一些实体, 拥有共同的属性、特点, 可以用相同、相似的方式使用, 就可以将这些实体分类到一起
 
-```cpp
-struct User
-{
-    void Init(const char* name, const char* sex, const char* tele, int age)
-    {
-        strcpy(_name, name);
-        strcpy(_sex, sex);
-        strcpy(_tele, tele);
-        _age = age;
-    }
-    void Print()
-    {
-        cout << _name << "  " << _sex << "  " << _tele << "  " << _age << endl;
-    }
-
-    char _name[20];
-    char _sex[10];
-    char _tele[20];
-    int _age;
-};
-```
-
-类似这样的结构体, 在 C++ 中是合理合法的, 函数是可以被定义在结构体内部的.
-并且在定义变量时, 可以直接使用 `User` 不用再添加 `struct`
-结构体内的函数也可以用使用结构体变量的方式调用.
-
-![|inline](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175559580.webp)
-
-不过, 在 C++ 中定义结构体通常用 `class` 而不是 `struct`; 定义出的类型也通常被称为 `类`, 而不是 结构体; 使用类型定义的变量也不再称为变量了, 而是 `对象`.
-
-![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175601345.webp)
-
-上图简单的将 由 `struct定义的结构体` 改为了 `由class定义的类`, 并进行了一定的修改
-
-类的定义结构体的定义究竟有何不同？
-
-# 二、类的定义
-
-类的定义其实与结构体的定义相似, 将 `struct` 改为了 `class`
-
-其实经过 C++ 升级过后的 `struct` 与 `class`, 基本上是一样的
-不同的地方在于 默认的访问权限
-
-## 2.1 public、private
-
-C++中的 结构体和类的内部 其实都设置有访问权限. 但是结构体与类 默认的访问权限 略有不同.
-
-结构体内部成员默认是 `公有的(public)`; 而类内部成员默认是 `私有的(private)`;
-
-而 public、private 被称为访问限定符
-
-> public 修饰的成员 和 private 修饰的成员 区别是:
->
-> 1. 公有(public) : 公有成员可以在外部直接进行访问
->
-> 2. 私有(private) : 私有成员不能在外部直接进行访问, 但是可以通过公有成员间接进行访问
->
->    > 除公有、私有之外, 还存在一个访问限定符 : 保护(protected). 现阶段不过多介绍, 可将其看为 与 private 相同
-
-在上边介绍 `class` 时, 其实就已经使用过 `public` 和 `private`
-
-但是访问限定符具体有什么作用呢？
-
-以上图中的 `User 类`
-
-![|tiny](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175604496.webp)
-
-```cpp
-class User
-{
-public:
-    void Init(const char* name, const char* sex, const char* tele, int age)
-    {
-        strcpy(_name, name);
-        strcpy(_sex, sex);
-        strcpy(_tele, tele);
-        _age = age;
-    }
-    void Print()
-    {
-        cout << _name << "  " << _sex << "  " << _tele << "  " << _age << endl;
-    }
-
-private:
-    char _name[20];
-    char _sex[10];
-    char _tele[20];
-    int _age;
-};
-```
-
-在此类中, public 修饰两个成员函数, private 修饰四个成员变量. 就表示, 在类外不能直接访问成员变量
-
-![ ](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175606958.webp)
-
-无法用 `u1._age` 来直接访问 `对象u1 中的 _age 变量`
-
-但是因为 private 修饰的成员 只是`无法在类外进行访问, 在类内依旧是可以进行访问的`, 所以可以通过 public 修饰的成员对 private 成员进行间接的访问:
-
-![ ](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175609043.webp)
+这个概念有一些抽象, 不过熟悉了类的结构之后, 就比较容易理解了
 
 ---
 
-![ ](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20250711175610681.webp)
+C++中的类 与 C语言中的结构体类似
 
-> 有一个细节需要注意的是, 访问限定符只在编译时起作用, 当编译完成, 数据映射至内存时就已经不存在什么公有成员、私有成员的概念了
+不过, C++将C语言的`struct`进行了升级, 在C++中`struct`可以用来定义类
 
-## 2.2 类的封装特性
+C++升级了`struct`, 使其定义的结构体:
+
+1. 结构体内部可以定义函数
+
+2. 结构体名可以直接作为类型使用
+
+```cpp
+struct User {
+    void init(const char* name, const char* sex, const char* tele, int age) {
+        strcpy(m_name, name);
+        strcpy(m_sex, sex);
+        strcpy(m_tele, tele);
+        m_age = age;
+    }
+
+    void print() {
+        std::cout << m_name << "  " << m_sex << "  " << m_tele << "  " << m_age << std::endl;
+    }
+
+    char m_name[20];
+    char m_sex[10];
+    char m_tele[20];
+    int m_age;
+};
+```
+
+上面定义了一个`struct User`, 拥有成员变量, 还拥有**成员函数**, 这是C++升级后的结果, 因为C语言的结构体只允许拥有成员变量
+
+类似这样的结构体, 在C++中是合理合法的, **C++中函数是可以被定义在结构体内部的**, 但 C语言中是不行的
+
+并且, 在使用`struct User`定义变量时, 可以直接使用`User`, 可以不用再添加`struct`
+
+而在C语言中, 默认情况下使用结构体类型, 必须要加`struct`关键词, 除非使用`typedef`
+
+C++访问结构体的成员函数, 与访问结构体成员一样, 可以通过结构体变量调用
+
+以上面的`struct User`为例
+
+```cpp
+int main() {
+    User u1; // `struct` can be omitted
+    u1.init("humid1ch", "male", "12345678901", 20);
+    u1.print();
+    
+    return 0;
+}
+```
+
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20251216000040698.webp)
+
+C++中, 虽然`struct`可以定义结构体, 但 实际定义结构体通常用关键词`class`而不是`struct`
+
+定义出的类型也通常被称为**类**, 而不是 结构体
+
+同时, 使用类定义的变量也不再称为变量了, 而是 **对象**
+
+例如:
+
+```cpp
+class User {
+public:
+    void init(const char* name, const char* sex, const char* tele, int age) {
+        strcpy(m_name, name);
+        strcpy(m_sex, sex);
+        strcpy(m_tele, tele);
+        m_age = age;
+    }
+
+    void print() {
+        std::cout << m_name << "  " << m_sex << "  " << m_tele << "  " << m_age << std::endl;
+    }
+
+private:
+    char m_name[20];
+    char m_sex[10];
+    char m_tele[20];
+    int m_age;
+};
+```
+
+简单将 由`struct`定义的结构体 改为了 由`class`定义的类, 并进行了一定的修改
+
+这里做了一些修改: 在成员函数前添加了关键词`public`, 在成员变量前添加了关键词`private`
+
+类的定义结构体的定义究竟有何不同？
+
+# 类的定义
+
+类的定义其实与结构体的定义相似, 将定义关键词由`struct`改为了`class`
+
+事实上, 经过C++升级过后的`struct`与`class`基本上是相同的
+
+不同的地方在于 **成员的默认的访问权限**
+
+### `public`、`private`
+
+C++中的 结构体和类的内部 针对成员其实都设置有访问权限
+
+但是结构体与类成员的默认访问权限 略有不同
+
+`struct`内部成员默认是`public`公开的; 而`class`内部成员默认是`private`私有的;
+
+`public`、`private`被称为访问限定符
+
+`public`修饰的成员和`private`修饰的成员, 区别是:
+
+1. `public`: 公有成员可以在外部直接进行访问
+
+2. `private`: 私有成员不能在外部直接进行访问, 但是可以通过公有成员间接进行访问
+
+    > 除公开、私有之外, 还存在一个访问限定符 : `protected`现阶段不过多介绍, 暂可将其作用看为与`private`相同
+
+在上面将`struct User`修改为`class User`时, 除了修改了定义的关键词, 还添加了两个关键词`public`和`private`
+
+这两个访问限定符具体的作用是什么?
+
+还是以`class User`为例:
+
+```cpp
+class User {
+public:
+    void init(const char* name, const char* sex, const char* tele, int age) {
+        strcpy(m_name, name);
+        strcpy(m_sex, sex);
+        strcpy(m_tele, tele);
+        m_age = age;
+    }
+
+    void print() {
+        std::cout << m_name << "  " << m_sex << "  " << m_tele << "  " << m_age << std::endl;
+    }
+
+private:
+    char m_name[20];
+    char m_sex[10];
+    char m_tele[20];
+    int m_age;
+};
+```
+
+使用`public`和`private`修饰一个范围内, 成员的可访问性
+
+在此类中, `public`修饰两个成员函数, `private`修饰四个成员变量
+
+就表示, 在类外不能直接访问`private`修饰的成员变量, 但是可以访问`public`修饰的成员函数
+
+这里的类外, 是指类定义之外, 即, `class User {};`的`{}`之外
+
+例如:
+
+```cpp
+int main() {
+    User u1;
+    u1.init("humid1ch", "male", "12345678901", 20);
+    u1.print();
+
+    std::cout << u1.m_age << std::endl;
+    
+    return 0;
+}
+```
+![](https://humid1ch.oss-cn-shanghai.aliyuncs.com/20251216001758761.webp)
+
+创建了`User`对象`u1`之后, 无法通过`u1`来直接访问`m_age`成员变量, 因为此处是**`User`类之外, 且`m_age`被`private`修饰为类的私有成员**
+
+但是, 因为`private`修饰的成员 只是**无法在类外进行访问**, 在类内依旧是可以进行访问的
+
+所以, 可以通过`public`修饰的成员对`private`成员进行间接的访问: 也就是通过`init()`和`print()`两个函数, 分别进行成员变量的赋值和成员变量的访问
+
+> [!NOTE]
+> 
+> C++类的成员访问限定符, **修饰的是范围**, 而不是单个成员
+> 
+> **访问限定符按照从上到下的编码顺序生效**
+> 
+> 举个例子:
+> 
+> ```cpp
+> class Sample {
+> public:
+>     // 此处 public 与 private 之间, public 之下
+>     // 实际被 public 修饰
+> 
+> private:
+>     // 此处 private 与 public 之间, private 之下
+>     // 实际被 private 修饰
+> 
+> public:
+>     // 此处 public 之下
+>     // 实际 就是被 public 修饰
+> 
+> }
+> ```
+> 
+> **也可以看作是覆盖性的**, 按照从上到下的编码顺序, **编码在下边的访问限定符, 将会覆盖编码在上面的访问限定符**
+> 
+> 当然, 访问限定符可以重复使用, 也**可以不显式使用**, 不显式使用访问限定符时, 所有成员可访问性相同:
+> 
+> 1. `struct`内, 默认是`public`
+> 
+> 2. `class`内, 默认是`private`
+> 
+> 这就是C++中`struct`和`class`最大的不同
+
+> [!WARNING]
+> 
+> 需要特别注意的是, 访问限定符只在编译时起作用, 当编译完成, 数据映射至内存时就已经不存在什么公有成员、私有成员的概念了
+> 
+> 即, **访问限定符是静态语法检查时的概念, 而不是动态运行时的概念, 只会在编译时做可访问性的检查**
+
+### 类的封装特性
 
 众所周知, C++ 是一种面向对象的编程语言. 面向对象, 有三大基本特性: **`封装`**、继承、多态
 
