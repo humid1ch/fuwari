@@ -18,7 +18,7 @@ tags:
 
 **`&`**这个符号, 在 C 语言中表示**取地址**
 
-在 C++中则多了一个功能, 即 **引用**, 用来给变量起别名
+在 C++中则多了一个功能, 即 **引用**, 用来给变量起==别名==
 
 但是, `&`引用在`C++11`之后 完整的叫法是**左值引用**
 
@@ -275,10 +275,10 @@ int main() {
           std::swap(_size, str._size);
           std::swap(_capacity, str._capacity);
       }
-
+      
       string& operator=(string &&str) {
           swap(str);
-
+      
           return *this;
       }
       ```
